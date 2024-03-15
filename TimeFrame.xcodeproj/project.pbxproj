@@ -14,6 +14,8 @@
 		3F1EAAF22B9697A00060218F /* TimeFrame.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 3F1EAAF02B9697A00060218F /* TimeFrame.xcdatamodeld */; };
 		3F1EAAF42B9697A10060218F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3F1EAAF32B9697A10060218F /* Assets.xcassets */; };
 		3F1EAAF72B9697A10060218F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3F1EAAF52B9697A10060218F /* LaunchScreen.storyboard */; };
+		B50AF3422BA42C0800003743 /* MyProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B50AF3412BA42C0800003743 /* MyProfileVC.swift */; };
+		B50AF3442BA42C1400003743 /* EditProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B50AF3432BA42C1400003743 /* EditProfileVC.swift */; };
 		B5BB29772BA3E6C6005A2987 /* Home.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B5BB29762BA3E6C6005A2987 /* Home.storyboard */; };
 		B5BB29792BA3E714005A2987 /* Discover.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B5BB29782BA3E714005A2987 /* Discover.storyboard */; };
 		B5BB297B2BA3E726005A2987 /* GeoChallenge.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B5BB297A2BA3E726005A2987 /* GeoChallenge.storyboard */; };
@@ -30,6 +32,8 @@
 		3F1EAAF32B9697A10060218F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3F1EAAF62B9697A10060218F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		3F1EAAF82B9697A10060218F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B50AF3412BA42C0800003743 /* MyProfileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyProfileVC.swift; sourceTree = "<group>"; };
+		B50AF3432BA42C1400003743 /* EditProfileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileVC.swift; sourceTree = "<group>"; };
 		B5BB29762BA3E6C6005A2987 /* Home.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Home.storyboard; sourceTree = "<group>"; };
 		B5BB29782BA3E714005A2987 /* Discover.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Discover.storyboard; sourceTree = "<group>"; };
 		B5BB297A2BA3E726005A2987 /* GeoChallenge.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = GeoChallenge.storyboard; sourceTree = "<group>"; };
@@ -69,6 +73,7 @@
 				3F1EAAE72B9697A00060218F /* AppDelegate.swift */,
 				3F1EAAE92B9697A00060218F /* SceneDelegate.swift */,
 				3F1EAAEB2B9697A00060218F /* ViewController.swift */,
+				B50AF3402BA42BF300003743 /* ProfileVCs */,
 				3F1EAAED2B9697A00060218F /* Main.storyboard */,
 				B5BB29762BA3E6C6005A2987 /* Home.storyboard */,
 				B5BB29782BA3E714005A2987 /* Discover.storyboard */,
@@ -80,6 +85,15 @@
 				3F1EAAF02B9697A00060218F /* TimeFrame.xcdatamodeld */,
 			);
 			path = TimeFrame;
+			sourceTree = "<group>";
+		};
+		B50AF3402BA42BF300003743 /* ProfileVCs */ = {
+			isa = PBXGroup;
+			children = (
+				B50AF3412BA42C0800003743 /* MyProfileVC.swift */,
+				B50AF3432BA42C1400003743 /* EditProfileVC.swift */,
+			);
+			path = ProfileVCs;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -159,7 +173,9 @@
 			files = (
 				3F1EAAF22B9697A00060218F /* TimeFrame.xcdatamodeld in Sources */,
 				3F1EAAEC2B9697A00060218F /* ViewController.swift in Sources */,
+				B50AF3422BA42C0800003743 /* MyProfileVC.swift in Sources */,
 				3F1EAAE82B9697A00060218F /* AppDelegate.swift in Sources */,
+				B50AF3442BA42C1400003743 /* EditProfileVC.swift in Sources */,
 				3F1EAAEA2B9697A00060218F /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -312,6 +328,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 3H7MMR6433;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = TimeFrame/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -319,6 +336,7 @@
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -339,6 +357,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 3H7MMR6433;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = TimeFrame/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -346,6 +365,7 @@
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
