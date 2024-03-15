@@ -9,10 +9,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Login Screen View Controller-->
+        <!--Login View Controller-->
         <scene sceneID="s0d-6b-0kx">
             <objects>
-                <viewController id="Y6W-OH-hqX" customClass="LoginScreenViewController" customModule="TimeFrame" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="Y6W-OH-hqX" customClass="LoginViewController" customModule="TimeFrame" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="5EZ-qb-Rvc">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -82,7 +82,7 @@
                                 <color key="textColor" systemColor="secondarySystemBackgroundColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="file-1cV9gRFCUEZARQxKbQEmRZU8_preview_rev_1.png" translatesAutoresizingMaskIntoConstraints="NO" id="KwH-Ct-J3h">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="TimeFrameLogo" translatesAutoresizingMaskIntoConstraints="NO" id="KwH-Ct-J3h">
                                 <rect key="frame" x="16" y="49" width="361" height="224"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="361" id="DDL-V8-TI4"/>
@@ -169,7 +169,7 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                             </textField>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="file-1cV9gRFCUEZARQxKbQEmRZU8_preview_rev_1.png" translatesAutoresizingMaskIntoConstraints="NO" id="YZg-8p-Rja">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="TimeFrameLogo" translatesAutoresizingMaskIntoConstraints="NO" id="YZg-8p-Rja">
                                 <rect key="frame" x="16" y="103" width="361" height="224"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="224" id="TcQ-LF-3S8"/>
@@ -259,12 +259,12 @@
     </scenes>
     <color key="tintColor" red="0.89411771299999998" green="0.75686275960000005" blue="0.98431372640000003" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
     <resources>
-        <image name="file-1cV9gRFCUEZARQxKbQEmRZU8_preview_rev_1.png" width="500" height="500"/>
+        <image name="TimeFrameLogo" width="500" height="500"/>
         <namedColor name="TabBarPurple">
             <color red="0.5690000057220459" green="0.32499998807907104" blue="0.69800001382827759" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <systemColor name="secondarySystemBackgroundColor">
-            <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>
