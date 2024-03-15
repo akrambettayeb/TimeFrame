@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3F08EC392B985ED10065C923 /* SelfieViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F08EC382B985ED10065C923 /* SelfieViewController.swift */; };
+		3F08EC3D2BA1970A0065C923 /* Authentication.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3F08EC3C2BA1970A0065C923 /* Authentication.storyboard */; };
+		3F08EC3F2BA2708A0065C923 /* file-1cV9gRFCUEZARQxKbQEmRZU8_preview_rev_1.png in Resources */ = {isa = PBXBuildFile; fileRef = 3F08EC3E2BA2708A0065C923 /* file-1cV9gRFCUEZARQxKbQEmRZU8_preview_rev_1.png */; };
+		3F08EC412BA277400065C923 /* LoginScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F08EC402BA277400065C923 /* LoginScreenViewController.swift */; };
 		3F1EAAE82B9697A00060218F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F1EAAE72B9697A00060218F /* AppDelegate.swift */; };
 		3F1EAAEA2B9697A00060218F /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F1EAAE92B9697A00060218F /* SceneDelegate.swift */; };
 		3F1EAAEC2B9697A00060218F /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F1EAAEB2B9697A00060218F /* ViewController.swift */; };
@@ -21,6 +25,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3F08EC382B985ED10065C923 /* SelfieViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelfieViewController.swift; sourceTree = "<group>"; };
+		3F08EC3C2BA1970A0065C923 /* Authentication.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Authentication.storyboard; sourceTree = "<group>"; };
+		3F08EC3E2BA2708A0065C923 /* file-1cV9gRFCUEZARQxKbQEmRZU8_preview_rev_1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "file-1cV9gRFCUEZARQxKbQEmRZU8_preview_rev_1.png"; sourceTree = "<group>"; };
+		3F08EC402BA277400065C923 /* LoginScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginScreenViewController.swift; sourceTree = "<group>"; };
 		3F1EAAE42B9697A00060218F /* TimeFrame.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TimeFrame.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3F1EAAE72B9697A00060218F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3F1EAAE92B9697A00060218F /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -66,6 +74,10 @@
 		3F1EAAE62B9697A00060218F /* TimeFrame */ = {
 			isa = PBXGroup;
 			children = (
+				3F08EC3E2BA2708A0065C923 /* file-1cV9gRFCUEZARQxKbQEmRZU8_preview_rev_1.png */,
+				3F08EC382B985ED10065C923 /* SelfieViewController.swift */,
+				3F08EC3C2BA1970A0065C923 /* Authentication.storyboard */,
+				3F08EC402BA277400065C923 /* LoginScreenViewController.swift */,
 				3F1EAAE72B9697A00060218F /* AppDelegate.swift */,
 				3F1EAAE92B9697A00060218F /* SceneDelegate.swift */,
 				3F1EAAEB2B9697A00060218F /* ViewController.swift */,
@@ -140,7 +152,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3F08EC3D2BA1970A0065C923 /* Authentication.storyboard in Resources */,
 				3F1EAAF72B9697A10060218F /* LaunchScreen.storyboard in Resources */,
+				3F08EC3F2BA2708A0065C923 /* file-1cV9gRFCUEZARQxKbQEmRZU8_preview_rev_1.png in Resources */,
 				3F1EAAF42B9697A10060218F /* Assets.xcassets in Resources */,
 				B5BB297B2BA3E726005A2987 /* GeoChallenge.storyboard in Resources */,
 				B5BB29792BA3E714005A2987 /* Discover.storyboard in Resources */,
@@ -159,7 +173,9 @@
 			files = (
 				3F1EAAF22B9697A00060218F /* TimeFrame.xcdatamodeld in Sources */,
 				3F1EAAEC2B9697A00060218F /* ViewController.swift in Sources */,
+				3F08EC412BA277400065C923 /* LoginScreenViewController.swift in Sources */,
 				3F1EAAE82B9697A00060218F /* AppDelegate.swift in Sources */,
+				3F08EC392B985ED10065C923 /* SelfieViewController.swift in Sources */,
 				3F1EAAEA2B9697A00060218F /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
