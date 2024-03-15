@@ -12,11 +12,14 @@ class MyProfileVC: UIViewController {
     @IBOutlet weak var myProfileImage: UIImageView!
     @IBOutlet weak var displayNameLabel: UILabel!
     @IBOutlet weak var usernameLabel: UILabel!
+    @IBOutlet weak var qrCode: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        
+        if self.traitCollection.userInterfaceStyle == .dark {
+            // do something
+        }
     }
     
     

@@ -64,7 +64,7 @@
         <scene sceneID="KSg-Gh-rRa">
             <objects>
                 <navigationController storyboardIdentifier="DiscoverStoryboard" automaticallyAdjustsScrollViewInsets="NO" navigationBarHidden="YES" id="dYf-jF-XGz" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="" image="binoculars" catalog="system" id="cjM-VR-6Vf"/>
+                    <tabBarItem key="tabBarItem" title="" image="binoculars" catalog="system" selectedImage="binoculars.fill" id="cjM-VR-6Vf"/>
                     <toolbarItems/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="bXO-YZ-6Q1">
@@ -82,6 +82,7 @@
     </scenes>
     <resources>
         <image name="binoculars" catalog="system" width="128" height="90"/>
+        <image name="binoculars.fill" catalog="system" width="128" height="90"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

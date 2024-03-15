@@ -64,7 +64,7 @@
         <scene sceneID="uvK-a0-tLb">
             <objects>
                 <navigationController storyboardIdentifier="GeoChallengeStoryboard" automaticallyAdjustsScrollViewInsets="NO" navigationBarHidden="YES" id="5Zm-YF-9cd" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="" image="location" catalog="system" id="fMK-eo-tvV"/>
+                    <tabBarItem key="tabBarItem" title="" image="location" catalog="system" selectedImage="location.fill" id="fMK-eo-tvV"/>
                     <toolbarItems/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="c56-Zd-o4f">
@@ -82,6 +82,7 @@
     </scenes>
     <resources>
         <image name="location" catalog="system" width="128" height="119"/>
+        <image name="location.fill" catalog="system" width="128" height="119"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
