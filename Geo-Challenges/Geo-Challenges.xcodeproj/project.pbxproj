@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		55021C0A2B99FF98007CB717 /* ChallengeInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55021C092B99FF98007CB717 /* ChallengeInfoViewController.swift */; };
+		55021C0C2B9A0072007CB717 /* CreateChallengeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55021C0B2B9A0072007CB717 /* CreateChallengeViewController.swift */; };
+		55021C0E2B9A00E0007CB717 /* AddInitialPhotoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55021C0D2B9A00E0007CB717 /* AddInitialPhotoViewController.swift */; };
 		55B22EA82B992F7300921C26 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55B22EA72B992F7300921C26 /* AppDelegate.swift */; };
 		55B22EAA2B992F7300921C26 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55B22EA92B992F7300921C26 /* SceneDelegate.swift */; };
 		55B22EAC2B992F7300921C26 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55B22EAB2B992F7300921C26 /* MapViewController.swift */; };
@@ -17,6 +20,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		55021C092B99FF98007CB717 /* ChallengeInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeInfoViewController.swift; sourceTree = "<group>"; };
+		55021C0B2B9A0072007CB717 /* CreateChallengeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateChallengeViewController.swift; sourceTree = "<group>"; };
+		55021C0D2B9A00E0007CB717 /* AddInitialPhotoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddInitialPhotoViewController.swift; sourceTree = "<group>"; };
 		55B22EA42B992F7300921C26 /* Geo-Challenges.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Geo-Challenges.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		55B22EA72B992F7300921C26 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		55B22EA92B992F7300921C26 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -66,6 +72,9 @@
 				55B22EB52B992F7500921C26 /* LaunchScreen.storyboard */,
 				55B22EB82B992F7500921C26 /* Info.plist */,
 				55B22EB02B992F7300921C26 /* Geo_Challenges.xcdatamodeld */,
+				55021C092B99FF98007CB717 /* ChallengeInfoViewController.swift */,
+				55021C0B2B9A0072007CB717 /* CreateChallengeViewController.swift */,
+				55021C0D2B9A00E0007CB717 /* AddInitialPhotoViewController.swift */,
 			);
 			path = "Geo-Challenges";
 			sourceTree = "<group>";
@@ -141,10 +150,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				55021C0E2B9A00E0007CB717 /* AddInitialPhotoViewController.swift in Sources */,
 				55B22EAC2B992F7300921C26 /* MapViewController.swift in Sources */,
 				55B22EA82B992F7300921C26 /* AppDelegate.swift in Sources */,
 				55B22EAA2B992F7300921C26 /* SceneDelegate.swift in Sources */,
 				55B22EB22B992F7300921C26 /* Geo_Challenges.xcdatamodeld in Sources */,
+				55021C0C2B9A0072007CB717 /* CreateChallengeViewController.swift in Sources */,
+				55021C0A2B99FF98007CB717 /* ChallengeInfoViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
