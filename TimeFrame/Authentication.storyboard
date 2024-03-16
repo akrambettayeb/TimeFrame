@@ -50,6 +50,9 @@
                                 <buttonConfiguration key="configuration" style="plain" title="Login" titleAlignment="center">
                                     <fontDescription key="titleFontDescription" type="boldSystem" pointSize="17"/>
                                 </buttonConfiguration>
+                                <connections>
+                                    <segue destination="7uU-lB-JRX" kind="presentation" modalPresentationStyle="fullScreen" id="u1f-uE-jls"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aCo-5e-OKB">
                                 <rect key="frame" x="111" y="578" width="171" height="35"/>
@@ -116,6 +119,16 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1061.8320610687022" y="3.5211267605633805"/>
+        </scene>
+        <!--MainStoryboard-->
+        <scene sceneID="gAA-Aj-U9h">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Main" referencedIdentifier="MainStoryboard" id="7uU-lB-JRX" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="7eR-vu-lrl"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="9f7-Zt-ZPC" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1060" y="419"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="Bvk-86-m4e">
@@ -242,7 +255,7 @@
     <resources>
         <image name="file-1cV9gRFCUEZARQxKbQEmRZU8_preview_rev_1.png" width="500" height="500"/>
         <systemColor name="secondarySystemBackgroundColor">
-            <color red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

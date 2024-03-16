@@ -80,12 +80,12 @@
 			children = (
 				3F08EC3E2BA2708A0065C923 /* file-1cV9gRFCUEZARQxKbQEmRZU8_preview_rev_1.png */,
 				3F08EC382B985ED10065C923 /* SelfieViewController.swift */,
-				3F08EC3C2BA1970A0065C923 /* Authentication.storyboard */,
 				3F08EC402BA277400065C923 /* LoginScreenViewController.swift */,
 				3F1EAAE72B9697A00060218F /* AppDelegate.swift */,
 				3F1EAAE92B9697A00060218F /* SceneDelegate.swift */,
 				3F1EAAEB2B9697A00060218F /* ViewController.swift */,
 				B50AF3402BA42BF300003743 /* ProfileVCs */,
+				3F08EC3C2BA1970A0065C923 /* Authentication.storyboard */,
 				3F1EAAED2B9697A00060218F /* Main.storyboard */,
 				B5BB29762BA3E6C6005A2987 /* Home.storyboard */,
 				B5BB29782BA3E714005A2987 /* Discover.storyboard */,
