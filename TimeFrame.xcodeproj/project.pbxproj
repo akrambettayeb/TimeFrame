@@ -18,6 +18,9 @@
 		3F1EAAF22B9697A00060218F /* TimeFrame.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 3F1EAAF02B9697A00060218F /* TimeFrame.xcdatamodeld */; };
 		3F1EAAF42B9697A10060218F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3F1EAAF32B9697A10060218F /* Assets.xcassets */; };
 		3F1EAAF72B9697A10060218F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3F1EAAF52B9697A10060218F /* LaunchScreen.storyboard */; };
+		5520389C2BA62421000C5014 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5520389B2BA62421000C5014 /* MapViewController.swift */; };
+		5520389E2BA62DE3000C5014 /* AddInitialPhotoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5520389D2BA62DE3000C5014 /* AddInitialPhotoViewController.swift */; };
+		552038A02BA62EF6000C5014 /* ChallengeInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5520389F2BA62EF6000C5014 /* ChallengeInfoViewController.swift */; };
 		B50AF3422BA42C0800003743 /* MyProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B50AF3412BA42C0800003743 /* MyProfileVC.swift */; };
 		B50AF3442BA42C1400003743 /* EditProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B50AF3432BA42C1400003743 /* EditProfileVC.swift */; };
 		B56D904E2BA58BF7008A435C /* HideKeyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = B56D904D2BA58BF7008A435C /* HideKeyboard.swift */; };
@@ -41,6 +44,9 @@
 		3F1EAAF32B9697A10060218F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3F1EAAF62B9697A10060218F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		3F1EAAF82B9697A10060218F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		5520389B2BA62421000C5014 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
+		5520389D2BA62DE3000C5014 /* AddInitialPhotoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddInitialPhotoViewController.swift; sourceTree = "<group>"; };
+		5520389F2BA62EF6000C5014 /* ChallengeInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeInfoViewController.swift; sourceTree = "<group>"; };
 		B50AF3412BA42C0800003743 /* MyProfileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyProfileVC.swift; sourceTree = "<group>"; };
 		B50AF3432BA42C1400003743 /* EditProfileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileVC.swift; sourceTree = "<group>"; };
 		B56D904D2BA58BF7008A435C /* HideKeyboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HideKeyboard.swift; sourceTree = "<group>"; };
@@ -80,6 +86,7 @@
 		3F1EAAE62B9697A00060218F /* TimeFrame */ = {
 			isa = PBXGroup;
 			children = (
+				5520389A2BA623FE000C5014 /* GeoChallengeVCs */,
 				3F08EC3E2BA2708A0065C923 /* file-1cV9gRFCUEZARQxKbQEmRZU8_preview_rev_1.png */,
 				3F08EC382B985ED10065C923 /* SelfieViewController.swift */,
 				3F08EC402BA277400065C923 /* LoginScreenViewController.swift */,
@@ -99,6 +106,16 @@
 				3F1EAAF02B9697A00060218F /* TimeFrame.xcdatamodeld */,
 			);
 			path = TimeFrame;
+			sourceTree = "<group>";
+		};
+		5520389A2BA623FE000C5014 /* GeoChallengeVCs */ = {
+			isa = PBXGroup;
+			children = (
+				5520389B2BA62421000C5014 /* MapViewController.swift */,
+				5520389D2BA62DE3000C5014 /* AddInitialPhotoViewController.swift */,
+				5520389F2BA62EF6000C5014 /* ChallengeInfoViewController.swift */,
+			);
+			path = GeoChallengeVCs;
 			sourceTree = "<group>";
 		};
 		B50AF3402BA42BF300003743 /* ProfileVCs */ = {
@@ -188,9 +205,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5520389C2BA62421000C5014 /* MapViewController.swift in Sources */,
 				B56D904E2BA58BF7008A435C /* HideKeyboard.swift in Sources */,
+				5520389E2BA62DE3000C5014 /* AddInitialPhotoViewController.swift in Sources */,
 				3F1EAAF22B9697A00060218F /* TimeFrame.xcdatamodeld in Sources */,
 				3F1EAAEC2B9697A00060218F /* ViewController.swift in Sources */,
+				552038A02BA62EF6000C5014 /* ChallengeInfoViewController.swift in Sources */,
 				B50AF3422BA42C0800003743 /* MyProfileVC.swift in Sources */,
 				3F1EAAE82B9697A00060218F /* AppDelegate.swift in Sources */,
 				B50AF3442BA42C1400003743 /* EditProfileVC.swift in Sources */,
