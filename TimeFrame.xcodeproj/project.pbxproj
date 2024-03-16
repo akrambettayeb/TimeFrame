@@ -30,7 +30,7 @@
 /* Begin PBXFileReference section */
 		3F08EC382B985ED10065C923 /* SelfieViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelfieViewController.swift; sourceTree = "<group>"; };
 		3F08EC3C2BA1970A0065C923 /* Authentication.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Authentication.storyboard; sourceTree = "<group>"; };
-		3F08EC3E2BA2708A0065C923 /* file-1cV9gRFCUEZARQxKbQEmRZU8_preview_rev_1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "file-1cV9gRFCUEZARQxKbQEmRZU8_preview_rev_1.png"; sourceTree = "<group>"; };
+		3F08EC3E2BA2708A0065C923 /* file-1cV9gRFCUEZARQxKbQEmRZU8_preview_rev_1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "file-1cV9gRFCUEZARQxKbQEmRZU8_preview_rev_1.png"; path = "TimeFrame/file-1cV9gRFCUEZARQxKbQEmRZU8_preview_rev_1.png"; sourceTree = SOURCE_ROOT; };
 		3F08EC402BA277400065C923 /* LoginScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginScreenViewController.swift; sourceTree = "<group>"; };
 		3F1EAAE42B9697A00060218F /* TimeFrame.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TimeFrame.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3F1EAAE72B9697A00060218F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
