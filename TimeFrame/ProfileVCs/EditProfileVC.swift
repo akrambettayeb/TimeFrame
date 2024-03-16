@@ -7,7 +7,13 @@
 
 import UIKit
 
-class EditProfileVC: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+class EditProfileVC: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate {
+    
+    // Data from Profile screen
+    var delegate: UIViewController!
+    var prevDisplayName = ""
+    var prevUsername = ""
+    var prevPicture: UIImage!
 
     @IBOutlet weak var displayNameTextField: UITextField!
     @IBOutlet weak var usernameTextField: UITextField!
@@ -17,16 +23,33 @@ class EditProfileVC: UIViewController, UIImagePickerControllerDelegate, UINaviga
     
     @IBOutlet weak var profilePicture: UIImageView!
     var imagePicker = UIImagePickerController()
+    var selectedImage: UIImage?
     
     @IBOutlet weak var saveButton: UIButton!
     @IBOutlet weak var logoutButton: UIButton!
     
+    var activeTextField: UITextField?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.hideKeyboardWhenTappedAround()
+        
         saveButton.layer.cornerRadius = 5
         logoutButton.layer.cornerRadius = 5
-        // TODO: populate text field text with labels from previous screen
         
+        // Populates text field with labels from profile screen
+        displayNameTextField.text = prevDisplayName
+        usernameTextField.text = prevUsername
+        profilePicture.image = prevPicture
+        
+        // Needed to dismiss software keyboard
+        displayNameTextField.delegate = self
+        usernameTextField.delegate = self
+        emailTextField.delegate = self
+        passwordTextField.delegate = self
+        
+        // Circular crop for profile picture
         profilePicture.layer.cornerRadius = profilePicture.layer.frame.height / 2
         
         imagePicker.delegate = self
@@ -37,6 +60,7 @@ class EditProfileVC: UIViewController, UIImagePickerControllerDelegate, UINaviga
         self.navigationController?.popViewController(animated: true)
     }
     
+    // Displays an action sheet with 3 options: Take Picture, Choose from Library, Cancel
     @IBAction func editProfilePressed(_ sender: Any) {
         let controller = UIAlertController(
             title: nil,
@@ -60,21 +84,27 @@ class EditProfileVC: UIViewController, UIImagePickerControllerDelegate, UINaviga
         present(controller, animated: true)
     }
     
+    // Sets profile picture in Edit Profile screen to selected picture
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         if let selectedImage = info[UIImagePickerController.InfoKey.editedImage] as? UIImage{
             profilePicture.image = selectedImage
-            // TODO: need change to be reflected on the previous VC (only if Save is pressed)
+            self.selectedImage = selectedImage
         }
         imagePicker.dismiss(animated: true, completion: nil)
     }
     
+    // Checks if entered email has valid format
     func isValidEmail(_ email: String) -> Bool {
-        if !(email.contains("@")) {
+       let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
+       let emailPred = NSPredicate(format:"SELF MATCHES %@",emailRegEx)
+       let isValid = emailPred.evaluate(with: email)
+        if !isValid {
             errorMessage = "Invalid email address"
         }
-        return errorMessage == ""
+        return isValid
     }
     
+    // Checks if entered password has valid format
     func checkPassword(_ password: String) {
         if (password.count < 8) {
             errorMessage = "Password must be at least 8 characters"
@@ -102,6 +132,7 @@ class EditProfileVC: UIViewController, UIImagePickerControllerDelegate, UINaviga
         } else if isValidEmail(email){
             checkPassword(password)
         }
+        // Displays error message alert if any text field is invalid
         if errorMessage != "" {
             let controller = UIAlertController(
                 title: "Error",
@@ -110,38 +141,68 @@ class EditProfileVC: UIViewController, UIImagePickerControllerDelegate, UINaviga
             )
             controller.addAction(UIAlertAction(title: "OK", style: .default))
             present(controller, animated: true)
+        // If all text fields are valid, updates changes in the Profile screen
         } else {
-            // Save the data to user profile if all text fields are valid
-            // Should probably put this in a separate function call
-            // Go back to previous VC
+            let profileVC = delegate as! ProfileChanger
+            profileVC.changeDisplayName(displayNameTextField.text!)
+            profileVC.changeUsername(usernameTextField.text!)
+            if selectedImage != nil {
+                profileVC.changePicture(selectedImage!)
+            }
+            self.navigationController?.popViewController(animated: true)
         }
         errorMessage = ""
     }
     
     @IBAction func logoutPressed(_ sender: Any) {
-        // alert controller pops up
-        // deal with Firebase stuff
+        let controller = UIAlertController(
+            title: "Logout",
+            message: "Are you sure you want to logout?",
+            preferredStyle: .alert
+        )
+        controller.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+        controller.addAction(UIAlertAction(title: "Logout", style: .default))
+        present(controller, animated: true)
+        
+        // TODO: firebase stuff
+    }
+    
+    func verifyDeleteAccount() {
+        let controller = UIAlertController(
+            title: "Confirm Account Deletion",
+            message: "Please enter your password to confirm you want to delete your account. ",
+            preferredStyle: .alert
+        )
+        controller.addTextField(configurationHandler: {
+            (textField) in textField.placeholder = "Enter password"
+        })
+        controller.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+        controller.addAction(UIAlertAction(title: "Confirm", style: .destructive))
+        present(controller, animated: true)
+        
+        // TODO: check that correct password is entered
     }
     
     @IBAction func deleteAccountPressed(_ sender: Any) {
-        // alert controller pops out that asks if the user is sure
-        // then makes them type their username to confirm
-        // deal with Firebase stuff
+        let controller = UIAlertController(
+            title: "Delete Account",
+            message: "Are you sure you want to delete your account?",
+            preferredStyle: .alert
+        )
+        controller.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+        controller.addAction(UIAlertAction(title: "Delete", 
+                                           style: .destructive) { action in
+            self.verifyDeleteAccount()
+        })
+        present(controller, animated: true)
+        
+        // TODO: firebase stuff
     }
     
-    
-    
-    // TODO: add code to dismiss the keyboard
-    
-    
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    // Called when 'return' key pressed
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
     }
-    */
-
+    
 }
