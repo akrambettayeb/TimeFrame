@@ -129,7 +129,7 @@ class EditProfileVC: UIViewController, UIImagePickerControllerDelegate, UINaviga
         let password = passwordTextField.text!
         if (displayName.isEmpty || username.isEmpty || email.isEmpty || password.isEmpty) {
             errorMessage = "Text fields cannot be empty"
-        } else if isValidEmail(email){
+        } else if isValidEmail(email) {
             checkPassword(password)
         }
         // Displays error message alert if any text field is invalid
@@ -148,6 +148,7 @@ class EditProfileVC: UIViewController, UIImagePickerControllerDelegate, UINaviga
             profileVC.changeUsername(usernameTextField.text!)
             if selectedImage != nil {
                 profileVC.changePicture(selectedImage!)
+                profileVC.changeCellImage(selectedImage!)
             }
             self.navigationController?.popViewController(animated: true)
         }
