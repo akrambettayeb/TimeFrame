@@ -7,7 +7,13 @@
 
 import UIKit
 
-class MyProfileVC: UIViewController {
+protocol ProfileChanger {
+    func changeDisplayName(_ displayName: String)
+    func changeUsername(_ username: String)
+    func changePicture(_ newPicture: UIImage)
+}
+
+class MyProfileVC: UIViewController, ProfileChanger {
 
     @IBOutlet weak var myProfileImage: UIImageView!
     @IBOutlet weak var displayNameLabel: UILabel!
@@ -17,23 +23,34 @@ class MyProfileVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // Circular crop for profile picture
+        myProfileImage.layer.cornerRadius = myProfileImage.layer.frame.height / 2
+        
         if self.traitCollection.userInterfaceStyle == .dark {
             // do something
         }
     }
     
-    
-    // TODO: when segue-ing to next screen, save text in labels
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    func changeDisplayName(_ displayName: String) {
+        displayNameLabel.text = displayName
     }
-    */
+    
+    func changeUsername(_ username: String) {
+        usernameLabel.text = username
+    }
+    
+    func changePicture(_ newPicture: UIImage) {
+        myProfileImage.image = newPicture
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "EditProfileSegue",
+           let nextVC = segue.destination as? EditProfileVC {
+            nextVC.delegate = self
+            nextVC.prevDisplayName = displayNameLabel.text!
+            nextVC.prevUsername = usernameLabel.text!
+            nextVC.prevPicture = myProfileImage.image
+        }
+    }
 
 }

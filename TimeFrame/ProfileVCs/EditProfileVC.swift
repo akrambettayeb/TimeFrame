@@ -8,6 +8,12 @@
 import UIKit
 
 class EditProfileVC: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    
+    // Data from Profile screen
+    var delegate: UIViewController!
+    var prevDisplayName = ""
+    var prevUsername = ""
+    var prevPicture: UIImage!
 
     @IBOutlet weak var displayNameTextField: UITextField!
     @IBOutlet weak var usernameTextField: UITextField!
@@ -17,6 +23,7 @@ class EditProfileVC: UIViewController, UIImagePickerControllerDelegate, UINaviga
     
     @IBOutlet weak var profilePicture: UIImageView!
     var imagePicker = UIImagePickerController()
+    var selectedImage: UIImage?
     
     @IBOutlet weak var saveButton: UIButton!
     @IBOutlet weak var logoutButton: UIButton!
@@ -25,8 +32,13 @@ class EditProfileVC: UIViewController, UIImagePickerControllerDelegate, UINaviga
         super.viewDidLoad()
         saveButton.layer.cornerRadius = 5
         logoutButton.layer.cornerRadius = 5
-        // TODO: populate text field text with labels from previous screen
         
+        // Populates text field with labels from profile screen
+        displayNameTextField.text = prevDisplayName
+        usernameTextField.text = prevUsername
+        profilePicture.image = prevPicture
+        
+        // Circular crop for profile picture
         profilePicture.layer.cornerRadius = profilePicture.layer.frame.height / 2
         
         imagePicker.delegate = self
@@ -37,6 +49,7 @@ class EditProfileVC: UIViewController, UIImagePickerControllerDelegate, UINaviga
         self.navigationController?.popViewController(animated: true)
     }
     
+    // Displays an action sheet with 3 options: Take Picture, Choose from Library, Cancel
     @IBAction func editProfilePressed(_ sender: Any) {
         let controller = UIAlertController(
             title: nil,
@@ -60,14 +73,16 @@ class EditProfileVC: UIViewController, UIImagePickerControllerDelegate, UINaviga
         present(controller, animated: true)
     }
     
+    // Sets profile picture in Edit Profile screen to selected picture
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         if let selectedImage = info[UIImagePickerController.InfoKey.editedImage] as? UIImage{
             profilePicture.image = selectedImage
-            // TODO: need change to be reflected on the previous VC (only if Save is pressed)
+            self.selectedImage = selectedImage
         }
         imagePicker.dismiss(animated: true, completion: nil)
     }
     
+    // Checks if entered email has valid format
     func isValidEmail(_ email: String) -> Bool {
         if !(email.contains("@")) {
             errorMessage = "Invalid email address"
@@ -75,6 +90,7 @@ class EditProfileVC: UIViewController, UIImagePickerControllerDelegate, UINaviga
         return errorMessage == ""
     }
     
+    // Checks if entered password has valid format
     func checkPassword(_ password: String) {
         if (password.count < 8) {
             errorMessage = "Password must be at least 8 characters"
@@ -102,6 +118,7 @@ class EditProfileVC: UIViewController, UIImagePickerControllerDelegate, UINaviga
         } else if isValidEmail(email){
             checkPassword(password)
         }
+        // Displays error message alert if any text field is invalid
         if errorMessage != "" {
             let controller = UIAlertController(
                 title: "Error",
@@ -110,10 +127,15 @@ class EditProfileVC: UIViewController, UIImagePickerControllerDelegate, UINaviga
             )
             controller.addAction(UIAlertAction(title: "OK", style: .default))
             present(controller, animated: true)
+        // If all text fields are valid, updates changes in the Profile screen
         } else {
-            // Save the data to user profile if all text fields are valid
-            // Should probably put this in a separate function call
-            // Go back to previous VC
+            let profileVC = delegate as! ProfileChanger
+            profileVC.changeDisplayName(displayNameTextField.text!)
+            profileVC.changeUsername(usernameTextField.text!)
+            if selectedImage != nil {
+                profileVC.changePicture(selectedImage!)
+            }
+            self.navigationController?.popViewController(animated: true)
         }
         errorMessage = ""
     }
