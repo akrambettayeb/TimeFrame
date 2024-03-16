@@ -7,7 +7,7 @@
 
 import UIKit
 
-class EditProfileVC: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+class EditProfileVC: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate {
     
     // Data from Profile screen
     var delegate: UIViewController!
@@ -28,8 +28,13 @@ class EditProfileVC: UIViewController, UIImagePickerControllerDelegate, UINaviga
     @IBOutlet weak var saveButton: UIButton!
     @IBOutlet weak var logoutButton: UIButton!
     
+    var activeTextField: UITextField?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.hideKeyboardWhenTappedAround()
+        
         saveButton.layer.cornerRadius = 5
         logoutButton.layer.cornerRadius = 5
         
@@ -37,6 +42,12 @@ class EditProfileVC: UIViewController, UIImagePickerControllerDelegate, UINaviga
         displayNameTextField.text = prevDisplayName
         usernameTextField.text = prevUsername
         profilePicture.image = prevPicture
+        
+        // Needed to dismiss software keyboard
+        displayNameTextField.delegate = self
+        usernameTextField.delegate = self
+        emailTextField.delegate = self
+        passwordTextField.delegate = self
         
         // Circular crop for profile picture
         profilePicture.layer.cornerRadius = profilePicture.layer.frame.height / 2
@@ -84,10 +95,13 @@ class EditProfileVC: UIViewController, UIImagePickerControllerDelegate, UINaviga
     
     // Checks if entered email has valid format
     func isValidEmail(_ email: String) -> Bool {
-        if !(email.contains("@")) {
+       let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
+       let emailPred = NSPredicate(format:"SELF MATCHES %@",emailRegEx)
+       let isValid = emailPred.evaluate(with: email)
+        if !isValid {
             errorMessage = "Invalid email address"
         }
-        return errorMessage == ""
+        return isValid
     }
     
     // Checks if entered password has valid format
@@ -141,29 +155,54 @@ class EditProfileVC: UIViewController, UIImagePickerControllerDelegate, UINaviga
     }
     
     @IBAction func logoutPressed(_ sender: Any) {
-        // alert controller pops up
-        // deal with Firebase stuff
+        let controller = UIAlertController(
+            title: "Logout",
+            message: "Are you sure you want to logout?",
+            preferredStyle: .alert
+        )
+        controller.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+        controller.addAction(UIAlertAction(title: "Logout", style: .default))
+        present(controller, animated: true)
+        
+        // TODO: firebase stuff
+    }
+    
+    func verifyDeleteAccount() {
+        let controller = UIAlertController(
+            title: "Confirm Account Deletion",
+            message: "Please enter your password to confirm you want to delete your account. ",
+            preferredStyle: .alert
+        )
+        controller.addTextField(configurationHandler: {
+            (textField) in textField.placeholder = "Enter password"
+        })
+        controller.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+        controller.addAction(UIAlertAction(title: "Confirm", style: .destructive))
+        present(controller, animated: true)
+        
+        // TODO: check that correct password is entered
     }
     
     @IBAction func deleteAccountPressed(_ sender: Any) {
-        // alert controller pops out that asks if the user is sure
-        // then makes them type their username to confirm
-        // deal with Firebase stuff
+        let controller = UIAlertController(
+            title: "Delete Account",
+            message: "Are you sure you want to delete your account?",
+            preferredStyle: .alert
+        )
+        controller.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+        controller.addAction(UIAlertAction(title: "Delete", 
+                                           style: .destructive) { action in
+            self.verifyDeleteAccount()
+        })
+        present(controller, animated: true)
+        
+        // TODO: firebase stuff
     }
     
-    
-    
-    // TODO: add code to dismiss the keyboard
-    
-    
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    // Called when 'return' key pressed
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
     }
-    */
-
+    
 }
