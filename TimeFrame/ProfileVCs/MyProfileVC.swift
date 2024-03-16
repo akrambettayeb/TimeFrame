@@ -61,12 +61,12 @@ class MyProfileVC: UIViewController, ProfileChanger, UICollectionViewDataSource,
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-        return 10.0
+        return 2.0
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let numCells = 3.0
-        let viewWidth = collectionView.bounds.width - (numCells - 1) * 10.0
+        let viewWidth = collectionView.bounds.width - (numCells - 1) * 2.0
         let cellSize = floor(viewWidth / numCells)
         return CGSize(width: cellSize, height: cellSize)
     }
