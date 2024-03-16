@@ -20,7 +20,8 @@
 		3F1EAAF72B9697A10060218F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3F1EAAF52B9697A10060218F /* LaunchScreen.storyboard */; };
 		B50AF3422BA42C0800003743 /* MyProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B50AF3412BA42C0800003743 /* MyProfileVC.swift */; };
 		B50AF3442BA42C1400003743 /* EditProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B50AF3432BA42C1400003743 /* EditProfileVC.swift */; };
-		B56D904E2BA58BF7008A435C /* HideKeyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = B56D904D2BA58BF7008A435C /* HideKeyboard.swift */; };
+		B56D904E2BA58BF7008A435C /* ExtensionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B56D904D2BA58BF7008A435C /* ExtensionVC.swift */; };
+		B580D28D2BA6646800C912D5 /* ExtensionImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = B580D28C2BA6646800C912D5 /* ExtensionImage.swift */; };
 		B5BB29772BA3E6C6005A2987 /* Home.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B5BB29762BA3E6C6005A2987 /* Home.storyboard */; };
 		B5BB29792BA3E714005A2987 /* Discover.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B5BB29782BA3E714005A2987 /* Discover.storyboard */; };
 		B5BB297B2BA3E726005A2987 /* GeoChallenge.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B5BB297A2BA3E726005A2987 /* GeoChallenge.storyboard */; };
@@ -43,7 +44,8 @@
 		3F1EAAF82B9697A10060218F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B50AF3412BA42C0800003743 /* MyProfileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyProfileVC.swift; sourceTree = "<group>"; };
 		B50AF3432BA42C1400003743 /* EditProfileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileVC.swift; sourceTree = "<group>"; };
-		B56D904D2BA58BF7008A435C /* HideKeyboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HideKeyboard.swift; sourceTree = "<group>"; };
+		B56D904D2BA58BF7008A435C /* ExtensionVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionVC.swift; sourceTree = "<group>"; };
+		B580D28C2BA6646800C912D5 /* ExtensionImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionImage.swift; sourceTree = "<group>"; };
 		B5BB29762BA3E6C6005A2987 /* Home.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Home.storyboard; sourceTree = "<group>"; };
 		B5BB29782BA3E714005A2987 /* Discover.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Discover.storyboard; sourceTree = "<group>"; };
 		B5BB297A2BA3E726005A2987 /* GeoChallenge.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = GeoChallenge.storyboard; sourceTree = "<group>"; };
@@ -106,7 +108,8 @@
 			children = (
 				B50AF3412BA42C0800003743 /* MyProfileVC.swift */,
 				B50AF3432BA42C1400003743 /* EditProfileVC.swift */,
-				B56D904D2BA58BF7008A435C /* HideKeyboard.swift */,
+				B56D904D2BA58BF7008A435C /* ExtensionVC.swift */,
+				B580D28C2BA6646800C912D5 /* ExtensionImage.swift */,
 			);
 			path = ProfileVCs;
 			sourceTree = "<group>";
@@ -188,7 +191,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B56D904E2BA58BF7008A435C /* HideKeyboard.swift in Sources */,
+				B56D904E2BA58BF7008A435C /* ExtensionVC.swift in Sources */,
 				3F1EAAF22B9697A00060218F /* TimeFrame.xcdatamodeld in Sources */,
 				3F1EAAEC2B9697A00060218F /* ViewController.swift in Sources */,
 				B50AF3422BA42C0800003743 /* MyProfileVC.swift in Sources */,
@@ -198,6 +201,7 @@
 				3F1EAAE82B9697A00060218F /* AppDelegate.swift in Sources */,
 				3F08EC392B985ED10065C923 /* SelfieViewController.swift in Sources */,
 				3F1EAAEA2B9697A00060218F /* SceneDelegate.swift in Sources */,
+				B580D28D2BA6646800C912D5 /* ExtensionImage.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

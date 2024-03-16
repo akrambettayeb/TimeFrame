@@ -25,14 +25,14 @@ class MyProfileVC: UIViewController, ProfileChanger, UICollectionViewDataSource,
     @IBOutlet weak var usernameLabel: UILabel!
     @IBOutlet weak var imageGrid: UICollectionView!
     @IBOutlet weak var scrollView: UIScrollView!
-    @IBOutlet weak var qrCode: UIButton!
+    @IBOutlet weak var qrCode: UIBarButtonItem!
     
-    let imageCellID = "ImageCell"
-    var cellImage = UIImage(systemName: "person.crop.circle.fill")
-    var cellTint = UIColor(named: "TabBarPurple")
+    let imageCellID = "MyImageCell"
+    var cellImage: UIImage!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.setCustomBackImage()
         
         // Circular crop for profile picture
         myProfileImage.layer.cornerRadius = myProfileImage.layer.frame.height / 2
@@ -41,23 +41,18 @@ class MyProfileVC: UIViewController, ProfileChanger, UICollectionViewDataSource,
         imageGrid.delegate = self
         imageGrid.isScrollEnabled = false
         imageGrid.reloadData()
+        cellImage = myProfileImage.image
         
-        // Expands height of the image grid based on content size
-        if let flowLayout = imageGrid.collectionViewLayout as? UICollectionViewFlowLayout {
-            let contentSize = flowLayout.collectionViewContentSize
-            imageGrid.frame.size = CGSize(width: contentSize.width, height: contentSize.height)
-            imageGrid.layoutIfNeeded()
-        }
-        
-        // Expands height of the scroll view based on content size
-        let distToVC = imageGrid.convert(imageGrid.bounds, to: view)
-        let distToTop = distToVC.origin.y
-        scrollView.contentSize = CGSize(width: scrollView.frame.width, height: distToTop + imageGrid.frame.height + (self.tabBarController?.tabBar.frame.height)!)
-        scrollView.showsVerticalScrollIndicator = false
+        self.setGridSize(imageGrid)
+        self.setProfileScrollHeight(scrollView, imageGrid)
         
         if self.traitCollection.userInterfaceStyle == .dark {
             // do something
         }
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        imageGrid.reloadData()
     }
     
     // Sets the number of cells in the grid
@@ -69,7 +64,6 @@ class MyProfileVC: UIViewController, ProfileChanger, UICollectionViewDataSource,
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = imageGrid.dequeueReusableCell(withReuseIdentifier: imageCellID, for: indexPath) as! MyImageCell
         cell.imageViewCell.image = cellImage
-        cell.imageViewCell.tintColor = cellTint
         return cell
     }
     
@@ -100,8 +94,6 @@ class MyProfileVC: UIViewController, ProfileChanger, UICollectionViewDataSource,
     
     func changeCellImage(_ newImage: UIImage) {
         cellImage = newImage
-        cellTint = nil
-        imageGrid.reloadData()
     }
     
     // Passes profile data to Edit Profile screen

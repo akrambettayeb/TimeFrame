@@ -7,7 +7,21 @@
 
 import UIKit
 
-class EditProfileVC: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate {
+class EditImageCell: UICollectionViewCell {
+    @IBOutlet weak var imageView: UIImageView!
+    @IBOutlet weak var visibleButton: UIButton!
+
+    @IBAction func visibleButtonPressed(_ sender: Any) {
+        if visibleButton.currentImage == UIImage(systemName: "eye.fill") {
+            visibleButton.setImage(UIImage(systemName: "eye.slash"), for: .normal)
+            imageView.image?.grayscaleImage(imageView)
+        } else {
+            visibleButton.setImage(UIImage(systemName: "eye.fill"), for: .normal)
+        }
+    }
+}
+
+class EditProfileVC: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     
     // Data from Profile screen
     var delegate: UIViewController!
@@ -25,17 +39,18 @@ class EditProfileVC: UIViewController, UIImagePickerControllerDelegate, UINaviga
     var imagePicker = UIImagePickerController()
     var selectedImage: UIImage?
     
-    @IBOutlet weak var saveButton: UIButton!
-    @IBOutlet weak var logoutButton: UIButton!
+    @IBOutlet weak var imageGrid: UICollectionView!
+    let imageCellID = "EditImageCell"
     
-    var activeTextField: UITextField?
+    @IBOutlet weak var scrollView: UIScrollView!
+    
+    @IBOutlet weak var logoutButton: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        self.setCustomBackImage()
         self.hideKeyboardWhenTappedAround()
         
-        saveButton.layer.cornerRadius = 5
         logoutButton.layer.cornerRadius = 5
         
         // Populates text field with labels from profile screen
@@ -54,10 +69,36 @@ class EditProfileVC: UIViewController, UIImagePickerControllerDelegate, UINaviga
         
         imagePicker.delegate = self
         imagePicker.allowsEditing = true
+        
+        imageGrid.dataSource = self
+        imageGrid.delegate = self
+        imageGrid.isScrollEnabled = false
+        
+        self.setGridSize(imageGrid)
+        self.setProfileScrollHeight(scrollView, imageGrid)
     }
     
-    @IBAction func backButtonPressed(_ sender: Any) {
-        self.navigationController?.popViewController(animated: true)
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return 15
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = imageGrid.dequeueReusableCell(withReuseIdentifier: imageCellID, for: indexPath) as! EditImageCell
+        cell.imageView.image = prevPicture
+        return cell
+    }
+    
+    // Sets minimum spacing between cells
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        return 2.0
+    }
+    
+    // Sets cell size
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let numCells = 3.0
+        let viewWidth = collectionView.bounds.width - (numCells - 1) * 2.0
+        let cellSize = viewWidth / numCells - 0.01
+        return CGSize(width: cellSize, height: cellSize)
     }
     
     // Displays an action sheet with 3 options: Take Picture, Choose from Library, Cancel
@@ -122,6 +163,7 @@ class EditProfileVC: UIViewController, UIImagePickerControllerDelegate, UINaviga
         }
     }
     
+    // Checks if text fields are valid, displays error message if invalid and saves profile changes if valid
     @IBAction func saveButtonPressed(_ sender: Any) {
         let displayName = displayNameTextField.text!
         let username = usernameTextField.text!
@@ -168,6 +210,7 @@ class EditProfileVC: UIViewController, UIImagePickerControllerDelegate, UINaviga
         // TODO: firebase stuff
     }
     
+    // Displays an alert controller requiring the user to enter password to confirm deletion
     func verifyDeleteAccount() {
         let controller = UIAlertController(
             title: "Confirm Account Deletion",
