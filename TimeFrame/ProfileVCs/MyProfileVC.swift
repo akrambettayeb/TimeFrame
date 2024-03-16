@@ -39,20 +39,33 @@ class MyProfileVC: UIViewController, ProfileChanger, UICollectionViewDataSource,
         
         imageGrid.dataSource = self
         imageGrid.delegate = self
+        imageGrid.isScrollEnabled = false
         imageGrid.reloadData()
         
-        scrollView.contentSize = CGSize(width: scrollView.frame.width, height: scrollView.frame.height + 200)
-         imageGrid.isScrollEnabled = false
+        // Expands height of the image grid based on content size
+        if let flowLayout = imageGrid.collectionViewLayout as? UICollectionViewFlowLayout {
+            let contentSize = flowLayout.collectionViewContentSize
+            imageGrid.frame.size = CGSize(width: contentSize.width, height: contentSize.height)
+            imageGrid.layoutIfNeeded()
+        }
+        
+        // Expands height of the scroll view based on content size
+        let distToVC = imageGrid.convert(imageGrid.bounds, to: view)
+        let distToTop = distToVC.origin.y
+        scrollView.contentSize = CGSize(width: scrollView.frame.width, height: distToTop + imageGrid.frame.height + (self.tabBarController?.tabBar.frame.height)!)
+        scrollView.showsVerticalScrollIndicator = false
         
         if self.traitCollection.userInterfaceStyle == .dark {
             // do something
         }
     }
     
+    // Sets the number of cells in the grid
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 12
+        return 15
     }
     
+    // Defines content in each cell
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = imageGrid.dequeueReusableCell(withReuseIdentifier: imageCellID, for: indexPath) as! MyImageCell
         cell.imageViewCell.image = cellImage
@@ -60,14 +73,16 @@ class MyProfileVC: UIViewController, ProfileChanger, UICollectionViewDataSource,
         return cell
     }
     
+    // Sets minimum spacing between cells
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
         return 2.0
     }
     
+    // Sets cell size
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let numCells = 3.0
         let viewWidth = collectionView.bounds.width - (numCells - 1) * 2.0
-        let cellSize = floor(viewWidth / numCells)
+        let cellSize = viewWidth / numCells - 0.01
         return CGSize(width: cellSize, height: cellSize)
     }
     
@@ -89,6 +104,7 @@ class MyProfileVC: UIViewController, ProfileChanger, UICollectionViewDataSource,
         imageGrid.reloadData()
     }
     
+    // Passes profile data to Edit Profile screen
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "EditProfileSegue",
            let nextVC = segue.destination as? EditProfileVC {
