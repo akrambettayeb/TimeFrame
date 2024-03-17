@@ -10,11 +10,43 @@ import CoreData
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
-
-
+    
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        return true
+    }
+    
+    // MARK: Handling QR Code URL
+    
+    func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
+        // Navigate to the Profile screen if the url contains a username parameter
+        let urlString = url.absoluteString
+        var components = urlString.components(separatedBy: "=")
+        let initialCount = components.count
+        
+        // TODO: verify username and present appropriate profile page
+        // let thisUsername = components.last
+        components = components.first!.components(separatedBy: "://")
+        if components.first != "timeframeapp" {
+            return false
+        } else if initialCount <= 1 || components.last != "username" {
+            return true
+        }
+        
+        guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene, let window = windowScene.windows.first else {
+            return true
+        }
+            
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        
+        // Load the initial view controller from the storyboard
+        if let tabBarController = storyboard.instantiateInitialViewController() as? UITabBarController {
+            // Set the initial view controller as the root view controller of the window
+            tabBarController.selectedIndex = 3
+            window.rootViewController = tabBarController
+            window.makeKeyAndVisible()
+        }
         return true
     }
 
