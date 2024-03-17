@@ -1,13 +1,13 @@
 //
-//  LoginScreenViewController.swift
-//  TimeFrame
+//  CreateChallengeViewController.swift
+//  Geo-Challenges
 //
-//  Created by Akram Bettayeb on 3/13/24.
+//  Created by Megan Sundheim on 3/7/24.
 //
 
 import UIKit
 
-class LoginScreenViewController: UIViewController {
+class CreateChallengeViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
