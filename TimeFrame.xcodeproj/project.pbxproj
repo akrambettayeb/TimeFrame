@@ -22,6 +22,12 @@
 		5520389C2BA62421000C5014 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5520389B2BA62421000C5014 /* MapViewController.swift */; };
 		5520389E2BA62DE3000C5014 /* AddInitialPhotoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5520389D2BA62DE3000C5014 /* AddInitialPhotoViewController.swift */; };
 		552038A02BA62EF6000C5014 /* ChallengeInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5520389F2BA62EF6000C5014 /* ChallengeInfoViewController.swift */; };
+		5581CF882BA68C530096BB92 /* AddChallengeInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5581CF872BA68C530096BB92 /* AddChallengeInfoViewController.swift */; };
+		559596B12BA699F800972EB4 /* ViewTimeLapseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 559596B02BA699F800972EB4 /* ViewTimeLapseViewController.swift */; };
+		55A83AB22BA6A5CB00895DFE /* ChallengeCameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55A83AB12BA6A5CB00895DFE /* ChallengeCameraViewController.swift */; };
+		55A83AB42BA6A98400895DFE /* AddPhotoToChallengeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55A83AB32BA6A98400895DFE /* AddPhotoToChallengeViewController.swift */; };
+		55A83AB62BA6AA5500895DFE /* ChallengeAlbumViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55A83AB52BA6AA5500895DFE /* ChallengeAlbumViewController.swift */; };
+		55A83AB82BA6AA9000895DFE /* PhotoStreamViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55A83AB72BA6AA9000895DFE /* PhotoStreamViewController.swift */; };
 		B50AF3422BA42C0800003743 /* MyProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B50AF3412BA42C0800003743 /* MyProfileVC.swift */; };
 		B50AF3442BA42C1400003743 /* EditProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B50AF3432BA42C1400003743 /* EditProfileVC.swift */; };
 		B56D904E2BA58BF7008A435C /* HideKeyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = B56D904D2BA58BF7008A435C /* HideKeyboard.swift */; };
@@ -49,6 +55,12 @@
 		5520389B2BA62421000C5014 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		5520389D2BA62DE3000C5014 /* AddInitialPhotoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddInitialPhotoViewController.swift; sourceTree = "<group>"; };
 		5520389F2BA62EF6000C5014 /* ChallengeInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeInfoViewController.swift; sourceTree = "<group>"; };
+		5581CF872BA68C530096BB92 /* AddChallengeInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddChallengeInfoViewController.swift; sourceTree = "<group>"; };
+		559596B02BA699F800972EB4 /* ViewTimeLapseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewTimeLapseViewController.swift; sourceTree = "<group>"; };
+		55A83AB12BA6A5CB00895DFE /* ChallengeCameraViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeCameraViewController.swift; sourceTree = "<group>"; };
+		55A83AB32BA6A98400895DFE /* AddPhotoToChallengeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPhotoToChallengeViewController.swift; sourceTree = "<group>"; };
+		55A83AB52BA6AA5500895DFE /* ChallengeAlbumViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeAlbumViewController.swift; sourceTree = "<group>"; };
+		55A83AB72BA6AA9000895DFE /* PhotoStreamViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoStreamViewController.swift; sourceTree = "<group>"; };
 		B50AF3412BA42C0800003743 /* MyProfileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyProfileVC.swift; sourceTree = "<group>"; };
 		B50AF3432BA42C1400003743 /* EditProfileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileVC.swift; sourceTree = "<group>"; };
 		B56D904D2BA58BF7008A435C /* HideKeyboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HideKeyboard.swift; sourceTree = "<group>"; };
@@ -99,7 +111,6 @@
 			isa = PBXGroup;
 			children = (
 				5520389A2BA623FE000C5014 /* GeoChallengeVCs */,
-				3F08EC3E2BA2708A0065C923 /* file-1cV9gRFCUEZARQxKbQEmRZU8_preview_rev_1.png */,
 				3F08EC382B985ED10065C923 /* SelfieViewController.swift */,
 				3F1EAAE72B9697A00060218F /* AppDelegate.swift */,
 				3F08EC582BA5964F0065C923 /* AuthenticationVCs */,
@@ -126,6 +137,12 @@
 				5520389B2BA62421000C5014 /* MapViewController.swift */,
 				5520389D2BA62DE3000C5014 /* AddInitialPhotoViewController.swift */,
 				5520389F2BA62EF6000C5014 /* ChallengeInfoViewController.swift */,
+				5581CF872BA68C530096BB92 /* AddChallengeInfoViewController.swift */,
+				559596B02BA699F800972EB4 /* ViewTimeLapseViewController.swift */,
+				55A83AB12BA6A5CB00895DFE /* ChallengeCameraViewController.swift */,
+				55A83AB32BA6A98400895DFE /* AddPhotoToChallengeViewController.swift */,
+				55A83AB52BA6AA5500895DFE /* ChallengeAlbumViewController.swift */,
+				55A83AB72BA6AA9000895DFE /* PhotoStreamViewController.swift */,
 			);
 			path = GeoChallengeVCs;
 			sourceTree = "<group>";
@@ -222,15 +239,21 @@
 				3F1EAAF22B9697A00060218F /* TimeFrame.xcdatamodeld in Sources */,
 				3F08EC5D2BA5965E0065C923 /* ForgotPasswordViewController.swift in Sources */,
 				3F08EC5E2BA5965E0065C923 /* RegisterViewController.swift in Sources */,
+				5581CF882BA68C530096BB92 /* AddChallengeInfoViewController.swift in Sources */,
 				3F1EAAEC2B9697A00060218F /* ViewController.swift in Sources */,
 				552038A02BA62EF6000C5014 /* ChallengeInfoViewController.swift in Sources */,
 				B50AF3422BA42C0800003743 /* MyProfileVC.swift in Sources */,
 				3F1EAAE82B9697A00060218F /* AppDelegate.swift in Sources */,
 				B50AF3442BA42C1400003743 /* EditProfileVC.swift in Sources */,
+				55A83AB82BA6AA9000895DFE /* PhotoStreamViewController.swift in Sources */,
+				55A83AB62BA6AA5500895DFE /* ChallengeAlbumViewController.swift in Sources */,
 				3F1EAAE82B9697A00060218F /* AppDelegate.swift in Sources */,
 				3F08EC392B985ED10065C923 /* SelfieViewController.swift in Sources */,
+				559596B12BA699F800972EB4 /* ViewTimeLapseViewController.swift in Sources */,
+				55A83AB42BA6A98400895DFE /* AddPhotoToChallengeViewController.swift in Sources */,
 				3F08EC5C2BA5965E0065C923 /* LoginViewController.swift in Sources */,
 				3F1EAAEA2B9697A00060218F /* SceneDelegate.swift in Sources */,
+				55A83AB22BA6A5CB00895DFE /* ChallengeCameraViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

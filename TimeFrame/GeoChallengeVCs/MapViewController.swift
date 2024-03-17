@@ -19,8 +19,8 @@ class MapViewController: UIViewController {
     // Set custom back button.
     func setCustomBackImage() {
         navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
-        navigationController?.navigationBar.backIndicatorImage = UIImage(named: "arrow.backward")
-        navigationController?.navigationBar.backIndicatorTransitionMaskImage = UIImage(named: "arrow.backward")
+        navigationController?.navigationBar.backIndicatorImage = UIImage(systemName: "arrow.backward")
+        navigationController?.navigationBar.backIndicatorTransitionMaskImage = UIImage(systemName: "arrow.backward")
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -30,7 +30,7 @@ class MapViewController: UIViewController {
         }
     }
 
-}
+} //TODO: add hide keyboard
 
 extension MapViewController: UIPopoverPresentationControllerDelegate {
     func adaptivePresentationStyle(for controller: UIPresentationController, traitCollection: UITraitCollection) -> UIModalPresentationStyle {

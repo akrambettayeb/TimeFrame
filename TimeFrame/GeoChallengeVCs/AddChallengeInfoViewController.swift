@@ -1,5 +1,5 @@
 //
-//  ChallengeInfoViewController.swift
+//  AddChallengeInfoViewController.swift
 //  TimeFrame
 //
 //  Created by Megan Sundheim on 3/16/24.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ChallengeInfoViewController: UIViewController {
+class AddChallengeInfoViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
