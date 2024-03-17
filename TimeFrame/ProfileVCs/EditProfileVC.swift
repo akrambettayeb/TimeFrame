@@ -7,20 +7,6 @@
 
 import UIKit
 
-class EditImageCell: UICollectionViewCell {
-    @IBOutlet weak var imageView: UIImageView!
-    @IBOutlet weak var visibleButton: UIButton!
-
-    @IBAction func visibleButtonPressed(_ sender: Any) {
-        if visibleButton.currentImage == UIImage(systemName: "eye.fill") {
-            visibleButton.setImage(UIImage(systemName: "eye.slash"), for: .normal)
-            imageView.image?.grayscaleImage(imageView)
-        } else {
-            visibleButton.setImage(UIImage(systemName: "eye.fill"), for: .normal)
-        }
-    }
-}
-
 class EditProfileVC: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     
     // Data from Profile screen
@@ -58,6 +44,10 @@ class EditProfileVC: UIViewController, UIImagePickerControllerDelegate, UINaviga
         usernameTextField.text = prevUsername
         profilePicture.image = prevPicture
         
+        // TODO: remove temporary text
+        emailTextField.text = prevUsername + "@gmail.com"
+        passwordTextField.text = prevUsername.uppercased() + "@12345"
+        
         // Needed to dismiss software keyboard
         displayNameTextField.delegate = self
         usernameTextField.delegate = self
@@ -85,6 +75,11 @@ class EditProfileVC: UIViewController, UIImagePickerControllerDelegate, UINaviga
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = imageGrid.dequeueReusableCell(withReuseIdentifier: imageCellID, for: indexPath) as! EditImageCell
         cell.imageView.image = prevPicture
+        cell.visibleButton.setImage(UIImage(systemName: "eye.fill"), for: .normal)
+        cell.visibleButton.setImage(UIImage(systemName: "eye.slash"), for: .selected)
+        var config = UIButton.Configuration.plain()
+        config.baseBackgroundColor = .clear
+        cell.visibleButton.configuration = config
         return cell
     }
     

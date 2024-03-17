@@ -235,7 +235,7 @@ TimeFrames</string>
                                                             <state key="normal" title="Button"/>
                                                             <buttonConfiguration key="configuration" style="plain" image="eye.fill" catalog="system"/>
                                                             <connections>
-                                                                <action selector="visibleButtonPressed:" destination="Yw8-7I-dio" eventType="touchUpInside" id="5DZ-ff-eLX"/>
+                                                                <action selector="visibleButtonPressed:" destination="Yw8-7I-dio" eventType="touchUpInside" id="2kO-UE-oxG"/>
                                                             </connections>
                                                         </button>
                                                     </subviews>
@@ -340,7 +340,7 @@ TimeFrames</string>
                     <connections>
                         <outlet property="displayNameTextField" destination="LJN-I4-NEc" id="lWu-yK-JYr"/>
                         <outlet property="emailTextField" destination="esj-DJ-Qgl" id="fph-Mq-lwu"/>
-                        <outlet property="imageGrid" destination="Q2e-Iu-Tk3" id="OMY-7C-7h9"/>
+                        <outlet property="imageGrid" destination="Q2e-Iu-Tk3" id="9PV-3W-AJg"/>
                         <outlet property="logoutButton" destination="baL-8x-hxj" id="HtL-QN-npz"/>
                         <outlet property="passwordTextField" destination="BjJ-64-EnL" id="vuY-k4-vZQ"/>
                         <outlet property="profilePicture" destination="nlF-Ai-bK3" id="Zxz-SV-jp7"/>
