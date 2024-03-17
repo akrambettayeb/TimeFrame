@@ -31,6 +31,7 @@ class EditProfileVC: UIViewController, UIImagePickerControllerDelegate, UINaviga
     @IBOutlet weak var scrollView: UIScrollView!
     
     @IBOutlet weak var logoutButton: UIButton!
+    @IBOutlet weak var deleteAccountButton: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -66,6 +67,8 @@ class EditProfileVC: UIViewController, UIImagePickerControllerDelegate, UINaviga
         
         self.setGridSize(imageGrid)
         self.setProfileScrollHeight(scrollView, imageGrid)
+        logoutButton.frame.origin.y = imageGrid.frame.origin.y + imageGrid.frame.height + 10
+        deleteAccountButton.frame.origin.y = logoutButton.frame.origin.y + 60
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
