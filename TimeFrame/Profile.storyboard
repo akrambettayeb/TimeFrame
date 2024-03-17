@@ -157,6 +157,9 @@ TimeFrames</string>
                     <navigationItem key="navigationItem" title="My Profile" id="Kks-L2-zOS">
                         <barButtonItem key="leftBarButtonItem" title="Item" image="qrcode" catalog="system" id="qLV-oD-fw2">
                             <color key="tintColor" name="TabBarPurple"/>
+                            <connections>
+                                <segue destination="Dfe-lK-aGe" kind="show" id="aHb-NI-hBb"/>
+                            </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="Item" image="pencil" catalog="system" id="71j-vf-owT">
                             <color key="tintColor" name="TabBarPurple"/>
@@ -177,6 +180,31 @@ TimeFrames</string>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="983.96946564885491" y="-2.1126760563380285"/>
+        </scene>
+        <!--ProfileVC-->
+        <scene sceneID="N3u-Au-p1f">
+            <objects>
+                <viewController id="Dfe-lK-aGe" customClass="QRProfileVC" customModule="TimeFrame" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="eSS-Cl-HKf">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="t9u-Db-mxD">
+                                <rect key="frame" x="76" y="306" width="240" height="240"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="Pf1-GZ-jRj"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="3le-j7-VId"/>
+                    <connections>
+                        <outlet property="qrImageView" destination="t9u-Db-mxD" id="c14-jZ-cus"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="qxz-Md-LRH" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="984" y="745"/>
         </scene>
         <!--Edit ProfileVC-->
         <scene sceneID="acu-be-emN">
