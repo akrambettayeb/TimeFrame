@@ -82,7 +82,7 @@ class EditProfileVC: UIViewController, UIImagePickerControllerDelegate, UINaviga
         cell.visibleButton.configuration = config
         return cell
     }
-    
+
     // Sets minimum spacing between cells
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
         return 2.0
