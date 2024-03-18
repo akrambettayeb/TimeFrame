@@ -44,6 +44,9 @@ class LoginViewController: UIViewController {
         }
     }
 
-
+    @IBAction func forgotPasswordButtonTapped(_ sender: Any) {
+        performSegue(withIdentifier: "forgotPasswordSeg", sender: self)
+    }
+    
 }
 

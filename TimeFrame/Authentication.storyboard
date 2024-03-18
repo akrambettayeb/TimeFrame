@@ -72,6 +72,9 @@
                                         </fragment>
                                     </attributedString>
                                 </buttonConfiguration>
+                                <connections>
+                                    <action selector="forgotPasswordButtonTapped:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="MpG-ML-Snw"/>
+                                </connections>
                             </button>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="TimeFrameLogo" translatesAutoresizingMaskIntoConstraints="NO" id="KwH-Ct-J3h">
                                 <rect key="frame" x="16" y="49" width="361" height="224"/>
@@ -154,6 +157,7 @@
                         <outlet property="passwordTextField" destination="and-S6-ula" id="OtW-vq-Hu7"/>
                         <outlet property="registerButton" destination="w0o-vk-Snu" id="Dfw-CS-bDk"/>
                         <segue destination="7uU-lB-JRX" kind="presentation" identifier="loginSegueToMainStoryboard" modalPresentationStyle="fullScreen" id="MTh-X7-DbS"/>
+                        <segue destination="v6n-VM-ahE" kind="presentation" identifier="forgotPasswordSeg" modalPresentationStyle="fullScreen" id="swc-Jt-TfE"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -376,9 +380,119 @@
             </objects>
             <point key="canvasLocation" x="135.1145038167939" y="3.5211267605633805"/>
         </scene>
+        <!--Forgot Password View Controller-->
+        <scene sceneID="abi-gS-1BA">
+            <objects>
+                <viewController id="v6n-VM-ahE" customClass="ForgotPasswordViewController" customModule="TimeFrame" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="8I2-j8-3LX">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Email:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uSc-me-zX4">
+                                <rect key="frame" x="16" y="281" width="50" height="21"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                <color key="textColor" systemColor="secondarySystemBackgroundColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="SQu-eb-UYi">
+                                <rect key="frame" x="16" y="309" width="361" height="34"/>
+                                <color key="backgroundColor" red="0.89411771299999998" green="0.75686275960000005" blue="0.98431372640000003" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <color key="tintColor" name="TabBarPurple"/>
+                                <color key="textColor" red="0.53725492949999998" green="0.33725491169999999" blue="0.67450982329999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="TimeFrameLogo" translatesAutoresizingMaskIntoConstraints="NO" id="2z8-i5-wpP">
+                                <rect key="frame" x="16" y="49" width="361" height="224"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="361" id="gAw-YR-HX3"/>
+                                    <constraint firstAttribute="height" constant="224" id="lsO-cz-Nfd"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Error Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7Sg-aQ-odt">
+                                <rect key="frame" x="16" y="730.66666666666663" width="361" height="45"/>
+                                <color key="backgroundColor" name="AccentColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="45" id="O6Y-gS-6OJ"/>
+                                    <constraint firstAttribute="width" constant="361" id="aQ4-Vs-h0b"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
+                                <color key="textColor" red="0.53725492949999998" green="0.33725491169999999" blue="0.67450982329999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="55H-HW-5dH">
+                                <rect key="frame" x="87" y="398" width="219" height="35"/>
+                                <color key="backgroundColor" systemColor="secondarySystemBackgroundColor"/>
+                                <color key="tintColor" red="0.53725492949999998" green="0.33725491169999999" blue="0.67450982329999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="Send" titleAlignment="center">
+                                    <fontDescription key="titleFontDescription" type="boldSystem" pointSize="17"/>
+                                </buttonConfiguration>
+                                <connections>
+                                    <action selector="sendButtonTapped:" destination="v6n-VM-ahE" eventType="touchUpInside" id="8dc-oF-5tn"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ssG-fd-zjV">
+                                <rect key="frame" x="122" y="542" width="149" height="35"/>
+                                <color key="tintColor" systemColor="secondarySystemBackgroundColor"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain">
+                                    <attributedString key="attributedTitle">
+                                        <fragment content="Return to Login">
+                                            <attributes>
+                                                <font key="NSFont" metaFont="systemBold" size="17"/>
+                                                <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                <integer key="NSUnderline" value="1"/>
+                                            </attributes>
+                                        </fragment>
+                                    </attributedString>
+                                </buttonConfiguration>
+                                <connections>
+                                    <action selector="returnToLoginButtonTapped:" destination="v6n-VM-ahE" eventType="touchUpInside" id="Iy9-gf-lIa"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="All set?" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HJf-Lp-jTQ">
+                                <rect key="frame" x="129" y="513" width="137" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" systemColor="secondarySystemBackgroundColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="5TO-Sm-CxG"/>
+                        <color key="backgroundColor" red="0.53725492949999998" green="0.33725491169999999" blue="0.67450982329999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                        <constraints>
+                            <constraint firstItem="2z8-i5-wpP" firstAttribute="top" secondItem="8I2-j8-3LX" secondAttribute="top" constant="49" id="38S-jL-Dhm"/>
+                            <constraint firstItem="HJf-Lp-jTQ" firstAttribute="centerX" secondItem="ssG-fd-zjV" secondAttribute="centerX" constant="1" id="6bg-dC-HsW"/>
+                            <constraint firstItem="uSc-me-zX4" firstAttribute="leading" secondItem="2z8-i5-wpP" secondAttribute="leading" id="91E-dE-56z"/>
+                            <constraint firstItem="HJf-Lp-jTQ" firstAttribute="centerX" secondItem="55H-HW-5dH" secondAttribute="centerX" constant="1" id="CzB-FO-eBv"/>
+                            <constraint firstItem="55H-HW-5dH" firstAttribute="leading" secondItem="5TO-Sm-CxG" secondAttribute="leading" constant="87" id="Epx-AK-XUR"/>
+                            <constraint firstItem="55H-HW-5dH" firstAttribute="top" secondItem="SQu-eb-UYi" secondAttribute="bottom" constant="55" id="GZs-Cg-6Qg"/>
+                            <constraint firstItem="uSc-me-zX4" firstAttribute="leading" secondItem="SQu-eb-UYi" secondAttribute="leading" id="Ghk-Xy-z8j"/>
+                            <constraint firstItem="7Sg-aQ-odt" firstAttribute="centerX" secondItem="8I2-j8-3LX" secondAttribute="centerX" id="MkR-31-Y7K"/>
+                            <constraint firstItem="SQu-eb-UYi" firstAttribute="centerX" secondItem="55H-HW-5dH" secondAttribute="centerX" id="RX5-Bi-KZh"/>
+                            <constraint firstItem="7Sg-aQ-odt" firstAttribute="top" secondItem="ssG-fd-zjV" secondAttribute="bottom" constant="153.66666666666663" id="Smh-Dq-Cys"/>
+                            <constraint firstItem="SQu-eb-UYi" firstAttribute="trailing" secondItem="2z8-i5-wpP" secondAttribute="trailing" id="Toj-1h-qr4"/>
+                            <constraint firstItem="2z8-i5-wpP" firstAttribute="centerX" secondItem="8I2-j8-3LX" secondAttribute="centerX" id="YKi-he-tfS"/>
+                            <constraint firstItem="HJf-Lp-jTQ" firstAttribute="leading" secondItem="5TO-Sm-CxG" secondAttribute="leading" constant="129" id="kuT-qw-41V"/>
+                            <constraint firstItem="ssG-fd-zjV" firstAttribute="top" secondItem="HJf-Lp-jTQ" secondAttribute="bottom" constant="8" symbolic="YES" id="lFr-wE-dlg"/>
+                            <constraint firstItem="HJf-Lp-jTQ" firstAttribute="top" secondItem="55H-HW-5dH" secondAttribute="bottom" constant="80" id="mBM-ut-UyW"/>
+                            <constraint firstItem="SQu-eb-UYi" firstAttribute="top" secondItem="2z8-i5-wpP" secondAttribute="bottom" constant="36" id="mnL-ku-OVj"/>
+                            <constraint firstItem="uSc-me-zX4" firstAttribute="top" secondItem="2z8-i5-wpP" secondAttribute="bottom" constant="8" symbolic="YES" id="pBr-HJ-CWM"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="Zlc-VT-YGk"/>
+                    <connections>
+                        <outlet property="emailTextField" destination="SQu-eb-UYi" id="F3d-Cm-eV2"/>
+                        <outlet property="errorMessageLabel" destination="7Sg-aQ-odt" id="Mlk-FI-BDi"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="vsf-ak-fOd" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2734" y="4"/>
+        </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="P9V-dl-a9F"/>
+        <segue reference="MTh-X7-DbS"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="0.89411771299999998" green="0.75686275960000005" blue="0.98431372640000003" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
     <resources>
