@@ -6,6 +6,8 @@
 //
 
 import UIKit
+import FirebaseAuth
+import FirebaseDatabase
 
 class EditProfileVC: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     
@@ -215,6 +217,16 @@ class EditProfileVC: UIViewController, UIImagePickerControllerDelegate, UINaviga
         errorMessage = ""
     }
     
+    func errorAlert(_ errorMessage: String) {
+        let errorController = UIAlertController(
+            title: "Error",
+            message: errorMessage,
+            preferredStyle: .alert
+        )
+        errorController.addAction(UIAlertAction(title: "OK", style: .default))
+        present(errorController, animated: true)
+    }
+    
     @IBAction func logoutPressed(_ sender: Any) {
         let controller = UIAlertController(
             title: "Logout",
@@ -222,10 +234,16 @@ class EditProfileVC: UIViewController, UIImagePickerControllerDelegate, UINaviga
             preferredStyle: .alert
         )
         controller.addAction(UIAlertAction(title: "Cancel", style: .cancel))
-        controller.addAction(UIAlertAction(title: "Logout", style: .default))
+        controller.addAction(UIAlertAction(title: "Logout", style: .default) { _ in
+            do {
+                try Auth.auth().signOut()
+                self.view.window?.rootViewController?.dismiss(animated: true, completion: nil)
+                self.view.window?.rootViewController?.dismiss(animated: true, completion: nil)
+            } catch let signOutError as NSError {
+                self.errorAlert("Error signing out: \(signOutError)")
+            }
+        })
         present(controller, animated: true)
-        
-        // TODO: firebase stuff
     }
     
     // Displays an alert controller requiring the user to enter password to confirm deletion
@@ -253,12 +271,26 @@ class EditProfileVC: UIViewController, UIImagePickerControllerDelegate, UINaviga
         )
         controller.addAction(UIAlertAction(title: "Cancel", style: .cancel))
         controller.addAction(UIAlertAction(title: "Delete", 
-                                           style: .destructive) { action in
-            self.verifyDeleteAccount()
+                                           style: .destructive) { _ in
+//            self.verifyDeleteAccount()
+            do {
+                let user = Auth.auth().currentUser
+                user?.delete() { error in
+                    if let error = error {
+                        self.errorAlert("Error deleting account: \(error)")
+                    }
+                }
+                let usersRef = Database.database().reference().child("username")
+                usersRef.queryOrdered(byChild: "username").queryEqual(toValue: user?.uid).observeSingleEvent(of: .value, with: { snapshot in
+                    if let userSnapshot = snapshot.children.allObjects.first as? DataSnapshot {
+                        userSnapshot.ref.removeValue()
+                    }
+                })
+                self.view.window?.rootViewController?.dismiss(animated: true, completion: nil)
+                self.view.window?.rootViewController?.dismiss(animated: true, completion: nil)
+            }
         })
         present(controller, animated: true)
-        
-        // TODO: firebase stuff
     }
     
     // Called when 'return' key pressed

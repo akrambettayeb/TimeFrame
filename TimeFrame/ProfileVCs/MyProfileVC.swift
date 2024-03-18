@@ -29,6 +29,7 @@ class MyProfileVC: UIViewController, ProfileChanger, UICollectionViewDataSource,
     @IBOutlet weak var imageGrid: UICollectionView!
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var qrCode: UIBarButtonItem!
+    @IBOutlet weak var countTimeFrameButton: UIButton!
     
     let imageCellID = "MyImageCell"
     
@@ -49,17 +50,34 @@ class MyProfileVC: UIViewController, ProfileChanger, UICollectionViewDataSource,
         }
         imageGrid.reloadData()
         populateVisibleImagesArray()
+        updateCountButton()
         
         self.setGridSize(imageGrid)
         self.setProfileScrollHeight(scrollView, imageGrid)
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        countTimeFrameButton.titleLabel?.textAlignment = .center
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         populateVisibleImagesArray()
         imageGrid.reloadData()
+        updateCountButton()
         self.setGridSize(imageGrid)
         self.setProfileScrollHeight(scrollView, imageGrid)
+    }
+    
+    // Applies button attributes from the Storyboard
+    func updateCountButton() {
+        let attributes: [NSAttributedString.Key: Any] = [
+            .font: countTimeFrameButton.titleLabel!.font!,
+            .foregroundColor: countTimeFrameButton.currentTitleColor
+        ]
+        let attributedTitle = NSAttributedString(string: "\(visibleGridImages.count)\nTimeFrames", attributes: attributes)
+        countTimeFrameButton.titleLabel?.textAlignment = .center
+        countTimeFrameButton.setAttributedTitle(attributedTitle, for: .normal)
     }
     
     func populateVisibleImagesArray() {
@@ -84,10 +102,6 @@ class MyProfileVC: UIViewController, ProfileChanger, UICollectionViewDataSource,
         cell.imageViewCell.image = visibleGridImages[count - row - 1].image
         return cell
     }
-    
-    // Action for the cell the user clicks on
-//    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-//    }
     
     // Sets minimum spacing between cells
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
@@ -140,8 +154,8 @@ class MyProfileVC: UIViewController, ProfileChanger, UICollectionViewDataSource,
         // TODO: implement, this should replace the first k elements of the allGridImages array
     }
     
+    // Unregister as a photo library change observer
     deinit {
-        // Unregister as a photo library change observer
         PHPhotoLibrary.shared().unregisterChangeObserver(self)
     }
 
