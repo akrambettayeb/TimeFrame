@@ -7,11 +7,13 @@
 
 import UIKit
 
+var allGridImages: [ProfileGridImage] = []
+var visibleGridImages: [ProfileGridImage] = []
+
 protocol ProfileChanger {
     func changeDisplayName(_ displayName: String)
     func changeUsername(_ username: String)
     func changePicture(_ newPicture: UIImage)
-    func changeCellImage(_ newImage: UIImage)
 }
 
 class MyImageCell: UICollectionViewCell {
@@ -28,7 +30,6 @@ class MyProfileVC: UIViewController, ProfileChanger, UICollectionViewDataSource,
     @IBOutlet weak var qrCode: UIBarButtonItem!
     
     let imageCellID = "MyImageCell"
-    var cellImage: UIImage!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,25 +42,44 @@ class MyProfileVC: UIViewController, ProfileChanger, UICollectionViewDataSource,
         imageGrid.delegate = self
         imageGrid.isScrollEnabled = false
         imageGrid.reloadData()
-        cellImage = myProfileImage.image
+        
+        if allGridImages.count == 0 {
+            fetchPhotos(10)
+        }
+        populateVisibleImagesArray()
         
         self.setGridSize(imageGrid)
         self.setProfileScrollHeight(scrollView, imageGrid)
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        populateVisibleImagesArray()
+        
         imageGrid.reloadData()
+        self.setGridSize(imageGrid)
+        self.setProfileScrollHeight(scrollView, imageGrid)
+    }
+    
+    func populateVisibleImagesArray() {
+        visibleGridImages = []
+        for item in allGridImages {
+            if item.visible {
+                visibleGridImages.append(item)
+            }
+        }
     }
     
     // Sets the number of cells in the grid
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 15
+        return visibleGridImages.count
     }
     
     // Defines content in each cell
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = imageGrid.dequeueReusableCell(withReuseIdentifier: imageCellID, for: indexPath) as! MyImageCell
-        cell.imageViewCell.image = cellImage
+        let row = indexPath.row
+        let count = visibleGridImages.count
+        cell.imageViewCell.image = visibleGridImages[count - row - 1].image
         return cell
     }
     
@@ -88,18 +108,18 @@ class MyProfileVC: UIViewController, ProfileChanger, UICollectionViewDataSource,
         myProfileImage.image = newPicture
     }
     
-    func changeCellImage(_ newImage: UIImage) {
-        cellImage = newImage
-    }
-    
     // Passes profile data to Edit Profile screen
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "EditProfileSegue",
+        if segue.identifier == "segueToEditProfile",
            let nextVC = segue.destination as? EditProfileVC {
             nextVC.delegate = self
             nextVC.prevDisplayName = displayNameLabel.text!
             nextVC.prevUsername = usernameLabel.text!
             nextVC.prevPicture = myProfileImage.image
+        } else if segue.identifier == "segueToQR",
+           let nextVC = segue.destination as? QRProfileVC {
+            nextVC.profilePic = myProfileImage.image
+            nextVC.username = usernameLabel.text!
         }
     }
 
