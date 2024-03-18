@@ -87,6 +87,7 @@ class RegisterViewController: UIViewController {
                 self.errorMessageLabel.text = error.localizedDescription
                 self.errorMessageLabel.isHidden = false
             } else {
+                self.errorMessageLabel.isHidden = true
                 self.showSuccessAlert()
             }
         }
