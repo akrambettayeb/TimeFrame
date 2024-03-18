@@ -12,15 +12,28 @@ import CoreImage.CIFilterBuiltins
 
 class QRProfileVC: UIViewController {
 
+    @IBOutlet weak var profilePicture: UIImageView!
     @IBOutlet weak var qrImageView: UIImageView!
     @IBOutlet weak var backgroundImageView: UIImageView!
+    @IBOutlet weak var usernameLabel: UILabel!
+    
+    var profilePic: UIImage!
+    var username = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setCustomBackImage()
+        profilePicture.image = profilePic
+        profilePicture.layer.cornerRadius = profilePicture.layer.frame.height / 2
+        if profilePicture.image == UIImage(systemName: "person.crop.circle.fill") &&
+            self.traitCollection.userInterfaceStyle == .light {
+            profilePicture.layer.borderColor = UIColor(named: "TabBarPurple")?.cgColor
+            profilePicture.layer.borderWidth = 3
+        }
         backgroundImageView.layer.cornerRadius = 8
         backgroundImageView.layer.masksToBounds = true
         qrImageView.image = generateQRCode("timeframeapp://username=katezhang")
+        usernameLabel.text = "@" + username
     }
     
     override func viewWillAppear(_ animated: Bool) {

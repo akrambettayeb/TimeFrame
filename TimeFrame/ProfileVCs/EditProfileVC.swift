@@ -72,17 +72,27 @@ class EditProfileVC: UIViewController, UIImagePickerControllerDelegate, UINaviga
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 15
+        return allGridImages.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = imageGrid.dequeueReusableCell(withReuseIdentifier: imageCellID, for: indexPath) as! EditImageCell
-        cell.imageView.image = prevPicture
+        let gridIndex = allGridImages.count - indexPath.row - 1
+        let imageVisible = allGridImages[gridIndex].visible
+       
+        cell.visibleButton.isSelected = !imageVisible
         cell.visibleButton.setImage(UIImage(systemName: "eye.fill"), for: .normal)
         cell.visibleButton.setImage(UIImage(systemName: "eye.slash"), for: .selected)
         var config = UIButton.Configuration.plain()
         config.baseBackgroundColor = .clear
         cell.visibleButton.configuration = config
+        
+        cell.imageView.image = allGridImages[gridIndex].image
+        cell.grayImage = cell.grayscaleImage(cell.imageView.image!)
+        cell.coloredImage = cell.imageView.image
+        if !imageVisible {
+            cell.imageView.image = cell.grayImage
+        }
         return cell
     }
 
@@ -161,6 +171,15 @@ class EditProfileVC: UIViewController, UIImagePickerControllerDelegate, UINaviga
         }
     }
     
+    func updateVisibleImagesArray() {
+        for indexPath in imageGrid.indexPathsForVisibleItems {
+            if let cell = imageGrid.cellForItem(at: indexPath) as? EditImageCell {
+                let gridIndex = allGridImages.count - indexPath.row - 1
+                allGridImages[gridIndex].visible = !cell.visibleButton.isSelected
+            }
+        }
+    }
+    
     // Checks if text fields are valid, displays error message if invalid and saves profile changes if valid
     @IBAction func saveButtonPressed(_ sender: Any) {
         let displayName = displayNameTextField.text!
@@ -186,9 +205,10 @@ class EditProfileVC: UIViewController, UIImagePickerControllerDelegate, UINaviga
             let profileVC = delegate as! ProfileChanger
             profileVC.changeDisplayName(displayNameTextField.text!)
             profileVC.changeUsername(usernameTextField.text!)
+            updateVisibleImagesArray()
             if selectedImage != nil {
                 profileVC.changePicture(selectedImage!)
-                profileVC.changeCellImage(selectedImage!)
+                allGridImages.append(ProfileGridImage(selectedImage!))
             }
             self.navigationController?.popViewController(animated: true)
         }

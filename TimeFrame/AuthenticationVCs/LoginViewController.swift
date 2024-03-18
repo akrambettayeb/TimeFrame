@@ -6,24 +6,61 @@
 //
 
 import UIKit
+import FirebaseAuth
 
-class LoginViewController: UIViewController {
+class LoginViewController: UIViewController, UITextFieldDelegate {
+
+    @IBOutlet weak var emailTextField: UITextField!
+    @IBOutlet weak var passwordTextField: UITextField!
+    @IBOutlet weak var errorMessageLabel: UILabel!
+    @IBOutlet weak var forgotPasswordButton: UIButton!
+    @IBOutlet weak var registerButton: UIButton!
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        setCustomBackImage()
+        errorMessageLabel.isHidden = true
+        
+        emailTextField.delegate = self
+        passwordTextField.delegate = self
     }
     
+    @IBAction func loginButtonTapped(_ sender: UIButton) {
+        guard let email = emailTextField.text, !email.isEmpty,
+              let password = passwordTextField.text, !password.isEmpty else {
+            errorMessageLabel.text = "Please enter your email and password."
+            errorMessageLabel.isHidden = false
+            return
+        }
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+        // Perform login using Firebase Authentication
+        Auth.auth().signIn(withEmail: email, password: password) { [weak self] authResult, error in
+            guard let self = self else { return }
+            if let error = error {
+                // Handle error - show error message
+                self.errorMessageLabel.text = error.localizedDescription
+                self.errorMessageLabel.isHidden = false
+            } else {
+                // Login was successful, perform segue to Main.storyboard
+                self.performSegue(withIdentifier: "loginSegueToMainStoryboard", sender: self)
+            }
+        }
     }
-    */
 
+    @IBAction func forgotPasswordButtonTapped(_ sender: Any) {
+        performSegue(withIdentifier: "forgotPasswordSeg", sender: self)
+    }
+    
+    // Called when 'return' key pressed
+    func textFieldShouldReturn(_ textField:UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
+        
+    // Called when the user clicks on the view outside of the UITextField
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
+    }
+    
 }
+
