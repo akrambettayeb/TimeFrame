@@ -347,7 +347,10 @@
                         <outlet property="confirmPasswordTextField" destination="ppV-Ms-oTL" id="zMo-yL-GBu"/>
                         <outlet property="emailTextField" destination="At7-gc-uX9" id="b7D-D9-MtE"/>
                         <outlet property="errorMessageLabel" destination="bis-S1-Txg" id="txe-cv-VX3"/>
+                        <outlet property="firstNameTextField" destination="wgn-cv-kE1" id="1hu-4J-Tfu"/>
+                        <outlet property="lastNameTextField" destination="04Z-qQ-XNR" id="K1m-dD-uBx"/>
                         <outlet property="passwordTextField" destination="W9W-mv-T9I" id="Z6E-tL-IyX"/>
+                        <outlet property="usernameTextField" destination="xDA-K0-WKs" id="cS5-jF-JBe"/>
                         <segue destination="7uU-lB-JRX" kind="presentation" identifier="registerSegueToMainStoryboard" modalPresentationStyle="fullScreen" id="P9V-dl-a9F"/>
                     </connections>
                 </viewController>
