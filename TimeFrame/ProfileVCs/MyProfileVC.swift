@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Photos
 
 var allGridImages: [ProfileGridImage] = []
 var visibleGridImages: [ProfileGridImage] = []
@@ -20,7 +21,7 @@ class MyImageCell: UICollectionViewCell {
     @IBOutlet weak var imageViewCell: UIImageView!
 }
 
-class MyProfileVC: UIViewController, ProfileChanger, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
+class MyProfileVC: UIViewController, ProfileChanger, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, PHPhotoLibraryChangeObserver {
     
     @IBOutlet weak var myProfileImage: UIImageView!
     @IBOutlet weak var displayNameLabel: UILabel!
@@ -34,6 +35,7 @@ class MyProfileVC: UIViewController, ProfileChanger, UICollectionViewDataSource,
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setCustomBackImage()
+        PHPhotoLibrary.shared().register(self)
         
         // Circular crop for profile picture
         myProfileImage.layer.cornerRadius = myProfileImage.layer.frame.height / 2
@@ -41,11 +43,11 @@ class MyProfileVC: UIViewController, ProfileChanger, UICollectionViewDataSource,
         imageGrid.dataSource = self
         imageGrid.delegate = self
         imageGrid.isScrollEnabled = false
-        imageGrid.reloadData()
         
         if allGridImages.count == 0 {
             fetchPhotos(10)
         }
+        imageGrid.reloadData()
         populateVisibleImagesArray()
         
         self.setGridSize(imageGrid)
@@ -53,8 +55,8 @@ class MyProfileVC: UIViewController, ProfileChanger, UICollectionViewDataSource,
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         populateVisibleImagesArray()
-        
         imageGrid.reloadData()
         self.setGridSize(imageGrid)
         self.setProfileScrollHeight(scrollView, imageGrid)
@@ -121,6 +123,15 @@ class MyProfileVC: UIViewController, ProfileChanger, UICollectionViewDataSource,
             nextVC.profilePic = myProfileImage.image
             nextVC.username = usernameLabel.text!
         }
+    }
+    
+    func photoLibraryDidChange(_ changeInstance: PHChange) {
+        // TODO: implement, this should replace the first k elements of the allGridImages array
+    }
+    
+    deinit {
+        // Unregister as a photo library change observer
+        PHPhotoLibrary.shared().unregisterChangeObserver(self)
     }
 
 }

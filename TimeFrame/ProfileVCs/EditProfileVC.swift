@@ -77,16 +77,22 @@ class EditProfileVC: UIViewController, UIImagePickerControllerDelegate, UINaviga
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = imageGrid.dequeueReusableCell(withReuseIdentifier: imageCellID, for: indexPath) as! EditImageCell
-//        print("cell \(indexPath.row)\n")
         let gridIndex = allGridImages.count - indexPath.row - 1
-        cell.imageView.image = allGridImages[gridIndex].image
-        cell.visibleButton.isSelected = !allGridImages[gridIndex].visible
+        let imageVisible = allGridImages[gridIndex].visible
+       
+        cell.visibleButton.isSelected = !imageVisible
         cell.visibleButton.setImage(UIImage(systemName: "eye.fill"), for: .normal)
         cell.visibleButton.setImage(UIImage(systemName: "eye.slash"), for: .selected)
         var config = UIButton.Configuration.plain()
         config.baseBackgroundColor = .clear
         cell.visibleButton.configuration = config
-//        allGridImages[gridIndex].visible = !cell.visibleButton.isSelected
+        
+        cell.imageView.image = allGridImages[gridIndex].image
+        cell.grayImage = cell.grayscaleImage(cell.imageView.image!)
+        cell.coloredImage = cell.imageView.image
+        if !imageVisible {
+            cell.imageView.image = cell.grayImage
+        }
         return cell
     }
 
@@ -168,7 +174,7 @@ class EditProfileVC: UIViewController, UIImagePickerControllerDelegate, UINaviga
     func updateVisibleImagesArray() {
         var i = 0
         for cell in imageGrid.visibleCells as! [EditImageCell] {
-            var gridIndex = allGridImages.count - i - 1
+            let gridIndex = allGridImages.count - i - 1
             allGridImages[gridIndex].visible = !cell.visibleButton.isSelected
             i += 1
         }
