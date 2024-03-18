@@ -9,18 +9,12 @@ import UIKit
 
 class PhotoStreamViewController: UIViewController {
 
+    @IBOutlet weak var photoStreamTableView: UITableView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         setCustomBackImage()
     }
     
-
-    // Set custom back button.
-    func setCustomBackImage() {
-        navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
-        navigationController?.navigationBar.backIndicatorImage = UIImage(systemName: "arrow.backward")
-        navigationController?.navigationBar.backIndicatorTransitionMaskImage = UIImage(systemName: "arrow.backward")
-    }
-
 }

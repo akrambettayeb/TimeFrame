@@ -49,7 +49,36 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Save changes in the application's managed object context when the application transitions to the background.
         (UIApplication.shared.delegate as? AppDelegate)?.saveContext()
     }
-
+    
+    func scene(_ scene: UIScene, openURLContexts URLContexts: Set<UIOpenURLContext>) {
+        // Navigate to the Profile screen if the url contains a username parameter
+        if let url = URLContexts.first?.url {
+            let urlString = url.absoluteString
+            var components = urlString.components(separatedBy: "=")
+            if components.count <= 1 {
+                return
+            }
+            // TODO: verify username and present appropriate profile page
+            // let thisUsername = components.last
+            components = components.first!.components(separatedBy: "://")
+            if components.last != "username" {
+                return
+            }
+            guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene, let window = windowScene.windows.first else {
+                return
+            }
+            
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            
+            // Load the initial view controller from the storyboard
+            if let tabBarController = storyboard.instantiateInitialViewController() as? UITabBarController {
+                // Set the initial view controller as the root view controller of the window
+                tabBarController.selectedIndex = 3
+                window.rootViewController = tabBarController
+                window.makeKeyAndVisible()
+            }
+        }
+    }
 
 }
 
