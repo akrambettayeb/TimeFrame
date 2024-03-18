@@ -70,6 +70,7 @@
                                                 <edgeInsets key="layoutMargins" top="4" left="4" bottom="4" right="4"/>
                                                 <connections>
                                                     <outlet property="imageViewCell" destination="69z-qD-VCb" id="zjm-Xd-8ac"/>
+                                                    <segue destination="AS4-Ve-xRo" kind="show" identifier="segueToViewImage" id="hhm-9N-4Xz"/>
                                                 </connections>
                                             </collectionViewCell>
                                         </cells>
@@ -227,6 +228,31 @@ TimeFrames</string>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qxz-Md-LRH" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="983.96946564885491" y="744.36619718309862"/>
+        </scene>
+        <!--View ImageVC-->
+        <scene sceneID="zWN-Ou-ue5">
+            <objects>
+                <viewController id="AS4-Ve-xRo" customClass="ViewImageVC" customModule="TimeFrame" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="ifw-fy-AmH">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Obf-X8-elJ">
+                                <rect key="frame" x="0.0" y="139" width="393" height="470"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="t3V-Ga-pDQ"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="BMv-E6-Y6b"/>
+                    <connections>
+                        <outlet property="imageView" destination="Obf-X8-elJ" id="89Z-Vm-QkA"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="5LL-dB-yCV" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2110.6870229007632" y="407.74647887323948"/>
         </scene>
         <!--Edit ProfileVC-->
         <scene sceneID="acu-be-emN">
@@ -406,7 +432,7 @@ TimeFrames</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="TtI-2R-cV2" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1890.8396946564885" y="-2.1126760563380285"/>
+            <point key="canvasLocation" x="2105" y="-311"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="3wT-uR-Jfb">

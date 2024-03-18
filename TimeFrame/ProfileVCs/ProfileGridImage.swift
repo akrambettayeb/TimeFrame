@@ -18,9 +18,9 @@ public class ProfileGridImage {
         self.visible = true
     }
     
-    init(_ image: UIImage, _ selected: Bool) {
+    init(_ image: UIImage, _ visible: Bool) {
         self.image = image
-        self.visible = selected
+        self.visible = visible
     }
     
     func show() -> String {

@@ -25,7 +25,8 @@ class QRProfileVC: UIViewController {
         self.setCustomBackImage()
         profilePicture.image = profilePic
         profilePicture.layer.cornerRadius = profilePicture.layer.frame.height / 2
-        if profilePicture.image == UIImage(systemName: "person.crop.circle.fill") {
+        if profilePicture.image == UIImage(systemName: "person.crop.circle.fill") &&
+            self.traitCollection.userInterfaceStyle == .light {
             profilePicture.layer.borderColor = UIColor(named: "TabBarPurple")?.cgColor
             profilePicture.layer.borderWidth = 3
         }

@@ -172,11 +172,11 @@ class EditProfileVC: UIViewController, UIImagePickerControllerDelegate, UINaviga
     }
     
     func updateVisibleImagesArray() {
-        var i = 0
-        for cell in imageGrid.visibleCells as! [EditImageCell] {
-            let gridIndex = allGridImages.count - i - 1
-            allGridImages[gridIndex].visible = !cell.visibleButton.isSelected
-            i += 1
+        for indexPath in imageGrid.indexPathsForVisibleItems {
+            if let cell = imageGrid.cellForItem(at: indexPath) as? EditImageCell {
+                let gridIndex = allGridImages.count - indexPath.row - 1
+                allGridImages[gridIndex].visible = !cell.visibleButton.isSelected
+            }
         }
     }
     
@@ -205,12 +205,12 @@ class EditProfileVC: UIViewController, UIImagePickerControllerDelegate, UINaviga
             let profileVC = delegate as! ProfileChanger
             profileVC.changeDisplayName(displayNameTextField.text!)
             profileVC.changeUsername(usernameTextField.text!)
+            updateVisibleImagesArray()
             if selectedImage != nil {
                 profileVC.changePicture(selectedImage!)
                 allGridImages.append(ProfileGridImage(selectedImage!))
             }
             self.navigationController?.popViewController(animated: true)
-            updateVisibleImagesArray()
         }
         errorMessage = ""
     }

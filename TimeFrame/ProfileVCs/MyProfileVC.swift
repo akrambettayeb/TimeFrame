@@ -85,6 +85,10 @@ class MyProfileVC: UIViewController, ProfileChanger, UICollectionViewDataSource,
         return cell
     }
     
+    // Action for the cell the user clicks on
+//    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+//    }
+    
     // Sets minimum spacing between cells
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
         return 2.0
@@ -122,6 +126,13 @@ class MyProfileVC: UIViewController, ProfileChanger, UICollectionViewDataSource,
            let nextVC = segue.destination as? QRProfileVC {
             nextVC.profilePic = myProfileImage.image
             nextVC.username = usernameLabel.text!
+        } else if segue.identifier == "segueToViewImage",
+           let nextVC = segue.destination as? ViewImageVC {
+            if let indexPaths = imageGrid.indexPathsForSelectedItems {
+                let gridIndex = visibleGridImages.count - indexPaths[0].row - 1
+                nextVC.cellImage = visibleGridImages[gridIndex].image
+                imageGrid.deselectItem(at: indexPaths[0], animated: false)
+            }
         }
     }
     
