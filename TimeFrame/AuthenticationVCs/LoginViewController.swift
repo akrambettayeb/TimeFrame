@@ -62,5 +62,11 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         self.view.endEditing(true)
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        emailTextField.text = ""
+        passwordTextField.text = ""
+        errorMessageLabel.isHidden = true
+    }
+    
 }
 

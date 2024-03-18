@@ -117,4 +117,13 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.view.endEditing(true)
     }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        emailTextField.text = ""
+        usernameTextField.text = ""
+        firstNameTextField.text = ""
+        lastNameTextField.text = ""
+        passwordTextField.text = ""
+        confirmPasswordTextField.text = ""
+    }
 }

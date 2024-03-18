@@ -170,6 +170,7 @@ TimeFrames</string>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="countTimeFrameButton" destination="xOn-v1-NBV" id="1HB-RG-40r"/>
                         <outlet property="displayNameLabel" destination="QEX-sc-chJ" id="hHj-jR-90H"/>
                         <outlet property="imageGrid" destination="ZFP-gg-DZ2" id="4AJ-vD-9Ru"/>
                         <outlet property="myProfileImage" destination="FIF-V8-GZB" id="FNn-Zs-zpi"/>
