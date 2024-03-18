@@ -158,13 +158,13 @@ TimeFrames</string>
                         <barButtonItem key="leftBarButtonItem" title="Item" image="qrcode" catalog="system" id="qLV-oD-fw2">
                             <color key="tintColor" name="TabBarPurple"/>
                             <connections>
-                                <segue destination="Dfe-lK-aGe" kind="show" id="aHb-NI-hBb"/>
+                                <segue destination="Dfe-lK-aGe" kind="show" identifier="segueToQR" id="aHb-NI-hBb"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="Item" image="pencil" catalog="system" id="71j-vf-owT">
                             <color key="tintColor" name="TabBarPurple"/>
                             <connections>
-                                <segue destination="76z-Lw-Tp6" kind="show" identifier="EditProfileSegue" id="wWA-wd-7Tc"/>
+                                <segue destination="76z-Lw-Tp6" kind="show" identifier="segueToEditProfile" id="wWA-wd-7Tc"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -190,22 +190,28 @@ TimeFrames</string>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Hhx-nE-qW7">
-                                <rect key="frame" x="71" y="299" width="250" height="289"/>
+                                <rect key="frame" x="33" y="165" width="324" height="334"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" name="TabBarPurple"/>
                                 <color key="tintColor" name="TabBarPurple"/>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="@firstnamelastname" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fOB-MW-1lc">
-                                <rect key="frame" x="126" y="544" width="141" height="18"/>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="t9u-Db-mxD">
+                                <rect key="frame" x="88" y="235" width="216" height="216"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="person.crop.circle.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="m06-47-wzT">
+                                <rect key="frame" x="128" y="90" width="135" height="135"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="tintColor" name="TabBarPurple"/>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="@firstnamelastname" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fOB-MW-1lc">
+                                <rect key="frame" x="125" y="463" width="141" height="18"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="t9u-Db-mxD">
-                                <rect key="frame" x="96" y="326" width="200" height="200"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </imageView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="Pf1-GZ-jRj"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -213,7 +219,9 @@ TimeFrames</string>
                     <navigationItem key="navigationItem" id="3le-j7-VId"/>
                     <connections>
                         <outlet property="backgroundImageView" destination="Hhx-nE-qW7" id="g6E-E0-XEy"/>
+                        <outlet property="profilePicture" destination="m06-47-wzT" id="kaA-MR-pTU"/>
                         <outlet property="qrImageView" destination="t9u-Db-mxD" id="c14-jZ-cus"/>
+                        <outlet property="usernameLabel" destination="fOB-MW-1lc" id="BTw-9R-cxd"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qxz-Md-LRH" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

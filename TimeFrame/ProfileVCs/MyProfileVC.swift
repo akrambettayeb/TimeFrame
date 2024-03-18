@@ -94,12 +94,16 @@ class MyProfileVC: UIViewController, ProfileChanger, UICollectionViewDataSource,
     
     // Passes profile data to Edit Profile screen
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "EditProfileSegue",
+        if segue.identifier == "segueToEditProfile",
            let nextVC = segue.destination as? EditProfileVC {
             nextVC.delegate = self
             nextVC.prevDisplayName = displayNameLabel.text!
             nextVC.prevUsername = usernameLabel.text!
             nextVC.prevPicture = myProfileImage.image
+        } else if segue.identifier == "segueToQR",
+           let nextVC = segue.destination as? QRProfileVC {
+            nextVC.profilePic = myProfileImage.image
+            nextVC.username = usernameLabel.text!
         }
     }
 
