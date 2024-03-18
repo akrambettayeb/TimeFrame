@@ -13,12 +13,18 @@ import CoreImage.CIFilterBuiltins
 class QRProfileVC: UIViewController {
 
     @IBOutlet weak var qrImageView: UIImageView!
+    @IBOutlet weak var backgroundImageView: UIImageView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setCustomBackImage()
-        let qrCode = generateQRCode("timeframeapp://username=katezhang")
-        qrImageView.image = qrCode
+        backgroundImageView.layer.cornerRadius = 8
+        backgroundImageView.layer.masksToBounds = true
+        qrImageView.image = generateQRCode("timeframeapp://username=katezhang")
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        qrImageView.image = generateQRCode("timeframeapp://username=katezhang")
     }
     
     func generateQRCode(_ url: String) -> UIImage? {
@@ -32,7 +38,26 @@ class QRProfileVC: UIViewController {
         
         let transformScale = CGAffineTransform(scaleX: 20.0, y: 20.0)
         let scaledQRImage = qrCodeImage.transformed(by: transformScale)
-        return UIImage(ciImage: scaledQRImage)
+        
+        guard let colorFilter = CIFilter(name: "CIFalseColor") else {
+            return UIImage(ciImage: scaledQRImage)
+        }
+        colorFilter.setValue(scaledQRImage, forKey: "inputImage")
+        
+        // Transparent background of QR code image
+        colorFilter.setValue(CIColor(red: 1, green: 1, blue: 1, alpha: 0), forKey: "inputColor1")
+        
+        // Sets QR color white if user is in dark mode, else black
+        if self.traitCollection.userInterfaceStyle == .dark {
+            colorFilter.setValue(CIColor(red: 1, green: 1, blue: 1), forKey: "inputColor0")
+        } else {
+            colorFilter.setValue(CIColor(red: 0, green: 0, blue: 0), forKey: "inputColor0")
+        }
+        guard let coloredImage = colorFilter.outputImage else {
+            return UIImage(ciImage: scaledQRImage)
+        }
+        
+        return UIImage(ciImage: coloredImage)
     }
 
 }
