@@ -58,7 +58,7 @@
         <!--Home Screen View Controller-->
         <scene sceneID="s0d-6b-0kx">
             <objects>
-                <viewController id="Y6W-OH-hqX" customClass="HomeScreenViewController" sceneMemberID="viewController">
+                <viewController id="Y6W-OH-hqX" customClass="HomeScreenViewController" customModule="TimeFrame" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="5EZ-qb-Rvc">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -114,23 +114,14 @@
         <!--Album View Controller-->
         <scene sceneID="dkt-89-WII">
             <objects>
-                <viewController id="UN4-qU-cef" customClass="AlbumViewController" sceneMemberID="viewController">
+                <viewController id="UN4-qU-cef" customClass="AlbumViewController" customModule="TimeFrame" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="s24-Fv-CLL">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <viewLayoutGuide key="safeArea" id="lCu-da-qel"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
-                    <navigationItem key="navigationItem" id="Pmd-HL-rXB">
-                        <rightBarButtonItems>
-                            <barButtonItem title="settings" id="F6q-zU-oFt">
-                                <color key="tintColor" name="TabBarPurple"/>
-                            </barButtonItem>
-                            <barButtonItem title="addNewItem" image="plus" catalog="system" id="Ra2-sw-UHx">
-                                <color key="tintColor" name="TabBarPurple"/>
-                            </barButtonItem>
-                        </rightBarButtonItems>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" id="Pmd-HL-rXB"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mdK-UU-qNz" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
