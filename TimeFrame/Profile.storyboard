@@ -189,8 +189,21 @@ TimeFrames</string>
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Hhx-nE-qW7">
+                                <rect key="frame" x="71" y="299" width="250" height="289"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" name="TabBarPurple"/>
+                                <color key="tintColor" name="TabBarPurple"/>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="@firstnamelastname" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fOB-MW-1lc">
+                                <rect key="frame" x="126" y="544" width="141" height="18"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="t9u-Db-mxD">
-                                <rect key="frame" x="76" y="306" width="240" height="240"/>
+                                <rect key="frame" x="96" y="326" width="200" height="200"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
                         </subviews>
@@ -199,12 +212,13 @@ TimeFrames</string>
                     </view>
                     <navigationItem key="navigationItem" id="3le-j7-VId"/>
                     <connections>
+                        <outlet property="backgroundImageView" destination="Hhx-nE-qW7" id="g6E-E0-XEy"/>
                         <outlet property="qrImageView" destination="t9u-Db-mxD" id="c14-jZ-cus"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qxz-Md-LRH" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="984" y="745"/>
+            <point key="canvasLocation" x="983.96946564885491" y="744.36619718309862"/>
         </scene>
         <!--Edit ProfileVC-->
         <scene sceneID="acu-be-emN">

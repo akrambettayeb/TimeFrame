@@ -45,10 +45,6 @@ class MyProfileVC: UIViewController, ProfileChanger, UICollectionViewDataSource,
         
         self.setGridSize(imageGrid)
         self.setProfileScrollHeight(scrollView, imageGrid)
-        
-        if self.traitCollection.userInterfaceStyle == .dark {
-            // do something
-        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
