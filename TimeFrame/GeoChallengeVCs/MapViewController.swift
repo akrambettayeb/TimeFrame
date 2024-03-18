@@ -11,6 +11,7 @@ import UIKit
 // TODO: need to fix nav controller back button (add self.dismiss) so that you dont keep adding things to stack when you are effectively going back
 // TODO: need to fix search bar
 // TODO: need to fix popover segues so they aren't modal and don't layer on the map screen when challenge is submitted.
+// TODO: need to implement photo stream.
 
 class MapViewController: UIViewController {
     override func viewDidLoad() {
