@@ -9,7 +9,7 @@ import UIKit
 import FirebaseAuth
 import FirebaseDatabase
 
-class RegisterViewController: UIViewController {
+class RegisterViewController: UIViewController, UITextFieldDelegate {
 
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var usernameTextField: UITextField!
@@ -24,6 +24,13 @@ class RegisterViewController: UIViewController {
         
         setCustomBackImage()
         errorMessageLabel.isHidden = true
+        
+        emailTextField.delegate = self
+        usernameTextField.delegate = self
+        firstNameTextField.delegate = self
+        lastNameTextField.delegate = self
+        passwordTextField.delegate = self
+        confirmPasswordTextField.delegate = self
     }
     
     @IBAction func registerButtonTapped(_ sender: UIButton) {
@@ -67,7 +74,6 @@ class RegisterViewController: UIViewController {
         }
     }
     
-    
     private func checkUsernameUnique(_ username: String, completion: @escaping (Bool) -> Void) {
         let usersRef = Database.database().reference().child("users")
         usersRef.queryOrdered(byChild: "username").queryEqual(toValue: username)
@@ -99,5 +105,16 @@ class RegisterViewController: UIViewController {
             self.performSegue(withIdentifier: "registerSegueToMainStoryboard", sender: self)
         }))
         self.present(successAlert, animated: true, completion: nil)
+    }
+    
+    // Called when 'return' key pressed
+    func textFieldShouldReturn(_ textField:UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
+    
+    // Called when the user clicks on the view outside of the UITextField
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
     }
 }
