@@ -178,6 +178,7 @@
 				3F08EC582BA5964F0065C923 /* AuthenticationVCs */,
 				3F1EAAE92B9697A00060218F /* SceneDelegate.swift */,
 				3F1EAAEB2B9697A00060218F /* ViewController.swift */,
+				B56D904D2BA58BF7008A435C /* ExtensionVC.swift */,
 				B50AF3402BA42BF300003743 /* ProfileVCs */,
 				3F08EC3C2BA1970A0065C923 /* Authentication.storyboard */,
 				3F1EAAED2B9697A00060218F /* Main.storyboard */,
@@ -218,7 +219,6 @@
 				B57132CA2BA6F33600695F1C /* QRProfileVC.swift */,
 				B52232F92BA7E1F500F229B0 /* ProfileGridImage.swift */,
 				B57132C82BA6743400695F1C /* EditImageCell.swift */,
-				B56D904D2BA58BF7008A435C /* ExtensionVC.swift */,
 			);
 			path = ProfileVCs;
 			sourceTree = "<group>";

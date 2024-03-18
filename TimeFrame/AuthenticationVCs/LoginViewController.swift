@@ -8,7 +8,7 @@
 import UIKit
 import FirebaseAuth
 
-class LoginViewController: UIViewController {
+class LoginViewController: UIViewController, UITextFieldDelegate {
 
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
@@ -20,6 +20,9 @@ class LoginViewController: UIViewController {
         super.viewDidLoad()
         setCustomBackImage()
         errorMessageLabel.isHidden = true
+        
+        emailTextField.delegate = self
+        passwordTextField.delegate = self
     }
     
     @IBAction func loginButtonTapped(_ sender: UIButton) {
@@ -46,6 +49,17 @@ class LoginViewController: UIViewController {
 
     @IBAction func forgotPasswordButtonTapped(_ sender: Any) {
         performSegue(withIdentifier: "forgotPasswordSeg", sender: self)
+    }
+    
+    // Called when 'return' key pressed
+    func textFieldShouldReturn(_ textField:UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
+        
+    // Called when the user clicks on the view outside of the UITextField
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
     }
     
 }

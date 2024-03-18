@@ -20,10 +20,6 @@ class EditImageCell: UICollectionViewCell {
     }
     
     @IBAction func visibleButtonPressed(_ sender: UIButton) {
-        if coloredImage == nil || grayImage == nil {
-            coloredImage = imageView.image
-            grayImage = grayscaleImage(imageView.image!)
-        }
         visibleButton.isSelected = !visibleButton.isSelected
         if visibleButton.isSelected {
             imageView.image = grayImage

@@ -71,7 +71,7 @@ extension UIViewController {
         // Perform the image request
         PHImageManager.default().requestImage(for: fetchResult.object(at: index) as PHAsset, targetSize: view.frame.size, contentMode: PHImageContentMode.aspectFill, options: requestOptions, resultHandler: { (image, _) in
             if let image = image {
-                allGridImages.append(ProfileGridImage(image))
+                allGridImages = [ProfileGridImage(image)] + allGridImages
             }
         })
     }
