@@ -345,7 +345,6 @@ TimeFrames</string>
                                         <state key="normal" title="Logout"/>
                                         <connections>
                                             <action selector="logoutPressed:" destination="76z-Lw-Tp6" eventType="touchUpInside" id="tPL-Pw-7FQ"/>
-                                            <segue destination="7u8-Wt-D8N" kind="presentation" identifier="segueToLogin" modalPresentationStyle="fullScreen" id="GjK-3c-YcX"/>
                                         </connections>
                                     </button>
                                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Q2e-Iu-Tk3">
@@ -435,16 +434,6 @@ TimeFrames</string>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="TtI-2R-cV2" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2105" y="-311"/>
-        </scene>
-        <!--LoginStoryboard-->
-        <scene sceneID="Ip5-vl-c98">
-            <objects>
-                <viewControllerPlaceholder storyboardName="Authentication" referencedIdentifier="LoginStoryboard" id="7u8-Wt-D8N" sceneMemberID="viewController">
-                    <navigationItem key="navigationItem" id="o9L-lx-a09"/>
-                </viewControllerPlaceholder>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="NV9-KK-7mV" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2837" y="-135"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="3wT-uR-Jfb">

@@ -177,7 +177,7 @@
         <!--Register View Controller-->
         <scene sceneID="Bvk-86-m4e">
             <objects>
-                <viewController id="6e2-eP-naE" customClass="RegisterViewController" customModule="TimeFrame" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="RegisterStoryboard" id="6e2-eP-naE" customClass="RegisterViewController" customModule="TimeFrame" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="yvH-Nt-OWG">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -492,7 +492,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="MTh-X7-DbS"/>
+        <segue reference="P9V-dl-a9F"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="0.89411771299999998" green="0.75686275960000005" blue="0.98431372640000003" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
     <resources>
