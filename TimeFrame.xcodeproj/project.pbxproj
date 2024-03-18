@@ -30,7 +30,9 @@
 		55A83AB82BA6AA9000895DFE /* PhotoStreamViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55A83AB72BA6AA9000895DFE /* PhotoStreamViewController.swift */; };
 		B50AF3422BA42C0800003743 /* MyProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B50AF3412BA42C0800003743 /* MyProfileVC.swift */; };
 		B50AF3442BA42C1400003743 /* EditProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B50AF3432BA42C1400003743 /* EditProfileVC.swift */; };
-		B56D904E2BA58BF7008A435C /* HideKeyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = B56D904D2BA58BF7008A435C /* HideKeyboard.swift */; };
+		B56D904E2BA58BF7008A435C /* ExtensionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B56D904D2BA58BF7008A435C /* ExtensionVC.swift */; };
+		B57132C92BA6743400695F1C /* EditImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B57132C82BA6743400695F1C /* EditImageCell.swift */; };
+		B57132CB2BA6F33600695F1C /* QRProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B57132CA2BA6F33600695F1C /* QRProfileVC.swift */; };
 		B5BB29772BA3E6C6005A2987 /* Home.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B5BB29762BA3E6C6005A2987 /* Home.storyboard */; };
 		B5BB29792BA3E714005A2987 /* Discover.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B5BB29782BA3E714005A2987 /* Discover.storyboard */; };
 		B5BB297B2BA3E726005A2987 /* GeoChallenge.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B5BB297A2BA3E726005A2987 /* GeoChallenge.storyboard */; };
@@ -63,7 +65,9 @@
 		55A83AB72BA6AA9000895DFE /* PhotoStreamViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoStreamViewController.swift; sourceTree = "<group>"; };
 		B50AF3412BA42C0800003743 /* MyProfileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyProfileVC.swift; sourceTree = "<group>"; };
 		B50AF3432BA42C1400003743 /* EditProfileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileVC.swift; sourceTree = "<group>"; };
-		B56D904D2BA58BF7008A435C /* HideKeyboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HideKeyboard.swift; sourceTree = "<group>"; };
+		B56D904D2BA58BF7008A435C /* ExtensionVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionVC.swift; sourceTree = "<group>"; };
+		B57132C82BA6743400695F1C /* EditImageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditImageCell.swift; sourceTree = "<group>"; };
+		B57132CA2BA6F33600695F1C /* QRProfileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRProfileVC.swift; sourceTree = "<group>"; };
 		B5BB29762BA3E6C6005A2987 /* Home.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Home.storyboard; sourceTree = "<group>"; };
 		B5BB29782BA3E714005A2987 /* Discover.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Discover.storyboard; sourceTree = "<group>"; };
 		B5BB297A2BA3E726005A2987 /* GeoChallenge.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = GeoChallenge.storyboard; sourceTree = "<group>"; };
@@ -152,7 +156,9 @@
 			children = (
 				B50AF3412BA42C0800003743 /* MyProfileVC.swift */,
 				B50AF3432BA42C1400003743 /* EditProfileVC.swift */,
-				B56D904D2BA58BF7008A435C /* HideKeyboard.swift */,
+				B57132CA2BA6F33600695F1C /* QRProfileVC.swift */,
+				B57132C82BA6743400695F1C /* EditImageCell.swift */,
+				B56D904D2BA58BF7008A435C /* ExtensionVC.swift */,
 			);
 			path = ProfileVCs;
 			sourceTree = "<group>";
@@ -233,14 +239,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B56D904E2BA58BF7008A435C /* ExtensionVC.swift in Sources */,
 				5520389C2BA62421000C5014 /* MapViewController.swift in Sources */,
-				B56D904E2BA58BF7008A435C /* HideKeyboard.swift in Sources */,
+				B56D904E2BA58BF7008A435C /* ExtensionVC.swift in Sources */,
 				5520389E2BA62DE3000C5014 /* AddInitialPhotoViewController.swift in Sources */,
 				3F1EAAF22B9697A00060218F /* TimeFrame.xcdatamodeld in Sources */,
 				3F08EC5D2BA5965E0065C923 /* ForgotPasswordViewController.swift in Sources */,
 				3F08EC5E2BA5965E0065C923 /* RegisterViewController.swift in Sources */,
 				5581CF882BA68C530096BB92 /* AddChallengeInfoViewController.swift in Sources */,
 				3F1EAAEC2B9697A00060218F /* ViewController.swift in Sources */,
+				B57132C92BA6743400695F1C /* EditImageCell.swift in Sources */,
 				552038A02BA62EF6000C5014 /* ChallengeInfoViewController.swift in Sources */,
 				B50AF3422BA42C0800003743 /* MyProfileVC.swift in Sources */,
 				3F1EAAE82B9697A00060218F /* AppDelegate.swift in Sources */,
@@ -248,6 +256,7 @@
 				55A83AB82BA6AA9000895DFE /* PhotoStreamViewController.swift in Sources */,
 				55A83AB62BA6AA5500895DFE /* ChallengeAlbumViewController.swift in Sources */,
 				3F1EAAE82B9697A00060218F /* AppDelegate.swift in Sources */,
+				B57132CB2BA6F33600695F1C /* QRProfileVC.swift in Sources */,
 				3F08EC392B985ED10065C923 /* SelfieViewController.swift in Sources */,
 				559596B12BA699F800972EB4 /* ViewTimeLapseViewController.swift in Sources */,
 				55A83AB42BA6A98400895DFE /* AddPhotoToChallengeViewController.swift in Sources */,
@@ -408,6 +417,8 @@
 				DEVELOPMENT_TEAM = 3H7MMR6433;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = TimeFrame/Info.plist;
+				INFOPLIST_KEY_NSCameraUsageDescription = "";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -437,6 +448,8 @@
 				DEVELOPMENT_TEAM = 3H7MMR6433;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = TimeFrame/Info.plist;
+				INFOPLIST_KEY_NSCameraUsageDescription = "";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
