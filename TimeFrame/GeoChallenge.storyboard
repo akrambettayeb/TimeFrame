@@ -110,7 +110,7 @@ Active Dates:          2/24/24 - 2/24/25</string>
                                     <color key="baseBackgroundColor" red="0.89411771299999998" green="0.75686275960000005" blue="0.98431372640000003" alpha="0.5" colorSpace="custom" customColorSpace="displayP3"/>
                                 </buttonConfiguration>
                                 <connections>
-                                    <segue destination="H6q-rD-csP" kind="custom" id="IUQ-DZ-4Ki"/>
+                                    <segue destination="vKo-9K-Tnx" kind="show" identifier="mapToTimeLapseSegue" id="IUQ-DZ-4Ki"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nSz-Og-jFy">
@@ -167,7 +167,7 @@ Active Dates:          2/24/24 - 2/24/25</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZDT-e7-Hrv" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1864" y="-4"/>
+            <point key="canvasLocation" x="1862.5954198473282" y="-4.2253521126760569"/>
         </scene>
         <!--Challenge Album View Controller-->
         <scene sceneID="gLm-MS-JBp">
@@ -275,7 +275,7 @@ Active Dates:          2/24/24 - 2/24/25</string>
             <objects>
                 <viewController id="H6q-rD-csP" customClass="ViewTimeLapseViewController" customModule="TimeFrame" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="pup-KM-7dI">
-                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="TimeLapsePlaceholder" translatesAutoresizingMaskIntoConstraints="NO" id="yJy-Ua-ygk">
@@ -331,6 +331,9 @@ Active Dates:          2/24/24 - 2/24/25</string>
                                     <color key="baseForegroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <color key="baseBackgroundColor" name="TabBarPurple"/>
                                 </buttonConfiguration>
+                                <connections>
+                                    <segue destination="ARb-O1-Pmu" kind="show" id="Sej-ux-abb"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XRf-Sh-ZX1">
                                 <rect key="frame" x="16" y="730" width="361" height="35"/>
@@ -350,7 +353,7 @@ Active Dates:          2/24/24 - 2/24/25</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="DEi-vh-yQ3" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1863" y="-790"/>
+            <point key="canvasLocation" x="2788.5496183206105" y="-790.14084507042253"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="uvK-a0-tLb">
@@ -588,7 +591,7 @@ Active Dates:          2/24/24 - 2/24/25</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ia6-4O-w7i" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2866" y="-790"/>
+            <point key="canvasLocation" x="3791.6030534351144" y="-790.14084507042253"/>
         </scene>
         <!--Add Photo To Challenge View Controller-->
         <scene sceneID="ndf-9Z-chh">
@@ -664,12 +667,32 @@ Active Dates:          2/24/24 - 2/24/25</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fs4-oh-vjo" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3851" y="-790"/>
+            <point key="canvasLocation" x="4776.3358778625952" y="-790.14084507042253"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="mWS-Vl-YWg">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="vKo-9K-Tnx" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationItem key="navigationItem" id="LGp-FG-KqJ"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="TtX-Yz-MXM">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="56"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="H6q-rD-csP" kind="relationship" relationship="rootViewController" id="lSg-CS-R82"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="AZ2-Ae-Cft" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1861.8320610687022" y="-790.14084507042253"/>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="NLZ-7y-xQ4"/>
+        <segue reference="ieK-Dd-M64"/>
         <segue reference="hrH-Aa-obT"/>
+        <segue reference="Sej-ux-abb"/>
         <segue reference="ATF-vW-GXh"/>
     </inferredMetricsTieBreakers>
     <resources>
