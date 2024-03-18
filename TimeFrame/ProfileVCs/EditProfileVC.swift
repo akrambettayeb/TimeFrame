@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import FirebaseAuth
 
 class EditProfileVC: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     
@@ -222,10 +223,22 @@ class EditProfileVC: UIViewController, UIImagePickerControllerDelegate, UINaviga
             preferredStyle: .alert
         )
         controller.addAction(UIAlertAction(title: "Cancel", style: .cancel))
-        controller.addAction(UIAlertAction(title: "Logout", style: .default))
+        controller.addAction(UIAlertAction(title: "Logout", style: .default) { _ in
+            do {
+                try Auth.auth().signOut()
+                // Perform segue to login screen after logging out
+                self.performSegue(withIdentifier: "segueToLogin", sender: nil)
+            } catch let signOutError as NSError {
+                let errorController = UIAlertController(
+                    title: "Error",
+                    message: "There was an error signing out: \(signOutError)",
+                    preferredStyle: .alert
+                )
+                errorController.addAction(UIAlertAction(title: "OK", style: .default))
+                self.present(errorController, animated: true)
+            }
+        })
         present(controller, animated: true)
-        
-        // TODO: firebase stuff
     }
     
     // Displays an alert controller requiring the user to enter password to confirm deletion
