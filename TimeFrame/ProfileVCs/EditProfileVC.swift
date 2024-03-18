@@ -72,17 +72,21 @@ class EditProfileVC: UIViewController, UIImagePickerControllerDelegate, UINaviga
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 15
+        return allGridImages.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = imageGrid.dequeueReusableCell(withReuseIdentifier: imageCellID, for: indexPath) as! EditImageCell
-        cell.imageView.image = prevPicture
+//        print("cell \(indexPath.row)\n")
+        let gridIndex = allGridImages.count - indexPath.row - 1
+        cell.imageView.image = allGridImages[gridIndex].image
+        cell.visibleButton.isSelected = !allGridImages[gridIndex].visible
         cell.visibleButton.setImage(UIImage(systemName: "eye.fill"), for: .normal)
         cell.visibleButton.setImage(UIImage(systemName: "eye.slash"), for: .selected)
         var config = UIButton.Configuration.plain()
         config.baseBackgroundColor = .clear
         cell.visibleButton.configuration = config
+//        allGridImages[gridIndex].visible = !cell.visibleButton.isSelected
         return cell
     }
 
@@ -161,6 +165,15 @@ class EditProfileVC: UIViewController, UIImagePickerControllerDelegate, UINaviga
         }
     }
     
+    func updateVisibleImagesArray() {
+        var i = 0
+        for cell in imageGrid.visibleCells as! [EditImageCell] {
+            var gridIndex = allGridImages.count - i - 1
+            allGridImages[gridIndex].visible = !cell.visibleButton.isSelected
+            i += 1
+        }
+    }
+    
     // Checks if text fields are valid, displays error message if invalid and saves profile changes if valid
     @IBAction func saveButtonPressed(_ sender: Any) {
         let displayName = displayNameTextField.text!
@@ -188,9 +201,10 @@ class EditProfileVC: UIViewController, UIImagePickerControllerDelegate, UINaviga
             profileVC.changeUsername(usernameTextField.text!)
             if selectedImage != nil {
                 profileVC.changePicture(selectedImage!)
-                profileVC.changeCellImage(selectedImage!)
+                allGridImages.append(ProfileGridImage(selectedImage!))
             }
             self.navigationController?.popViewController(animated: true)
+            updateVisibleImagesArray()
         }
         errorMessage = ""
     }

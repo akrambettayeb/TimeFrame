@@ -58,6 +58,7 @@
 		55A83AB82BA6AA9000895DFE /* PhotoStreamViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55A83AB72BA6AA9000895DFE /* PhotoStreamViewController.swift */; };
 		B50AF3422BA42C0800003743 /* MyProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B50AF3412BA42C0800003743 /* MyProfileVC.swift */; };
 		B50AF3442BA42C1400003743 /* EditProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B50AF3432BA42C1400003743 /* EditProfileVC.swift */; };
+		B52232FA2BA7E1F500F229B0 /* ProfileGridImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = B52232F92BA7E1F500F229B0 /* ProfileGridImage.swift */; };
 		B56D904E2BA58BF7008A435C /* ExtensionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B56D904D2BA58BF7008A435C /* ExtensionVC.swift */; };
 		B57132C92BA6743400695F1C /* EditImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B57132C82BA6743400695F1C /* EditImageCell.swift */; };
 		B57132CB2BA6F33600695F1C /* QRProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B57132CA2BA6F33600695F1C /* QRProfileVC.swift */; };
@@ -94,6 +95,7 @@
 		55A83AB72BA6AA9000895DFE /* PhotoStreamViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoStreamViewController.swift; sourceTree = "<group>"; };
 		B50AF3412BA42C0800003743 /* MyProfileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyProfileVC.swift; sourceTree = "<group>"; };
 		B50AF3432BA42C1400003743 /* EditProfileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileVC.swift; sourceTree = "<group>"; };
+		B52232F92BA7E1F500F229B0 /* ProfileGridImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileGridImage.swift; sourceTree = "<group>"; };
 		B56D904D2BA58BF7008A435C /* ExtensionVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionVC.swift; sourceTree = "<group>"; };
 		B57132C82BA6743400695F1C /* EditImageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditImageCell.swift; sourceTree = "<group>"; };
 		B57132CA2BA6F33600695F1C /* QRProfileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRProfileVC.swift; sourceTree = "<group>"; };
@@ -214,6 +216,7 @@
 				B50AF3412BA42C0800003743 /* MyProfileVC.swift */,
 				B50AF3432BA42C1400003743 /* EditProfileVC.swift */,
 				B57132CA2BA6F33600695F1C /* QRProfileVC.swift */,
+				B52232F92BA7E1F500F229B0 /* ProfileGridImage.swift */,
 				B57132C82BA6743400695F1C /* EditImageCell.swift */,
 				B56D904D2BA58BF7008A435C /* ExtensionVC.swift */,
 			);
@@ -347,6 +350,7 @@
 				55A83AB62BA6AA5500895DFE /* ChallengeAlbumViewController.swift in Sources */,
 				3F1EAAE82B9697A00060218F /* AppDelegate.swift in Sources */,
 				B57132CB2BA6F33600695F1C /* QRProfileVC.swift in Sources */,
+				B52232FA2BA7E1F500F229B0 /* ProfileGridImage.swift in Sources */,
 				3F08EC392B985ED10065C923 /* SelfieViewController.swift in Sources */,
 				559596B12BA699F800972EB4 /* ViewTimeLapseViewController.swift in Sources */,
 				55A83AB42BA6A98400895DFE /* AddPhotoToChallengeViewController.swift in Sources */,
