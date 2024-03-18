@@ -9,6 +9,8 @@ import UIKit
 
 class PhotoStreamViewController: UIViewController {
 
+    @IBOutlet weak var photoStreamTableView: UITableView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
