@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="22505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="9dc-oc-rme">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="9dc-oc-rme">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22504"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22684"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -23,6 +23,7 @@
                         <segue destination="aUX-95-qXa" kind="relationship" relationship="viewControllers" id="65a-Ai-psd"/>
                         <segue destination="Qwu-fe-g6g" kind="relationship" relationship="viewControllers" id="w0d-7z-zLO"/>
                         <segue destination="3sd-xP-9px" kind="relationship" relationship="viewControllers" id="Dk8-o4-JpF"/>
+                        <segue destination="V6m-di-dnz" kind="relationship" relationship="viewControllers" id="v32-Q9-R48"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Dxd-fi-GGB" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -68,6 +69,16 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Mq7-Hl-cIK" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="833" y="-12"/>
+        </scene>
+        <!--CreateGIFStoryboard-->
+        <scene sceneID="36A-VG-5DT">
+            <objects>
+                <viewControllerPlaceholder storyboardName="CreateGIF" referencedIdentifier="CreateGIFStoryboard" id="V6m-di-dnz" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Item" id="RII-nq-34b"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="BqY-ue-ICB" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="833" y="94"/>
         </scene>
     </scenes>
     <resources>
