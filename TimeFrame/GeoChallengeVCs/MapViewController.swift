@@ -7,6 +7,12 @@
 
 import UIKit
 
+// TODO: add hide keyboard
+// TODO: need to fix nav controller back button (add self.dismiss) so that you dont keep adding things to stack when you are effectively going back
+// TODO: need to fix search bar
+// TODO: need to fix popover segues so they aren't modal and don't layer on the map screen when challenge is submitted.
+// TODO: need to implement photo stream.
+
 class MapViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -16,13 +22,14 @@ class MapViewController: UIViewController {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        // Present popover for existing challenge location.
         segue.destination.preferredContentSize = CGSize(width: 250, height: 300)
         if let presentationController = segue.destination.popoverPresentationController {
             presentationController.delegate = self
         }
     }
 
-} //TODO: add hide keyboard
+}
 
 extension MapViewController: UIPopoverPresentationControllerDelegate {
     func adaptivePresentationStyle(for controller: UIPresentationController, traitCollection: UITraitCollection) -> UIModalPresentationStyle {

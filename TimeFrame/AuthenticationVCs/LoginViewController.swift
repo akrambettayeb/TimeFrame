@@ -23,6 +23,15 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         
         emailTextField.delegate = self
         passwordTextField.delegate = self
+        
+        Auth.auth().addStateDidChangeListener() {
+            (auth, user) in
+            if user != nil {
+                self.performSegue(withIdentifier: "loginSegueToMainStoryboard", sender: nil)
+                self.emailTextField.text = nil
+                self.passwordTextField.text = nil
+            }
+        }
     }
     
     @IBAction func loginButtonTapped(_ sender: UIButton) {
@@ -60,6 +69,12 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     // Called when the user clicks on the view outside of the UITextField
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.view.endEditing(true)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        emailTextField.text = ""
+        passwordTextField.text = ""
+        errorMessageLabel.isHidden = true
     }
     
 }
