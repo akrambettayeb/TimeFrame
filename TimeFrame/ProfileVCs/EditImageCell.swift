@@ -4,6 +4,9 @@
 //
 //  Created by Kate Zhang on 3/16/24.
 //
+// Project: TimeFrame
+// EID: kz4696
+// Course: CS371L
 
 import UIKit
 

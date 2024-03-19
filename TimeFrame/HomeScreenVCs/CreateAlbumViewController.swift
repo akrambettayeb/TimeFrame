@@ -4,6 +4,10 @@
 //
 //  Created by Brandon Ling on 3/18/24.
 //
+// Project: TimeFrame
+// EID: bml2426
+// Course: CS371L
+
 
 import UIKit
 import FirebaseAuth

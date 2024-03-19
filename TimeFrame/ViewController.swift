@@ -4,6 +4,9 @@
 //
 //  Created by Akram Bettayeb on 3/4/24.
 //
+// Project: TimeFrame
+// EID: aab4889
+// Course: CS371L
 
 import UIKit
 
