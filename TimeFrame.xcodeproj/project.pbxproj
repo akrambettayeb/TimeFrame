@@ -56,10 +56,6 @@
 		55A83AB42BA6A98400895DFE /* AddPhotoToChallengeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55A83AB32BA6A98400895DFE /* AddPhotoToChallengeViewController.swift */; };
 		55A83AB62BA6AA5500895DFE /* ChallengeAlbumViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55A83AB52BA6AA5500895DFE /* ChallengeAlbumViewController.swift */; };
 		55A83AB82BA6AA9000895DFE /* PhotoStreamViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55A83AB72BA6AA9000895DFE /* PhotoStreamViewController.swift */; };
-		AC3ADF8B2BA91A570063B76F /* Home.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AC3ADF8A2BA91A570063B76F /* Home.storyboard */; };
-		AC3ADF8F2BA91B110063B76F /* HomeScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC3ADF8E2BA91B110063B76F /* HomeScreenViewController.swift */; };
-		AC3ADF912BA91B1E0063B76F /* CreateAlbumViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC3ADF902BA91B1E0063B76F /* CreateAlbumViewController.swift */; };
-		AC3ADF932BA91B360063B76F /* AlbumViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC3ADF922BA91B360063B76F /* AlbumViewController.swift */; };
 		AC999AFE2BA8C5F9006DBDFC /* HomeScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC999AFD2BA8C5F9006DBDFC /* HomeScreenViewController.swift */; };
 		AC999B002BA8C810006DBDFC /* CreateAlbumViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC999AFF2BA8C810006DBDFC /* CreateAlbumViewController.swift */; };
 		AC999B022BA8CB12006DBDFC /* AlbumViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC999B012BA8CB12006DBDFC /* AlbumViewController.swift */; };
@@ -101,10 +97,6 @@
 		55A83AB32BA6A98400895DFE /* AddPhotoToChallengeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPhotoToChallengeViewController.swift; sourceTree = "<group>"; };
 		55A83AB52BA6AA5500895DFE /* ChallengeAlbumViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeAlbumViewController.swift; sourceTree = "<group>"; };
 		55A83AB72BA6AA9000895DFE /* PhotoStreamViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoStreamViewController.swift; sourceTree = "<group>"; };
-		AC3ADF8A2BA91A570063B76F /* Home.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Home.storyboard; path = ../../fixhome/TimeFrame/TimeFrame/Home.storyboard; sourceTree = "<group>"; };
-		AC3ADF8E2BA91B110063B76F /* HomeScreenViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HomeScreenViewController.swift; path = ../../../fixhome/TimeFrame/TimeFrame/HomeScreenVCs/HomeScreenViewController.swift; sourceTree = "<group>"; };
-		AC3ADF902BA91B1E0063B76F /* CreateAlbumViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CreateAlbumViewController.swift; path = ../../../fixhome/TimeFrame/TimeFrame/HomeScreenVCs/CreateAlbumViewController.swift; sourceTree = "<group>"; };
-		AC3ADF922BA91B360063B76F /* AlbumViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AlbumViewController.swift; path = ../../../fixhome/TimeFrame/TimeFrame/HomeScreenVCs/AlbumViewController.swift; sourceTree = "<group>"; };
 		AC999AFD2BA8C5F9006DBDFC /* HomeScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeScreenViewController.swift; sourceTree = "<group>"; };
 		AC999AFF2BA8C810006DBDFC /* CreateAlbumViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateAlbumViewController.swift; sourceTree = "<group>"; };
 		AC999B012BA8CB12006DBDFC /* AlbumViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumViewController.swift; sourceTree = "<group>"; };
@@ -200,7 +192,6 @@
 				3F08EC3C2BA1970A0065C923 /* Authentication.storyboard */,
 				3F1EAAED2B9697A00060218F /* Main.storyboard */,
 				B5BB29762BA3E6C6005A2987 /* Home.storyboard */,
-				AC3ADF8A2BA91A570063B76F /* Home.storyboard */,
 				B5BB29782BA3E714005A2987 /* Discover.storyboard */,
 				B5BB297A2BA3E726005A2987 /* GeoChallenge.storyboard */,
 				B5BB297C2BA3E736005A2987 /* Profile.storyboard */,
@@ -233,11 +224,8 @@
 			isa = PBXGroup;
 			children = (
 				AC999AFD2BA8C5F9006DBDFC /* HomeScreenViewController.swift */,
-				AC3ADF8E2BA91B110063B76F /* HomeScreenViewController.swift */,
 				AC999AFF2BA8C810006DBDFC /* CreateAlbumViewController.swift */,
-				AC3ADF902BA91B1E0063B76F /* CreateAlbumViewController.swift */,
 				AC999B012BA8CB12006DBDFC /* AlbumViewController.swift */,
-				AC3ADF922BA91B360063B76F /* AlbumViewController.swift */,
 			);
 			path = HomeScreenVCs;
 			sourceTree = "<group>";
@@ -346,7 +334,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				3F08EC3D2BA1970A0065C923 /* Authentication.storyboard in Resources */,
-				AC3ADF8B2BA91A570063B76F /* Home.storyboard in Resources */,
 				3F1EAAF72B9697A10060218F /* LaunchScreen.storyboard in Resources */,
 				3F08EC602BA6B81A0065C923 /* GoogleService-Info.plist in Resources */,
 				3F1EAAF42B9697A10060218F /* Assets.xcassets in Resources */,
@@ -369,11 +356,9 @@
 				5520389C2BA62421000C5014 /* MapViewController.swift in Sources */,
 				B56D904E2BA58BF7008A435C /* ExtensionVC.swift in Sources */,
 				5520389E2BA62DE3000C5014 /* AddInitialPhotoViewController.swift in Sources */,
-				AC3ADF932BA91B360063B76F /* AlbumViewController.swift in Sources */,
 				3F1EAAF22B9697A00060218F /* TimeFrame.xcdatamodeld in Sources */,
 				3F08EC5D2BA5965E0065C923 /* ForgotPasswordViewController.swift in Sources */,
 				3F08EC5E2BA5965E0065C923 /* RegisterViewController.swift in Sources */,
-				AC3ADF912BA91B1E0063B76F /* CreateAlbumViewController.swift in Sources */,
 				5581CF882BA68C530096BB92 /* AddChallengeInfoViewController.swift in Sources */,
 				3F1EAAEC2B9697A00060218F /* ViewController.swift in Sources */,
 				AC999B002BA8C810006DBDFC /* CreateAlbumViewController.swift in Sources */,
@@ -396,7 +381,6 @@
 				3F08EC5C2BA5965E0065C923 /* LoginViewController.swift in Sources */,
 				3F1EAAEA2B9697A00060218F /* SceneDelegate.swift in Sources */,
 				55A83AB22BA6A5CB00895DFE /* ChallengeCameraViewController.swift in Sources */,
-				AC3ADF8F2BA91B110063B76F /* HomeScreenViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
