@@ -110,7 +110,7 @@ Active Dates:          2/24/24 - 2/24/25</string>
                                     <color key="baseBackgroundColor" red="0.89411771299999998" green="0.75686275960000005" blue="0.98431372640000003" alpha="0.5" colorSpace="custom" customColorSpace="displayP3"/>
                                 </buttonConfiguration>
                                 <connections>
-                                    <segue destination="vKo-9K-Tnx" kind="show" identifier="mapToTimeLapseSegue" id="IUQ-DZ-4Ki"/>
+                                    <segue destination="vKo-9K-Tnx" kind="presentation" identifier="mapToTimeLapseSegue" modalPresentationStyle="fullScreen" id="IUQ-DZ-4Ki"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nSz-Og-jFy">
@@ -130,7 +130,7 @@ Active Dates:          2/24/24 - 2/24/25</string>
                                     <color key="baseBackgroundColor" red="0.89411771299999998" green="0.75686275960000005" blue="0.98431372640000003" alpha="0.5" colorSpace="custom" customColorSpace="displayP3"/>
                                 </buttonConfiguration>
                                 <connections>
-                                    <segue destination="4Rq-2M-Oof" kind="show" id="wr1-13-XQl"/>
+                                    <segue destination="4Rq-2M-Oof" kind="presentation" modalPresentationStyle="fullScreen" id="wr1-13-XQl"/>
                                 </connections>
                             </button>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="InitialImagePlaceholder" translatesAutoresizingMaskIntoConstraints="NO" id="RNC-Oi-Xl7">
@@ -154,7 +154,7 @@ Active Dates:          2/24/24 - 2/24/25</string>
                                     <color key="baseBackgroundColor" red="0.89411771299999998" green="0.75686275960000005" blue="0.98431372640000003" alpha="0.5" colorSpace="custom" customColorSpace="displayP3"/>
                                 </buttonConfiguration>
                                 <connections>
-                                    <segue destination="ARb-O1-Pmu" kind="show" id="9zB-pD-sgf"/>
+                                    <segue destination="ARb-O1-Pmu" kind="presentation" modalPresentationStyle="fullScreen" id="9zB-pD-sgf"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -174,7 +174,7 @@ Active Dates:          2/24/24 - 2/24/25</string>
             <objects>
                 <viewController id="ARb-O1-Pmu" customClass="ChallengeAlbumViewController" customModule="TimeFrame" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="YtH-up-i5z">
-                        <rect key="frame" x="0.0" y="0.0" width="393" height="842"/>
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="WeH-4U-ams">
@@ -275,7 +275,7 @@ Active Dates:          2/24/24 - 2/24/25</string>
             <objects>
                 <viewController id="H6q-rD-csP" customClass="ViewTimeLapseViewController" customModule="TimeFrame" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="pup-KM-7dI">
-                        <rect key="frame" x="0.0" y="0.0" width="393" height="842"/>
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="TimeLapsePlaceholder" translatesAutoresizingMaskIntoConstraints="NO" id="yJy-Ua-ygk">
@@ -527,7 +527,7 @@ Active Dates:          2/24/24 - 2/24/25</string>
             <objects>
                 <viewController id="4Rq-2M-Oof" customClass="AddInitialPhotoViewController" customModule="TimeFrame" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="NbX-62-lub">
-                        <rect key="frame" x="0.0" y="0.0" width="393" height="842"/>
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="CameraPlaceholder" translatesAutoresizingMaskIntoConstraints="NO" id="vBY-7F-lle">
@@ -676,7 +676,7 @@ Active Dates:          2/24/24 - 2/24/25</string>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" id="LGp-FG-KqJ"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="TtX-Yz-MXM">
-                        <rect key="frame" x="0.0" y="0.0" width="393" height="56"/>
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
