@@ -31,6 +31,8 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
         lastNameTextField.delegate = self
         passwordTextField.delegate = self
         confirmPasswordTextField.delegate = self
+        passwordTextField.textContentType = .oneTimeCode
+        confirmPasswordTextField.textContentType = .oneTimeCode
     }
     
     @IBAction func registerButtonTapped(_ sender: UIButton) {
@@ -41,6 +43,22 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
               let password = passwordTextField.text, !password.isEmpty,
               let confirmPassword = confirmPasswordTextField.text, !confirmPassword.isEmpty else {
             errorMessageLabel.text = "Please fill in all fields."
+            errorMessageLabel.isHidden = false
+            return
+        }
+                
+        // username length check
+        if username.count > 30 {
+            errorMessageLabel.text = "Username must be less than 30 characters."
+            errorMessageLabel.isHidden = false
+            return
+        }
+        
+        // username character check
+        let usernameRegex = "^[a-zA-Z0-9._]+$"
+        let usernameTest = NSPredicate(format: "SELF MATCHES %@", usernameRegex)
+        if !usernameTest.evaluate(with: username) {
+            errorMessageLabel.text = "Username must contain only letters, numbers, periods, and underscores."
             errorMessageLabel.isHidden = false
             return
         }
