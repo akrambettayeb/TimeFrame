@@ -16,3 +16,4 @@ build/
 *.xccheckout
 xcuserdata/
 *.xcuserstate
+TimeFrame.xcodeproj/project.xcworkspace/xcshareddata/swiftpm/Package.resolved
