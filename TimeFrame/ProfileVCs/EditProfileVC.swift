@@ -50,8 +50,8 @@ class EditProfileVC: UIViewController, UIImagePickerControllerDelegate, UINaviga
         usernameTextField.text = prevUsername
         profilePicture.image = prevPicture
         
-        // TODO: remove temporary text
-        emailTextField.text = prevUsername + "@gmail.com"
+        // use auth current user's email
+        emailTextField.text = Auth.auth().currentUser?.email
         passwordTextField.text = prevUsername.uppercased() + "@12345"
         
         // Needed to dismiss software keyboard
