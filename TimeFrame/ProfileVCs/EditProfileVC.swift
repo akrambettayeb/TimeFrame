@@ -11,6 +11,7 @@
 import UIKit
 import FirebaseAuth
 import FirebaseDatabase
+import FirebaseFirestore
 
 class EditProfileVC: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     
@@ -263,7 +264,18 @@ class EditProfileVC: UIViewController, UIImagePickerControllerDelegate, UINaviga
         controller.addAction(UIAlertAction(title: "Confirm", style: .destructive))
         present(controller, animated: true)
         
-        // TODO: check that correct password is entered
+        // check that correct password is entered
+        let password = controller.textFields![0].text!
+        let user = Auth.auth().currentUser
+        let credential = EmailAuthProvider.credential(withEmail: user!.email!, password: password)
+        user?.reauthenticate(with: credential) { (result, error) in
+            if let error = error {
+                self.errorAlert("Error reauthenticating user: \(error)")
+            } else {
+                
+            }
+        }
+
     }
     
     @IBAction func deleteAccountPressed(_ sender: Any) {
@@ -273,28 +285,66 @@ class EditProfileVC: UIViewController, UIImagePickerControllerDelegate, UINaviga
             preferredStyle: .alert
         )
         controller.addAction(UIAlertAction(title: "Cancel", style: .cancel))
-        controller.addAction(UIAlertAction(title: "Delete", 
-                                           style: .destructive) { _ in
+        controller.addAction(UIAlertAction(title: "Delete", style: .destructive) { _ in
 //            self.verifyDeleteAccount()
-            do {
-                let user = Auth.auth().currentUser
-                user?.delete() { error in
-                    if let error = error {
-                        self.errorAlert("Error deleting account: \(error)")
-                    }
-                }
-                let usersRef = Database.database().reference().child("username")
-                usersRef.queryOrdered(byChild: "username").queryEqual(toValue: user?.uid).observeSingleEvent(of: .value, with: { snapshot in
-                    if let userSnapshot = snapshot.children.allObjects.first as? DataSnapshot {
-                        userSnapshot.ref.removeValue()
-                    }
-                })
-                self.view.window?.rootViewController?.dismiss(animated: true, completion: nil)
-                self.view.window?.rootViewController?.dismiss(animated: true, completion: nil)
-            }
+            self.deleteAccount()
         })
         present(controller, animated: true)
     }
+    
+    func deleteAccount() {
+        guard let user = Auth.auth().currentUser else { return }
+        let uid = user.uid
+        // Recursively delete the data in uid's document from the 'users' subcollection from Firestore
+        let firestore = Firestore.firestore()
+        let userDocRef = firestore.collection("users").document(uid)
+        // First, delete the documents in the subcollections
+        userDocRef.collection("albums").getDocuments { (querySnapshot, error) in
+            guard let querySnapshot = querySnapshot else {
+                self.errorAlert("Error fetching subcollection documents: \(error!)")
+                return
+            }
+            let group = DispatchGroup()
+            for document in querySnapshot.documents {
+                group.enter()
+                document.reference.delete { error in
+                    if let error = error {
+                        self.errorAlert("Error deleting subcollection document: \(error)")
+                    }
+                    group.leave()
+                }
+            }
+            group.notify(queue: .main) {
+                // All subcollection documents are deleted, now delete the user document
+                userDocRef.delete { error in
+                    if let error = error {
+                        self.errorAlert("Error deleting user document: \(error)")
+                    } else {
+                        // User document and subcollections successfully deleted
+                    }
+                }
+        }
+            // Delete data from Realtime Database
+            let realtimeRef = Database.database().reference().child("users").child(uid)
+            realtimeRef.removeValue { error, _ in
+                if let error = error {
+                    self.errorAlert("Error deleting account from Realtime Database: \(error)")
+                    return
+                }
+                
+                // Delete the user from Firebase Auth
+                user.delete { error in
+                    if let error = error {
+                        self.errorAlert("Error deleting account: \(error)")
+                    } else {
+                        self.view.window?.rootViewController?.dismiss(animated: true, completion: nil)
+                        self.view.window?.rootViewController?.dismiss(animated: true, completion: nil)
+                    }
+                }
+            }
+        }
+    }
+    
     
     // Called when 'return' key pressed
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {

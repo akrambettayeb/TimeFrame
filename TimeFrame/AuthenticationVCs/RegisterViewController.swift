@@ -24,7 +24,6 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         setCustomBackImage()
         errorMessageLabel.isHidden = true
         
@@ -126,6 +125,7 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
             self.performSegue(withIdentifier: "registerSegueToMainStoryboard", sender: self)
         }))
         self.present(successAlert, animated: true, completion: nil)
+        
     }
     
     // Called when 'return' key pressed
@@ -140,11 +140,13 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        emailTextField.text = ""
-        usernameTextField.text = ""
-        firstNameTextField.text = ""
-        lastNameTextField.text = ""
-        passwordTextField.text = ""
-        confirmPasswordTextField.text = ""
+        if segue.identifier == "registerSegueToMainStoryboard" {
+            emailTextField.text = ""
+            usernameTextField.text = ""
+            firstNameTextField.text = ""
+            lastNameTextField.text = ""
+            passwordTextField.text = ""
+            confirmPasswordTextField.text = ""
+        }
     }
 }

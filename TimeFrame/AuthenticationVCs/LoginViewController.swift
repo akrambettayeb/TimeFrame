@@ -26,16 +26,20 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         
         emailTextField.delegate = self
         passwordTextField.delegate = self
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
         
-        Auth.auth().addStateDidChangeListener() {
-            (auth, user) in
-            if user != nil {
+        Auth.auth().addStateDidChangeListener { (auth, user) in
+            if user != nil && self.isViewLoaded && self.view.window != nil {
                 self.performSegue(withIdentifier: "loginSegueToMainStoryboard", sender: nil)
-                self.emailTextField.text = nil
-                self.passwordTextField.text = nil
+                self.emailTextField.text = ""
+                self.passwordTextField.text = ""
             }
         }
     }
+
     
     @IBAction func loginButtonTapped(_ sender: UIButton) {
         guard let email = emailTextField.text, !email.isEmpty,
