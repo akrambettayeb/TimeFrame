@@ -11,11 +11,9 @@
 import UIKit
 
 class AddPhotoToChallengeViewController: UIViewController {
-
     override func viewDidLoad() {
         super.viewDidLoad()
 
         setCustomBackImage()
     }
-    
 }
