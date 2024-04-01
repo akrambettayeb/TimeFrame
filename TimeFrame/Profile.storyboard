@@ -10,6 +10,16 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
+        <!--GIFStoryboard-->
+        <scene sceneID="NW1-GH-rZt">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="zoE-aa-gay" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <viewControllerPlaceholder storyboardName="ImagesToGIF" referencedIdentifier="GIFStoryboard" id="hom-UO-LuV" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="pX5-nW-abC"/>
+                </viewControllerPlaceholder>
+            </objects>
+            <point key="canvasLocation" x="1657" y="-2"/>
+        </scene>
         <!--My Profile-->
         <scene sceneID="s0d-6b-0kx">
             <objects>
@@ -146,6 +156,9 @@ TimeFrames</string>
                                                 </fragment>
                                             </attributedString>
                                         </buttonConfiguration>
+                                        <connections>
+                                            <segue destination="hom-UO-LuV" kind="show" id="vva-iI-kN1"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <viewLayoutGuide key="contentLayoutGuide" id="JKZ-aP-3Qf"/>
@@ -433,7 +446,7 @@ TimeFrames</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="TtI-2R-cV2" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2105" y="-311"/>
+            <point key="canvasLocation" x="2111" y="-374"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="3wT-uR-Jfb">

@@ -66,6 +66,8 @@
 		B56D904E2BA58BF7008A435C /* ExtensionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B56D904D2BA58BF7008A435C /* ExtensionVC.swift */; };
 		B57132C92BA6743400695F1C /* EditImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B57132C82BA6743400695F1C /* EditImageCell.swift */; };
 		B57132CB2BA6F33600695F1C /* QRProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B57132CA2BA6F33600695F1C /* QRProfileVC.swift */; };
+		B5B73D482BBA956400BA1BA3 /* ImagesToGIF.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B5B73D472BBA956400BA1BA3 /* ImagesToGIF.storyboard */; };
+		B5B73D4D2BBA967A00BA1BA3 /* ViewTimeFrameVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5B73D4C2BBA967A00BA1BA3 /* ViewTimeFrameVC.swift */; };
 		B5BB29772BA3E6C6005A2987 /* Home.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B5BB29762BA3E6C6005A2987 /* Home.storyboard */; };
 		B5BB29792BA3E714005A2987 /* Discover.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B5BB29782BA3E714005A2987 /* Discover.storyboard */; };
 		B5BB297B2BA3E726005A2987 /* GeoChallenge.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B5BB297A2BA3E726005A2987 /* GeoChallenge.storyboard */; };
@@ -107,6 +109,8 @@
 		B56D904D2BA58BF7008A435C /* ExtensionVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionVC.swift; sourceTree = "<group>"; };
 		B57132C82BA6743400695F1C /* EditImageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditImageCell.swift; sourceTree = "<group>"; };
 		B57132CA2BA6F33600695F1C /* QRProfileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRProfileVC.swift; sourceTree = "<group>"; };
+		B5B73D472BBA956400BA1BA3 /* ImagesToGIF.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ImagesToGIF.storyboard; sourceTree = "<group>"; };
+		B5B73D4C2BBA967A00BA1BA3 /* ViewTimeFrameVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewTimeFrameVC.swift; sourceTree = "<group>"; };
 		B5BB29762BA3E6C6005A2987 /* Home.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Home.storyboard; sourceTree = "<group>"; };
 		B5BB29782BA3E714005A2987 /* Discover.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Discover.storyboard; sourceTree = "<group>"; };
 		B5BB297A2BA3E726005A2987 /* GeoChallenge.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = GeoChallenge.storyboard; sourceTree = "<group>"; };
@@ -189,12 +193,14 @@
 				3F1EAAEB2B9697A00060218F /* ViewController.swift */,
 				B56D904D2BA58BF7008A435C /* ExtensionVC.swift */,
 				B50AF3402BA42BF300003743 /* ProfileVCs */,
+				B5B73D4B2BBA961200BA1BA3 /* GifVCs */,
 				3F08EC3C2BA1970A0065C923 /* Authentication.storyboard */,
 				3F1EAAED2B9697A00060218F /* Main.storyboard */,
 				B5BB29762BA3E6C6005A2987 /* Home.storyboard */,
 				B5BB29782BA3E714005A2987 /* Discover.storyboard */,
 				B5BB297A2BA3E726005A2987 /* GeoChallenge.storyboard */,
 				B5BB297C2BA3E736005A2987 /* Profile.storyboard */,
+				B5B73D472BBA956400BA1BA3 /* ImagesToGIF.storyboard */,
 				3F1EAAF32B9697A10060218F /* Assets.xcassets */,
 				3F1EAAF52B9697A10060218F /* LaunchScreen.storyboard */,
 				3F1EAAF82B9697A10060218F /* Info.plist */,
@@ -241,6 +247,14 @@
 				B57132C82BA6743400695F1C /* EditImageCell.swift */,
 			);
 			path = ProfileVCs;
+			sourceTree = "<group>";
+		};
+		B5B73D4B2BBA961200BA1BA3 /* GifVCs */ = {
+			isa = PBXGroup;
+			children = (
+				B5B73D4C2BBA967A00BA1BA3 /* ViewTimeFrameVC.swift */,
+			);
+			path = GifVCs;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -335,6 +349,7 @@
 			files = (
 				3F08EC3D2BA1970A0065C923 /* Authentication.storyboard in Resources */,
 				3F1EAAF72B9697A10060218F /* LaunchScreen.storyboard in Resources */,
+				B5B73D482BBA956400BA1BA3 /* ImagesToGIF.storyboard in Resources */,
 				3F08EC602BA6B81A0065C923 /* GoogleService-Info.plist in Resources */,
 				3F1EAAF42B9697A10060218F /* Assets.xcassets in Resources */,
 				B5BB297B2BA3E726005A2987 /* GeoChallenge.storyboard in Resources */,
@@ -370,6 +385,7 @@
 				55A83AB82BA6AA9000895DFE /* PhotoStreamViewController.swift in Sources */,
 				B522331C2BA8D5ED00F229B0 /* ViewImageVC.swift in Sources */,
 				55A83AB62BA6AA5500895DFE /* ChallengeAlbumViewController.swift in Sources */,
+				B5B73D4D2BBA967A00BA1BA3 /* ViewTimeFrameVC.swift in Sources */,
 				3F1EAAE82B9697A00060218F /* AppDelegate.swift in Sources */,
 				AC999AFE2BA8C5F9006DBDFC /* HomeScreenViewController.swift in Sources */,
 				B57132CB2BA6F33600695F1C /* QRProfileVC.swift in Sources */,
@@ -532,9 +548,10 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = BTWT7LR4Y9;
+				DEVELOPMENT_TEAM = 3H7MMR6433;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = TimeFrame/Info.plist;
+				INFOPLIST_KEY_NSAppleMusicUsageDescription = "";
 				INFOPLIST_KEY_NSCameraUsageDescription = "";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -548,7 +565,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = Group1.TimeFrame;
+				PRODUCT_BUNDLE_IDENTIFIER = "Group1-1.TimeFrame";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -563,9 +580,10 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = BTWT7LR4Y9;
+				DEVELOPMENT_TEAM = 3H7MMR6433;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = TimeFrame/Info.plist;
+				INFOPLIST_KEY_NSAppleMusicUsageDescription = "";
 				INFOPLIST_KEY_NSCameraUsageDescription = "";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -579,7 +597,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = Group1.TimeFrame;
+				PRODUCT_BUNDLE_IDENTIFIER = "Group1-1.TimeFrame";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;

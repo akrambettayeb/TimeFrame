@@ -65,11 +65,14 @@ class MyProfileVC: UIViewController, ProfileChanger, UICollectionViewDataSource,
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        let prevCount = visibleGridImages.count
         populateVisibleImagesArray()
-        imageGrid.reloadData()
-        updateCountButton()
-        self.setGridSize(imageGrid)
-        self.setProfileScrollHeight(scrollView, imageGrid)
+        if prevCount != visibleGridImages.count {
+            imageGrid.reloadData()
+            updateCountButton()
+            self.setGridSize(imageGrid)
+            self.setProfileScrollHeight(scrollView, imageGrid)
+        }
     }
     
     // Applies button attributes from the Storyboard
