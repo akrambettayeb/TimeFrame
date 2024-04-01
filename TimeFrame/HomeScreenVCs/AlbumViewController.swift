@@ -12,20 +12,19 @@
 import UIKit
 import FirebaseFirestore
 import FirebaseStorage
+import FirebaseAuth
 
 class AlbumViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
     
-    var isMenuOpen = false
-    var imagePicker = UIImagePickerController()
-    var photoUrls = [String]() // Array to hold URLs of photos in Firestore
     var collectionView: UICollectionView!
+    var albumName: String?
+    var photoUrls = [String]()
     let reuseIdentifier = "PhotoCell"
     let db = Firestore.firestore()
     let storage = Storage.storage()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-            
         // Set up navigation bar
         title = "Album"
         let addPhotoMenuItem = UIAction(title: "Add Photo", image: UIImage(systemName: "plus")) { _ in
@@ -69,56 +68,94 @@ class AlbumViewController: UIViewController, UIImagePickerControllerDelegate, UI
         
         }
     
-    func fetchPhotoUrls() {
-        let db = Firestore.firestore()
-        let photosCollection = db.collection("photos")
-        
-        photosCollection.getDocuments { (snapshot, error) in
-            if let error = error {
-                print("Error fetching photos: \(error.localizedDescription)")
-            } else {
+    func fetchPhotoUrls(for albumName: String) {
+            guard let userID = Auth.auth().currentUser?.uid else {
+                print("User not authenticated")
+                return
+            }
+            
+            db.collection("users").document(userID).collection("albums").document(albumName).collection("photos").getDocuments { [weak self] (snapshot, error) in
+                if let error = error {
+                    print("Error fetching photos: \(error.localizedDescription)")
+                    return
+                }
+                
                 guard let documents = snapshot?.documents else { return }
                 
                 for document in documents {
                     if let photoUrl = document.data()["url"] as? String {
-                        // Append photo URL to photoUrls array
-                        self.photoUrls.append(photoUrl)
+                        self?.photoUrls.append(photoUrl)
                     }
                 }
                     
-                // Reload collection view to display fetched photos
                 DispatchQueue.main.async {
-                    self.collectionView.reloadData()
+                    self?.collectionView.reloadData()
                 }
             }
         }
-    }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return photoUrls.count
-    }
+            return photoUrls.count
+        }
         
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath)
-        // You can set up cell content here, like downloading and displaying images from URLs using Kingfisher or another library
-        // For simplicity, we'll just set the cell's background color to black
-        cell.backgroundColor = .black
-        return cell
-    }
-        
-    // MARK: - Collection View Delegate
-        
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        // Handle cell selection
-    }
+        func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath)
+            // Configure cell
+            let imageView = UIImageView(frame: cell.bounds)
+            imageView.contentMode = .scaleAspectFill
+            imageView.clipsToBounds = true
+            let imageUrl = photoUrls[indexPath.item]
+            // You may want to use a library like Kingfisher to load images asynchronously
+            // For simplicity, we assume the image URL is valid and load synchronously
+            if let url = URL(string: imageUrl), let imageData = try? Data(contentsOf: url) {
+                imageView.image = UIImage(data: imageData)
+            }
+            cell.addSubview(imageView)
+            return cell
+        }
     
-    func addPhoto() {
-        // Handle Add Photo action
-        imagePicker.delegate = self
-        imagePicker.sourceType = .camera
-        imagePicker.allowsEditing = true
-        present(imagePicker, animated: true, completion: nil)
-    }
+    @objc func addPhoto() {
+            let imagePicker = UIImagePickerController()
+            imagePicker.delegate = self
+            imagePicker.sourceType = .camera
+            present(imagePicker, animated: true, completion: nil)
+        }
+        
+        func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+            if let image = info[.originalImage] as? UIImage {
+                uploadPhoto(image: image)
+            }
+            picker.dismiss(animated: true, completion: nil)
+        }
+    
+    func uploadPhoto(image: UIImage) {
+            guard let albumName = albumName,
+                  let imageData = image.jpegData(compressionQuality: 0.5) else {
+                print("Invalid album name or image data")
+                return
+            }
+            
+            guard let userID = Auth.auth().currentUser?.uid else {
+                print("User not authenticated")
+                return
+            }
+            
+            let photoFilename = "\(UUID().uuidString).jpg"
+            let storageRef = storage.reference().child("users").child(userID).child("albums").child(albumName).child(photoFilename)
+            
+            storageRef.putData(imageData, metadata: nil) { [weak self] (metadata, error) in
+                if let error = error {
+                    print("Error uploading image to Firebase Storage: \(error.localizedDescription)")
+                } else {
+                    storageRef.downloadURL { (url, error) in
+                        if let downloadURL = url?.absoluteString {
+                            // Save download URL to Firestore
+                            self?.saveImageUrlToFirestore(downloadURL: downloadURL, albumName: albumName)
+                        }
+                    }
+                }
+            }
+        }
         
     func createTimeframe() {
         // Handle Create Timeframe action
@@ -135,73 +172,91 @@ class AlbumViewController: UIViewController, UIImagePickerControllerDelegate, UI
         print("Delete Album")
     }
     
-    func showImagePicker(sourceType: UIImagePickerController.SourceType) {
-        imagePicker.delegate = self
-        imagePicker.sourceType = sourceType
-        imagePicker.allowsEditing = true
-        present(imagePicker, animated: true, completion: nil)
-    }
-    
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        if let image = info[.editedImage] as? UIImage {
-        // Use the captured photo
-        // Here you can save the image or use it as required
-        // You might want to present a confirmation dialog to the user before saving the image
-        // For now, we just dismiss the image picker
-        dismiss(animated: true, completion: nil)
-        }
-    }
-        
-    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
-        // User cancelled the image picker
-        dismiss(animated: true, completion: nil)
-    }
-    
-    func uploadImageToFirestore(image: UIImage) {
-        guard let imageData = image.jpegData(compressionQuality: 0.5) else {
-            print("Failed to convert image to data")
-            return
-        }
-        
-        let photoFilename = "\(UUID().uuidString).jpg"
-        let storageRef = storage.reference().child("photos").child(photoFilename)
-        
-        // Upload image data to Firebase Storage
-        storageRef.putData(imageData, metadata: nil) { (metadata, error) in
-            if let error = error {
-                print("Error uploading image to Firebase Storage: \(error.localizedDescription)")
+    func saveImageUrlToFirestore(downloadURL: String, albumName: String) {
+            guard let userID = Auth.auth().currentUser?.uid else {
+                print("User not authenticated")
                 return
             }
-                
-            // Get download URL for the uploaded image
-            storageRef.downloadURL { (url, error) in
+            
+            let photoData: [String: Any] = ["url": downloadURL]
+            db.collection("users").document(userID).collection("albums").document(albumName).collection("photos").addDocument(data: photoData) { [weak self] (error) in
                 if let error = error {
-                    print("Error getting download URL: \(error.localizedDescription)")
-                    return
-                }
-                
-                if let downloadURL = url?.absoluteString {
-                    // Save download URL to Firestore
-                    self.saveImageUrlToFirestore(downloadURL: downloadURL)
+                    print("Error adding document: \(error.localizedDescription)")
+                } else {
+                    print("Document added successfully")
+                    self?.photoUrls.append(downloadURL)
+                    self?.collectionView.reloadData()
                 }
             }
         }
-    }
     
-    func saveImageUrlToFirestore(downloadURL: String) {
-        let photosCollection = db.collection("photos")
-        
-        // Add photo URL to Firestore
-        photosCollection.addDocument(data: ["url": downloadURL]) { error in
-            if let error = error {
-                print("Error adding document: \(error.localizedDescription)")
-            } else {
-                print("Document added with ID: \(photosCollection.document().documentID)")
-                // Refresh the collection view after adding the new photo
-                self.fetchPhotoUrls()
-            }
-        }
-    }
+//    func showImagePicker(sourceType: UIImagePickerController.SourceType) {
+//        imagePicker.delegate = self
+//        imagePicker.sourceType = sourceType
+//        imagePicker.allowsEditing = true
+//        present(imagePicker, animated: true, completion: nil)
+//    }
+//    
+//    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+//        if let image = info[.editedImage] as? UIImage {
+//        // Use the captured photo
+//        // Here you can save the image or use it as required
+//        // You might want to present a confirmation dialog to the user before saving the image
+//        // For now, we just dismiss the image picker
+//        dismiss(animated: true, completion: nil)
+//        }
+//    }
+//        
+//    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+//        // User cancelled the image picker
+//        dismiss(animated: true, completion: nil)
+//    }
+//    
+//    func uploadImageToFirestore(image: UIImage) {
+//        guard let imageData = image.jpegData(compressionQuality: 0.5) else {
+//            print("Failed to convert image to data")
+//            return
+//        }
+//        
+//        let photoFilename = "\(UUID().uuidString).jpg"
+//        let storageRef = storage.reference().child("photos").child(photoFilename)
+//        
+//        // Upload image data to Firebase Storage
+//        storageRef.putData(imageData, metadata: nil) { (metadata, error) in
+//            if let error = error {
+//                print("Error uploading image to Firebase Storage: \(error.localizedDescription)")
+//                return
+//            }
+//                
+//            // Get download URL for the uploaded image
+//            storageRef.downloadURL { (url, error) in
+//                if let error = error {
+//                    print("Error getting download URL: \(error.localizedDescription)")
+//                    return
+//                }
+//                
+//                if let downloadURL = url?.absoluteString {
+//                    // Save download URL to Firestore
+//                    self.saveImageUrlToFirestore(downloadURL: downloadURL)
+//                }
+//            }
+//        }
+//    }
+//    
+//    func saveImageUrlToFirestore(downloadURL: String) {
+//        let photosCollection = db.collection("photos")
+//        
+//        // Add photo URL to Firestore
+//        photosCollection.addDocument(data: ["url": downloadURL]) { error in
+//            if let error = error {
+//                print("Error adding document: \(error.localizedDescription)")
+//            } else {
+//                print("Document added with ID: \(photosCollection.document().documentID)")
+//                // Refresh the collection view after adding the new photo
+//                self.fetchPhotoUrls()
+//            }
+//        }
+//    }
     
 }
 

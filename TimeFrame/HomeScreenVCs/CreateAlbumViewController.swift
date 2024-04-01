@@ -19,6 +19,7 @@ class CreateAlbumViewController: UIViewController {
     @IBOutlet weak var albumNameTextField: UITextField!
     
     private var db: Firestore!
+    var selectedAlbum: String? // Add property to hold selected album name
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -52,17 +53,22 @@ class CreateAlbumViewController: UIViewController {
                         self?.present(alert, animated: true)
                     } else {
                         print("Album created successfully!")
-                        let alert = UIAlertController(title: "Success", message: "Album created successfully!", preferredStyle: .alert)
-                        alert.addAction(UIAlertAction(title: "OK", style: .default) { _ in
-                            self?.performSegue(withIdentifier: "createToAlbumSeg", sender: nil)
-                        })
-                        self?.present(alert, animated: true)
+                        self?.selectedAlbum = albumName // Set selected album
+                        self?.performSegue(withIdentifier: "createToAlbumSeg", sender: nil)
                     }
                 }
             } else {
                 let alert = UIAlertController(title: "Album Exists", message: "An album with this name already exists. Please choose a different name.", preferredStyle: .alert)
                 alert.addAction(UIAlertAction(title: "OK", style: .default))
                 self?.present(alert, animated: true)
+            }
+        }
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "createToAlbumSeg" {
+            if let destinationVC = segue.destination as? AlbumViewController {
+                destinationVC.albumName = selectedAlbum // Pass selected album name to AlbumViewController
             }
         }
     }
