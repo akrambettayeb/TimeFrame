@@ -5,6 +5,11 @@
 //  Created by Kate Zhang on 4/1/24.
 //
 
+
+// TODO: Add comments!!
+
+// TODO: Add async threads to make things less laggy
+
 import UIKit
 import UniformTypeIdentifiers
 
@@ -50,15 +55,6 @@ class ViewTimeFrameVC: UIViewController {
         imageView.animationImages = headshotImages.reversed()
         imageView.animationDuration = 2.0
         imageView.startAnimating()
-        
-        // Playback options:
-        // Start and end photos (selected photos OR select all)
-        // Date in corner (dropdown): date, month, year
-        // Privacy (toggle): default is private, toggle for public
-        // Reversed (toggle)
-        // Favorite
-        // Playback speed (1x, 2x, 3x) OR frame rate (ex. 1-10, 15, 20, 30, 35, 40, 45, 50) FPS
-        // Save as video/GIF (instead of exporting as video/GIF)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
