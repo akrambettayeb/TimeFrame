@@ -62,10 +62,13 @@ class AlbumViewController: UIViewController, UIImagePickerControllerDelegate, UI
         collectionView.dataSource = self
         collectionView.delegate = self
         view.addSubview(collectionView)
+<<<<<<< Updated upstream
         
         // Fetch photo URLs from Firestore
         //fetchPhotoUrls()
         
+=======
+>>>>>>> Stashed changes
         }
     
     func fetchPhotoUrls(for albumName: String) {
@@ -173,13 +176,13 @@ class AlbumViewController: UIViewController, UIImagePickerControllerDelegate, UI
     }
     
     func saveImageUrlToFirestore(downloadURL: String, albumName: String) {
-            guard let userID = Auth.auth().currentUser?.uid else {
-                print("User not authenticated")
-                return
-            }
-            
-            let photoData: [String: Any] = ["url": downloadURL]
-            db.collection("users").document(userID).collection("albums").document(albumName).collection("photos").addDocument(data: photoData) { [weak self] (error) in
+        guard let userID = Auth.auth().currentUser?.uid else {
+            print("User not authenticated")
+            return
+        }
+         
+        let photoData: [String: Any] = ["url": downloadURL]
+        db.collection("users").document(userID).collection("albums").document(albumName).collection("photos").addDocument(data: photoData) { [weak self] (error) in
                 if let error = error {
                     print("Error adding document: \(error.localizedDescription)")
                 } else {
@@ -187,8 +190,8 @@ class AlbumViewController: UIViewController, UIImagePickerControllerDelegate, UI
                     self?.photoUrls.append(downloadURL)
                     self?.collectionView.reloadData()
                 }
-            }
         }
+<<<<<<< Updated upstream
     
 //    func showImagePicker(sourceType: UIImagePickerController.SourceType) {
 //        imagePicker.delegate = self
@@ -258,4 +261,7 @@ class AlbumViewController: UIViewController, UIImagePickerControllerDelegate, UI
 //        }
 //    }
     
+=======
+    }
+>>>>>>> Stashed changes
 }
