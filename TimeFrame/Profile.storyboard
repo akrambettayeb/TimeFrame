@@ -13,10 +13,10 @@
         <!--GIFStoryboard-->
         <scene sceneID="NW1-GH-rZt">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="zoE-aa-gay" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <viewControllerPlaceholder storyboardName="ImagesToGIF" referencedIdentifier="GIFStoryboard" id="hom-UO-LuV" sceneMemberID="viewController">
                     <navigationItem key="navigationItem" id="pX5-nW-abC"/>
                 </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="zoE-aa-gay" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1657" y="-2"/>
         </scene>

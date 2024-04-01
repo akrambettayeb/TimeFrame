@@ -26,7 +26,7 @@ class AlbumViewController: UIViewController, UIImagePickerControllerDelegate, UI
     override func viewDidLoad() {
         super.viewDidLoad()
         // Set up navigation bar
-        title = albumName
+        title = "Album"
         let addPhotoMenuItem = UIAction(title: "Add Photo", image: UIImage(systemName: "plus")) { _ in
             // Add Photo action
             self.addPhoto()
@@ -46,17 +46,10 @@ class AlbumViewController: UIViewController, UIImagePickerControllerDelegate, UI
             // Delete Album action
             self.deleteAlbum()
         }
-        
-        let selectPhotoMenuItem = UIAction(title: "Select Photo", image: UIImage(systemName: "photo")) { _ in
-                    self.selectPhotoFromLibrary()
-                }
             
-//        let menu = UIMenu(title: "Album Menu", children: [addPhotoMenuItem, createTimeframeMenuItem, renameAlbumMenuItem, deleteAlbumMenuItem])
-//        
-//        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Menu", image: UIImage(systemName: "ellipsis.circle"), primaryAction: nil, menu: menu)
+        let menu = UIMenu(title: "Album Menu", children: [addPhotoMenuItem, createTimeframeMenuItem, renameAlbumMenuItem, deleteAlbumMenuItem])
         
-        let menu = UIMenu(title: "Album Menu", children: [addPhotoMenuItem, createTimeframeMenuItem, renameAlbumMenuItem, deleteAlbumMenuItem, selectPhotoMenuItem])
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Menu", image: UIImage(systemName: "ellipsis.circle"), primaryAction: nil, menu: menu)
+            navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Menu", image: UIImage(systemName: "ellipsis.circle"), primaryAction: nil, menu: menu)
         
         let layout = UICollectionViewFlowLayout()
         layout.itemSize = CGSize(width: 100, height: 100)
@@ -73,20 +66,6 @@ class AlbumViewController: UIViewController, UIImagePickerControllerDelegate, UI
         // Fetch photo URLs from Firestore
         //fetchPhotoUrls()
         
-        }
-    
-    func selectPhotoFromLibrary() {
-            let imagePicker = UIImagePickerController()
-            imagePicker.delegate = self
-            imagePicker.sourceType = .photoLibrary
-            present(imagePicker, animated: true, completion: nil)
-        }
-    
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-            if let image = info[.originalImage] as? UIImage {
-                uploadPhoto(image: image)
-            }
-            picker.dismiss(animated: true, completion: nil)
         }
     
     func fetchPhotoUrls(for albumName: String) {
@@ -140,6 +119,13 @@ class AlbumViewController: UIViewController, UIImagePickerControllerDelegate, UI
             imagePicker.delegate = self
             imagePicker.sourceType = .camera
             present(imagePicker, animated: true, completion: nil)
+        }
+        
+        func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+            if let image = info[.originalImage] as? UIImage {
+                uploadPhoto(image: image)
+            }
+            picker.dismiss(animated: true, completion: nil)
         }
     
     func uploadPhoto(image: UIImage) {
@@ -204,6 +190,72 @@ class AlbumViewController: UIViewController, UIImagePickerControllerDelegate, UI
             }
         }
     
+//    func showImagePicker(sourceType: UIImagePickerController.SourceType) {
+//        imagePicker.delegate = self
+//        imagePicker.sourceType = sourceType
+//        imagePicker.allowsEditing = true
+//        present(imagePicker, animated: true, completion: nil)
+//    }
+//
+//    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+//        if let image = info[.editedImage] as? UIImage {
+//        // Use the captured photo
+//        // Here you can save the image or use it as required
+//        // You might want to present a confirmation dialog to the user before saving the image
+//        // For now, we just dismiss the image picker
+//        dismiss(animated: true, completion: nil)
+//        }
+//    }
+//
+//    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+//        // User cancelled the image picker
+//        dismiss(animated: true, completion: nil)
+//    }
+//
+//    func uploadImageToFirestore(image: UIImage) {
+//        guard let imageData = image.jpegData(compressionQuality: 0.5) else {
+//            print("Failed to convert image to data")
+//            return
+//        }
+//
+//        let photoFilename = "\(UUID().uuidString).jpg"
+//        let storageRef = storage.reference().child("photos").child(photoFilename)
+//
+//        // Upload image data to Firebase Storage
+//        storageRef.putData(imageData, metadata: nil) { (metadata, error) in
+//            if let error = error {
+//                print("Error uploading image to Firebase Storage: \(error.localizedDescription)")
+//                return
+//            }
+//
+//            // Get download URL for the uploaded image
+//            storageRef.downloadURL { (url, error) in
+//                if let error = error {
+//                    print("Error getting download URL: \(error.localizedDescription)")
+//                    return
+//                }
+//
+//                if let downloadURL = url?.absoluteString {
+//                    // Save download URL to Firestore
+//                    self.saveImageUrlToFirestore(downloadURL: downloadURL)
+//                }
+//            }
+//        }
+//    }
+//
+//    func saveImageUrlToFirestore(downloadURL: String) {
+//        let photosCollection = db.collection("photos")
+//
+//        // Add photo URL to Firestore
+//        photosCollection.addDocument(data: ["url": downloadURL]) { error in
+//            if let error = error {
+//                print("Error adding document: \(error.localizedDescription)")
+//            } else {
+//                print("Document added with ID: \(photosCollection.document().documentID)")
+//                // Refresh the collection view after adding the new photo
+//                self.fetchPhotoUrls()
+//            }
+//        }
+//    }
+    
 }
-
-
