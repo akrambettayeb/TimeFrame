@@ -48,6 +48,7 @@ class ViewTimeFrameVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.setCustomBackImage()
         
         for i in 1...4 {
             headshotImages.append(UIImage(named: "headshot\(i)")!)

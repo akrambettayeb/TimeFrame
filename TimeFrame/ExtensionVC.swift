@@ -42,6 +42,7 @@ extension UIViewController {
     // Set custom back button.
     func setCustomBackImage() {
         navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
+        navigationItem.backBarButtonItem?.tintColor = UIColor(named: "TabBarPurple")
         navigationController?.navigationBar.backIndicatorImage = UIImage(systemName: "arrow.backward")
         navigationController?.navigationBar.backIndicatorTransitionMaskImage = UIImage(systemName: "arrow.backward")
     }
