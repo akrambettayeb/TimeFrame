@@ -14,7 +14,7 @@ import FirebaseAuth
 import FirebaseFirestore
 import FirebaseStorage
 
-class CreateAlbumViewController: UIViewController {
+class CreateAlbumViewController: UIViewController, UITextFieldDelegate {
     
     @IBOutlet weak var albumNameTextField: UITextField!
     
@@ -23,6 +23,8 @@ class CreateAlbumViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.setCustomBackImage()
+        albumNameTextField.delegate = self
         
         db = Firestore.firestore()
     }
@@ -71,5 +73,16 @@ class CreateAlbumViewController: UIViewController {
                 destinationVC.albumName = selectedAlbum // Pass selected album name to AlbumViewController
             }
         }
+    }
+    
+    // Called when 'return' key pressed
+    func textFieldShouldReturn(_ textField:UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
+   
+    // Called when the user clicks on the view outside of the UITextField
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+       self.view.endEditing(true)
     }
 }

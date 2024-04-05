@@ -15,6 +15,7 @@ class AlbumVC: UIViewController, UIImagePickerControllerDelegate, UINavigationCo
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.setCustomBackImage()
         self.createMenu()
     }
     
@@ -29,6 +30,7 @@ class AlbumVC: UIViewController, UIImagePickerControllerDelegate, UINavigationCo
         }
         let menu = UIMenu(title: "Album Menu", children: [addPhotoItem, createTimeframeItem])
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Menu", image: UIImage(systemName: "ellipsis.circle"), primaryAction: nil, menu: menu)
+        navigationItem.rightBarButtonItem?.tintColor = UIColor(named: "TabBarPurple")
     }
     
     func addPhoto() {

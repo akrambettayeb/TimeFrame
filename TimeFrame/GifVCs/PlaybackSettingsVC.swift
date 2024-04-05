@@ -7,23 +7,34 @@
 
 import UIKit
 
-class PlaybackSettingsVC: UIViewController {
+class PlaybackSettingsVC: UIViewController, UITextFieldDelegate {
 
+    @IBOutlet weak var nameTextField: UITextField!
+    @IBOutlet weak var publicSwitch: UISwitch!
+    @IBOutlet weak var favoriteSwitch: UISwitch!
+    @IBOutlet weak var reversedSwitch: UISwitch!
+    @IBOutlet weak var generateTimeframeButton: UIButton!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        self.setCustomBackImage()
+        
+        nameTextField.delegate = self
+        publicSwitch.isOn = false
+        favoriteSwitch.isOn = false
+        reversedSwitch.isOn = false
+        generateTimeframeButton.layer.cornerRadius = 5
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    // Called when 'return' key pressed
+    func textFieldShouldReturn(_ textField:UITextField) -> Bool {
+       textField.resignFirstResponder()
+       return true
     }
-    */
+
+    // Called when the user clicks on the view outside of the UITextField
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+       self.view.endEditing(true)
+    }
 
 }
