@@ -10,6 +10,8 @@
 
 import UIKit
 import Photos
+import FirebaseAuth
+import FirebaseDatabase
 
 var allGridImages: [ProfileGridImage] = []
 var visibleGridImages: [ProfileGridImage] = []
@@ -65,6 +67,19 @@ class MyProfileVC: UIViewController, ProfileChanger, UICollectionViewDataSource,
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+        let userId = Auth.auth().currentUser?.uid
+        let usersRef = Database.database().reference().child("users")
+        usersRef.child(userId!).observeSingleEvent(of: .value) { (snapshot) in
+            let value = snapshot.value as? NSDictionary
+            let firstName = value?["firstName"] as? String ?? ""
+            let lastName = value?["lastName"] as? String ?? ""
+            self.displayNameLabel.text = "\(firstName) \(lastName)"
+            
+            let username = value?["username"] as? String ?? ""
+            self.usernameLabel.text = "@\(username)"
+        }
+        
         let prevCount = visibleGridImages.count
         populateVisibleImagesArray()
         if prevCount != visibleGridImages.count {
@@ -140,7 +155,8 @@ class MyProfileVC: UIViewController, ProfileChanger, UICollectionViewDataSource,
            let nextVC = segue.destination as? EditProfileVC {
             nextVC.delegate = self
             nextVC.prevDisplayName = displayNameLabel.text!
-            nextVC.prevUsername = usernameLabel.text!
+            // remove leading @ from username
+            nextVC.prevUsername = String(usernameLabel.text!.dropFirst())
             nextVC.prevPicture = myProfileImage.image
         } else if segue.identifier == "segueToQR",
            let nextVC = segue.destination as? QRProfileVC {
