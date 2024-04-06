@@ -53,7 +53,9 @@ class EditProfileVC: UIViewController, UIImagePickerControllerDelegate, UINaviga
         
         // use auth current user's email
         emailTextField.text = Auth.auth().currentUser?.email
-        passwordTextField.text = prevUsername.uppercased() + "@12345"
+        emailTextField.isEnabled = false
+        emailTextField.textColor = UIColor.lightGray
+        passwordTextField.text = ""
         
         // Needed to dismiss software keyboard
         displayNameTextField.delegate = self
@@ -177,6 +179,34 @@ class EditProfileVC: UIViewController, UIImagePickerControllerDelegate, UINaviga
         }
     }
     
+    func checkDisplayName(_ displayName: String) {
+        let nameArray = displayName.split(separator: " ")
+        if nameArray.count != 2 {
+            errorMessage = "Display name must be a first and last name"
+        }
+    }
+    
+    func checkUsername(_ username: String) {
+        // username length check
+        if username.count > 30 {
+            errorMessage = "Username must be less than 30 characters"
+        }
+        
+        // username character check
+        let usernameRegex = "^[a-zA-Z0-9._]+$"
+        let usernameTest = NSPredicate(format: "SELF MATCHES %@", usernameRegex)
+        if !usernameTest.evaluate(with: username) {
+            errorMessage = "Username must contain only letters, numbers, periods, and underscores"
+        }
+        
+        // unique username check
+        let usersRef = Database.database().reference().child("users")
+        usersRef.observeSingleEvent(of: .value, with: { snapshot in
+            if snapshot.hasChild(username) {
+                self.errorMessage = "Username is already taken"
+            }
+        })
+    }
     func updateVisibleImagesArray() {
         for indexPath in imageGrid.indexPathsForVisibleItems {
             if let cell = imageGrid.cellForItem(at: indexPath) as? EditImageCell {
@@ -195,7 +225,9 @@ class EditProfileVC: UIViewController, UIImagePickerControllerDelegate, UINaviga
         if (displayName.isEmpty || username.isEmpty || email.isEmpty || password.isEmpty) {
             errorMessage = "Text fields cannot be empty"
         } else if isValidEmail(email) {
-            checkPassword(password)
+            // checkPassword(password)
+            checkDisplayName(displayName)
+            checkUsername(username)
         }
         // Displays error message alert if any text field is invalid
         if errorMessage != "" {
@@ -212,6 +244,85 @@ class EditProfileVC: UIViewController, UIImagePickerControllerDelegate, UINaviga
             profileVC.changeDisplayName(displayNameTextField.text!)
             profileVC.changeUsername(usernameTextField.text!)
             updateVisibleImagesArray()
+            // update in Firebase Authentication
+            
+            let user = Auth.auth().currentUser
+
+            // if password is not different, proceed to reauthenticate then update password
+            if password != "" {
+                let controller = UIAlertController(
+                    title: "Confirm Password",
+                    message: "Please enter your old password to confirm changes",
+                    preferredStyle: .alert
+                )
+                controller.addTextField(configurationHandler: { textField in
+                    textField.placeholder = "Enter old password"
+                    textField.isSecureTextEntry = true // Make sure the password is not visible
+                })
+                controller.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+                controller.addAction(UIAlertAction(title: "Confirm", style: .default, handler: { [weak self] _ in
+                    // Grab the old password from the first textField in the alertController
+                    guard let oldPassword = controller.textFields?.first?.text, let email = user?.email else {
+                        return
+                    }
+                    let credential = EmailAuthProvider.credential(withEmail: email, password: oldPassword)
+                    user?.reauthenticate(with: credential, completion: { _, error in
+                        if let error = error {
+                            // Perform error handling on the main thread
+                            DispatchQueue.main.async {
+                                self?.errorAlert("Error reauthenticating: \(error.localizedDescription)")
+                            }
+                        } else {
+                            user?.updatePassword(to: password, completion: { error in
+                                if let error = error {
+                                    // Perform error handling on the main thread
+                                    DispatchQueue.main.async {
+                                        self?.errorAlert("Error updating password: \(error.localizedDescription)")
+                                    }
+                                } else {
+                                    let successController = UIAlertController(
+                                        title: "Success",
+                                        message: "Password updated",
+                                        preferredStyle: .alert
+                                    )
+                                    successController.addAction(UIAlertAction(title: "OK", style: .default, handler: { _ in
+                                        self?.dismiss(animated: true)
+                                    }))
+                                    DispatchQueue.main.async {
+                                        self?.present(successController, animated: true)
+                                    }
+                                }
+                            })
+                        }
+                    })
+                }))
+                present(controller, animated: true)
+            }
+            
+            // update in firebase database
+            
+            let userId = Auth.auth().currentUser!.uid
+            let usersRef = Database.database().reference().child("users")
+            
+            let nameParts = displayName.split(separator: " ").map(String.init)
+            let firstName = nameParts.first ?? ""
+            let lastName = nameParts.dropFirst().joined(separator: " ")
+            
+            let userDict = ["username": username,
+                            "firstName": firstName,
+                            "lastName": lastName]
+            usersRef.child(userId).setValue(userDict) { error, _ in
+                if let error = error {
+                    self.errorAlert("Error updating user: \(error)")
+                } else {
+                    let successController = UIAlertController(
+                        title: "Success",
+                        message: "Profile updated",
+                        preferredStyle: .alert
+                    )
+                }
+            }
+            
             if selectedImage != nil {
                 profileVC.changePicture(selectedImage!)
                 allGridImages.append(ProfileGridImage(selectedImage!))
