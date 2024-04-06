@@ -11,7 +11,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Map View Controller-->
+        <!--Search for Challenges-->
         <scene sceneID="s0d-6b-0kx">
             <objects>
                 <viewController id="Y6W-OH-hqX" customClass="MapViewController" customModule="TimeFrame" customModuleProvider="target" sceneMemberID="viewController">
@@ -33,7 +33,7 @@
                                     <preferredSymbolConfiguration key="preferredSymbolConfigurationForImage" configurationType="pointSize" pointSize="40" scale="large"/>
                                 </buttonConfiguration>
                                 <connections>
-                                    <segue destination="0Cg-03-Yuz" kind="popoverPresentation" popoverAnchorView="1i2-Bs-cNj" id="Axi-io-WXq">
+                                    <segue destination="0Cg-03-Yuz" kind="popoverPresentation" popoverAnchorView="1i2-Bs-cNj" id="ByT-eL-bjW">
                                         <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
                                     </segue>
                                 </connections>
@@ -63,7 +63,7 @@
                         <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
-                    <navigationItem key="navigationItem" id="CHU-Gh-fi1"/>
+                    <navigationItem key="navigationItem" title="Search for Challenges" id="CHU-Gh-fi1"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -110,7 +110,7 @@ Active Dates:          2/24/24 - 2/24/25</string>
                                     <color key="baseBackgroundColor" red="0.89411771299999998" green="0.75686275960000005" blue="0.98431372640000003" alpha="0.5" colorSpace="custom" customColorSpace="displayP3"/>
                                 </buttonConfiguration>
                                 <connections>
-                                    <segue destination="vKo-9K-Tnx" kind="presentation" identifier="mapToTimeLapseSegue" id="IUQ-DZ-4Ki"/>
+                                    <segue destination="H6q-rD-csP" kind="presentation" modalPresentationStyle="fullScreen" id="JfE-0z-fTJ"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nSz-Og-jFy">
@@ -130,7 +130,7 @@ Active Dates:          2/24/24 - 2/24/25</string>
                                     <color key="baseBackgroundColor" red="0.89411771299999998" green="0.75686275960000005" blue="0.98431372640000003" alpha="0.5" colorSpace="custom" customColorSpace="displayP3"/>
                                 </buttonConfiguration>
                                 <connections>
-                                    <segue destination="BbH-gT-j9X" kind="presentation" id="R5r-Ex-r16"/>
+                                    <segue destination="qUo-V8-TdR" kind="presentation" modalPresentationStyle="fullScreen" id="XSd-39-snz"/>
                                 </connections>
                             </button>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="InitialImagePlaceholder" translatesAutoresizingMaskIntoConstraints="NO" id="RNC-Oi-Xl7">
@@ -154,7 +154,7 @@ Active Dates:          2/24/24 - 2/24/25</string>
                                     <color key="baseBackgroundColor" red="0.89411771299999998" green="0.75686275960000005" blue="0.98431372640000003" alpha="0.5" colorSpace="custom" customColorSpace="displayP3"/>
                                 </buttonConfiguration>
                                 <connections>
-                                    <segue destination="FLQ-CS-Ixv" kind="presentation" id="RTi-iD-UDt"/>
+                                    <segue destination="ARb-O1-Pmu" kind="presentation" modalPresentationStyle="fullScreen" id="vCC-Ms-XSq"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -167,14 +167,14 @@ Active Dates:          2/24/24 - 2/24/25</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZDT-e7-Hrv" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1862.5954198473282" y="-4.2253521126760569"/>
+            <point key="canvasLocation" x="1864" y="-2"/>
         </scene>
         <!--Challenge Album View Controller-->
         <scene sceneID="gLm-MS-JBp">
             <objects>
                 <viewController id="ARb-O1-Pmu" customClass="ChallengeAlbumViewController" customModule="TimeFrame" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="YtH-up-i5z">
-                        <rect key="frame" x="0.0" y="0.0" width="393" height="842"/>
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="WeH-4U-ams">
@@ -202,7 +202,7 @@ Active Dates:          2/24/24 - 2/24/25</string>
                                             </subviews>
                                         </collectionViewCellContentView>
                                         <connections>
-                                            <segue destination="dPS-eK-K2b" kind="show" id="hhW-E0-TBl"/>
+                                            <segue destination="dPS-eK-K2b" kind="presentation" modalPresentationStyle="fullScreen" id="hhW-E0-TBl"/>
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
@@ -220,6 +220,18 @@ Active Dates:          2/24/24 - 2/24/25</string>
                                     <color key="baseForegroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <color key="baseBackgroundColor" name="TabBarPurple"/>
                                 </buttonConfiguration>
+                                <connections>
+                                    <segue destination="qUo-V8-TdR" kind="presentation" modalPresentationStyle="fullScreen" id="DpD-Ao-XCc"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tiw-NA-kIb">
+                                <rect key="frame" x="0.0" y="60" width="50" height="35"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" image="arrow.left" catalog="system"/>
+                                <connections>
+                                    <segue destination="H6q-rD-csP" kind="presentation" modalPresentationStyle="fullScreen" id="vvS-Ym-7c8"/>
+                                </connections>
                             </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="BFB-lL-cwB"/>
@@ -229,14 +241,14 @@ Active Dates:          2/24/24 - 2/24/25</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JPW-jf-noZ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="7532.06106870229" y="-1085.2112676056338"/>
+            <point key="canvasLocation" x="3876" y="-796"/>
         </scene>
         <!--Photo Stream View Controller-->
         <scene sceneID="Hrt-CS-few">
             <objects>
                 <viewController id="dPS-eK-K2b" customClass="PhotoStreamViewController" customModule="TimeFrame" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="tgn-f4-7JP">
-                        <rect key="frame" x="0.0" y="0.0" width="393" height="842"/>
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="zii-L9-jXA">
@@ -254,6 +266,15 @@ Active Dates:          2/24/24 - 2/24/25</string>
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="M6f-4y-I27">
+                                <rect key="frame" x="0.0" y="60" width="50" height="35"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" image="arrow.left" catalog="system"/>
+                                <connections>
+                                    <segue destination="ARb-O1-Pmu" kind="presentation" modalPresentationStyle="fullScreen" id="HMt-dj-vIH"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="mja-GG-sJh"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -265,14 +286,14 @@ Active Dates:          2/24/24 - 2/24/25</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="k5L-Nn-8zg" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="8451.1450381679388" y="-1085.2112676056338"/>
+            <point key="canvasLocation" x="4865" y="-796"/>
         </scene>
         <!--View Time Lapse View Controller-->
         <scene sceneID="8cM-gF-esm">
             <objects>
                 <viewController id="H6q-rD-csP" customClass="ViewTimeLapseViewController" customModule="TimeFrame" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="pup-KM-7dI">
-                        <rect key="frame" x="0.0" y="0.0" width="393" height="842"/>
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="TimeLapsePlaceholder" translatesAutoresizingMaskIntoConstraints="NO" id="yJy-Ua-ygk">
@@ -315,6 +336,9 @@ Active Dates:          2/24/24 - 2/24/25</string>
                                     <color key="baseForegroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <color key="baseBackgroundColor" name="TabBarPurple"/>
                                 </buttonConfiguration>
+                                <connections>
+                                    <segue destination="qUo-V8-TdR" kind="presentation" modalPresentationStyle="fullScreen" id="TVn-sY-3wM"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Z11-qI-xJs">
                                 <rect key="frame" x="16" y="687" width="361" height="35"/>
@@ -325,6 +349,9 @@ Active Dates:          2/24/24 - 2/24/25</string>
                                     <color key="baseForegroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <color key="baseBackgroundColor" name="TabBarPurple"/>
                                 </buttonConfiguration>
+                                <connections>
+                                    <segue destination="ARb-O1-Pmu" kind="presentation" modalPresentationStyle="fullScreen" id="Dec-gs-v5w"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XRf-Sh-ZX1">
                                 <rect key="frame" x="16" y="730" width="361" height="35"/>
@@ -336,6 +363,15 @@ Active Dates:          2/24/24 - 2/24/25</string>
                                     <color key="baseBackgroundColor" name="TabBarPurple"/>
                                 </buttonConfiguration>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mWH-t7-htp">
+                                <rect key="frame" x="0.0" y="60" width="50" height="35"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" image="arrow.left" catalog="system"/>
+                                <connections>
+                                    <segue destination="Y6W-OH-hqX" kind="presentation" modalPresentationStyle="fullScreen" id="Ycl-oA-73k"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="Gat-kS-0Qs"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -344,7 +380,7 @@ Active Dates:          2/24/24 - 2/24/25</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="DEi-vh-yQ3" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="984" y="-1085"/>
+            <point key="canvasLocation" x="1865" y="-796"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="uvK-a0-tLb">
@@ -364,7 +400,7 @@ Active Dates:          2/24/24 - 2/24/25</string>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bsH-c4-kMw" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="57.251908396946561" y="-2.1126760563380285"/>
+            <point key="canvasLocation" x="59" y="-2"/>
         </scene>
         <!--Add Initial Photo View Controller-->
         <scene sceneID="hID-ZT-hRo">
@@ -513,114 +549,26 @@ Active Dates:          2/24/24 - 2/24/25</string>
             </objects>
             <point key="canvasLocation" x="2866.4122137404579" y="726.76056338028172"/>
         </scene>
-        <!--Challenge Camera View Controller-->
-        <scene sceneID="QEE-v4-0sc">
-            <objects>
-                <viewController id="4Rq-2M-Oof" customClass="ChallengeCameraViewController" customModule="TimeFrame" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="NbX-62-lub">
-                        <rect key="frame" x="0.0" y="0.0" width="393" height="842"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VuF-2B-NAR">
-                                <rect key="frame" x="0.0" y="600" width="393" height="169"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" red="0.56900000569999998" green="0.32499998810000003" blue="0.69800001379999999" alpha="0.75" colorSpace="custom" customColorSpace="sRGB"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" fixedFrame="YES" image="circlebadge.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="9Jr-Tc-DFF">
-                                <rect key="frame" x="284" y="655" width="55" height="55"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="tintColor" red="0.78602561329999998" green="0.49852289189999999" blue="1" alpha="0.75" colorSpace="custom" customColorSpace="displayP3"/>
-                            </imageView>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" fixedFrame="YES" image="circlebadge.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="bkO-ri-2MZ">
-                                <rect key="frame" x="55" y="655" width="55" height="55"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="tintColor" red="0.78602561329999998" green="0.49852289189999999" blue="1" alpha="0.75" colorSpace="custom" customColorSpace="displayP3"/>
-                            </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FUS-ch-L50">
-                                <rect key="frame" x="282" y="663" width="59" height="38"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" image="arrow.triangle.2.circlepath" catalog="system">
-                                    <preferredSymbolConfiguration key="preferredSymbolConfigurationForImage" configurationType="pointSize" pointSize="20"/>
-                                </buttonConfiguration>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="plp-g0-7mH">
-                                <rect key="frame" x="149" y="641" width="95" height="95"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain">
-                                    <imageReference key="image" image="circle.inset.filled" catalog="system" symbolScale="default"/>
-                                    <preferredSymbolConfiguration key="preferredSymbolConfigurationForImage" configurationType="pointSize" pointSize="85"/>
-                                </buttonConfiguration>
-                                <connections>
-                                    <segue destination="qUo-V8-TdR" kind="show" id="WvM-kV-G4D"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3Ft-m5-CeG">
-                                <rect key="frame" x="55" y="664" width="55" height="38"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" image="gearshape.fill" catalog="system">
-                                    <preferredSymbolConfiguration key="preferredSymbolConfigurationForImage" configurationType="pointSize" pointSize="20"/>
-                                </buttonConfiguration>
-                            </button>
-                        </subviews>
-                        <viewLayoutGuide key="safeArea" id="TsT-Qd-51m"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                    </view>
-                    <navigationItem key="navigationItem" id="3F0-b3-Zjy"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Ia6-4O-w7i" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="3791.6030534351144" y="-1085.2112676056338"/>
-        </scene>
         <!--Add Photo To Challenge View Controller-->
         <scene sceneID="ndf-9Z-chh">
             <objects>
                 <viewController id="qUo-V8-TdR" customClass="AddPhotoToChallengeViewController" customModule="TimeFrame" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="XYU-pw-UM4">
-                        <rect key="frame" x="0.0" y="0.0" width="393" height="842"/>
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="InitialImagePlaceholder" translatesAutoresizingMaskIntoConstraints="NO" id="KXo-3T-BdZ">
-                                <rect key="frame" x="0.0" y="103" width="393" height="497"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </imageView>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rwJ-xX-28q">
-                                <rect key="frame" x="16" y="608" width="361" height="35"/>
+                                <rect key="frame" x="16" y="642" width="361" height="35"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="tintColor" name="AccentColor"/>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="filled" title="Retake Photo" titleAlignment="center">
-                                    <color key="baseForegroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                    <color key="baseBackgroundColor" name="TabBarPurple"/>
-                                </buttonConfiguration>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vuC-kb-hrj">
-                                <rect key="frame" x="16" y="651" width="361" height="35"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="tintColor" name="TabBarPurple"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="filled" title="Share Photo" titleAlignment="center">
                                     <color key="baseForegroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <color key="baseBackgroundColor" name="TabBarPurple"/>
                                 </buttonConfiguration>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nFs-Xc-1mR">
-                                <rect key="frame" x="16" y="694" width="361" height="35"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="tintColor" name="TabBarPurple"/>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="filled" title="View Album" titleAlignment="center">
-                                    <color key="baseForegroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                    <color key="baseBackgroundColor" name="TabBarPurple"/>
-                                </buttonConfiguration>
+                                <connections>
+                                    <action selector="onRetakePhotoButtonPressed:" destination="qUo-V8-TdR" eventType="touchUpInside" id="F2t-LI-gV9"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VEN-5M-sKl">
                                 <rect key="frame" x="16" y="737" width="361" height="33"/>
@@ -629,10 +577,10 @@ Active Dates:          2/24/24 - 2/24/25</string>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="filled" titleAlignment="center">
                                     <attributedString key="attributedTitle">
-                                        <fragment content="Submit Challenge">
+                                        <fragment content="Submit to Challenge">
                                             <attributes>
                                                 <font key="NSFont" size="16" name="Helvetica-Bold"/>
-                                                <font key="NSOriginalFont" size="12" name="Helvetica"/>
+                                                <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                             </attributes>
                                         </fragment>
                                     </attributedString>
@@ -643,83 +591,60 @@ Active Dates:          2/24/24 - 2/24/25</string>
                                     <segue destination="Y6W-OH-hqX" kind="show" id="5jZ-Rh-eCy"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="U0y-JU-KE5">
+                                <rect key="frame" x="0.0" y="60" width="50" height="35"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" image="arrow.left" catalog="system"/>
+                                <connections>
+                                    <segue destination="H6q-rD-csP" kind="presentation" identifier="CameraToTimeLapseSegue" modalPresentationStyle="fullScreen" id="Y3b-57-5Kp"/>
+                                </connections>
+                            </button>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="t7T-IY-mPg">
+                                <rect key="frame" x="0.0" y="103" width="393" height="524"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vuC-kb-hrj">
+                                <rect key="frame" x="16" y="689" width="361" height="35"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="tintColor" name="TabBarPurple"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="filled" title="View Album" titleAlignment="center">
+                                    <color key="baseForegroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <color key="baseBackgroundColor" name="TabBarPurple"/>
+                                </buttonConfiguration>
+                                <connections>
+                                    <segue destination="ARb-O1-Pmu" kind="presentation" modalPresentationStyle="fullScreen" id="Yt5-XU-2Yu"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="d0b-Ry-9K1"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
                     <navigationItem key="navigationItem" id="181-9R-29r"/>
+                    <connections>
+                        <outlet property="previewView" destination="t7T-IY-mPg" id="wGR-t8-dWv"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fs4-oh-vjo" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4776.3358778625952" y="-1085.2112676056338"/>
-        </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="mWS-Vl-YWg">
-            <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="vKo-9K-Tnx" sceneMemberID="viewController">
-                    <toolbarItems/>
-                    <navigationItem key="navigationItem" id="LGp-FG-KqJ"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="TtX-Yz-MXM">
-                        <rect key="frame" x="0.0" y="0.0" width="393" height="56"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="H6q-rD-csP" kind="relationship" relationship="rootViewController" id="lSg-CS-R82"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="AZ2-Ae-Cft" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="57" y="-1085"/>
-        </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="k4K-bj-5Qk">
-            <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="BbH-gT-j9X" sceneMemberID="viewController">
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="mbB-HQ-UGZ">
-                        <rect key="frame" x="0.0" y="0.0" width="393" height="56"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="4Rq-2M-Oof" kind="relationship" relationship="rootViewController" id="6jT-yo-tfE"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="cnS-CA-g3L" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2864.8854961832062" y="-1085.2112676056338"/>
-        </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="WxM-JE-0KS">
-            <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="FLQ-CS-Ixv" sceneMemberID="viewController">
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="cCM-YJ-Wit">
-                        <rect key="frame" x="0.0" y="0.0" width="393" height="56"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="ARb-O1-Pmu" kind="relationship" relationship="rootViewController" id="LuX-1L-TFu"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="46w-I3-Ozu" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="6605.3435114503818" y="-1085.2112676056338"/>
+            <point key="canvasLocation" x="2864.8854961832062" y="-796.47887323943667"/>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="R5r-Ex-r16"/>
-        <segue reference="Sb6-Qg-JVu"/>
+        <segue reference="TVn-sY-3wM"/>
+        <segue reference="hrH-Aa-obT"/>
+        <segue reference="Y3b-57-5Kp"/>
+        <segue reference="Yt5-XU-2Yu"/>
         <segue reference="5jZ-Rh-eCy"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="CameraPlaceholder" width="290" height="491"/>
-        <image name="InitialImagePlaceholder" width="335" height="424"/>
+        <image name="InitialImagePlaceholder" width="327" height="436"/>
         <image name="MapPlaceholder" width="919" height="1558"/>
         <image name="TimeLapsePlaceholder" width="170" height="215"/>
         <image name="arrow.backward" catalog="system" width="128" height="95"/>
+        <image name="arrow.left" catalog="system" width="128" height="95"/>
         <image name="arrow.triangle.2.circlepath" catalog="system" width="128" height="104"/>
         <image name="circle.fill" catalog="system" width="128" height="123"/>
         <image name="circle.inset.filled" catalog="system" width="128" height="123"/>
