@@ -44,16 +44,18 @@ class ViewTimeFrameVC: UIViewController {
     
     @IBOutlet weak var imageView: UIImageView!
     
-    var headshotImages: [UIImage] = []
+//    var headshotImages: [UIImage] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        print("fetched photos: ", fetchedPhotos)
         self.setCustomBackImage()
         
-        for i in 1...4 {
-            headshotImages.append(UIImage(named: "headshot\(i)")!)
-        }
-        imageView.animationImages = headshotImages.reversed()
+//        for i in 1...4 {
+//            headshotImages.append(UIImage(named: "headshot\(i)")!)
+//        }
+//        imageView.animationImages = headshotImages.reversed()
+        imageView.animationImages = fetchedPhotos.reversed()
         imageView.animationDuration = 2.0
         imageView.startAnimating()
     }
@@ -66,12 +68,12 @@ class ViewTimeFrameVC: UIViewController {
     
     @IBAction func onShareTapped(_ sender: Any) {
         var shareItem: Any = ""
-        let gifURL = UIImage.animatedGif(from: headshotImages)
+        let gifURL = UIImage.animatedGif(from: fetchedPhotos)
         
         if gifURL != nil {
             shareItem = gifURL!
         } else {
-            shareItem = headshotImages[0]
+            shareItem = fetchedPhotos[0]
         }
         let activityController = UIActivityViewController(activityItems: [shareItem], applicationActivities: nil)
         present(activityController, animated: true, completion: nil)

@@ -17,6 +17,7 @@ import FirebaseStorage
 class CreateAlbumViewController: UIViewController, UITextFieldDelegate {
     
     @IBOutlet weak var albumNameTextField: UITextField!
+    @IBOutlet weak var createAlbumButton: UIButton!
     
     private var db: Firestore!
     var selectedAlbum: String? // Add property to hold selected album name
@@ -25,6 +26,7 @@ class CreateAlbumViewController: UIViewController, UITextFieldDelegate {
         super.viewDidLoad()
         self.setCustomBackImage()
         albumNameTextField.delegate = self
+        createAlbumButton.layer.cornerRadius = 5
         
         db = Firestore.firestore()
     }
