@@ -17,6 +17,7 @@ class HomeScreenViewController: UIViewController {
     @IBOutlet weak var newAlbum: UIBarButtonItem!
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.setCustomBackImage()
     }
     
 }

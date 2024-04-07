@@ -1,7 +1,7 @@
 {
   "images" : [
     {
-      "filename" : "final_processed_logo.png",
+      "filename" : "headshot2.jpeg",
       "idiom" : "universal",
       "scale" : "1x"
     },
@@ -10,7 +10,6 @@
       "scale" : "2x"
     },
     {
-      "filename" : "final_processed_logo 1.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

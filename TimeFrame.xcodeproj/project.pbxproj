@@ -66,6 +66,11 @@
 		B56D904E2BA58BF7008A435C /* ExtensionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B56D904D2BA58BF7008A435C /* ExtensionVC.swift */; };
 		B57132C92BA6743400695F1C /* EditImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B57132C82BA6743400695F1C /* EditImageCell.swift */; };
 		B57132CB2BA6F33600695F1C /* QRProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B57132CA2BA6F33600695F1C /* QRProfileVC.swift */; };
+		B5A02CDD2BC25344001C8D23 /* Gradient.png in Resources */ = {isa = PBXBuildFile; fileRef = B5A02CDB2BC25301001C8D23 /* Gradient.png */; };
+		B5B73D482BBA956400BA1BA3 /* ImagesToGIF.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B5B73D472BBA956400BA1BA3 /* ImagesToGIF.storyboard */; };
+		B5B73D4D2BBA967A00BA1BA3 /* ViewTimeFrameVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5B73D4C2BBA967A00BA1BA3 /* ViewTimeFrameVC.swift */; };
+		B5B73D742BBB3BF800BA1BA3 /* PlaybackSettingsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5B73D732BBB3BF800BA1BA3 /* PlaybackSettingsVC.swift */; };
+		B5B73DDA2BC1B25200BA1BA3 /* AlbumCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5B73DD92BC1B25100BA1BA3 /* AlbumCell.swift */; };
 		B5BB29772BA3E6C6005A2987 /* Home.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B5BB29762BA3E6C6005A2987 /* Home.storyboard */; };
 		B5BB29792BA3E714005A2987 /* Discover.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B5BB29782BA3E714005A2987 /* Discover.storyboard */; };
 		B5BB297B2BA3E726005A2987 /* GeoChallenge.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B5BB297A2BA3E726005A2987 /* GeoChallenge.storyboard */; };
@@ -107,6 +112,11 @@
 		B56D904D2BA58BF7008A435C /* ExtensionVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionVC.swift; sourceTree = "<group>"; };
 		B57132C82BA6743400695F1C /* EditImageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditImageCell.swift; sourceTree = "<group>"; };
 		B57132CA2BA6F33600695F1C /* QRProfileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRProfileVC.swift; sourceTree = "<group>"; };
+		B5A02CDB2BC25301001C8D23 /* Gradient.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Gradient.png; sourceTree = "<group>"; };
+		B5B73D472BBA956400BA1BA3 /* ImagesToGIF.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ImagesToGIF.storyboard; sourceTree = "<group>"; };
+		B5B73D4C2BBA967A00BA1BA3 /* ViewTimeFrameVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewTimeFrameVC.swift; sourceTree = "<group>"; };
+		B5B73D732BBB3BF800BA1BA3 /* PlaybackSettingsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaybackSettingsVC.swift; sourceTree = "<group>"; };
+		B5B73DD92BC1B25100BA1BA3 /* AlbumCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AlbumCell.swift; path = TimeFrame/HomeScreenVCs/AlbumCell.swift; sourceTree = SOURCE_ROOT; };
 		B5BB29762BA3E6C6005A2987 /* Home.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Home.storyboard; sourceTree = "<group>"; };
 		B5BB29782BA3E714005A2987 /* Discover.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Discover.storyboard; sourceTree = "<group>"; };
 		B5BB297A2BA3E726005A2987 /* GeoChallenge.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = GeoChallenge.storyboard; sourceTree = "<group>"; };
@@ -195,8 +205,10 @@
 				B5BB29782BA3E714005A2987 /* Discover.storyboard */,
 				B5BB297A2BA3E726005A2987 /* GeoChallenge.storyboard */,
 				B5BB297C2BA3E736005A2987 /* Profile.storyboard */,
+				B5B73D472BBA956400BA1BA3 /* ImagesToGIF.storyboard */,
 				3F1EAAF32B9697A10060218F /* Assets.xcassets */,
 				3F1EAAF52B9697A10060218F /* LaunchScreen.storyboard */,
+				B5A02CDB2BC25301001C8D23 /* Gradient.png */,
 				3F1EAAF82B9697A10060218F /* Info.plist */,
 				3F1EAAF02B9697A00060218F /* TimeFrame.xcdatamodeld */,
 				3F08EC5F2BA6B81A0065C923 /* GoogleService-Info.plist */,
@@ -226,6 +238,9 @@
 				AC999AFD2BA8C5F9006DBDFC /* HomeScreenViewController.swift */,
 				AC999AFF2BA8C810006DBDFC /* CreateAlbumViewController.swift */,
 				AC999B012BA8CB12006DBDFC /* AlbumViewController.swift */,
+				B5B73DD92BC1B25100BA1BA3 /* AlbumCell.swift */,
+				B5B73D732BBB3BF800BA1BA3 /* PlaybackSettingsVC.swift */,
+				B5B73D4C2BBA967A00BA1BA3 /* ViewTimeFrameVC.swift */,
 			);
 			path = HomeScreenVCs;
 			sourceTree = "<group>";
@@ -333,8 +348,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B5A02CDD2BC25344001C8D23 /* Gradient.png in Resources */,
 				3F08EC3D2BA1970A0065C923 /* Authentication.storyboard in Resources */,
 				3F1EAAF72B9697A10060218F /* LaunchScreen.storyboard in Resources */,
+				B5B73D482BBA956400BA1BA3 /* ImagesToGIF.storyboard in Resources */,
 				3F08EC602BA6B81A0065C923 /* GoogleService-Info.plist in Resources */,
 				3F1EAAF42B9697A10060218F /* Assets.xcassets in Resources */,
 				B5BB297B2BA3E726005A2987 /* GeoChallenge.storyboard in Resources */,
@@ -356,6 +373,7 @@
 				5520389C2BA62421000C5014 /* MapViewController.swift in Sources */,
 				B56D904E2BA58BF7008A435C /* ExtensionVC.swift in Sources */,
 				5520389E2BA62DE3000C5014 /* AddInitialPhotoViewController.swift in Sources */,
+				B5B73D742BBB3BF800BA1BA3 /* PlaybackSettingsVC.swift in Sources */,
 				3F1EAAF22B9697A00060218F /* TimeFrame.xcdatamodeld in Sources */,
 				3F08EC5D2BA5965E0065C923 /* ForgotPasswordViewController.swift in Sources */,
 				3F08EC5E2BA5965E0065C923 /* RegisterViewController.swift in Sources */,
@@ -370,6 +388,7 @@
 				55A83AB82BA6AA9000895DFE /* PhotoStreamViewController.swift in Sources */,
 				B522331C2BA8D5ED00F229B0 /* ViewImageVC.swift in Sources */,
 				55A83AB62BA6AA5500895DFE /* ChallengeAlbumViewController.swift in Sources */,
+				B5B73D4D2BBA967A00BA1BA3 /* ViewTimeFrameVC.swift in Sources */,
 				3F1EAAE82B9697A00060218F /* AppDelegate.swift in Sources */,
 				AC999AFE2BA8C5F9006DBDFC /* HomeScreenViewController.swift in Sources */,
 				B57132CB2BA6F33600695F1C /* QRProfileVC.swift in Sources */,
@@ -377,6 +396,7 @@
 				B52232FA2BA7E1F500F229B0 /* ProfileGridImage.swift in Sources */,
 				3F08EC392B985ED10065C923 /* SelfieViewController.swift in Sources */,
 				559596B12BA699F800972EB4 /* ViewTimeLapseViewController.swift in Sources */,
+				B5B73DDA2BC1B25200BA1BA3 /* AlbumCell.swift in Sources */,
 				55A83AB42BA6A98400895DFE /* AddPhotoToChallengeViewController.swift in Sources */,
 				3F08EC5C2BA5965E0065C923 /* LoginViewController.swift in Sources */,
 				3F1EAAEA2B9697A00060218F /* SceneDelegate.swift in Sources */,
@@ -530,25 +550,27 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 5XP3G844H6;
+				DEVELOPMENT_TEAM = 3H7MMR6433;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = TimeFrame/Info.plist;
+				INFOPLIST_KEY_NSAppleMusicUsageDescription = "";
 				INFOPLIST_KEY_NSCameraUsageDescription = "";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen.storyboard;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = Group1.TimeFrame;
+				PRODUCT_BUNDLE_IDENTIFIER = "Group1-1.TimeFrame";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -561,25 +583,27 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 5XP3G844H6;
+				DEVELOPMENT_TEAM = 3H7MMR6433;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = TimeFrame/Info.plist;
+				INFOPLIST_KEY_NSAppleMusicUsageDescription = "";
 				INFOPLIST_KEY_NSCameraUsageDescription = "";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen.storyboard;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = Group1.TimeFrame;
+				PRODUCT_BUNDLE_IDENTIFIER = "Group1-1.TimeFrame";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;

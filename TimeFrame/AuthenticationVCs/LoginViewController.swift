@@ -10,6 +10,9 @@
 
 import UIKit
 import FirebaseAuth
+import FirebaseFirestore
+
+public var allAlbums: [String: [String]] = [:]
 
 class LoginViewController: UIViewController, UITextFieldDelegate {
 
@@ -18,12 +21,13 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var errorMessageLabel: UILabel!
     @IBOutlet weak var forgotPasswordButton: UIButton!
     @IBOutlet weak var registerButton: UIButton!
+    
+    let db = Firestore.firestore()
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        setCustomBackImage()
+        self.setCustomBackImage()
         errorMessageLabel.isHidden = true
-        
         emailTextField.delegate = self
         passwordTextField.delegate = self
     }
@@ -33,6 +37,11 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         
         Auth.auth().addStateDidChangeListener { (auth, user) in
             if user != nil && self.isViewLoaded && self.view.window != nil {
+                self.fetchAllAlbums(for: self.db) { fetchedAlbums in
+                    allAlbums = fetchedAlbums
+                    // Casting to AnyObject formats the printed output
+                    print("allAlbums = \(allAlbums as AnyObject)")
+                }
                 self.performSegue(withIdentifier: "loginSegueToMainStoryboard", sender: nil)
                 self.emailTextField.text = ""
                 self.passwordTextField.text = ""
@@ -57,6 +66,9 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
                 self.errorMessageLabel.text = error.localizedDescription
                 self.errorMessageLabel.isHidden = false
             } else {
+                self.fetchAllAlbums(for: db) { fetchedAlbums in
+                    allAlbums = fetchedAlbums
+                }
                 // Login was successful, perform segue to Main.storyboard
                 self.performSegue(withIdentifier: "loginSegueToMainStoryboard", sender: self)
             }
@@ -85,4 +97,3 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     }
     
 }
-
