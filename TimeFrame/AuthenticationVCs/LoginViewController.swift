@@ -37,7 +37,11 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         
         Auth.auth().addStateDidChangeListener { (auth, user) in
             if user != nil && self.isViewLoaded && self.view.window != nil {
-                allAlbums = self.fetchAllAlbums(for: self.db)
+                self.fetchAllAlbums(for: self.db) { fetchedAlbums in
+                    allAlbums = fetchedAlbums
+                    // Casting to AnyObject formats the printed output
+                    print("allAlbums = \(allAlbums as AnyObject)")
+                }
                 self.performSegue(withIdentifier: "loginSegueToMainStoryboard", sender: nil)
                 self.emailTextField.text = ""
                 self.passwordTextField.text = ""
@@ -62,7 +66,9 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
                 self.errorMessageLabel.text = error.localizedDescription
                 self.errorMessageLabel.isHidden = false
             } else {
-                allAlbums = self.fetchAllAlbums(for: db)
+                self.fetchAllAlbums(for: db) { fetchedAlbums in
+                    allAlbums = fetchedAlbums
+                }
                 // Login was successful, perform segue to Main.storyboard
                 self.performSegue(withIdentifier: "loginSegueToMainStoryboard", sender: self)
             }
@@ -91,4 +97,3 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     }
     
 }
-

@@ -83,8 +83,8 @@ extension UIViewController {
         })
     }
     
-    // Fetches and returns a list of strings representing photo URLs for a specific album
-    func fetchPhotoUrls(for db: Firestore, for userID: String, for albumName: String) -> [String] {
+    // Fetches photo URLs for a specific album and stores them as a list of strings
+    func fetchPhotoUrls(for db: Firestore, for userID: String, for albumName: String, completion: @escaping ([String]) -> Void) {
         var fetchedPhotoURLs = [String]()
         db.collection("users").document(userID).collection("albums").document(albumName).collection("photos").getDocuments { (snapshot, error) in
             if let error = error {
@@ -99,21 +99,23 @@ extension UIViewController {
                     fetchedPhotoURLs.append(photoURL)
                 }
             }
+            completion(fetchedPhotoURLs)
         }
-        return fetchedPhotoURLs
     }
     
-    // Fetches photo URLs across all of the user's albums and returns the result as a dictionary
-    func fetchAllAlbums(for db: Firestore) -> [String:[String]] {
+    // Fetches photo URLs across all of the user's albums and stores the result as a dictionary
+    func fetchAllAlbums(for db: Firestore, completion: @escaping ([String: [String]]) -> Void) {
         guard let userID = Auth.auth().currentUser?.uid else {
             print("User not authenticated")
-            return [:]
+            completion([:])
+            return
         }
         var allAlbums: [String: [String]] = [:]
         db.collection("users").document(userID).collection("albums").getDocuments {
             (snapshot, error) in
             if let error = error {
                 print("Error fetching albums: \(error.localizedDescription)")
+                completion([:])
                 return
             }
             
@@ -122,11 +124,17 @@ extension UIViewController {
             // Iterates through all of the user's albums
             for document in documents {
                 if let albumName = document.data()["name"] as? String {
-                    allAlbums[albumName] = self.fetchPhotoUrls(for: db, for: userID, for: albumName)
+                    self.fetchPhotoUrls(for: db, for: userID, for: albumName) { fetchedPhotoURLs in
+                        allAlbums[albumName] = fetchedPhotoURLs
+                        if allAlbums.count == documents.count {
+                            completion(allAlbums)
+                        }
+                    }
                 }
             }
         }
-        print("allAlbums: \(allAlbums)")
-        return allAlbums
     }
+    
+    
+    // TODO: add function to fetch all TimeFrames
 }
