@@ -9,9 +9,16 @@ import UIKit
 import FirebaseAuth
 import FirebaseDatabase
 
+protocol ImageLoader {
+    func updateAlbums()
+    func updateTimeframes()
+}
+
 public var albumNames: [String] = []
 
-class HomeScreenVC: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
+class HomeScreenVC: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, ImageLoader {
+    
+    var delegate: UIViewController!
     
     @IBOutlet weak var viewAlbumsButton: UIButton!
     @IBOutlet weak var viewTimeframesButton: UIButton!
@@ -49,12 +56,12 @@ class HomeScreenVC: UIViewController, UICollectionViewDelegate, UICollectionView
         let layout = UICollectionViewFlowLayout()
         let collectionWidth = albumsCollectionView.bounds.width
         let collectionHeight = albumsCollectionView.bounds.height
-        let cellWidth = (collectionWidth - 6) / 3
-        let cellHeight = (collectionHeight - 6) / 3
+        let cellWidth = (collectionWidth - 20) / 3
+        let cellHeight = (collectionHeight - 10) / 2
         
         layout.itemSize = CGSize(width: cellWidth, height: cellHeight)
-        layout.minimumLineSpacing = 3
-        layout.minimumInteritemSpacing = 3
+        layout.minimumLineSpacing = 8
+        layout.minimumInteritemSpacing = 10
         layout.scrollDirection = .horizontal
         
         albumsCollectionView.collectionViewLayout = layout
@@ -91,5 +98,13 @@ class HomeScreenVC: UIViewController, UICollectionViewDelegate, UICollectionView
             }
             return cell
         }
+    }
+    
+    func updateAlbums() {
+        albumsCollectionView.reloadData()
+    }
+    
+    func updateTimeframes() {
+        timeframesCollectionView.reloadData()
     }
 }
