@@ -59,86 +59,137 @@
             </objects>
             <point key="canvasLocation" x="1925.9541984732823" y="-700"/>
         </scene>
-        <!--Home Screen View Controller-->
+        <!--Home ScreenVC-->
         <scene sceneID="s0d-6b-0kx">
             <objects>
-                <viewController id="Y6W-OH-hqX" customClass="HomeScreenViewController" customModule="TimeFrame" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="Y6W-OH-hqX" customClass="HomeScreenVC" customModule="TimeFrame" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="5EZ-qb-Rvc">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Albums" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="m9L-zA-Mz2">
-                                <rect key="frame" x="30" y="103" width="67" height="24"/>
+                                <rect key="frame" x="16" y="103" width="67" height="24"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="URZ-eZ-odk">
-                                <rect key="frame" x="16" y="132" width="361" height="301"/>
+                                <rect key="frame" x="9" y="132" width="372" height="301"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="oro-Jd-kTK">
-                                    <size key="itemSize" width="117" height="117"/>
+                                    <size key="itemSize" width="117" height="144"/>
                                     <size key="estimatedItemSize" width="117" height="117"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="Irw-LX-7el">
-                                        <rect key="frame" x="0.0" y="0.0" width="117" height="117"/>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="HomeAlbumCell" id="Irw-LX-7el" customClass="HomeAlbumCell" customModule="TimeFrame" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="117" height="140"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="zzL-vZ-L0P">
-                                            <rect key="frame" x="0.0" y="0.0" width="117" height="117"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="117" height="140"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cgG-aE-aeF">
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="cgG-aE-aeF">
                                                     <rect key="frame" x="0.0" y="0.0" width="117" height="117"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="117" id="FIT-MA-jc5"/>
+                                                        <constraint firstAttribute="height" constant="117" id="g8o-Yj-0B7"/>
+                                                    </constraints>
                                                 </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7mT-HI-7Ed">
+                                                    <rect key="frame" x="0.0" y="119" width="117" height="17"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="117" id="SWW-xh-9nP"/>
+                                                        <constraint firstAttribute="height" constant="17" id="nBH-AA-1aZ"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
                                             </subviews>
+                                            <constraints>
+                                                <constraint firstItem="cgG-aE-aeF" firstAttribute="leading" secondItem="zzL-vZ-L0P" secondAttribute="leading" id="2wa-j3-7rY"/>
+                                                <constraint firstAttribute="trailing" secondItem="7mT-HI-7Ed" secondAttribute="trailing" id="4CF-FH-7CS"/>
+                                                <constraint firstItem="7mT-HI-7Ed" firstAttribute="top" secondItem="cgG-aE-aeF" secondAttribute="bottom" constant="2" id="AMZ-2I-6cz"/>
+                                                <constraint firstItem="7mT-HI-7Ed" firstAttribute="top" secondItem="cgG-aE-aeF" secondAttribute="bottom" constant="2" id="Q4e-D2-oeZ"/>
+                                                <constraint firstItem="cgG-aE-aeF" firstAttribute="top" secondItem="zzL-vZ-L0P" secondAttribute="top" id="Sfe-DN-JaX"/>
+                                                <constraint firstAttribute="trailing" secondItem="cgG-aE-aeF" secondAttribute="trailing" id="W0n-TV-Wdm"/>
+                                                <constraint firstItem="7mT-HI-7Ed" firstAttribute="leading" secondItem="zzL-vZ-L0P" secondAttribute="leading" id="h4A-y4-GKn"/>
+                                                <constraint firstAttribute="bottom" secondItem="7mT-HI-7Ed" secondAttribute="bottom" constant="4" id="vxI-uK-kgF"/>
+                                            </constraints>
                                         </collectionViewCellContentView>
-                                        <size key="customSize" width="117" height="117"/>
+                                        <connections>
+                                            <outlet property="albumNameLabel" destination="7mT-HI-7Ed" id="1fi-wV-K9Y"/>
+                                            <outlet property="imageView" destination="cgG-aE-aeF" id="RQG-W7-qtr"/>
+                                            <segue destination="UN4-qU-cef" kind="show" id="r6b-qa-pyF"/>
+                                        </connections>
                                     </collectionViewCell>
                                 </cells>
                             </collectionView>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="lmD-hd-cKf">
-                                <rect key="frame" x="16" y="471" width="361" height="284"/>
+                                <rect key="frame" x="9" y="471" width="372" height="298"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="1Vt-ZR-FhH">
-                                    <size key="itemSize" width="117" height="117"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="1Vt-ZR-FhH">
+                                    <size key="itemSize" width="117" height="144"/>
                                     <size key="estimatedItemSize" width="117" height="117"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="HOy-Zg-KBp">
-                                        <rect key="frame" x="0.0" y="0.0" width="117" height="117"/>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="HomeTimeframeCell" id="HOy-Zg-KBp" customClass="HomeTimeframeCell" customModule="TimeFrame" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="117" height="144"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="6jY-Wv-82b">
-                                            <rect key="frame" x="0.0" y="0.0" width="117" height="117"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="117" height="144"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1cY-6C-F8V">
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1cY-6C-F8V">
                                                     <rect key="frame" x="0.0" y="0.0" width="117" height="117"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mUG-H2-Jq8">
+                                                    <rect key="frame" x="0.0" y="119" width="117" height="18"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
                                             </subviews>
                                         </collectionViewCellContentView>
-                                        <size key="customSize" width="117" height="117"/>
+                                        <connections>
+                                            <outlet property="imageView" destination="1cY-6C-F8V" id="4xr-LP-Epu"/>
+                                            <outlet property="timeframeNameLabel" destination="mUG-H2-Jq8" id="F44-d7-E3g"/>
+                                        </connections>
                                     </collectionViewCell>
                                 </cells>
                             </collectionView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="TimeFrames" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BB5-b0-yPB">
-                                <rect key="frame" x="30" y="441" width="109" height="24"/>
+                                <rect key="frame" x="16" y="441" width="109" height="24"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="k86-ON-8ja">
+                                <rect key="frame" x="220" y="98" width="174" height="35"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="tintColor" name="TabBarPurple"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" image="chevron.forward" catalog="system" title="View Albums"/>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3U9-vv-vdK">
+                                <rect key="frame" x="197" y="436" width="197" height="35"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="tintColor" name="TabBarPurple"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" image="chevron.right" catalog="system" title="View TimeFrames"/>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -152,12 +203,37 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="albumsCollectionView" destination="URZ-eZ-odk" id="tjF-pa-sde"/>
+                        <outlet property="timeframesCollectionView" destination="lmD-hd-cKf" id="rgM-d2-EGr"/>
                         <outlet property="view" destination="URZ-eZ-odk" id="xEQ-ms-T7q"/>
+                        <outlet property="viewAlbumsButton" destination="k86-ON-8ja" id="UKR-EQ-v5d"/>
+                        <outlet property="viewTimeframesButton" destination="3U9-vv-vdK" id="zIi-1O-kB5"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1063.3587786259541" y="3.5211267605633805"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="LZ7-dd-Y6M">
+            <objects>
+                <viewController id="ZRz-Eu-sqo" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="93F-Re-Nrk">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="person.crop.rectangle.stack.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="14l-AA-YN4">
+                                <rect key="frame" x="76" y="362" width="240" height="128"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="Sqq-Ws-nEX"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Zba-va-LhX" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1132" y="879"/>
         </scene>
         <!--Album View Controller-->
         <scene sceneID="dkt-89-WII">
@@ -364,10 +440,16 @@
             <point key="canvasLocation" x="3807" y="4"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="r6b-qa-pyF"/>
+    </inferredMetricsTieBreakers>
     <resources>
+        <image name="chevron.forward" catalog="system" width="97" height="128"/>
+        <image name="chevron.right" catalog="system" width="97" height="128"/>
         <image name="circle" catalog="system" width="128" height="123"/>
         <image name="house" catalog="system" width="128" height="104"/>
         <image name="house.fill" catalog="system" width="128" height="104"/>
+        <image name="person.crop.rectangle.stack.fill" catalog="system" width="126" height="128"/>
         <image name="plus" catalog="system" width="128" height="113"/>
         <namedColor name="TabBarPurple">
             <color red="0.5690000057220459" green="0.32499998807907104" blue="0.69800001382827759" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
