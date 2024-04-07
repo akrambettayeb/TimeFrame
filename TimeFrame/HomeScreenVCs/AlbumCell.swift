@@ -13,11 +13,7 @@ class AlbumCell: UICollectionViewCell {
     
     @IBAction func onSelectTapped(_ sender: Any) {
         selectButton.isSelected = !selectButton.isSelected
-        if selectButton.isSelected {
-            selectButton.imageView?.image = UIImage(systemName: "circle.inset.filled")
-        } else {
-            selectButton.imageView?.image = UIImage(systemName: "circle")
-        }
+        // TODO: include picture in the generated TimeFrame
     }
     
     // TODO: hide button if not creating timeframe

@@ -347,10 +347,10 @@
             </objects>
             <point key="canvasLocation" x="2891" y="4"/>
         </scene>
-        <!--View Controller-->
+        <!--View Time FrameVC-->
         <scene sceneID="Cwu-Zs-D2E">
             <objects>
-                <viewController id="4oc-FV-8Ke" sceneMemberID="viewController">
+                <viewController id="4oc-FV-8Ke" customClass="ViewTimeFrameVC" customModule="TimeFrame" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="DZB-Wh-0c7">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

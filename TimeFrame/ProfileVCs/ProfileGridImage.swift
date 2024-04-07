@@ -15,10 +15,9 @@ public class ProfileGridImage {
     var image: UIImage
     var visible: Bool
     
-    // TODO: after initial testing, set all images to private by default
     init(_ image: UIImage) {
         self.image = image
-        self.visible = true
+        self.visible = false
     }
     
     init(_ image: UIImage, _ visible: Bool) {

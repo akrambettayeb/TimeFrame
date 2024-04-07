@@ -48,7 +48,8 @@ class ViewTimeFrameVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("fetched photos: ", fetchedPhotos)
+        // ERROR here: for some reason fetchedPhotos is empty
+        print("fetched photos: ", fetchedPhotos, "\n\n\n")
         self.setCustomBackImage()
         
 //        for i in 1...4 {
