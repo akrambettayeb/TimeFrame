@@ -73,6 +73,13 @@ class AddPhotoToChallengeViewController: UIViewController, UIImagePickerControll
                 self.picker.cameraOverlayView = self.overlayView
             })
             
+            // Add observer to the user retaking a photo.
+            NotificationCenter.default.addObserver(forName: NSNotification.Name(rawValue: "_UIImagePickerControllerUserDidRejectItem"), object:nil, queue:nil, using: { note in
+                // Restore overlay.
+                self.overlayView.alpha = 0.4
+                self.picker.cameraOverlayView = self.overlayView
+            })
+            
             self.present(picker, animated: true, completion: nil)
         } else {
             // Not available, pop up an alert.

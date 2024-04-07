@@ -16,7 +16,7 @@
             <objects>
                 <viewController id="Y6W-OH-hqX" customClass="MapViewController" customModule="TimeFrame" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="5EZ-qb-Rvc">
-                        <rect key="frame" x="0.0" y="0.0" width="393" height="842"/>
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="MapPlaceholder" translatesAutoresizingMaskIntoConstraints="NO" id="kTL-yj-0gv">
@@ -588,7 +588,7 @@ Active Dates:          2/24/24 - 2/24/25</string>
                                     <color key="baseBackgroundColor" name="TabBarPurple"/>
                                 </buttonConfiguration>
                                 <connections>
-                                    <segue destination="Y6W-OH-hqX" kind="show" id="5jZ-Rh-eCy"/>
+                                    <segue destination="Y6W-OH-hqX" kind="presentation" modalPresentationStyle="fullScreen" id="5jZ-Rh-eCy"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="U0y-JU-KE5">
@@ -635,7 +635,7 @@ Active Dates:          2/24/24 - 2/24/25</string>
         <segue reference="TVn-sY-3wM"/>
         <segue reference="hrH-Aa-obT"/>
         <segue reference="Y3b-57-5Kp"/>
-        <segue reference="Yt5-XU-2Yu"/>
+        <segue reference="vCC-Ms-XSq"/>
         <segue reference="5jZ-Rh-eCy"/>
     </inferredMetricsTieBreakers>
     <resources>
