@@ -214,26 +214,37 @@
             </objects>
             <point key="canvasLocation" x="1063.3587786259541" y="3.5211267605633805"/>
         </scene>
-        <!--View Controller-->
+        <!--View Album ImageVC-->
         <scene sceneID="LZ7-dd-Y6M">
             <objects>
-                <viewController id="ZRz-Eu-sqo" sceneMemberID="viewController">
+                <viewController id="ZRz-Eu-sqo" customClass="ViewAlbumImageVC" customModule="TimeFrame" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="93F-Re-Nrk">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="person.crop.rectangle.stack.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="14l-AA-YN4">
-                                <rect key="frame" x="76" y="362" width="240" height="128"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="F2k-qz-pyV">
+                                <rect key="frame" x="0.0" y="164" width="393" height="524"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="F2k-qz-pyV" secondAttribute="height" multiplier="3:4" id="bJc-sQ-u1h"/>
+                                </constraints>
                             </imageView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="Sqq-Ws-nEX"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="F2k-qz-pyV" firstAttribute="centerX" secondItem="93F-Re-Nrk" secondAttribute="centerX" id="1ds-Lo-QJx"/>
+                            <constraint firstItem="F2k-qz-pyV" firstAttribute="width" secondItem="93F-Re-Nrk" secondAttribute="width" id="9pq-Zo-nuv"/>
+                            <constraint firstItem="F2k-qz-pyV" firstAttribute="centerY" secondItem="93F-Re-Nrk" secondAttribute="centerY" id="WzN-Ow-AIl"/>
+                        </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="zu9-DK-AQd"/>
+                    <connections>
+                        <outlet property="imageView" destination="F2k-qz-pyV" id="Olg-sm-wys"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Zba-va-LhX" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1132" y="879"/>
+            <point key="canvasLocation" x="1925.9541984732823" y="745.77464788732402"/>
         </scene>
         <!--Album View Controller-->
         <scene sceneID="dkt-89-WII">
@@ -279,6 +290,7 @@
                                         <connections>
                                             <outlet property="imageView" destination="bLc-lE-61U" id="TPT-Bm-d9b"/>
                                             <outlet property="selectButton" destination="S4c-9e-kaj" id="WNh-DQ-sYg"/>
+                                            <segue destination="ZRz-Eu-sqo" kind="show" identifier="segueToViewAlbumImage" id="oMf-R8-fB7"/>
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
@@ -449,7 +461,6 @@
         <image name="circle" catalog="system" width="128" height="123"/>
         <image name="house" catalog="system" width="128" height="104"/>
         <image name="house.fill" catalog="system" width="128" height="104"/>
-        <image name="person.crop.rectangle.stack.fill" catalog="system" width="126" height="128"/>
         <image name="plus" catalog="system" width="128" height="113"/>
         <namedColor name="TabBarPurple">
             <color red="0.5690000057220459" green="0.32499998807907104" blue="0.69800001382827759" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

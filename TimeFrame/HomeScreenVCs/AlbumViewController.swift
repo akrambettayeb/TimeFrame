@@ -160,4 +160,15 @@ class AlbumViewController: UIViewController, UIImagePickerControllerDelegate, UI
             }
         }
     }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "segueToViewAlbumImage",
+        let nextVC = segue.destination as? ViewAlbumImageVC {
+            if let indexPaths = collectionView.indexPathsForSelectedItems {
+                let imageIndex = indexPaths[0].row
+                nextVC.selectedImage = allAlbums[albumName!]![imageIndex]
+                collectionView.deselectItem(at: indexPaths[0], animated: false)
+            }
+        }
+    }
 }
