@@ -103,14 +103,26 @@ extension UIViewController {
         }
     }
     
+    // Given an array of photo URLs, returns an array of their corresponding fetched photos
+    func fetchPhotosFromURLs(_ photoURLs: [String]) -> [UIImage] {
+        var photos: [UIImage] = []
+        for photoURL in photoURLs {
+            if let url = URL(string: photoURL), let imageData = try? Data(contentsOf: url) {
+                let image = UIImage(data: imageData)
+                photos.append(image!)
+            }
+        }
+        return photos
+    }
+    
     // Fetches photo URLs across all of the user's albums and stores the result as a dictionary
-    func fetchAllAlbums(for db: Firestore, completion: @escaping ([String: [String]]) -> Void) {
+    func fetchAllAlbums(for db: Firestore, completion: @escaping ([String: [UIImage]]) -> Void) {
         guard let userID = Auth.auth().currentUser?.uid else {
             print("User not authenticated")
             completion([:])
             return
         }
-        var allAlbums: [String: [String]] = [:]
+        var allAlbums: [String: [UIImage]] = [:]
         db.collection("users").document(userID).collection("albums").getDocuments {
             (snapshot, error) in
             if let error = error {
@@ -125,7 +137,7 @@ extension UIViewController {
             for document in documents {
                 if let albumName = document.data()["name"] as? String {
                     self.fetchPhotoUrls(for: db, for: userID, for: albumName) { fetchedPhotoURLs in
-                        allAlbums[albumName] = fetchedPhotoURLs
+                        allAlbums[albumName] = self.fetchPhotosFromURLs(fetchedPhotoURLs)
                         if allAlbums.count == documents.count {
                             completion(allAlbums)
                         }

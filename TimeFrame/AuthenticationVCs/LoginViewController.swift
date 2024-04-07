@@ -12,7 +12,7 @@ import UIKit
 import FirebaseAuth
 import FirebaseFirestore
 
-public var allAlbums: [String: [String]] = [:]
+public var allAlbums: [String: [UIImage]] = [:]
 
 class LoginViewController: UIViewController, UITextFieldDelegate {
 
@@ -39,6 +39,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
             if user != nil && self.isViewLoaded && self.view.window != nil {
                 self.fetchAllAlbums(for: self.db) { fetchedAlbums in
                     allAlbums = fetchedAlbums
+                    albumNames = allAlbums.keys.sorted()
                     // Casting to AnyObject formats the printed output
                     print("allAlbums = \(allAlbums as AnyObject)")
                 }
