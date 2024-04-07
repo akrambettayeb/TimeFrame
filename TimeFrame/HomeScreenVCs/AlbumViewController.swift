@@ -14,13 +14,10 @@ import FirebaseFirestore
 import FirebaseStorage
 import FirebaseAuth
 
-public var fetchedPhotos: [UIImage] = []
-
 class AlbumViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
     
     let imagePicker = UIImagePickerController()
     @IBOutlet weak var collectionView: UICollectionView!
-    var photoURLs = [String]()
     var albumName: String?
     let reuseIdentifier = "PhotoCell"
     let db = Firestore.firestore()
@@ -30,6 +27,7 @@ class AlbumViewController: UIViewController, UIImagePickerControllerDelegate, UI
         super.viewDidLoad()
         self.setCustomBackImage()
         self.createMenu()
+        self.title = albumName
 
         collectionView.dataSource = self
         collectionView.delegate = self
@@ -76,34 +74,33 @@ class AlbumViewController: UIViewController, UIImagePickerControllerDelegate, UI
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return photoURLs.count
+        return allAlbums[albumName!]!.count
     }
         
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! AlbumCell
-        // Configure cell
+        
+        // Configure cell image
         cell.imageView.contentMode = .scaleAspectFill
         cell.imageView.clipsToBounds = true
+        cell.imageView.image = allAlbums[albumName!]![indexPath.row]
+        
+        // Configure cell button
         cell.selectButton.setImage(UIImage(systemName: "circle"), for: .normal)
         cell.selectButton.setImage(UIImage(systemName: "circle.inset.filled"), for: .selected)
         var config = UIButton.Configuration.plain()
         config.baseBackgroundColor = .clear
         cell.selectButton.configuration = config
         cell.selectButton.isHidden = false  // TODO: set to true
-        
-        let imageUrl = photoURLs[indexPath.item]
-        // You may want to use a library like Kingfisher to load images asynchronously
-        // For simplicity, we assume the image URL is valid and load synchronously
-        if let url = URL(string: imageUrl), let imageData = try? Data(contentsOf: url) {
-            cell.imageView.image = UIImage(data: imageData)
-            fetchedPhotos.append(cell.imageView.image!)
-        }
         return cell
     }
         
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         if let image = info[.originalImage] as? UIImage {
-            uploadPhoto(image: image)
+            self.uploadPhoto(image: image)
+            var existingImages = allAlbums[albumName!] ?? []  // Creates array if value is empty
+            existingImages.append(image)
+            allAlbums[albumName!] = existingImages
         }
         picker.dismiss(animated: true, completion: nil)
     }
@@ -159,7 +156,6 @@ class AlbumViewController: UIViewController, UIImagePickerControllerDelegate, UI
                 print("Error adding document: \(error.localizedDescription)")
             } else {
                 print("Document added successfully")
-                self?.photoURLs.append(downloadURL)
                 self?.collectionView.reloadData()
             }
         }

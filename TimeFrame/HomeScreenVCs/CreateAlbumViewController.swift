@@ -58,6 +58,8 @@ class CreateAlbumViewController: UIViewController, UITextFieldDelegate {
                     } else {
                         print("Album created successfully!")
                         self?.selectedAlbum = albumName // Set selected album
+                        allAlbums[albumName] = [UIImage]() // Add to local dictionary of albums
+                        albumNames = allAlbums.keys.sorted()
                         self?.performSegue(withIdentifier: "createToAlbumSeg", sender: nil)
                     }
                 }
