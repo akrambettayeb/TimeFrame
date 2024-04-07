@@ -10,6 +10,8 @@
 
 import UIKit
 import Photos
+import FirebaseFirestore
+import FirebaseAuth
 
 extension UIViewController {
     
@@ -39,7 +41,7 @@ extension UIViewController {
         scrollView.showsVerticalScrollIndicator = false
     }
     
-    // Set custom back button.
+    // Set custom back button to a purple left arrow
     func setCustomBackImage() {
         navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
         navigationItem.backBarButtonItem?.tintColor = UIColor(named: "TabBarPurple")
@@ -47,6 +49,7 @@ extension UIViewController {
         navigationController?.navigationBar.backIndicatorTransitionMaskImage = UIImage(systemName: "arrow.backward")
     }
     
+    // Fetches the most recent imagesNeeded images from the user's photo library
     func fetchPhotos(_ imagesNeeded: Int) {
         // Sort the images by descending creation date and fetch the first k images
         let fetchOptions = PHFetchOptions()
@@ -67,7 +70,7 @@ extension UIViewController {
         }
     }
     
-    // Fetch photo at specified index
+    // Fetches photo from the user's photo library at the specified index
     func fetchPhotoAtIndex(_ index: Int, _ fetchResult: PHFetchResult<PHAsset>) {
         let requestOptions = PHImageRequestOptions()
         requestOptions.isSynchronous = true  // fetches just the thumbnail
@@ -78,5 +81,52 @@ extension UIViewController {
                 allGridImages = [ProfileGridImage(image)] + allGridImages
             }
         })
+    }
+    
+    // Fetches and returns a list of strings representing photo URLs for a specific album
+    func fetchPhotoUrls(for db: Firestore, for userID: String, for albumName: String) -> [String] {
+        var fetchedPhotoURLs = [String]()
+        db.collection("users").document(userID).collection("albums").document(albumName).collection("photos").getDocuments { (snapshot, error) in
+            if let error = error {
+                print("Error fetching photos: \(error.localizedDescription)")
+                return
+            }
+            
+            guard let documents = snapshot?.documents else { return }
+            
+            for document in documents {
+                if let photoURL = document.data()["url"] as? String {
+                    fetchedPhotoURLs.append(photoURL)
+                }
+            }
+        }
+        return fetchedPhotoURLs
+    }
+    
+    // Fetches photo URLs across all of the user's albums and returns the result as a dictionary
+    func fetchAllAlbums(for db: Firestore) -> [String:[String]] {
+        guard let userID = Auth.auth().currentUser?.uid else {
+            print("User not authenticated")
+            return [:]
+        }
+        var allAlbums: [String: [String]] = [:]
+        db.collection("users").document(userID).collection("albums").getDocuments {
+            (snapshot, error) in
+            if let error = error {
+                print("Error fetching albums: \(error.localizedDescription)")
+                return
+            }
+            
+            guard let documents = snapshot?.documents else { return }
+            
+            // Iterates through all of the user's albums
+            for document in documents {
+                if let albumName = document.data()["name"] as? String {
+                    allAlbums[albumName] = self.fetchPhotoUrls(for: db, for: userID, for: albumName)
+                }
+            }
+        }
+        print("allAlbums: \(allAlbums)")
+        return allAlbums
     }
 }

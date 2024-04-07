@@ -3,7 +3,7 @@
 //  TimeFrame
 //
 //  Created by Brandon Ling on 3/18/24.
-//
+// 
 // Project: TimeFrame
 // EID: bml2426
 // Course: CS371L
@@ -110,7 +110,13 @@ class AlbumViewController: UIViewController, UIImagePickerControllerDelegate, UI
         // Configure cell
         cell.imageView.contentMode = .scaleAspectFill
         cell.imageView.clipsToBounds = true
+        cell.selectButton.setImage(UIImage(systemName: "circle"), for: .normal)
+        cell.selectButton.setImage(UIImage(systemName: "circle.inset.filled"), for: .selected)
+        var config = UIButton.Configuration.plain()
+        config.baseBackgroundColor = .clear
+        cell.selectButton.configuration = config
         cell.selectButton.isHidden = false  // TODO: set to true
+        
         let imageUrl = photoURLs[indexPath.item]
         // You may want to use a library like Kingfisher to load images asynchronously
         // For simplicity, we assume the image URL is valid and load synchronously
