@@ -75,32 +75,6 @@ class AlbumViewController: UIViewController, UIImagePickerControllerDelegate, UI
         navigationItem.rightBarButtonItem?.tintColor = UIColor(named: "TabBarPurple")
     }
     
-    func fetchPhotoUrls(for albumName: String) {
-        guard let userID = Auth.auth().currentUser?.uid else {
-            print("User not authenticated")
-            return
-        }
-        
-        db.collection("users").document(userID).collection("albums").document(albumName).collection("photos").getDocuments { [weak self] (snapshot, error) in
-            if let error = error {
-                print("Error fetching photos: \(error.localizedDescription)")
-                return
-            }
-            
-            guard let documents = snapshot?.documents else { return }
-            
-            for document in documents {
-                if let photoUrl = document.data()["url"] as? String {
-                    self?.photoURLs.append(photoUrl)
-                }
-            }
-                
-            DispatchQueue.main.async {
-                self?.collectionView.reloadData()
-            }
-        }
-    }
-    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return photoURLs.count
     }
