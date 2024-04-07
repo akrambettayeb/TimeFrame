@@ -17,5 +17,5 @@ class ChallengeInfoViewController: UIViewController {
 
         setCustomBackImage()
     }
-    
+    //TODO: dismiss popover when we select button
 }
