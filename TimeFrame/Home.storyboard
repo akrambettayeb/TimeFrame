@@ -125,7 +125,7 @@
                                         <connections>
                                             <outlet property="albumNameLabel" destination="7mT-HI-7Ed" id="1fi-wV-K9Y"/>
                                             <outlet property="imageView" destination="cgG-aE-aeF" id="RQG-W7-qtr"/>
-                                            <segue destination="UN4-qU-cef" kind="show" id="r6b-qa-pyF"/>
+                                            <segue destination="UN4-qU-cef" kind="show" identifier="segueToAlbumVC" id="r6b-qa-pyF"/>
                                         </connections>
                                     </collectionViewCell>
                                 </cells>

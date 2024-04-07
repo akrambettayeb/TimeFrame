@@ -14,6 +14,7 @@ protocol ImageLoader {
     func updateTimeframes()
 }
 
+public var allAlbums: [String: [UIImage]] = [:]
 public var albumNames: [String] = []
 
 class HomeScreenVC: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, ImageLoader {
@@ -39,12 +40,9 @@ class HomeScreenVC: UIViewController, UICollectionViewDelegate, UICollectionView
         albumsCollectionView.dataSource = self
         timeframesCollectionView.delegate = self
         timeframesCollectionView.dataSource = self
-        albumNames = allAlbums.keys.sorted()
-        print("ALBUMNAMES = \(albumNames)")
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        albumNames = allAlbums.keys.sorted()
         albumsCollectionView.reloadData()
         timeframesCollectionView.reloadData()
     }
@@ -106,5 +104,16 @@ class HomeScreenVC: UIViewController, UICollectionViewDelegate, UICollectionView
     
     func updateTimeframes() {
         timeframesCollectionView.reloadData()
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "segueToAlbumVC",
+           let nextVC = segue.destination as? AlbumViewController {
+            if let indexPaths = albumsCollectionView.indexPathsForSelectedItems {
+                let index = indexPaths[0].row
+                nextVC.albumName = albumNames[index]
+                albumsCollectionView.deselectItem(at: indexPaths[0], animated: false)
+            }
+        }
     }
 }

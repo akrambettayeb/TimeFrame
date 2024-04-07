@@ -12,8 +12,6 @@ import UIKit
 import FirebaseAuth
 import FirebaseFirestore
 
-public var allAlbums: [String: [UIImage]] = [:]
-
 class LoginViewController: UIViewController, UITextFieldDelegate {
 
     @IBOutlet weak var emailTextField: UITextField!

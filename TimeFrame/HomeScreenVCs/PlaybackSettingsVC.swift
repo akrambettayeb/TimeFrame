@@ -7,6 +7,9 @@
 
 import UIKit
 
+// TODO: remove and change in ViewTimeframeVC
+public var fetchedPhotos: [UIImage] = []
+
 class PlaybackSettingsVC: UIViewController, UITextFieldDelegate {
 
     @IBOutlet weak var nameTextField: UITextField!
