@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		3F08EC392B985ED10065C923 /* SelfieViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F08EC382B985ED10065C923 /* SelfieViewController.swift */; };
 		3F08EC3D2BA1970A0065C923 /* Authentication.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3F08EC3C2BA1970A0065C923 /* Authentication.storyboard */; };
 		3F08EC5C2BA5965E0065C923 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F08EC592BA5965E0065C923 /* LoginViewController.swift */; };
 		3F08EC5D2BA5965E0065C923 /* ForgotPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F08EC5A2BA5965E0065C923 /* ForgotPasswordViewController.swift */; };
@@ -42,7 +41,6 @@
 		3F08EC972BA6B89E0065C923 /* FirebaseStorageCombine-Community in Frameworks */ = {isa = PBXBuildFile; productRef = 3F08EC962BA6B89E0065C923 /* FirebaseStorageCombine-Community */; };
 		3F1EAAE82B9697A00060218F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F1EAAE72B9697A00060218F /* AppDelegate.swift */; };
 		3F1EAAEA2B9697A00060218F /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F1EAAE92B9697A00060218F /* SceneDelegate.swift */; };
-		3F1EAAEC2B9697A00060218F /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F1EAAEB2B9697A00060218F /* ViewController.swift */; };
 		3F1EAAEF2B9697A00060218F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3F1EAAED2B9697A00060218F /* Main.storyboard */; };
 		3F1EAAF22B9697A00060218F /* TimeFrame.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 3F1EAAF02B9697A00060218F /* TimeFrame.xcdatamodeld */; };
 		3F1EAAF42B9697A10060218F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3F1EAAF32B9697A10060218F /* Assets.xcassets */; };
@@ -56,29 +54,30 @@
 		55A83AB42BA6A98400895DFE /* AddPhotoToChallengeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55A83AB32BA6A98400895DFE /* AddPhotoToChallengeViewController.swift */; };
 		55A83AB62BA6AA5500895DFE /* ChallengeAlbumViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55A83AB52BA6AA5500895DFE /* ChallengeAlbumViewController.swift */; };
 		55A83AB82BA6AA9000895DFE /* PhotoStreamViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55A83AB72BA6AA9000895DFE /* PhotoStreamViewController.swift */; };
-		AC999AFE2BA8C5F9006DBDFC /* HomeScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC999AFD2BA8C5F9006DBDFC /* HomeScreenViewController.swift */; };
 		AC999B002BA8C810006DBDFC /* CreateAlbumViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC999AFF2BA8C810006DBDFC /* CreateAlbumViewController.swift */; };
 		AC999B022BA8CB12006DBDFC /* AlbumViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC999B012BA8CB12006DBDFC /* AlbumViewController.swift */; };
 		B50AF3422BA42C0800003743 /* MyProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B50AF3412BA42C0800003743 /* MyProfileVC.swift */; };
 		B50AF3442BA42C1400003743 /* EditProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B50AF3432BA42C1400003743 /* EditProfileVC.swift */; };
+		B51879D72BC319AA008FF688 /* HomeScreenVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B51879D62BC319AA008FF688 /* HomeScreenVC.swift */; };
+		B51879D92BC35ECC008FF688 /* ViewAlbumImageVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B51879D82BC35ECC008FF688 /* ViewAlbumImageVC.swift */; };
+		B51879DB2BC37030008FF688 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B51879DA2BC37030008FF688 /* Extensions.swift */; };
+		B51879DD2BC371A6008FF688 /* AllAlbumsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B51879DC2BC371A5008FF688 /* AllAlbumsVC.swift */; };
 		B52232FA2BA7E1F500F229B0 /* ProfileGridImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = B52232F92BA7E1F500F229B0 /* ProfileGridImage.swift */; };
 		B522331C2BA8D5ED00F229B0 /* ViewImageVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B522331B2BA8D5ED00F229B0 /* ViewImageVC.swift */; };
-		B56D904E2BA58BF7008A435C /* ExtensionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B56D904D2BA58BF7008A435C /* ExtensionVC.swift */; };
 		B57132C92BA6743400695F1C /* EditImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B57132C82BA6743400695F1C /* EditImageCell.swift */; };
 		B57132CB2BA6F33600695F1C /* QRProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B57132CA2BA6F33600695F1C /* QRProfileVC.swift */; };
 		B5A02CDD2BC25344001C8D23 /* Gradient.png in Resources */ = {isa = PBXBuildFile; fileRef = B5A02CDB2BC25301001C8D23 /* Gradient.png */; };
 		B5B73D482BBA956400BA1BA3 /* ImagesToGIF.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B5B73D472BBA956400BA1BA3 /* ImagesToGIF.storyboard */; };
 		B5B73D4D2BBA967A00BA1BA3 /* ViewTimeFrameVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5B73D4C2BBA967A00BA1BA3 /* ViewTimeFrameVC.swift */; };
 		B5B73D742BBB3BF800BA1BA3 /* PlaybackSettingsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5B73D732BBB3BF800BA1BA3 /* PlaybackSettingsVC.swift */; };
-		B5B73DDA2BC1B25200BA1BA3 /* AlbumCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5B73DD92BC1B25100BA1BA3 /* AlbumCell.swift */; };
 		B5BB29772BA3E6C6005A2987 /* Home.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B5BB29762BA3E6C6005A2987 /* Home.storyboard */; };
 		B5BB29792BA3E714005A2987 /* Discover.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B5BB29782BA3E714005A2987 /* Discover.storyboard */; };
 		B5BB297B2BA3E726005A2987 /* GeoChallenge.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B5BB297A2BA3E726005A2987 /* GeoChallenge.storyboard */; };
 		B5BB297D2BA3E736005A2987 /* Profile.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B5BB297C2BA3E736005A2987 /* Profile.storyboard */; };
+		B5C8FE802BC3B74C00D71C06 /* OpenTimeframeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5C8FE7F2BC3B74C00D71C06 /* OpenTimeframeVC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		3F08EC382B985ED10065C923 /* SelfieViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelfieViewController.swift; sourceTree = "<group>"; };
 		3F08EC3C2BA1970A0065C923 /* Authentication.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Authentication.storyboard; sourceTree = "<group>"; };
 		3F08EC592BA5965E0065C923 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		3F08EC5A2BA5965E0065C923 /* ForgotPasswordViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ForgotPasswordViewController.swift; sourceTree = "<group>"; };
@@ -87,7 +86,6 @@
 		3F1EAAE42B9697A00060218F /* TimeFrame.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TimeFrame.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3F1EAAE72B9697A00060218F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3F1EAAE92B9697A00060218F /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		3F1EAAEB2B9697A00060218F /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		3F1EAAEE2B9697A00060218F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		3F1EAAF12B9697A00060218F /* TimeFrame.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = TimeFrame.xcdatamodel; sourceTree = "<group>"; };
 		3F1EAAF32B9697A10060218F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -102,25 +100,27 @@
 		55A83AB32BA6A98400895DFE /* AddPhotoToChallengeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPhotoToChallengeViewController.swift; sourceTree = "<group>"; };
 		55A83AB52BA6AA5500895DFE /* ChallengeAlbumViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeAlbumViewController.swift; sourceTree = "<group>"; };
 		55A83AB72BA6AA9000895DFE /* PhotoStreamViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoStreamViewController.swift; sourceTree = "<group>"; };
-		AC999AFD2BA8C5F9006DBDFC /* HomeScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeScreenViewController.swift; sourceTree = "<group>"; };
 		AC999AFF2BA8C810006DBDFC /* CreateAlbumViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateAlbumViewController.swift; sourceTree = "<group>"; };
 		AC999B012BA8CB12006DBDFC /* AlbumViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumViewController.swift; sourceTree = "<group>"; };
 		B50AF3412BA42C0800003743 /* MyProfileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyProfileVC.swift; sourceTree = "<group>"; };
 		B50AF3432BA42C1400003743 /* EditProfileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileVC.swift; sourceTree = "<group>"; };
+		B51879D62BC319AA008FF688 /* HomeScreenVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeScreenVC.swift; sourceTree = "<group>"; };
+		B51879D82BC35ECC008FF688 /* ViewAlbumImageVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewAlbumImageVC.swift; sourceTree = "<group>"; };
+		B51879DA2BC37030008FF688 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		B51879DC2BC371A5008FF688 /* AllAlbumsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllAlbumsVC.swift; sourceTree = "<group>"; };
 		B52232F92BA7E1F500F229B0 /* ProfileGridImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileGridImage.swift; sourceTree = "<group>"; };
 		B522331B2BA8D5ED00F229B0 /* ViewImageVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewImageVC.swift; sourceTree = "<group>"; };
-		B56D904D2BA58BF7008A435C /* ExtensionVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionVC.swift; sourceTree = "<group>"; };
 		B57132C82BA6743400695F1C /* EditImageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditImageCell.swift; sourceTree = "<group>"; };
 		B57132CA2BA6F33600695F1C /* QRProfileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRProfileVC.swift; sourceTree = "<group>"; };
 		B5A02CDB2BC25301001C8D23 /* Gradient.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Gradient.png; sourceTree = "<group>"; };
 		B5B73D472BBA956400BA1BA3 /* ImagesToGIF.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ImagesToGIF.storyboard; sourceTree = "<group>"; };
 		B5B73D4C2BBA967A00BA1BA3 /* ViewTimeFrameVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewTimeFrameVC.swift; sourceTree = "<group>"; };
 		B5B73D732BBB3BF800BA1BA3 /* PlaybackSettingsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaybackSettingsVC.swift; sourceTree = "<group>"; };
-		B5B73DD92BC1B25100BA1BA3 /* AlbumCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AlbumCell.swift; path = TimeFrame/HomeScreenVCs/AlbumCell.swift; sourceTree = SOURCE_ROOT; };
 		B5BB29762BA3E6C6005A2987 /* Home.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Home.storyboard; sourceTree = "<group>"; };
 		B5BB29782BA3E714005A2987 /* Discover.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Discover.storyboard; sourceTree = "<group>"; };
 		B5BB297A2BA3E726005A2987 /* GeoChallenge.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = GeoChallenge.storyboard; sourceTree = "<group>"; };
 		B5BB297C2BA3E736005A2987 /* Profile.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Profile.storyboard; sourceTree = "<group>"; };
+		B5C8FE7F2BC3B74C00D71C06 /* OpenTimeframeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenTimeframeVC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -190,14 +190,12 @@
 		3F1EAAE62B9697A00060218F /* TimeFrame */ = {
 			isa = PBXGroup;
 			children = (
+				3F1EAAE72B9697A00060218F /* AppDelegate.swift */,
+				3F1EAAE92B9697A00060218F /* SceneDelegate.swift */,
+				B51879DA2BC37030008FF688 /* Extensions.swift */,
 				AC999AFC2BA8C5D2006DBDFC /* HomeScreenVCs */,
 				5520389A2BA623FE000C5014 /* GeoChallengeVCs */,
-				3F08EC382B985ED10065C923 /* SelfieViewController.swift */,
-				3F1EAAE72B9697A00060218F /* AppDelegate.swift */,
 				3F08EC582BA5964F0065C923 /* AuthenticationVCs */,
-				3F1EAAE92B9697A00060218F /* SceneDelegate.swift */,
-				3F1EAAEB2B9697A00060218F /* ViewController.swift */,
-				B56D904D2BA58BF7008A435C /* ExtensionVC.swift */,
 				B50AF3402BA42BF300003743 /* ProfileVCs */,
 				3F08EC3C2BA1970A0065C923 /* Authentication.storyboard */,
 				3F1EAAED2B9697A00060218F /* Main.storyboard */,
@@ -235,11 +233,13 @@
 		AC999AFC2BA8C5D2006DBDFC /* HomeScreenVCs */ = {
 			isa = PBXGroup;
 			children = (
-				AC999AFD2BA8C5F9006DBDFC /* HomeScreenViewController.swift */,
+				B51879D62BC319AA008FF688 /* HomeScreenVC.swift */,
 				AC999AFF2BA8C810006DBDFC /* CreateAlbumViewController.swift */,
+				B51879DC2BC371A5008FF688 /* AllAlbumsVC.swift */,
 				AC999B012BA8CB12006DBDFC /* AlbumViewController.swift */,
-				B5B73DD92BC1B25100BA1BA3 /* AlbumCell.swift */,
+				B51879D82BC35ECC008FF688 /* ViewAlbumImageVC.swift */,
 				B5B73D732BBB3BF800BA1BA3 /* PlaybackSettingsVC.swift */,
+				B5C8FE7F2BC3B74C00D71C06 /* OpenTimeframeVC.swift */,
 				B5B73D4C2BBA967A00BA1BA3 /* ViewTimeFrameVC.swift */,
 			);
 			path = HomeScreenVCs;
@@ -369,19 +369,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B56D904E2BA58BF7008A435C /* ExtensionVC.swift in Sources */,
+				B51879D72BC319AA008FF688 /* HomeScreenVC.swift in Sources */,
 				5520389C2BA62421000C5014 /* MapViewController.swift in Sources */,
-				B56D904E2BA58BF7008A435C /* ExtensionVC.swift in Sources */,
+				B51879DD2BC371A6008FF688 /* AllAlbumsVC.swift in Sources */,
 				5520389E2BA62DE3000C5014 /* AddInitialPhotoViewController.swift in Sources */,
 				B5B73D742BBB3BF800BA1BA3 /* PlaybackSettingsVC.swift in Sources */,
 				3F1EAAF22B9697A00060218F /* TimeFrame.xcdatamodeld in Sources */,
 				3F08EC5D2BA5965E0065C923 /* ForgotPasswordViewController.swift in Sources */,
 				3F08EC5E2BA5965E0065C923 /* RegisterViewController.swift in Sources */,
 				5581CF882BA68C530096BB92 /* AddChallengeInfoViewController.swift in Sources */,
-				3F1EAAEC2B9697A00060218F /* ViewController.swift in Sources */,
 				AC999B002BA8C810006DBDFC /* CreateAlbumViewController.swift in Sources */,
 				B57132C92BA6743400695F1C /* EditImageCell.swift in Sources */,
 				552038A02BA62EF6000C5014 /* ChallengeInfoViewController.swift in Sources */,
+				B5C8FE802BC3B74C00D71C06 /* OpenTimeframeVC.swift in Sources */,
 				B50AF3422BA42C0800003743 /* MyProfileVC.swift in Sources */,
 				3F1EAAE82B9697A00060218F /* AppDelegate.swift in Sources */,
 				B50AF3442BA42C1400003743 /* EditProfileVC.swift in Sources */,
@@ -390,16 +390,15 @@
 				55A83AB62BA6AA5500895DFE /* ChallengeAlbumViewController.swift in Sources */,
 				B5B73D4D2BBA967A00BA1BA3 /* ViewTimeFrameVC.swift in Sources */,
 				3F1EAAE82B9697A00060218F /* AppDelegate.swift in Sources */,
-				AC999AFE2BA8C5F9006DBDFC /* HomeScreenViewController.swift in Sources */,
 				B57132CB2BA6F33600695F1C /* QRProfileVC.swift in Sources */,
 				AC999B022BA8CB12006DBDFC /* AlbumViewController.swift in Sources */,
 				B52232FA2BA7E1F500F229B0 /* ProfileGridImage.swift in Sources */,
-				3F08EC392B985ED10065C923 /* SelfieViewController.swift in Sources */,
+				B51879D92BC35ECC008FF688 /* ViewAlbumImageVC.swift in Sources */,
 				559596B12BA699F800972EB4 /* ViewTimeLapseViewController.swift in Sources */,
-				B5B73DDA2BC1B25200BA1BA3 /* AlbumCell.swift in Sources */,
 				55A83AB42BA6A98400895DFE /* AddPhotoToChallengeViewController.swift in Sources */,
 				3F08EC5C2BA5965E0065C923 /* LoginViewController.swift in Sources */,
 				3F1EAAEA2B9697A00060218F /* SceneDelegate.swift in Sources */,
+				B51879DB2BC37030008FF688 /* Extensions.swift in Sources */,
 				55A83AB22BA6A5CB00895DFE /* ChallengeCameraViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

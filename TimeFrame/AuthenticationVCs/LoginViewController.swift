@@ -12,8 +12,6 @@ import UIKit
 import FirebaseAuth
 import FirebaseFirestore
 
-public var allAlbums: [String: [String]] = [:]
-
 class LoginViewController: UIViewController, UITextFieldDelegate {
 
     @IBOutlet weak var emailTextField: UITextField!
@@ -37,18 +35,12 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         
         Auth.auth().addStateDidChangeListener { (auth, user) in
             if user != nil && self.isViewLoaded && self.view.window != nil {
-                self.fetchAllAlbums(for: self.db) { fetchedAlbums in
-                    allAlbums = fetchedAlbums
-                    // Casting to AnyObject formats the printed output
-                    print("allAlbums = \(allAlbums as AnyObject)")
-                }
                 self.performSegue(withIdentifier: "loginSegueToMainStoryboard", sender: nil)
                 self.emailTextField.text = ""
                 self.passwordTextField.text = ""
             }
         }
     }
-
     
     @IBAction func loginButtonTapped(_ sender: UIButton) {
         guard let email = emailTextField.text, !email.isEmpty,
@@ -66,9 +58,6 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
                 self.errorMessageLabel.text = error.localizedDescription
                 self.errorMessageLabel.isHidden = false
             } else {
-                self.fetchAllAlbums(for: db) { fetchedAlbums in
-                    allAlbums = fetchedAlbums
-                }
                 // Login was successful, perform segue to Main.storyboard
                 self.performSegue(withIdentifier: "loginSegueToMainStoryboard", sender: self)
             }
@@ -94,6 +83,23 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         emailTextField.text = ""
         passwordTextField.text = ""
         errorMessageLabel.isHidden = true
+        
+        // If user is logged in, fetch all albums and populate the home screen collection views
+        if segue.identifier == "loginSegueToMainStoryboard",
+           let mainVC = segue.destination as? UITabBarController {
+            guard let homeNav = mainVC.viewControllers?.first as? UINavigationController else {
+                return
+            }
+            guard let homeVC = homeNav.visibleViewController as? ImageLoader else {
+                return
+            }
+            self.fetchAllAlbums(for: self.db) { fetchedAlbums in
+                allAlbums = fetchedAlbums
+                albumNames = allAlbums.keys.sorted()
+                homeVC.updateAlbums()
+                homeVC.updateTimeframes()
+            }
+        }
     }
     
 }
