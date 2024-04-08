@@ -223,7 +223,7 @@ class EditProfileVC: UIViewController, UIImagePickerControllerDelegate, UINaviga
         let username = usernameTextField.text!
         let email = emailTextField.text!
         let password = passwordTextField.text!
-        if (displayName.isEmpty || username.isEmpty || email.isEmpty || password.isEmpty) {
+        if (displayName.isEmpty || username.isEmpty || email.isEmpty) {
             errorMessage = "Text fields cannot be empty"
         } else if isValidEmail(email) {
             // checkPassword(password)

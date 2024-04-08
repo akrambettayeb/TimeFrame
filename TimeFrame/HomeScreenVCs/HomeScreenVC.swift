@@ -114,11 +114,15 @@ class HomeScreenVC: UIViewController, UICollectionViewDelegate, UICollectionView
     }
     
     func updateAlbums() {
-        albumsCollectionView.reloadData()
+        if albumsCollectionView != nil {
+            albumsCollectionView.reloadData()
+        }
     }
     
     func updateTimeframes() {
-        timeframesCollectionView.reloadData()
+        if timeframesCollectionView != nil {
+            timeframesCollectionView.reloadData()
+        }
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
