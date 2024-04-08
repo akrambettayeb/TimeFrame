@@ -233,7 +233,7 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="F2k-qz-pyV" firstAttribute="centerX" secondItem="93F-Re-Nrk" secondAttribute="centerX" id="1ds-Lo-QJx"/>
-                            <constraint firstItem="F2k-qz-pyV" firstAttribute="width" secondItem="93F-Re-Nrk" secondAttribute="width" id="9pq-Zo-nuv"/>
+                            <constraint firstItem="F2k-qz-pyV" firstAttribute="width" secondItem="93F-Re-Nrk" secondAttribute="width" id="2ma-Un-Ene"/>
                             <constraint firstItem="F2k-qz-pyV" firstAttribute="centerY" secondItem="93F-Re-Nrk" secondAttribute="centerY" id="WzN-Ow-AIl"/>
                         </constraints>
                     </view>

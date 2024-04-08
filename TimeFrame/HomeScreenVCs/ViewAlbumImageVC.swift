@@ -7,13 +7,14 @@
 
 import UIKit
 
-class ViewAlbumImageVC: UIViewController {
+class ViewAlbumImageVC: UIViewController, UIScrollViewDelegate {
 
     @IBOutlet weak var imageView: UIImageView!
     var selectedImage: UIImage!
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         imageView.image = selectedImage
+        imageView.enableZoom()
     }
 }
