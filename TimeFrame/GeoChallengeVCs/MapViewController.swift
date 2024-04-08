@@ -45,6 +45,8 @@ class MapViewController: UIViewController, UIPopoverPresentationControllerDelega
         for challenge in challengeLocations {
             mapView.addAnnotation(challenge)
         }
+        
+        mapView.reloadInputViews()
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -131,6 +133,7 @@ class MapViewController: UIViewController, UIPopoverPresentationControllerDelega
     }
     
     //TODO: add vibration on long tap
+    // TODO: change pin color
     @IBAction func onLongPress(recognizer: UILongPressGestureRecognizer) {
         guard recognizer.state == UIGestureRecognizer.State.began else { return }
         

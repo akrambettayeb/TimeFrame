@@ -31,7 +31,7 @@ class AddPhotoToChallengeViewController: UIViewController, UIImagePickerControll
             // Only load the camera once automatically.
             showCamera() // TODO: need to load new overlay image
         } else if previewView.image == nil {
-            performSegue(withIdentifier: "CameraToTimeLapseSegue", sender: nil)
+            dismiss(animated: true)
         }
     }
     
@@ -48,7 +48,7 @@ class AddPhotoToChallengeViewController: UIViewController, UIImagePickerControll
                 break
             default:
                 print("Access denied.") //TODO: show some error and segue if access denied
-                performSegue(withIdentifier: "CameraToTimeLapseSegue", sender: nil)
+                dismiss(animated: true)
                 return
             }
             
@@ -103,11 +103,11 @@ class AddPhotoToChallengeViewController: UIViewController, UIImagePickerControll
         previewView.image = chosenImage
         
         // Dismiss this popover.
-        dismiss(animated: true, completion: nil)
+        dismiss(animated: true)
     }
     
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
-        dismiss(animated: true, completion: nil)
+        dismiss(animated: true)
     }
     
 
@@ -117,9 +117,5 @@ class AddPhotoToChallengeViewController: UIViewController, UIImagePickerControll
     
     @IBAction func onBackButtonPressed(_ sender: Any) {
         dismiss(animated: true)
-    }
-    
-    @IBAction func onViewAlbumButtonPressed(_ sender: Any) {
-        self.present(ChallengeAlbumViewController(), animated: true)
     }
 }

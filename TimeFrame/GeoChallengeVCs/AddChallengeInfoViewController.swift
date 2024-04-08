@@ -12,9 +12,10 @@ import UIKit
 import AVFoundation
 import MapKit
 
-class AddChallengeInfoViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+class AddChallengeInfoViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate {
     //TODO: add dismiss keyboard
     @IBOutlet weak var previewView: UIImageView!
+    @IBOutlet weak var locationNameField: UITextField!
     
     let picker = UIImagePickerController()
     var cameraLoaded = false
@@ -23,6 +24,7 @@ class AddChallengeInfoViewController: UIViewController, UIImagePickerControllerD
     override func viewDidLoad() {
         super.viewDidLoad()
         picker.delegate = self
+        locationNameField.delegate = self
         setCustomBackImage()
     }
     
@@ -33,7 +35,7 @@ class AddChallengeInfoViewController: UIViewController, UIImagePickerControllerD
             showCamera()
         } else if previewView.image == nil {
             // Go back to Map Screen.
-            performSegue(withIdentifier: "AddChallengeToMapSegue", sender: self)
+            dismiss(animated: true)
         }
     }
     
@@ -50,7 +52,7 @@ class AddChallengeInfoViewController: UIViewController, UIImagePickerControllerD
                 break
             default:
                 print("Access denied.") //TODO: show some error and segue if access denied
-                performSegue(withIdentifier: "AddChallengeToMapSegue", sender: self)
+                dismiss(animated: true)
                 return
             }
             
@@ -81,11 +83,11 @@ class AddChallengeInfoViewController: UIViewController, UIImagePickerControllerD
         previewView.image = chosenImage
         
         // Dismiss this popover.
-        dismiss(animated: true, completion: nil)
+        dismiss(animated: true)
     }
     
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
-        dismiss(animated: true, completion: nil)
+        dismiss(animated: true)
     }
     
     @IBAction func onSubmitButtonPressed(_ sender: Any) {
@@ -97,4 +99,16 @@ class AddChallengeInfoViewController: UIViewController, UIImagePickerControllerD
     @IBAction func onBackButtonPressed(_ sender: Any) {
         dismiss(animated: true)
     }
+    
+    // Called when 'return' key pressed.
+    func textFieldShouldReturn(_ textField:UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
+    
+    // Called when the user clicks on the view outside of the UITextField.
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
+    }
+    
 }

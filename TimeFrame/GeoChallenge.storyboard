@@ -44,15 +44,6 @@
                                     </segue>
                                 </connections>
                             </button>
-                            <searchBar contentMode="redraw" fixedFrame="YES" placeholder="Search" translatesAutoresizingMaskIntoConstraints="NO" id="YZU-y7-bkr">
-                                <rect key="frame" x="0.0" y="725" width="393" height="44"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" red="0.89411771299999998" green="0.75686275960000005" blue="0.98431372640000003" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                <textInputTraits key="textInputTraits"/>
-                                <connections>
-                                    <outlet property="delegate" destination="Y6W-OH-hqX" id="i53-52-aVE"/>
-                                </connections>
-                            </searchBar>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -225,7 +216,7 @@ Active Dates:          2/24/24 - 2/24/25</string>
                                     <color key="baseBackgroundColor" name="TabBarPurple"/>
                                 </buttonConfiguration>
                                 <connections>
-                                    <action selector="onAddPhotoButtonPressed:" destination="ARb-O1-Pmu" eventType="touchUpInside" id="VAW-eu-YvP"/>
+                                    <segue destination="qUo-V8-TdR" kind="presentation" modalPresentationStyle="fullScreen" id="4hT-JU-ekx"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tiw-NA-kIb">
@@ -343,7 +334,7 @@ Active Dates:          2/24/24 - 2/24/25</string>
                                     <color key="baseBackgroundColor" name="TabBarPurple"/>
                                 </buttonConfiguration>
                                 <connections>
-                                    <action selector="onAddPhotoButtonPressed:" destination="H6q-rD-csP" eventType="touchUpInside" id="br2-pG-hrQ"/>
+                                    <segue destination="qUo-V8-TdR" kind="presentation" modalPresentationStyle="fullScreen" id="yDH-Mh-uI6"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Z11-qI-xJs">
@@ -356,7 +347,7 @@ Active Dates:          2/24/24 - 2/24/25</string>
                                     <color key="baseBackgroundColor" name="TabBarPurple"/>
                                 </buttonConfiguration>
                                 <connections>
-                                    <action selector="onViewAlbumButtonPressed:" destination="H6q-rD-csP" eventType="touchUpInside" id="SOp-Hm-D1Y"/>
+                                    <segue destination="ARb-O1-Pmu" kind="presentation" modalPresentationStyle="fullScreen" id="jmK-vi-xgY"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XRf-Sh-ZX1">
@@ -476,6 +467,7 @@ Active Dates:          2/24/24 - 2/24/25</string>
                     </view>
                     <navigationItem key="navigationItem" id="UBF-ol-9nR"/>
                     <connections>
+                        <outlet property="locationNameField" destination="6Sr-g0-9cf" id="QUR-Dp-MB9"/>
                         <outlet property="previewView" destination="iC8-qj-vmi" id="lqI-As-odm"/>
                     </connections>
                 </viewController>
@@ -549,7 +541,7 @@ Active Dates:          2/24/24 - 2/24/25</string>
                                     <color key="baseBackgroundColor" name="TabBarPurple"/>
                                 </buttonConfiguration>
                                 <connections>
-                                    <action selector="onViewAlbumButtonPressed:" destination="qUo-V8-TdR" eventType="touchUpInside" id="R5A-IB-sK9"/>
+                                    <segue destination="ARb-O1-Pmu" kind="presentation" modalPresentationStyle="fullScreen" id="5gh-rc-pgI"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -586,6 +578,10 @@ Active Dates:          2/24/24 - 2/24/25</string>
             <point key="canvasLocation" x="983.96946564885491" y="-2.1126760563380285"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="4hT-JU-ekx"/>
+        <segue reference="5gh-rc-pgI"/>
+    </inferredMetricsTieBreakers>
     <resources>
         <image name="CameraPlaceholder" width="290" height="491"/>
         <image name="InitialImagePlaceholder" width="327" height="436"/>
