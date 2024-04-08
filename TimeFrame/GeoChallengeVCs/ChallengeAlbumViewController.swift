@@ -18,4 +18,11 @@ class ChallengeAlbumViewController: UIViewController {
         setCustomBackImage()
     }
     
+    @IBAction func onAddPhotoButtonPressed(_ sender: Any) {
+        self.present(AddPhotoToChallengeViewController(), animated: true)
+    }
+    
+    @IBAction func onBackButtonPressed(_ sender: Any) {
+        dismiss(animated: true)
+    }
 }

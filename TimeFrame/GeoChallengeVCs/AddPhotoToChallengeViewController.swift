@@ -48,6 +48,7 @@ class AddPhotoToChallengeViewController: UIViewController, UIImagePickerControll
                 break
             default:
                 print("Access denied.") //TODO: show some error and segue if access denied
+                performSegue(withIdentifier: "CameraToTimeLapseSegue", sender: nil)
                 return
             }
             
@@ -84,9 +85,11 @@ class AddPhotoToChallengeViewController: UIViewController, UIImagePickerControll
         } else {
             // Not available, pop up an alert.
             let alertVC = UIAlertController(title: "No Camera Available", message: "Sorry, this device does not have a camera.", preferredStyle: .alert)
-            let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+            let okAction = UIAlertAction(title: "OK", style: .default) { _ in
+                self.dismiss(animated: true)
+            }
             alertVC.addAction(okAction)
-            present(alertVC, animated: true, completion: nil)
+            present(alertVC, animated: true)
         }
     }
     
@@ -107,9 +110,16 @@ class AddPhotoToChallengeViewController: UIViewController, UIImagePickerControll
         dismiss(animated: true, completion: nil)
     }
     
-    @IBAction func onRetakePhotoButtonPressed(_ sender: Any) {
-        // Retake photo.
-        showCamera()
-        //TODO: delete old photo and save new photo
+
+    @IBAction func onSubmitButtonPressed(_ sender: Any) {
+        dismiss(animated: true)
+    }
+    
+    @IBAction func onBackButtonPressed(_ sender: Any) {
+        dismiss(animated: true)
+    }
+    
+    @IBAction func onViewAlbumButtonPressed(_ sender: Any) {
+        self.present(ChallengeAlbumViewController(), animated: true)
     }
 }
