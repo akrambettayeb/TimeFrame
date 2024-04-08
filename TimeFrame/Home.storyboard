@@ -464,7 +464,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qGC-OX-RNy">
-                                <rect key="frame" x="305" y="329" width="88" height="35"/>
+                                <rect key="frame" x="294" y="329" width="99" height="35"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="tintColor" name="TabBarPurple"/>
                                 <state key="normal" title="Button"/>
@@ -485,7 +485,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="H4g-0z-aT5">
-                                <rect key="frame" x="305" y="376" width="88" height="35"/>
+                                <rect key="frame" x="294" y="376" width="99" height="35"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="tintColor" name="TabBarPurple"/>
                                 <state key="normal" title="Button"/>
@@ -495,11 +495,11 @@
                                 <rect key="frame" x="95" y="454" width="202" height="35"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" name="TabBarPurple"/>
-                                <color key="tintColor" systemColor="systemBackgroundColor"/>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" title="Generate TimeFrame"/>
+                                <buttonConfiguration key="configuration" style="plain" title="Make TimeFrame!"/>
                                 <connections>
-                                    <segue destination="4oc-FV-8Ke" kind="show" id="9wm-xf-bGE"/>
+                                    <action selector="onMakeTapped:" destination="Ede-OG-e87" eventType="touchUpInside" id="oz0-eW-Qz8"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -508,16 +508,19 @@
                     </view>
                     <navigationItem key="navigationItem" title="TimeFrame Settings" id="OXc-lN-AvV"/>
                     <connections>
+                        <outlet property="datesButton" destination="qGC-OX-RNy" id="1pN-Ix-unV"/>
                         <outlet property="favoriteSwitch" destination="KbC-up-atB" id="gQf-CT-xWH"/>
                         <outlet property="generateTimeframeButton" destination="uFq-RN-mgY" id="XQX-09-LmD"/>
                         <outlet property="nameTextField" destination="EnW-zo-CFt" id="6OO-uv-SUI"/>
                         <outlet property="publicSwitch" destination="G2F-MZ-IIg" id="ngW-5q-YQ9"/>
                         <outlet property="reversedSwitch" destination="esa-cn-jZ9" id="Zwz-LI-vii"/>
+                        <outlet property="speedButton" destination="H4g-0z-aT5" id="XDt-k2-tqx"/>
+                        <segue destination="4oc-FV-8Ke" kind="show" identifier="segueToViewTimeframeVC" id="BXy-bA-gN0"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Zam-CV-hd1" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2891" y="4"/>
+            <point key="canvasLocation" x="2890.8396946564885" y="3.5211267605633805"/>
         </scene>
         <!--View Time FrameVC-->
         <scene sceneID="Cwu-Zs-D2E">
@@ -526,14 +529,44 @@
                     <view key="view" contentMode="scaleToFill" id="DZB-Wh-0c7">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="LPL-Nw-G8A">
+                                <rect key="frame" x="0.0" y="164" width="393" height="524"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="LPL-Nw-G8A" secondAttribute="height" multiplier="3:4" id="qXb-7s-4Pl"/>
+                                </constraints>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RWV-aJ-zJc">
+                                <rect key="frame" x="151.66666666666652" y="709" width="90" height="35"/>
+                                <color key="backgroundColor" name="TabBarPurple"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="90" id="XUA-8R-PBE"/>
+                                </constraints>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="Share"/>
+                            </button>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="UKo-Cn-Lmd"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="LPL-Nw-G8A" firstAttribute="width" secondItem="DZB-Wh-0c7" secondAttribute="width" id="NwM-j9-tmD"/>
+                            <constraint firstItem="LPL-Nw-G8A" firstAttribute="centerX" secondItem="DZB-Wh-0c7" secondAttribute="centerX" id="bPd-vi-tCy"/>
+                            <constraint firstItem="RWV-aJ-zJc" firstAttribute="centerX" secondItem="DZB-Wh-0c7" secondAttribute="centerX" id="d9c-FJ-YlV"/>
+                            <constraint firstItem="RWV-aJ-zJc" firstAttribute="top" secondItem="LPL-Nw-G8A" secondAttribute="bottom" constant="21" id="ePr-C6-ea9"/>
+                            <constraint firstItem="LPL-Nw-G8A" firstAttribute="centerY" secondItem="DZB-Wh-0c7" secondAttribute="centerY" id="osk-49-CcV"/>
+                        </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="qkt-0D-umM"/>
+                    <navigationItem key="navigationItem" id="qkt-0D-umM">
+                        <nil key="title"/>
+                        <barButtonItem key="rightBarButtonItem" style="plain" systemItem="save" id="T7r-5L-iDV">
+                            <color key="tintColor" name="TabBarPurple"/>
+                        </barButtonItem>
+                    </navigationItem>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pfx-oo-zcJ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3807" y="4"/>
+            <point key="canvasLocation" x="3806.8702290076335" y="3.5211267605633805"/>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
