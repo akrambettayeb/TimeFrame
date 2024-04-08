@@ -227,7 +227,7 @@ class AlbumViewController: UIViewController, UIImagePickerControllerDelegate, UI
         
         // Format month to Month/Year
         let monthFormatter = DateFormatter()
-        monthFormatter.dateFormat = "MM/yyyy"
+        monthFormatter.dateFormat = "MMMM yyyy"
         let formattedMonth = monthFormatter.string(from: Date())
         
         // Format year to Year
