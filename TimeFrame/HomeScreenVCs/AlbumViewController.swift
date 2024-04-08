@@ -193,16 +193,66 @@ class AlbumViewController: UIViewController, UIImagePickerControllerDelegate, UI
         let photoFilename = "\(UUID().uuidString).jpg"
         let storageRef = storage.reference().child("users").child(userID).child("albums").child(albumName).child(photoFilename)
         
-        storageRef.putData(imageData, metadata: nil) { [weak self] (metadata, error) in
+        let uploadMetadata = StorageMetadata()
+        uploadMetadata.contentType = "image/jpeg"
+        
+        storageRef.putData(imageData, metadata: uploadMetadata) { [weak self] (metadata, error) in
             if let error = error {
                 print("Error uploading image to Firebase Storage: \(error.localizedDescription)")
             } else {
                 storageRef.downloadURL { (url, error) in
                     if let downloadURL = url?.absoluteString {
-                        // Save download URL to Firestore
+                        // Save download URL to Firestore and include timestamp
                         self?.saveImageUrlToFirestore(downloadURL: downloadURL, albumName: albumName)
                     }
                 }
+            }
+        }
+    }
+    
+    func saveImageUrlToFirestore(downloadURL: String, albumName: String) {
+        guard let userID = Auth.auth().currentUser?.uid else {
+            print("User not authenticated")
+            return
+        }
+        
+        let db = Firestore.firestore()
+        let timestamp = FieldValue.serverTimestamp()
+        
+        // Get the current date components
+        let calendar = Calendar.current
+        let dateComponents = calendar.dateComponents([.year, .month, .day], from: Date())
+        
+        // Format date to Month/Day/Year
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MM/dd/yyyy"
+        let formattedDate = dateFormatter.string(from: Date())
+        
+        // Format month to Month/Year
+        let monthFormatter = DateFormatter()
+        monthFormatter.dateFormat = "MM/yyyy"
+        let formattedMonth = monthFormatter.string(from: Date())
+        
+        // Format year to Year
+        let yearFormatter = DateFormatter()
+        yearFormatter.dateFormat = "yyyy"
+        let formattedYear = yearFormatter.string(from: Date())
+        
+        let data: [String: Any] = [
+            "downloadURL": downloadURL,
+            "albumName": albumName,
+            "userID": userID,
+            "uploadDate": timestamp,
+            "date": formattedDate,
+            "month": formattedMonth,
+            "year": formattedYear
+        ]
+        
+        db.collection("photos").addDocument(data: data) { error in
+            if let error = error {
+                print("Error adding document to Firestore: \(error.localizedDescription)")
+            } else {
+                print("Photo document added to Firestore")
             }
         }
     }
@@ -215,23 +265,6 @@ class AlbumViewController: UIViewController, UIImagePickerControllerDelegate, UI
     func deleteAlbum() {
         // Handle Delete Album action
         print("Delete Album")
-    }
-    
-    func saveImageUrlToFirestore(downloadURL: String, albumName: String) {
-        guard let userID = Auth.auth().currentUser?.uid else {
-            print("User not authenticated")
-            return
-        }
-        
-        let photoData: [String: Any] = ["url": downloadURL]
-        db.collection("users").document(userID).collection("albums").document(albumName).collection("photos").addDocument(data: photoData) { [weak self] (error) in
-            if let error = error {
-                print("Error adding document: \(error.localizedDescription)")
-            } else {
-                print("Document added successfully")
-                self?.collectionView.reloadData()
-            }
-        }
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
