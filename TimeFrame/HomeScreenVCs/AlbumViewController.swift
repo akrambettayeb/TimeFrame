@@ -14,6 +14,16 @@ import FirebaseFirestore
 import FirebaseStorage
 import FirebaseAuth
 
+class AlbumCell: UICollectionViewCell {
+    @IBOutlet weak var imageView: UIImageView!
+    @IBOutlet weak var selectButton: UIButton!
+    
+    @IBAction func onSelectTapped(_ sender: Any) {
+        selectButton.isSelected = !selectButton.isSelected
+    }
+}
+
+
 class AlbumViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
     
     let imagePicker = UIImagePickerController()

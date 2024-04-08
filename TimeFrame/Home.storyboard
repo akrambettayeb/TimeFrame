@@ -366,14 +366,14 @@
                                                     <state key="normal" title="Button"/>
                                                     <buttonConfiguration key="configuration" style="plain" image="circle" catalog="system"/>
                                                     <connections>
-                                                        <action selector="onSelectTapped:" destination="LWG-lD-wT6" eventType="touchUpInside" id="ah5-Hp-PVn"/>
+                                                        <action selector="onSelectTapped:" destination="LWG-lD-wT6" eventType="touchUpInside" id="XeD-db-88B"/>
                                                     </connections>
                                                 </button>
                                             </subviews>
                                         </collectionViewCellContentView>
                                         <connections>
-                                            <outlet property="imageView" destination="bLc-lE-61U" id="TPT-Bm-d9b"/>
-                                            <outlet property="selectButton" destination="S4c-9e-kaj" id="WNh-DQ-sYg"/>
+                                            <outlet property="imageView" destination="bLc-lE-61U" id="v4b-04-Ycq"/>
+                                            <outlet property="selectButton" destination="S4c-9e-kaj" id="duc-Pp-dhz"/>
                                             <segue destination="ZRz-Eu-sqo" kind="show" identifier="segueToViewAlbumImage" id="oMf-R8-fB7"/>
                                         </connections>
                                     </collectionViewCell>
