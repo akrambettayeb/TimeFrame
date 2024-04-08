@@ -193,23 +193,20 @@ class AlbumViewController: UIViewController, UIImagePickerControllerDelegate, UI
         let photoFilename = "\(UUID().uuidString).jpg"
         let storageRef = storage.reference().child("users").child(userID).child("albums").child(albumName).child(photoFilename)
         
-        let uploadMetadata = StorageMetadata()
-        uploadMetadata.contentType = "image/jpeg"
-        
-        storageRef.putData(imageData, metadata: uploadMetadata) { [weak self] (metadata, error) in
+        storageRef.putData(imageData, metadata: nil) { [weak self] (metadata, error) in
             if let error = error {
                 print("Error uploading image to Firebase Storage: \(error.localizedDescription)")
             } else {
                 storageRef.downloadURL { (url, error) in
                     if let downloadURL = url?.absoluteString {
-                        // Save download URL to Firestore and include timestamp
+                        // Save download URL to Firestore
                         self?.saveImageUrlToFirestore(downloadURL: downloadURL, albumName: albumName)
                     }
                 }
             }
         }
     }
-    
+
     func saveImageUrlToFirestore(downloadURL: String, albumName: String) {
         guard let userID = Auth.auth().currentUser?.uid else {
             print("User not authenticated")
@@ -238,21 +235,20 @@ class AlbumViewController: UIViewController, UIImagePickerControllerDelegate, UI
         yearFormatter.dateFormat = "yyyy"
         let formattedYear = yearFormatter.string(from: Date())
         
-        let data: [String: Any] = [
-            "downloadURL": downloadURL,
-            "albumName": albumName,
-            "userID": userID,
+        let photoData: [String: Any] = [
+            "url": downloadURL,
             "uploadDate": timestamp,
             "date": formattedDate,
             "month": formattedMonth,
             "year": formattedYear
         ]
         
-        db.collection("photos").addDocument(data: data) { error in
+        db.collection("users").document(userID).collection("albums").document(albumName).collection("photos").addDocument(data: photoData) { [weak self] (error) in
             if let error = error {
-                print("Error adding document to Firestore: \(error.localizedDescription)")
+                print("Error adding document: \(error.localizedDescription)")
             } else {
-                print("Photo document added to Firestore")
+                print("Document added successfully")
+                self?.collectionView.reloadData()
             }
         }
     }
