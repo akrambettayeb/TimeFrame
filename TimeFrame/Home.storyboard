@@ -123,8 +123,8 @@
                                             </constraints>
                                         </collectionViewCellContentView>
                                         <connections>
-                                            <outlet property="albumNameLabel" destination="7mT-HI-7Ed" id="1fi-wV-K9Y"/>
-                                            <outlet property="imageView" destination="cgG-aE-aeF" id="RQG-W7-qtr"/>
+                                            <outlet property="albumNameLabel" destination="7mT-HI-7Ed" id="FSK-Ye-fPH"/>
+                                            <outlet property="imageView" destination="cgG-aE-aeF" id="pYI-VO-oXq"/>
                                             <segue destination="UN4-qU-cef" kind="show" identifier="segueToAlbumVC" id="r6b-qa-pyF"/>
                                         </connections>
                                     </collectionViewCell>
@@ -163,8 +163,8 @@
                                             </subviews>
                                         </collectionViewCellContentView>
                                         <connections>
-                                            <outlet property="imageView" destination="1cY-6C-F8V" id="4xr-LP-Epu"/>
-                                            <outlet property="timeframeNameLabel" destination="mUG-H2-Jq8" id="F44-d7-E3g"/>
+                                            <outlet property="imageView" destination="1cY-6C-F8V" id="DIh-jE-KXL"/>
+                                            <outlet property="timeframeNameLabel" destination="mUG-H2-Jq8" id="5vY-Hf-diL"/>
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
@@ -182,6 +182,9 @@
                                 <color key="tintColor" name="TabBarPurple"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" image="chevron.forward" catalog="system" title="View Albums"/>
+                                <connections>
+                                    <segue destination="5sk-ll-6Wk" kind="show" id="v8G-r5-5yx"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3U9-vv-vdK">
                                 <rect key="frame" x="197" y="426" width="197" height="35"/>
@@ -213,6 +216,87 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1063.3587786259541" y="3.5211267605633805"/>
+        </scene>
+        <!--My Albums-->
+        <scene sceneID="aGw-Xo-FJ4">
+            <objects>
+                <viewController id="5sk-ll-6Wk" customClass="AllAlbumsVC" customModule="TimeFrame" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="HUD-qX-PDK">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="yHG-H8-GhJ">
+                                <rect key="frame" x="16" y="103" width="361" height="666"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="c6U-6z-nA2">
+                                    <size key="itemSize" width="172" height="221"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="AllAlbumsCell" id="5YD-KV-ueG" customClass="AllAlbumsCell" customModule="TimeFrame" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="172" height="221"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="rGX-Ld-yzq">
+                                            <rect key="frame" x="0.0" y="0.0" width="172" height="221"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="WXi-9r-8W4">
+                                                    <rect key="frame" x="0.0" y="0.0" width="172" height="177.33333333333334"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="177.33333333333334" id="M1R-gk-or9"/>
+                                                    </constraints>
+                                                </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ov6-rk-IiT">
+                                                    <rect key="frame" x="0.0" y="179.33333333333334" width="172" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="m8s-7x-KVF">
+                                                    <rect key="frame" x="0.0" y="202.33333333333334" width="172" height="15.666666666666657"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="WXi-9r-8W4" firstAttribute="width" secondItem="rGX-Ld-yzq" secondAttribute="width" id="C8d-zX-vxr"/>
+                                                <constraint firstItem="ov6-rk-IiT" firstAttribute="width" secondItem="rGX-Ld-yzq" secondAttribute="width" id="CuH-wa-D80"/>
+                                                <constraint firstAttribute="bottom" secondItem="m8s-7x-KVF" secondAttribute="bottom" constant="3" id="Ic3-49-32u"/>
+                                                <constraint firstItem="WXi-9r-8W4" firstAttribute="centerX" secondItem="rGX-Ld-yzq" secondAttribute="centerX" id="MN2-C8-quU"/>
+                                                <constraint firstItem="m8s-7x-KVF" firstAttribute="centerX" secondItem="rGX-Ld-yzq" secondAttribute="centerX" id="Ndc-2d-vfn"/>
+                                                <constraint firstItem="ov6-rk-IiT" firstAttribute="top" secondItem="WXi-9r-8W4" secondAttribute="bottom" constant="2" id="QSZ-F4-W3A"/>
+                                                <constraint firstItem="WXi-9r-8W4" firstAttribute="top" secondItem="rGX-Ld-yzq" secondAttribute="top" id="YEI-XC-gTI"/>
+                                                <constraint firstItem="ov6-rk-IiT" firstAttribute="centerX" secondItem="rGX-Ld-yzq" secondAttribute="centerX" id="iKv-7D-DZg"/>
+                                                <constraint firstItem="m8s-7x-KVF" firstAttribute="top" secondItem="ov6-rk-IiT" secondAttribute="bottom" constant="2" id="jU3-cA-amc"/>
+                                                <constraint firstItem="m8s-7x-KVF" firstAttribute="width" secondItem="rGX-Ld-yzq" secondAttribute="width" id="pyK-W6-8pg"/>
+                                            </constraints>
+                                        </collectionViewCellContentView>
+                                        <size key="customSize" width="172" height="221"/>
+                                        <connections>
+                                            <outlet property="albumNameLabel" destination="ov6-rk-IiT" id="VCV-4n-PxQ"/>
+                                            <outlet property="imageView" destination="WXi-9r-8W4" id="Jwh-m8-FWC"/>
+                                            <outlet property="photosCountLabel" destination="m8s-7x-KVF" id="Ked-I9-nuy"/>
+                                            <segue destination="UN4-qU-cef" kind="show" identifier="segueAllAlbumsToAlbumVC" id="VFh-q9-J7D"/>
+                                        </connections>
+                                    </collectionViewCell>
+                                </cells>
+                            </collectionView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="ppy-Ji-i8n"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="My Albums" id="cqK-iE-Cf8"/>
+                    <connections>
+                        <outlet property="collectionView" destination="yHG-H8-GhJ" id="lSb-J9-JkO"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="SkB-QB-qq3" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1052.6717557251909" y="745.77464788732402"/>
         </scene>
         <!--View Album ImageVC-->
         <scene sceneID="LZ7-dd-Y6M">

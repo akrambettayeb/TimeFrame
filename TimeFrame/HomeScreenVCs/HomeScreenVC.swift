@@ -9,10 +9,22 @@ import UIKit
 import FirebaseAuth
 import FirebaseDatabase
 
+class HomeAlbumCell: UICollectionViewCell {
+    @IBOutlet weak var imageView: UIImageView!
+    @IBOutlet weak var albumNameLabel: UILabel!
+}
+
+class HomeTimeframeCell: UICollectionViewCell {
+    @IBOutlet weak var imageView: UIImageView!
+    @IBOutlet weak var timeframeNameLabel: UILabel!
+}
+
+
 protocol ImageLoader {
     func updateAlbums()
     func updateTimeframes()
 }
+
 
 public var allAlbums: [String: [UIImage]] = [:]
 public var albumNames: [String] = []
@@ -43,6 +55,7 @@ class HomeScreenVC: UIViewController, UICollectionViewDelegate, UICollectionView
     }
     
     override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
         albumsCollectionView.reloadData()
         timeframesCollectionView.reloadData()
     }
