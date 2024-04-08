@@ -17,12 +17,13 @@ class PlaybackSettingsVC: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var speedButton: UIButton!
     @IBOutlet weak var generateTimeframeButton: UIButton!
     
-    var TimeframeName = ""
+    var timeframeName = ""
     var isPublic = false
     var isFavorite = false
     var isReversed = false
     var selectedDate = ""
     var selectedSpeed = ""
+    var selectedPhotos: [UIImage]!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -70,10 +71,17 @@ class PlaybackSettingsVC: UIViewController, UITextFieldDelegate {
     }
     
     @IBAction func onMakeTapped(_ sender: Any) {
-        // Checks that user entered a name for the Timeframe
         let timeframeName = nameTextField.text!
+        // Checks that user entered a name for the Timeframe
         if timeframeName.isEmpty {
             let alert = UIAlertController(title: "Invalid TimeFrame Name", message: "Please enter a valid TimeFrame name. ", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: .default))
+            self.present(alert, animated: true)
+            return
+        }
+        // Checks if the name for the Timeframe is unique
+        if timeframeNames.contains(timeframeName) {
+            let alert = UIAlertController(title: "Timeframe Name Not Unique", message: "This name has already been used before, please enter a new name. ", preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "OK", style: .default))
             self.present(alert, animated: true)
             return
@@ -98,13 +106,14 @@ class PlaybackSettingsVC: UIViewController, UITextFieldDelegate {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "segueToViewTimeframeVC",
-           let nextVC = segue.destination as? ViewTimeFrameVC {
-            nextVC.TimeframeName = self.TimeframeName
+           let nextVC = segue.destination as? ViewTimeframeVC {
+            nextVC.timeframeName = self.timeframeName
             nextVC.isPublic = self.isPublic
             nextVC.isFavorite = self.isFavorite
             nextVC.isReversed = self.isReversed
             nextVC.selectedDate = self.selectedDate
             nextVC.selectedSpeed = self.selectedSpeed
+            nextVC.selectedPhotos = self.selectedPhotos
         }
     }
     

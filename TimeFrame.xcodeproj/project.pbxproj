@@ -74,6 +74,7 @@
 		B5BB29792BA3E714005A2987 /* Discover.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B5BB29782BA3E714005A2987 /* Discover.storyboard */; };
 		B5BB297B2BA3E726005A2987 /* GeoChallenge.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B5BB297A2BA3E726005A2987 /* GeoChallenge.storyboard */; };
 		B5BB297D2BA3E736005A2987 /* Profile.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B5BB297C2BA3E736005A2987 /* Profile.storyboard */; };
+		B5C8FE802BC3B74C00D71C06 /* OpenTimeframeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5C8FE7F2BC3B74C00D71C06 /* OpenTimeframeVC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -119,6 +120,7 @@
 		B5BB29782BA3E714005A2987 /* Discover.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Discover.storyboard; sourceTree = "<group>"; };
 		B5BB297A2BA3E726005A2987 /* GeoChallenge.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = GeoChallenge.storyboard; sourceTree = "<group>"; };
 		B5BB297C2BA3E736005A2987 /* Profile.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Profile.storyboard; sourceTree = "<group>"; };
+		B5C8FE7F2BC3B74C00D71C06 /* OpenTimeframeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenTimeframeVC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -237,6 +239,7 @@
 				AC999B012BA8CB12006DBDFC /* AlbumViewController.swift */,
 				B51879D82BC35ECC008FF688 /* ViewAlbumImageVC.swift */,
 				B5B73D732BBB3BF800BA1BA3 /* PlaybackSettingsVC.swift */,
+				B5C8FE7F2BC3B74C00D71C06 /* OpenTimeframeVC.swift */,
 				B5B73D4C2BBA967A00BA1BA3 /* ViewTimeFrameVC.swift */,
 			);
 			path = HomeScreenVCs;
@@ -378,6 +381,7 @@
 				AC999B002BA8C810006DBDFC /* CreateAlbumViewController.swift in Sources */,
 				B57132C92BA6743400695F1C /* EditImageCell.swift in Sources */,
 				552038A02BA62EF6000C5014 /* ChallengeInfoViewController.swift in Sources */,
+				B5C8FE802BC3B74C00D71C06 /* OpenTimeframeVC.swift in Sources */,
 				B50AF3422BA42C0800003743 /* MyProfileVC.swift in Sources */,
 				3F1EAAE82B9697A00060218F /* AppDelegate.swift in Sources */,
 				B50AF3442BA42C1400003743 /* EditProfileVC.swift in Sources */,
