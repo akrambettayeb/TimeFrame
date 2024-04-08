@@ -28,6 +28,8 @@ protocol ImageLoader {
 
 public var allAlbums: [String: [UIImage]] = [:]
 public var albumNames: [String] = []
+public var allTimeframes: [String: [UIImage]] = [:]
+public var timeframeNames: [String] = []
 
 class HomeScreenVC: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, ImageLoader {
     
@@ -82,8 +84,8 @@ class HomeScreenVC: UIViewController, UICollectionViewDelegate, UICollectionView
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if collectionView == self.albumsCollectionView {
             return allAlbums.count
-        } else { // TODO: timeframe stuff
-            return allAlbums.count
+        } else {
+            return allTimeframes.count
         }
     }
     
@@ -98,14 +100,14 @@ class HomeScreenVC: UIViewController, UICollectionViewDelegate, UICollectionView
                 cell.imageView.image = allAlbums[albumName]![0]
             }
             return cell
-        } else {    // TODO: account for timeframe
+        } else {
             let cell = timeframesCollectionView.dequeueReusableCell(withReuseIdentifier: timeframeCellID, for: indexPath) as! HomeTimeframeCell
-            let timeframeName = albumNames[indexPath.row]
+            let timeframeName = timeframeNames[indexPath.row]
             cell.timeframeNameLabel.text = timeframeName
-            if allAlbums[timeframeName]!.isEmpty {
+            if allTimeframes[timeframeName]!.isEmpty {
                 cell.imageView.image = UIImage(systemName: "person.crop.rectangle.stack.fill")
             } else {
-                cell.imageView.image = allAlbums[timeframeName]![0]
+                cell.imageView.image = allTimeframes[timeframeName]![0]
             }
             return cell
         }
@@ -127,6 +129,17 @@ class HomeScreenVC: UIViewController, UICollectionViewDelegate, UICollectionView
                 nextVC.albumName = albumNames[index]
                 albumsCollectionView.deselectItem(at: indexPaths[0], animated: false)
             }
+        } else if segue.identifier == "segueToOpenTimeframeVC",
+            let nextVC = segue.destination as? OpenTimeframeVC {
+            if let indexPaths = timeframesCollectionView.indexPathsForSelectedItems {
+                let index = indexPaths[0].row
+                nextVC.timeframeName = timeframeNames[index]
+                timeframesCollectionView.deselectItem(at: indexPaths[0], animated: false)
+            }
         }
+    }
+    
+    @IBAction func unwindFromViewTimeframeVC(_ segue: UIStoryboardSegue) {
+        // Left empty, triggered from save button in ViewTimeframeVC
     }
 }

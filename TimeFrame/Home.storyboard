@@ -149,22 +149,31 @@
                                             <rect key="frame" x="0.0" y="0.0" width="117" height="140"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1cY-6C-F8V">
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="1cY-6C-F8V">
                                                     <rect key="frame" x="0.0" y="0.0" width="117" height="117"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mUG-H2-Jq8">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mUG-H2-Jq8">
                                                     <rect key="frame" x="0.0" y="119" width="117" height="18"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="trailing" secondItem="mUG-H2-Jq8" secondAttribute="trailing" id="7dY-BJ-WbF"/>
+                                                <constraint firstItem="mUG-H2-Jq8" firstAttribute="top" secondItem="1cY-6C-F8V" secondAttribute="bottom" constant="2" id="FLN-VQ-r3e"/>
+                                                <constraint firstAttribute="bottom" secondItem="mUG-H2-Jq8" secondAttribute="bottom" constant="3" id="PyE-bd-PO5"/>
+                                                <constraint firstItem="mUG-H2-Jq8" firstAttribute="leading" secondItem="6jY-Wv-82b" secondAttribute="leading" id="RBv-mv-Nm7"/>
+                                                <constraint firstItem="1cY-6C-F8V" firstAttribute="leading" secondItem="6jY-Wv-82b" secondAttribute="leading" id="X8i-yx-u33"/>
+                                                <constraint firstItem="mUG-H2-Jq8" firstAttribute="top" secondItem="1cY-6C-F8V" secondAttribute="bottom" constant="2" id="ZZt-9T-FFl"/>
+                                                <constraint firstItem="1cY-6C-F8V" firstAttribute="top" secondItem="6jY-Wv-82b" secondAttribute="top" id="Zje-xB-ffb"/>
+                                                <constraint firstAttribute="trailing" secondItem="1cY-6C-F8V" secondAttribute="trailing" id="eDA-f5-DKF"/>
+                                            </constraints>
                                         </collectionViewCellContentView>
                                         <connections>
                                             <outlet property="imageView" destination="1cY-6C-F8V" id="DIh-jE-KXL"/>
                                             <outlet property="timeframeNameLabel" destination="mUG-H2-Jq8" id="5vY-Hf-diL"/>
+                                            <segue destination="PT6-fJ-jZX" kind="show" identifier="segueToOpenTimeframeVC" id="THo-LR-zhS"/>
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
@@ -216,6 +225,54 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1063.3587786259541" y="3.5211267605633805"/>
+        </scene>
+        <!--Open TimeframeVC-->
+        <scene sceneID="m7U-jY-ald">
+            <objects>
+                <viewController id="PT6-fJ-jZX" customClass="OpenTimeframeVC" customModule="TimeFrame" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="CuN-Gl-xVJ">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="tJA-H2-U7D">
+                                <rect key="frame" x="0.0" y="164" width="393" height="524"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="tJA-H2-U7D" secondAttribute="height" multiplier="3:4" id="hRg-ai-vjk"/>
+                                </constraints>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="66j-ef-jyC">
+                                <rect key="frame" x="141.66666666666666" y="712" width="110" height="35"/>
+                                <color key="backgroundColor" name="TabBarPurple"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="110" id="d4A-3K-JW8"/>
+                                </constraints>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="Share"/>
+                                <connections>
+                                    <action selector="onShareTapped:" destination="PT6-fJ-jZX" eventType="touchUpInside" id="Rme-bq-3th"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="AJ5-z9-0d0"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="66j-ef-jyC" firstAttribute="centerX" secondItem="CuN-Gl-xVJ" secondAttribute="centerX" id="Gf9-9x-WZP"/>
+                            <constraint firstItem="66j-ef-jyC" firstAttribute="top" secondItem="tJA-H2-U7D" secondAttribute="bottom" constant="24" id="Je5-2d-OCe"/>
+                            <constraint firstItem="tJA-H2-U7D" firstAttribute="centerY" secondItem="CuN-Gl-xVJ" secondAttribute="centerY" id="R9w-UW-gUt"/>
+                            <constraint firstItem="tJA-H2-U7D" firstAttribute="centerX" secondItem="CuN-Gl-xVJ" secondAttribute="centerX" id="dqj-8c-hwS"/>
+                            <constraint firstItem="tJA-H2-U7D" firstAttribute="width" secondItem="CuN-Gl-xVJ" secondAttribute="width" id="hpB-NK-qgQ"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="rpr-l5-yZ0"/>
+                    <connections>
+                        <outlet property="imageView" destination="tJA-H2-U7D" id="2hu-X3-eff"/>
+                        <outlet property="shareButton" destination="66j-ef-jyC" id="ZlH-Sl-bqR"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="iah-cd-R5v" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="133.58778625954199" y="745.77464788732402"/>
         </scene>
         <!--My Albums-->
         <scene sceneID="aGw-Xo-FJ4">
@@ -383,9 +440,30 @@
                         <viewLayoutGuide key="safeArea" id="lCu-da-qel"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
-                    <navigationItem key="navigationItem" id="Pmd-HL-rXB"/>
+                    <navigationItem key="navigationItem" id="Pmd-HL-rXB">
+                        <rightBarButtonItems>
+                            <barButtonItem title="Item" image="ellipsis.circle" catalog="system" style="plain" id="CgL-tp-JFh">
+                                <color key="tintColor" name="TabBarPurple"/>
+                            </barButtonItem>
+                            <barButtonItem style="plain" systemItem="done" id="lfn-St-sVD">
+                                <color key="tintColor" name="TabBarPurple"/>
+                                <connections>
+                                    <action selector="onDoneTapped:" destination="UN4-qU-cef" id="zvD-ZD-ilk"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem style="plain" systemItem="cancel" id="B9y-Vc-te1">
+                                <color key="tintColor" name="TabBarPurple"/>
+                                <connections>
+                                    <action selector="onCancelTapped:" destination="UN4-qU-cef" id="6SG-LN-bFe"/>
+                                </connections>
+                            </barButtonItem>
+                        </rightBarButtonItems>
+                    </navigationItem>
                     <connections>
+                        <outlet property="cancelButton" destination="B9y-Vc-te1" id="64Z-uC-rhh"/>
                         <outlet property="collectionView" destination="Qsf-w2-XRC" id="ogC-hg-hrF"/>
+                        <outlet property="doneButton" destination="lfn-St-sVD" id="b7L-iI-L1O"/>
+                        <outlet property="moreButton" destination="CgL-tp-JFh" id="SgR-HT-067"/>
                         <segue destination="Ede-OG-e87" kind="show" identifier="segueToPlaybackSettings" id="Qmn-Dh-yPu"/>
                     </connections>
                 </viewController>
@@ -522,10 +600,10 @@
             </objects>
             <point key="canvasLocation" x="2890.8396946564885" y="3.5211267605633805"/>
         </scene>
-        <!--View Time FrameVC-->
+        <!--View TimeframeVC-->
         <scene sceneID="Cwu-Zs-D2E">
             <objects>
-                <viewController id="4oc-FV-8Ke" customClass="ViewTimeFrameVC" customModule="TimeFrame" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="4oc-FV-8Ke" customClass="ViewTimeframeVC" customModule="TimeFrame" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="DZB-Wh-0c7">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -537,7 +615,7 @@
                                 </constraints>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RWV-aJ-zJc">
-                                <rect key="frame" x="151.66666666666652" y="709" width="90" height="35"/>
+                                <rect key="frame" x="151.66666666666666" y="709" width="90" height="35"/>
                                 <color key="backgroundColor" name="TabBarPurple"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="90" id="XUA-8R-PBE"/>
@@ -545,6 +623,9 @@
                                 <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" title="Share"/>
+                                <connections>
+                                    <action selector="onShareTapped:" destination="4oc-FV-8Ke" eventType="touchUpInside" id="O3C-3u-bfv"/>
+                                </connections>
                             </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="UKo-Cn-Lmd"/>
@@ -561,10 +642,19 @@
                         <nil key="title"/>
                         <barButtonItem key="rightBarButtonItem" style="plain" systemItem="save" id="T7r-5L-iDV">
                             <color key="tintColor" name="TabBarPurple"/>
+                            <connections>
+                                <action selector="onSaveTapped:" destination="4oc-FV-8Ke" id="zoi-DO-8Rb"/>
+                            </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="imageView" destination="LPL-Nw-G8A" id="PGw-lm-YLA"/>
+                        <outlet property="shareButton" destination="RWV-aJ-zJc" id="V9H-dY-M8i"/>
+                        <segue destination="GZW-yr-kSF" kind="unwind" identifier="unwindViewTimeframeToHome" unwindAction="unwindFromViewTimeframeVC:" id="ecU-ZJ-lkU"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pfx-oo-zcJ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <exit id="GZW-yr-kSF" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="3806.8702290076335" y="3.5211267605633805"/>
         </scene>
@@ -576,6 +666,7 @@
         <image name="chevron.forward" catalog="system" width="97" height="128"/>
         <image name="chevron.right" catalog="system" width="97" height="128"/>
         <image name="circle" catalog="system" width="128" height="123"/>
+        <image name="ellipsis.circle" catalog="system" width="128" height="123"/>
         <image name="house" catalog="system" width="128" height="104"/>
         <image name="house.fill" catalog="system" width="128" height="104"/>
         <image name="plus" catalog="system" width="128" height="113"/>

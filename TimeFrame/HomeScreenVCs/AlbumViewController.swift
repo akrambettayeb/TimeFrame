@@ -30,17 +30,32 @@ class AlbumViewController: UIViewController, UIImagePickerControllerDelegate, UI
     @IBOutlet weak var collectionView: UICollectionView!
     var albumName: String?
     let reuseIdentifier = "PhotoCell"
+    @IBOutlet weak var moreButton: UIBarButtonItem!
+    @IBOutlet weak var doneButton: UIBarButtonItem!
+    @IBOutlet weak var cancelButton: UIBarButtonItem!
     let db = Firestore.firestore()
     let storage = Storage.storage()
+    var hideSelectButtons = true
+    var selectedPhotos: [UIImage] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setCustomBackImage()
         self.createMenu()
         self.title = albumName
-
+        moreButton.isHidden = false
+        doneButton.isHidden = true
+        cancelButton.isHidden = true
         collectionView.dataSource = self
         collectionView.delegate = self
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        collectionView.reloadData()
+        moreButton.isHidden = !hideSelectButtons
+        doneButton.isHidden = hideSelectButtons
+        cancelButton.isHidden = hideSelectButtons
     }
     
     override func viewDidLayoutSubviews() {
@@ -66,8 +81,11 @@ class AlbumViewController: UIViewController, UIImagePickerControllerDelegate, UI
         }
         // Create TimeFrame action
         let createTimeframeMenuItem = UIAction(title: "Create TimeFrame", image: UIImage(systemName: "plus")) { _ in
-            // TODO: allow user to select pictures in the album
-            self.performSegue(withIdentifier: "segueToPlaybackSettings", sender: self)
+            self.hideSelectButtons = false
+            self.collectionView.reloadData()
+            self.moreButton.isHidden = true
+            self.doneButton.isHidden = false
+            self.cancelButton.isHidden = false
         }
         // Rename album action
         let renameAlbumMenuItem = UIAction(title: "Rename Album", image: UIImage(systemName: "pencil")) { _ in
@@ -79,8 +97,7 @@ class AlbumViewController: UIViewController, UIImagePickerControllerDelegate, UI
         }
             
         let menu = UIMenu(title: "Album Menu", children: [addPhotoMenuItem, createTimeframeMenuItem, renameAlbumMenuItem, deleteAlbumMenuItem])
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Menu", image: UIImage(systemName: "ellipsis.circle"), primaryAction: nil, menu: menu)
-        navigationItem.rightBarButtonItem?.tintColor = UIColor(named: "TabBarPurple")
+        moreButton.menu = menu
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -101,8 +118,54 @@ class AlbumViewController: UIViewController, UIImagePickerControllerDelegate, UI
         var config = UIButton.Configuration.plain()
         config.baseBackgroundColor = .clear
         cell.selectButton.configuration = config
-        cell.selectButton.isHidden = false  // TODO: set to true
+        cell.selectButton.isHidden = hideSelectButtons
+        
         return cell
+    }
+    
+    func hideSelectButtons(_ hidden: Bool) {
+        for indexPath in collectionView.indexPathsForVisibleItems {
+            if let cell = collectionView.cellForItem(at: indexPath) as? AlbumCell {
+                cell.selectButton.isHidden = hidden
+            }
+        }
+    }
+    
+    func setButtonStates(_ selected: Bool) {
+        for indexPath in collectionView.indexPathsForVisibleItems {
+            if let cell = collectionView.cellForItem(at: indexPath) as? AlbumCell {
+                cell.selectButton.isSelected = selected
+            }
+        }
+    }
+    
+    @IBAction func onDoneTapped(_ sender: Any) {
+        // Adds images from selected cells to the selectedPhotos array
+        for indexPath in collectionView.indexPathsForVisibleItems {
+            if let cell = collectionView.cellForItem(at: indexPath) as? AlbumCell {
+                if cell.selectButton.isSelected {
+                    selectedPhotos.append(cell.imageView.image!)
+                }
+            }
+        }
+        
+        if selectedPhotos.count < 2 {
+            selectedPhotos = [UIImage]()
+            let alert = UIAlertController(title: "Not Enough Photos Selected", message: "Please select multiple photos to create a TimeFrame. ", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: .default))
+            self.present(alert, animated: true)
+            return
+        }
+        self.performSegue(withIdentifier: "segueToPlaybackSettings", sender: self)
+    }
+    
+    @IBAction func onCancelTapped(_ sender: Any) {
+        moreButton.isHidden = false
+        cancelButton.isHidden = true
+        doneButton.isHidden = true
+        self.setButtonStates(false)
+        self.hideSelectButtons = true
+        collectionView.reloadData()
     }
         
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
@@ -179,6 +242,9 @@ class AlbumViewController: UIViewController, UIImagePickerControllerDelegate, UI
                 nextVC.selectedImage = allAlbums[albumName!]![imageIndex]
                 collectionView.deselectItem(at: indexPaths[0], animated: false)
             }
+        } else if segue.identifier == "segueToPlaybackSettings",
+          let nextVC = segue.destination as? PlaybackSettingsVC {
+            nextVC.selectedPhotos = self.selectedPhotos
         }
     }
 }

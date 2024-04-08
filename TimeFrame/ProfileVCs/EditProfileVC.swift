@@ -207,6 +207,7 @@ class EditProfileVC: UIViewController, UIImagePickerControllerDelegate, UINaviga
             }
         })
     }
+    
     func updateVisibleImagesArray() {
         for indexPath in imageGrid.indexPathsForVisibleItems {
             if let cell = imageGrid.cellForItem(at: indexPath) as? EditImageCell {
