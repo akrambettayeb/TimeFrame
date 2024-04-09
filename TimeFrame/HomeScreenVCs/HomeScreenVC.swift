@@ -4,6 +4,10 @@
 //
 //  Created by Kate Zhang on 4/7/24.
 //
+//  Project: TimeFrame
+//  EID: kz4696
+//  Course: CS371L
+
 
 import UIKit
 import FirebaseAuth
@@ -47,6 +51,8 @@ class HomeScreenVC: UIViewController, UICollectionViewDelegate, UICollectionView
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setCustomBackImage()
+        
+        // Forces the right arrow image to be to the right of the text
         viewAlbumsButton.semanticContentAttribute = .forceRightToLeft
         viewTimeframesButton.semanticContentAttribute = .forceRightToLeft
         
@@ -95,6 +101,7 @@ class HomeScreenVC: UIViewController, UICollectionViewDelegate, UICollectionView
             let albumName = albumNames[indexPath.row]
             cell.albumNameLabel.text = albumName
             if allAlbums[albumName]!.isEmpty {
+                // Sets a default image for empty albums
                 cell.imageView.image = UIImage(systemName: "person.crop.rectangle.stack.fill")
             } else {
                 cell.imageView.image = allAlbums[albumName]![0]
@@ -105,6 +112,7 @@ class HomeScreenVC: UIViewController, UICollectionViewDelegate, UICollectionView
             let timeframeName = timeframeNames[indexPath.row]
             cell.timeframeNameLabel.text = timeframeName
             if allTimeframes[timeframeName]!.isEmpty {
+                // Will be replaced, sets a default image in case the number of TimeFrame cells is set to the number of albums and there are fewer TimeFrames
                 cell.imageView.image = UIImage(systemName: "person.crop.rectangle.stack.fill")
             } else {
                 cell.imageView.image = allTimeframes[timeframeName]![0]
@@ -129,6 +137,7 @@ class HomeScreenVC: UIViewController, UICollectionViewDelegate, UICollectionView
         if segue.identifier == "segueToAlbumVC",
            let nextVC = segue.destination as? AlbumViewController {
             if let indexPaths = albumsCollectionView.indexPathsForSelectedItems {
+                // Passes the album name of the selected album to the AlbumViewController screen
                 let index = indexPaths[0].row
                 nextVC.albumName = albumNames[index]
                 albumsCollectionView.deselectItem(at: indexPaths[0], animated: false)
@@ -136,6 +145,7 @@ class HomeScreenVC: UIViewController, UICollectionViewDelegate, UICollectionView
         } else if segue.identifier == "segueToOpenTimeframeVC",
             let nextVC = segue.destination as? OpenTimeframeVC {
             if let indexPaths = timeframesCollectionView.indexPathsForSelectedItems {
+                // Passes the name of the TimeFrame so that it can be displayed in a new screen
                 let index = indexPaths[0].row
                 nextVC.timeframeName = timeframeNames[index]
                 timeframesCollectionView.deselectItem(at: indexPaths[0], animated: false)

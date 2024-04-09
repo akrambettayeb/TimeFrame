@@ -4,9 +4,10 @@
 //
 //  Created by Akram Bettayeb on 3/14/24.
 //
-// Project: TimeFrame
-// EID: aab4889
-// Course: CS371L
+//  Project: TimeFrame
+//  EID: aab4889
+//  Course: CS371L
+
 
 import UIKit
 import FirebaseAuth

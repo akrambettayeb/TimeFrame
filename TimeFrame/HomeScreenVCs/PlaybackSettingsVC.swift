@@ -4,6 +4,10 @@
 //
 //  Created by Kate Zhang on 4/1/24.
 //
+//  Project: TimeFrame
+//  EID: kz4696
+//  Course: CS371L
+
 
 import UIKit
 
@@ -38,6 +42,7 @@ class PlaybackSettingsVC: UIViewController, UITextFieldDelegate {
         generateTimeframeButton.layer.cornerRadius = 5
     }
     
+    // Defines the type of dates for the date dropdown button
     func setDateDropdown() {
         let dates = ["Date", "Month", "Year", "None"]
         var dateItems: [UIMenuElement] = []
@@ -54,6 +59,7 @@ class PlaybackSettingsVC: UIViewController, UITextFieldDelegate {
         datesButton.showsMenuAsPrimaryAction = true
     }
     
+    // Defines the speed options for the speed dropdown button
     func setSpeedDropdown() {
         let allSpeeds = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "20", "30", "40", "50", "60", "70", "80", "90", "100"]
         var speedItems: [UIMenuElement] = []
@@ -104,6 +110,7 @@ class PlaybackSettingsVC: UIViewController, UITextFieldDelegate {
         performSegue(withIdentifier: "segueToViewTimeframeVC", sender: self)
     }
     
+    //  Passes all necessary info to the next VC to play the TimeFrame with the correct settings
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "segueToViewTimeframeVC",
            let nextVC = segue.destination as? ViewTimeframeVC {

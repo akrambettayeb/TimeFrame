@@ -4,6 +4,10 @@
 //
 //  Created by Kate Zhang on 4/7/24.
 //
+//  Project: TimeFrame
+//  EID: kz4696
+//  Course: CS371L
+
 
 import UIKit
 
@@ -14,7 +18,7 @@ class AllAlbumsCell: UICollectionViewCell {
 }
 
 
-class AllAlbumsVC: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
+class AllAlbumsVC: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UIImagePickerControllerDelegate {
 
     @IBOutlet weak var collectionView: UICollectionView!
     let cellID = "AllAlbumsCell"
@@ -32,6 +36,7 @@ class AllAlbumsVC: UIViewController, UICollectionViewDelegate, UICollectionViewD
     }
     
     override func viewDidLayoutSubviews() {
+        // Defines layout for the collection view to be a 2 x N grid with 2 columns
         super.viewDidLayoutSubviews()
         let layout = UICollectionViewFlowLayout()
         let collectionWidth = collectionView.bounds.width
@@ -50,9 +55,11 @@ class AllAlbumsVC: UIViewController, UICollectionViewDelegate, UICollectionViewD
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellID, for: indexPath) as! AllAlbumsCell
         let albumName = albumNames[indexPath.row]
         let photosCount = allAlbums[albumName]!.count
+        // Sets the text for each album to be the album name and the number of photos in the album
         cell.albumNameLabel.text = albumName
         cell.photosCountLabel.text = "\(photosCount) photos"
         if photosCount == 0 {
+            // Sets default image for empty albums
             cell.imageView.image = UIImage(systemName: "person.crop.rectangle.stack.fill")
         } else {
             cell.imageView.image = allAlbums[albumName]![0]
@@ -64,6 +71,7 @@ class AllAlbumsVC: UIViewController, UICollectionViewDelegate, UICollectionViewD
         if segue.identifier == "segueAllAlbumsToAlbumVC",
            let nextVC = segue.destination as? AlbumViewController {
             if let indexPaths = collectionView.indexPathsForSelectedItems {
+                // Passes the album name to the next screen so that it can display all photos in that album
                 let index = indexPaths[0].row
                 nextVC.albumName = albumNames[index]
                 collectionView.deselectItem(at: indexPaths[0], animated: false)

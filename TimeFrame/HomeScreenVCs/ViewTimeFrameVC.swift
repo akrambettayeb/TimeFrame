@@ -4,6 +4,10 @@
 //
 //  Created by Kate Zhang on 4/1/24.
 //
+//  Project: TimeFrame
+//  EID: kz4696
+//  Course: CS371L
+
 
 import Foundation
 import UIKit
@@ -37,6 +41,7 @@ class ViewTimeframeVC: UIViewController {
         let speedComponents = selectedSpeed.components(separatedBy: " ")
         let actualSpeed = Float(speedComponents[0])!
         let gifDuration = Float(selectedPhotos.count) / actualSpeed
+        // Calculates the duration for each image
         imageDuration = gifDuration / Float(selectedPhotos.count)
         imageView.animationDuration = TimeInterval(gifDuration)
         imageView.animationImages = selectedPhotos
@@ -48,12 +53,14 @@ class ViewTimeframeVC: UIViewController {
         imageView.animationImages = nil   // Release the memory from animating images
     }
     
+    // Adds the TimeFrame to the local array of all created TimeFrames and unwind segues back to the main home screen
     @IBAction func onSaveTapped(_ sender: UIBarButtonItem) {
         allTimeframes[timeframeName] = selectedPhotos
         timeframeNames.append(timeframeName)
         performSegue(withIdentifier: "unwindViewTimeframeToHome", sender: self)
     }
     
+    // Shares the TimeFrame as a GIF to the user's other apps when the "Share" button is tapped
     @IBAction func onShareTapped(_ sender: UIButton) {
         var shareItem: Any = ""
         let gifURL = UIImage.animatedGif(from: selectedPhotos, from: imageDuration)
