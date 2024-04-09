@@ -4,9 +4,9 @@
 //
 //  Created by Brandon Ling on 3/18/24.
 // 
-// Project: TimeFrame
-// EID: bml2426
-// Course: CS371L
+//  Project: TimeFrame
+//  EID: bml2426
+//  Course: CS371L
 
 
 import UIKit
@@ -30,12 +30,16 @@ class AlbumViewController: UIViewController, UIImagePickerControllerDelegate, UI
     @IBOutlet weak var collectionView: UICollectionView!
     var albumName: String?
     let reuseIdentifier = "PhotoCell"
+    
     @IBOutlet weak var moreButton: UIBarButtonItem!
     @IBOutlet weak var doneButton: UIBarButtonItem!
     @IBOutlet weak var cancelButton: UIBarButtonItem!
+    
     let db = Firestore.firestore()
     let storage = Storage.storage()
     var hideSelectButtons = true
+    
+    // Stores images the user selects to use to create the TimeFrame
     var selectedPhotos: [UIImage] = []
     
     override func viewDidLoad() {
@@ -58,6 +62,7 @@ class AlbumViewController: UIViewController, UIImagePickerControllerDelegate, UI
         cancelButton.isHidden = hideSelectButtons
     }
     
+    // Defines layout for the collection view
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         let collectionWidth = collectionView.bounds.width
@@ -123,6 +128,7 @@ class AlbumViewController: UIViewController, UIImagePickerControllerDelegate, UI
         return cell
     }
     
+    // Iterates through all cells in the collection view and hides/shows the button for the cell depending on the value of the hidden parameter
     func hideSelectButtons(_ hidden: Bool) {
         for indexPath in collectionView.indexPathsForVisibleItems {
             if let cell = collectionView.cellForItem(at: indexPath) as? AlbumCell {
@@ -131,6 +137,7 @@ class AlbumViewController: UIViewController, UIImagePickerControllerDelegate, UI
         }
     }
     
+    // Iterates through all cells in the collection view and sets the state for the button to selected or unselected depending on the value of the selected parameter
     func setButtonStates(_ selected: Bool) {
         for indexPath in collectionView.indexPathsForVisibleItems {
             if let cell = collectionView.cellForItem(at: indexPath) as? AlbumCell {
@@ -149,6 +156,7 @@ class AlbumViewController: UIViewController, UIImagePickerControllerDelegate, UI
             }
         }
         
+        // Checks that multiple photos are selected to create a TimeFrame
         if selectedPhotos.count < 2 {
             selectedPhotos = [UIImage]()
             let alert = UIAlertController(title: "Not Enough Photos Selected", message: "Please select multiple photos to create a TimeFrame. ", preferredStyle: .alert)
@@ -238,12 +246,14 @@ class AlbumViewController: UIViewController, UIImagePickerControllerDelegate, UI
         if segue.identifier == "segueToViewAlbumImage",
         let nextVC = segue.destination as? ViewAlbumImageVC {
             if let indexPaths = collectionView.indexPathsForSelectedItems {
+                // Passes the selected image to the next screen to view the image from the album in a new screen
                 let imageIndex = indexPaths[0].row
                 nextVC.selectedImage = allAlbums[albumName!]![imageIndex]
                 collectionView.deselectItem(at: indexPaths[0], animated: false)
             }
         } else if segue.identifier == "segueToPlaybackSettings",
           let nextVC = segue.destination as? PlaybackSettingsVC {
+            // Passes all selected photos (as an array) to the next screen to define settings for the photos to use in the TimeFrame
             nextVC.selectedPhotos = self.selectedPhotos
         }
     }
