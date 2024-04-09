@@ -14,6 +14,8 @@ import AVFoundation
 import FirebaseFirestore
 import FirebaseStorage
 import FirebaseAuth
+import UserNotifications
+
 
 class AlbumCell: UICollectionViewCell {
     @IBOutlet weak var imageView: UIImageView!
@@ -51,6 +53,7 @@ class AlbumViewController: UIViewController, UIImagePickerControllerDelegate, UI
         collectionView.dataSource = self
         collectionView.delegate = self
         imagePicker.delegate = self
+        requestNotificationPermission()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -73,6 +76,15 @@ class AlbumViewController: UIViewController, UIImagePickerControllerDelegate, UI
         collectionView.collectionViewLayout = layout
     }
     
+
+    func requestNotificationPermission() {
+        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]) { granted, error in
+            if granted {
+                print("Notification permission granted.")
+            }
+        }
+    }
+
     // Sets up dropdown items for navigation item in top-right corner
     func createMenu() {
         title = "Album"
@@ -233,13 +245,9 @@ class AlbumViewController: UIViewController, UIImagePickerControllerDelegate, UI
     
     func uploadPhoto(image: UIImage) {
         guard let albumName = albumName,
-              let imageData = image.jpegData(compressionQuality: 0.5) else {
-            print("Invalid album name or image data")
-            return
-        }
-        
-        guard let userID = Auth.auth().currentUser?.uid else {
-            print("User not authenticated")
+              let imageData = image.jpegData(compressionQuality: 0.5),
+              let userID = Auth.auth().currentUser?.uid else {
+            print("Invalid album name, image data, or user not authenticated")
             return
         }
         
@@ -247,15 +255,125 @@ class AlbumViewController: UIViewController, UIImagePickerControllerDelegate, UI
         let storageRef = storage.reference().child("users").child(userID).child("albums").child(albumName).child(photoFilename)
         
         storageRef.putData(imageData, metadata: nil) { [weak self] (metadata, error) in
+            guard let self = self else { return }
             if let error = error {
                 print("Error uploading image to Firebase Storage: \(error.localizedDescription)")
             } else {
                 storageRef.downloadURL { (url, error) in
                     if let downloadURL = url?.absoluteString {
-                        // Save download URL to Firestore
-                        self?.saveImageUrlToFirestore(downloadURL: downloadURL, albumName: albumName)
+                        self.saveImageUrlToFirestore(downloadURL: downloadURL, albumName: albumName)
+                        // Update streak information after successful upload
+                        self.updateStreakInformationForAlbum(albumName: albumName)
                     }
                 }
+            }
+        }
+    }
+
+    func updateStreakInformationForAlbum(albumName: String) {
+        guard let userID = Auth.auth().currentUser?.uid else {
+            print("User not authenticated")
+            return
+        }
+
+        let albumRef = db.collection("users").document(userID).collection("albums").document(albumName)
+        
+        let now = Date()
+        let calendar = Calendar.current
+        let nextDeadline = calendar.date(byAdding: .day, value: 1, to: now)
+        
+        albumRef.getDocument { [weak self] (document, error) in
+            if let document = document, document.exists {
+                var currentStreak = document.get("currentStreak") as? Int ?? 0
+                let currentDeadline = document.get("currentDeadline") as? Timestamp
+                
+                if let currentDeadlineDate = currentDeadline?.dateValue(), now <= currentDeadlineDate {
+                    // Increment streak if upload is within the deadline
+                    currentStreak += 1
+                } else {
+                    // Reset streak if the deadline has passed
+                    currentStreak = 1
+                }
+                
+                // Update Firestore with the new streak and deadline
+                albumRef.updateData([
+                    "currentStreak": currentStreak,
+                    // Use nextDeadline directly since it's not nil
+                    "currentDeadline": Timestamp(date: nextDeadline!)
+                ]) { err in
+                    if let err = err {
+                        print("Error updating document: \(err)")
+                    } else {
+                        print("Document successfully updated with new streak information")
+                        // Schedule notification for current streak
+                        if currentStreak % 2 == 0 {
+                            self?.scheduleStreakNotification(streakDays: currentStreak)
+                        }
+                        // Schedule immediate notification
+                        self?.scheduleImmediateStreakUpdateNotification()
+                    }
+                }
+            } else {
+                print("Document does not exist, creating with initial streak data")
+                // If the document doesn't exist, create it with initial streak information
+                albumRef.setData([
+                    "currentStreak": 1,
+                    "currentDeadline": Timestamp(date: nextDeadline!)
+                ]) { err in
+                    if let err = err {
+                        print("Error writing document: \(err)")
+                    } else {
+                        print("Document successfully written with initial streak information")
+                        // Schedule immediate notification for the first upload
+                        self?.scheduleImmediateStreakUpdateNotification()
+                    }
+                }
+            }
+        }
+    }
+
+    func saveImageUrlToFirestore(downloadURL: String, albumName: String) {
+        guard let userID = Auth.auth().currentUser?.uid else {
+            print("User not authenticated")
+            return
+        }
+        
+        let db = Firestore.firestore()
+        let timestamp = FieldValue.serverTimestamp()
+        
+        // Get the current date components
+        let calendar = Calendar.current
+        let dateComponents = calendar.dateComponents([.year, .month, .day], from: Date())
+        
+        // Format date to Month/Day/Year
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MM/dd/yyyy"
+        let formattedDate = dateFormatter.string(from: Date())
+        
+        // Format month to Month/Year
+        let monthFormatter = DateFormatter()
+        monthFormatter.dateFormat = "MMMM yyyy"
+        let formattedMonth = monthFormatter.string(from: Date())
+        
+        // Format year to Year
+        let yearFormatter = DateFormatter()
+        yearFormatter.dateFormat = "yyyy"
+        let formattedYear = yearFormatter.string(from: Date())
+        
+        let photoData: [String: Any] = [
+            "url": downloadURL,
+            "uploadDate": timestamp,
+            "date": formattedDate,
+            "month": formattedMonth,
+            "year": formattedYear
+        ]
+        
+        db.collection("users").document(userID).collection("albums").document(albumName).collection("photos").addDocument(data: photoData) { [weak self] (error) in
+            if let error = error {
+                print("Error adding document: \(error.localizedDescription)")
+            } else {
+                print("Document added successfully")
+                self?.collectionView.reloadData()
             }
         }
     }
@@ -270,23 +388,6 @@ class AlbumViewController: UIViewController, UIImagePickerControllerDelegate, UI
         print("Delete Album")
     }
     
-    func saveImageUrlToFirestore(downloadURL: String, albumName: String) {
-        guard let userID = Auth.auth().currentUser?.uid else {
-            print("User not authenticated")
-            return
-        }
-        
-        let photoData: [String: Any] = ["url": downloadURL]
-        db.collection("users").document(userID).collection("albums").document(albumName).collection("photos").addDocument(data: photoData) { [weak self] (error) in
-            if let error = error {
-                print("Error adding document: \(error.localizedDescription)")
-            } else {
-                print("Document added successfully")
-                self?.collectionView.reloadData()
-            }
-        }
-    }
-    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "segueToViewAlbumImage",
         let nextVC = segue.destination as? ViewAlbumImageVC {
@@ -298,6 +399,40 @@ class AlbumViewController: UIViewController, UIImagePickerControllerDelegate, UI
         } else if segue.identifier == "segueToPlaybackSettings",
           let nextVC = segue.destination as? PlaybackSettingsVC {
             nextVC.selectedPhotos = self.selectedPhotos
+        }
+    }
+    
+    func scheduleStreakNotification(streakDays: Int) {
+        let content = UNMutableNotificationContent()
+        content.title = "\(streakDays) day streak 🔥"
+        content.body = "You're on a roll! Keep it up!"
+        content.sound = .default
+
+        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: (2 * 24 * 60 * 60), repeats: false)
+        
+        let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: trigger)
+        
+        UNUserNotificationCenter.current().add(request) { error in
+            if let error = error {
+                print("Error scheduling streak notification: \(error)")
+            }
+        }
+    }
+
+    func scheduleImmediateStreakUpdateNotification() {
+        let content = UNMutableNotificationContent()
+        content.title = "Great job!"
+        content.body = "Come back tomorrow to keep it going."
+        content.sound = .default
+
+        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 10, repeats: false)
+        
+        let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: trigger)
+        
+        UNUserNotificationCenter.current().add(request) { error in
+            if let error = error {
+                print("Error scheduling streak update notification: \(error)")
+            }
         }
     }
 }
