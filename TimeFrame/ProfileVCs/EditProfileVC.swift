@@ -15,6 +15,8 @@ import FirebaseFirestore
 
 class EditProfileVC: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     
+    // TODO: ask for permissions for camera and photo library
+    
     // Data from Profile screen
     var delegate: UIViewController!
     var prevDisplayName = ""
