@@ -206,6 +206,52 @@ class AlbumViewController: UIViewController, UIImagePickerControllerDelegate, UI
             }
         }
     }
+
+    func saveImageUrlToFirestore(downloadURL: String, albumName: String) {
+        guard let userID = Auth.auth().currentUser?.uid else {
+            print("User not authenticated")
+            return
+        }
+        
+        let db = Firestore.firestore()
+        let timestamp = FieldValue.serverTimestamp()
+        
+        // Get the current date components
+        let calendar = Calendar.current
+        let dateComponents = calendar.dateComponents([.year, .month, .day], from: Date())
+        
+        // Format date to Month/Day/Year
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MM/dd/yyyy"
+        let formattedDate = dateFormatter.string(from: Date())
+        
+        // Format month to Month/Year
+        let monthFormatter = DateFormatter()
+        monthFormatter.dateFormat = "MMMM yyyy"
+        let formattedMonth = monthFormatter.string(from: Date())
+        
+        // Format year to Year
+        let yearFormatter = DateFormatter()
+        yearFormatter.dateFormat = "yyyy"
+        let formattedYear = yearFormatter.string(from: Date())
+        
+        let photoData: [String: Any] = [
+            "url": downloadURL,
+            "uploadDate": timestamp,
+            "date": formattedDate,
+            "month": formattedMonth,
+            "year": formattedYear
+        ]
+        
+        db.collection("users").document(userID).collection("albums").document(albumName).collection("photos").addDocument(data: photoData) { [weak self] (error) in
+            if let error = error {
+                print("Error adding document: \(error.localizedDescription)")
+            } else {
+                print("Document added successfully")
+                self?.collectionView.reloadData()
+            }
+        }
+    }
         
     func renameAlbum() {
         // Handle Rename Album action
@@ -215,23 +261,6 @@ class AlbumViewController: UIViewController, UIImagePickerControllerDelegate, UI
     func deleteAlbum() {
         // Handle Delete Album action
         print("Delete Album")
-    }
-    
-    func saveImageUrlToFirestore(downloadURL: String, albumName: String) {
-        guard let userID = Auth.auth().currentUser?.uid else {
-            print("User not authenticated")
-            return
-        }
-        
-        let photoData: [String: Any] = ["url": downloadURL]
-        db.collection("users").document(userID).collection("albums").document(albumName).collection("photos").addDocument(data: photoData) { [weak self] (error) in
-            if let error = error {
-                print("Error adding document: \(error.localizedDescription)")
-            } else {
-                print("Document added successfully")
-                self?.collectionView.reloadData()
-            }
-        }
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
