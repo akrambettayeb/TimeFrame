@@ -10,6 +10,7 @@
 
 
 import UIKit
+import AVFoundation
 import FirebaseFirestore
 import FirebaseStorage
 import FirebaseAuth
@@ -39,6 +40,7 @@ class AlbumViewController: UIViewController, UIImagePickerControllerDelegate, UI
     let storage = Storage.storage()
     var hideSelectButtons = true
     var selectedPhotos: [UIImage] = []
+    var overlayView: UIImageView?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -50,6 +52,7 @@ class AlbumViewController: UIViewController, UIImagePickerControllerDelegate, UI
         cancelButton.isHidden = true
         collectionView.dataSource = self
         collectionView.delegate = self
+        imagePicker.delegate = self
         requestNotificationPermission()
     }
     
@@ -87,10 +90,58 @@ class AlbumViewController: UIViewController, UIImagePickerControllerDelegate, UI
         title = "Album"
         // Add photo action
         let addPhotoMenuItem = UIAction(title: "Add Photo", image: UIImage(systemName: "plus")) { _ in
-            self.imagePicker.delegate = self
-            self.imagePicker.sourceType = .camera
-            self.present(self.imagePicker, animated: true, completion: nil)
+            // Ask for camera permission.
+            if UIImagePickerController.availableCaptureModes(for: .rear) != nil {
+                switch AVCaptureDevice.authorizationStatus(for: .video) {
+                case .notDetermined:
+                    AVCaptureDevice.requestAccess(for: .video) {
+                        accessGranted in guard accessGranted == true
+                        else {return}
+                    }
+                case .authorized:
+                    break
+                default:
+                    print("Access denied.") //TODO: show some error and segue if access denied
+                    return
+                }
+                
+                self.imagePicker.sourceType = .camera
+                self.imagePicker.allowsEditing = false //TODO: add and delete photos from firebase
+                self.imagePicker.cameraCaptureMode = .photo //TODO: add overlay code to home screen
+                
+                if allAlbums[self.albumName!]!.count > 0 {
+                    // Only add overlay if existing photo in album.
+                    self.overlayView = UIImageView(image: allAlbums[self.albumName!]!.last)
+                    self.overlayView!.alpha = 0.4
+                    
+                    // Get bounds for camera preview.
+                    let screenSize = UIScreen.main.bounds.size
+                    let ratio: CGFloat = 4.0 / 3.0
+                    let cameraHeight: CGFloat = screenSize.width * ratio
+                    self.overlayView!.frame = CGRect(x: 0, y: 121.5, width: screenSize.width, height: cameraHeight)
+                    self.overlayView!.contentMode = .scaleAspectFill
+                    
+                    self.imagePicker.cameraOverlayView = self.overlayView
+                    
+                    // Add observer to the user retaking a photo.
+                    NotificationCenter.default.addObserver(forName: NSNotification.Name(rawValue: "_UIImagePickerControllerUserDidRejectItem"), object:nil, queue:nil, using: { note in
+                        // Restore overlay.
+                        self.overlayView!.alpha = 0.4
+                        self.imagePicker.cameraOverlayView = self.overlayView
+                    })
+                    
+                    // Add observer to the user capturing a photo.
+                    NotificationCenter.default.addObserver(forName: NSNotification.Name(rawValue: "_UIImagePickerControllerUserDidCaptureItem"), object:nil, queue:nil, using: { note in
+                        // Remove overlay.
+                        self.overlayView!.alpha = 0
+                        self.imagePicker.cameraOverlayView = self.overlayView
+                    })
+                }
+                
+                self.present(self.imagePicker, animated: true, completion: nil)
+            }
         }
+        
         // Create TimeFrame action
         let createTimeframeMenuItem = UIAction(title: "Create TimeFrame", image: UIImage(systemName: "plus")) { _ in
             self.hideSelectButtons = false
@@ -99,10 +150,12 @@ class AlbumViewController: UIViewController, UIImagePickerControllerDelegate, UI
             self.doneButton.isHidden = false
             self.cancelButton.isHidden = false
         }
+        
         // Rename album action
         let renameAlbumMenuItem = UIAction(title: "Rename Album", image: UIImage(systemName: "pencil")) { _ in
             self.renameAlbum()
         }
+        
         // Delete album action
         let deleteAlbumMenuItem = UIAction(title: "Delete Album", image: UIImage(systemName: "trash"), attributes: .destructive) { _ in
             self.deleteAlbum()
@@ -181,7 +234,7 @@ class AlbumViewController: UIViewController, UIImagePickerControllerDelegate, UI
     }
         
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        if let image = info[.originalImage] as? UIImage {
+        if var image = info[.originalImage] as? UIImage {
             self.uploadPhoto(image: image)
             var existingImages = allAlbums[albumName!] ?? []  // Creates array if value is empty
             existingImages.append(image)
@@ -382,4 +435,22 @@ class AlbumViewController: UIViewController, UIImagePickerControllerDelegate, UI
             }
         }
     }
+}
+
+extension UIImage {
+    public func flipVertically() -> UIImage? {
+            UIGraphicsBeginImageContextWithOptions(self.size, false, self.scale)
+            let context = UIGraphicsGetCurrentContext()!
+            
+            context.translateBy(x: self.size.width/2, y: self.size.height/2)
+            context.scaleBy(x: 1.0, y: -1.0)
+            context.translateBy(x: -self.size.width/2, y: -self.size.height/2)
+            
+            self.draw(in: CGRect(x: 0, y: 0, width: self.size.width, height: self.size.height))
+            
+            let newImage = UIGraphicsGetImageFromCurrentImageContext()
+            UIGraphicsEndImageContext()
+            
+            return newImage
+        }
 }
