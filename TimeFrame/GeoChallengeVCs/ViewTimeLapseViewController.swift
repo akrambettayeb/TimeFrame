@@ -11,11 +11,16 @@
 import UIKit
 
 class ViewTimeLapseViewController: UIViewController {
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         setCustomBackImage()
     }
-
+    
+    
+    @IBAction func onBackButtonPressed(_ sender: Any) {
+        dismiss(animated: true)
+    }
 }
+

@@ -46,11 +46,9 @@
 		3F1EAAF42B9697A10060218F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3F1EAAF32B9697A10060218F /* Assets.xcassets */; };
 		3F1EAAF72B9697A10060218F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3F1EAAF52B9697A10060218F /* LaunchScreen.storyboard */; };
 		5520389C2BA62421000C5014 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5520389B2BA62421000C5014 /* MapViewController.swift */; };
-		5520389E2BA62DE3000C5014 /* AddInitialPhotoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5520389D2BA62DE3000C5014 /* AddInitialPhotoViewController.swift */; };
 		552038A02BA62EF6000C5014 /* ChallengeInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5520389F2BA62EF6000C5014 /* ChallengeInfoViewController.swift */; };
 		5581CF882BA68C530096BB92 /* AddChallengeInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5581CF872BA68C530096BB92 /* AddChallengeInfoViewController.swift */; };
 		559596B12BA699F800972EB4 /* ViewTimeLapseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 559596B02BA699F800972EB4 /* ViewTimeLapseViewController.swift */; };
-		55A83AB22BA6A5CB00895DFE /* ChallengeCameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55A83AB12BA6A5CB00895DFE /* ChallengeCameraViewController.swift */; };
 		55A83AB42BA6A98400895DFE /* AddPhotoToChallengeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55A83AB32BA6A98400895DFE /* AddPhotoToChallengeViewController.swift */; };
 		55A83AB62BA6AA5500895DFE /* ChallengeAlbumViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55A83AB52BA6AA5500895DFE /* ChallengeAlbumViewController.swift */; };
 		55A83AB82BA6AA9000895DFE /* PhotoStreamViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55A83AB72BA6AA9000895DFE /* PhotoStreamViewController.swift */; };
@@ -92,11 +90,9 @@
 		3F1EAAF62B9697A10060218F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		3F1EAAF82B9697A10060218F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5520389B2BA62421000C5014 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
-		5520389D2BA62DE3000C5014 /* AddInitialPhotoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddInitialPhotoViewController.swift; sourceTree = "<group>"; };
 		5520389F2BA62EF6000C5014 /* ChallengeInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeInfoViewController.swift; sourceTree = "<group>"; };
 		5581CF872BA68C530096BB92 /* AddChallengeInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddChallengeInfoViewController.swift; sourceTree = "<group>"; };
 		559596B02BA699F800972EB4 /* ViewTimeLapseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewTimeLapseViewController.swift; sourceTree = "<group>"; };
-		55A83AB12BA6A5CB00895DFE /* ChallengeCameraViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeCameraViewController.swift; sourceTree = "<group>"; };
 		55A83AB32BA6A98400895DFE /* AddPhotoToChallengeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPhotoToChallengeViewController.swift; sourceTree = "<group>"; };
 		55A83AB52BA6AA5500895DFE /* ChallengeAlbumViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeAlbumViewController.swift; sourceTree = "<group>"; };
 		55A83AB72BA6AA9000895DFE /* PhotoStreamViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoStreamViewController.swift; sourceTree = "<group>"; };
@@ -218,11 +214,9 @@
 			isa = PBXGroup;
 			children = (
 				5520389B2BA62421000C5014 /* MapViewController.swift */,
-				5520389D2BA62DE3000C5014 /* AddInitialPhotoViewController.swift */,
 				5520389F2BA62EF6000C5014 /* ChallengeInfoViewController.swift */,
 				5581CF872BA68C530096BB92 /* AddChallengeInfoViewController.swift */,
 				559596B02BA699F800972EB4 /* ViewTimeLapseViewController.swift */,
-				55A83AB12BA6A5CB00895DFE /* ChallengeCameraViewController.swift */,
 				55A83AB32BA6A98400895DFE /* AddPhotoToChallengeViewController.swift */,
 				55A83AB52BA6AA5500895DFE /* ChallengeAlbumViewController.swift */,
 				55A83AB72BA6AA9000895DFE /* PhotoStreamViewController.swift */,
@@ -371,6 +365,7 @@
 			files = (
 				B51879D72BC319AA008FF688 /* HomeScreenVC.swift in Sources */,
 				5520389C2BA62421000C5014 /* MapViewController.swift in Sources */,
+				B56D904E2BA58BF7008A435C /* ExtensionVC.swift in Sources */,
 				B51879DD2BC371A6008FF688 /* AllAlbumsVC.swift in Sources */,
 				5520389E2BA62DE3000C5014 /* AddInitialPhotoViewController.swift in Sources */,
 				B5B73D742BBB3BF800BA1BA3 /* PlaybackSettingsVC.swift in Sources */,

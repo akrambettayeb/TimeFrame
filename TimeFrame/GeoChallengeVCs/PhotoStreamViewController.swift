@@ -20,4 +20,7 @@ class PhotoStreamViewController: UIViewController {
         setCustomBackImage()
     }
     
+    @IBAction func onBackButtonPressed(_ sender: Any) {
+        dismiss(animated: true)
+    }
 }
