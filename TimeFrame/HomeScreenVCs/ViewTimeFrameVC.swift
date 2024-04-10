@@ -4,81 +4,74 @@
 //
 //  Created by Kate Zhang on 4/1/24.
 //
+//  Project: TimeFrame
+//  EID: kz4696
+//  Course: CS371L
 
 
-// TODO: Add comments!!
-
-// TODO: Add async threads to make things less laggy
-
+import Foundation
 import UIKit
 import UniformTypeIdentifiers
 
-extension UIImage {
-    static func animatedGif(from images: [UIImage]) -> URL? {
-        let fileProperties: CFDictionary = [kCGImagePropertyGIFDictionary as String: [kCGImagePropertyGIFLoopCount as String: 0]]  as CFDictionary
-        let frameProperties: CFDictionary = [kCGImagePropertyGIFDictionary as String: [(kCGImagePropertyGIFDelayTime as String): 1.0]] as CFDictionary
-        
-        let documentsDirectoryURL: URL? = try? FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
-        let fileURL: URL? = documentsDirectoryURL?.appendingPathComponent("animated.gif")
-        
-        if let url = fileURL as CFURL? {
-            if let destination = CGImageDestinationCreateWithURL(url, UTType.gif.identifier as CFString, images.count, nil) {
-                CGImageDestinationSetProperties(destination, fileProperties)
-                for image in images {
-                    if let cgImage = image.cgImage {
-                        CGImageDestinationAddImage(destination, cgImage, frameProperties)
-                    }
-                }
-                if !CGImageDestinationFinalize(destination) {
-                    print("Failed to finalize the image destination")
-                }
-                print("Url = \(fileURL!)")
-                return fileURL
-            }
-        }
-        return nil
-    }
-}
+class ViewTimeframeVC: UIViewController {
+    var timeframeName: String!
+    var isPublic: Bool!
+    var isFavorite: Bool!
+    var isReversed: Bool!
+    var selectedDate: String!
+    var selectedSpeed: String!
+    var selectedPhotos: [UIImage]!
 
-class ViewTimeFrameVC: UIViewController {
-    
     @IBOutlet weak var imageView: UIImageView!
-    
-//    var headshotImages: [UIImage] = []
+    @IBOutlet weak var shareButton: UIButton!
+    var imageDuration: Float!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // ERROR here: for some reason fetchedPhotos is empty
-        print("fetched photos: ", fetchedPhotos, "\n\n\n")
         self.setCustomBackImage()
-        
-//        for i in 1...4 {
-//            headshotImages.append(UIImage(named: "headshot\(i)")!)
-//        }
-//        imageView.animationImages = headshotImages.reversed()
-        imageView.animationImages = fetchedPhotos.reversed()
-        imageView.animationDuration = 2.0
+        self.title = timeframeName
+        shareButton.layer.cornerRadius = 5
+        animateImage()
+    }
+    
+    func animateImage() {
+        if isReversed {
+            selectedPhotos = selectedPhotos.reversed()
+        }
+        let speedComponents = selectedSpeed.components(separatedBy: " ")
+        let actualSpeed = Float(speedComponents[0])!
+        let gifDuration = Float(selectedPhotos.count) / actualSpeed
+        // Calculates the duration for each image
+        imageDuration = gifDuration / Float(selectedPhotos.count)
+        imageView.animationDuration = TimeInterval(gifDuration)
+        imageView.animationImages = selectedPhotos
         imageView.startAnimating()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        // Release the memory from animating the images
-        imageView.animationImages = nil
+        imageView.animationImages = nil   // Release the memory from animating images
     }
     
-    @IBAction func onShareTapped(_ sender: Any) {
+    // Adds the TimeFrame to the local array of all created TimeFrames and unwind segues back to the main home screen
+    @IBAction func onSaveTapped(_ sender: UIBarButtonItem) {
+        allTimeframes[timeframeName] = selectedPhotos
+        timeframeNames.append(timeframeName)
+        performSegue(withIdentifier: "unwindViewTimeframeToHome", sender: self)
+    }
+    
+    // Shares the TimeFrame as a GIF to the user's other apps when the "Share" button is tapped
+    @IBAction func onShareTapped(_ sender: UIButton) {
         var shareItem: Any = ""
-        let gifURL = UIImage.animatedGif(from: fetchedPhotos)
+        let gifURL = UIImage.animatedGif(from: selectedPhotos, from: imageDuration)
         
         if gifURL != nil {
             shareItem = gifURL!
         } else {
-            shareItem = fetchedPhotos[0]
+            // Share first photo in array if there is an error generating the GIF
+            shareItem = selectedPhotos[0]
         }
         let activityController = UIActivityViewController(activityItems: [shareItem], applicationActivities: nil)
         present(activityController, animated: true, completion: nil)
-        // TODO: remove all the URLs?
     }
-    
 }

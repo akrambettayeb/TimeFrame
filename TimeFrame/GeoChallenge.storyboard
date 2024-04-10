@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="5Zm-YF-9cd">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="bJp-rQ-NUr">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22684"/>
         <capability name="Image references" minToolsVersion="12.0"/>
+        <capability name="Map view configurations" minToolsVersion="14.0"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -19,10 +20,15 @@
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="MapPlaceholder" translatesAutoresizingMaskIntoConstraints="NO" id="kTL-yj-0gv">
-                                <rect key="frame" x="0.0" y="103" width="393" height="666"/>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" showsUserLocation="YES" translatesAutoresizingMaskIntoConstraints="NO" id="llW-nT-zc4">
+                                <rect key="frame" x="0.0" y="103" width="393" height="622"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </imageView>
+                                <gestureRecognizers/>
+                                <hybridMapConfiguration key="preferredConfiguration"/>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="zAz-Tm-qpS" appends="YES" id="fIl-xa-W7r"/>
+                                </connections>
+                            </mapView>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1i2-Bs-cNj">
                                 <rect key="frame" x="177" y="290" width="50" height="50"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -33,41 +39,30 @@
                                     <preferredSymbolConfiguration key="preferredSymbolConfigurationForImage" configurationType="pointSize" pointSize="40" scale="large"/>
                                 </buttonConfiguration>
                                 <connections>
-                                    <segue destination="0Cg-03-Yuz" kind="popoverPresentation" popoverAnchorView="1i2-Bs-cNj" id="ByT-eL-bjW">
+                                    <segue destination="0Cg-03-Yuz" kind="popoverPresentation" identifier="ExistingChallengeSegue" popoverAnchorView="1i2-Bs-cNj" id="ByT-eL-bjW">
                                         <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
                                     </segue>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gv9-o6-1q9">
-                                <rect key="frame" x="159" y="551" width="57" height="41"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" image="circle.fill" catalog="system">
-                                    <preferredSymbolConfiguration key="preferredSymbolConfigurationForImage" configurationType="pointSize" pointSize="22"/>
-                                    <color key="baseForegroundColor" name="TabBarPurple"/>
-                                </buttonConfiguration>
-                                <connections>
-                                    <segue destination="ok4-FQ-G3E" kind="show" id="hrH-Aa-obT"/>
-                                </connections>
-                            </button>
-                            <searchBar contentMode="redraw" fixedFrame="YES" placeholder="Search" translatesAutoresizingMaskIntoConstraints="NO" id="YZU-y7-bkr">
-                                <rect key="frame" x="0.0" y="725" width="393" height="44"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" red="0.89411771299999998" green="0.75686275960000005" blue="0.98431372640000003" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                <textInputTraits key="textInputTraits"/>
-                                <connections>
-                                    <outlet property="delegate" destination="Y6W-OH-hqX" id="i53-52-aVE"/>
-                                </connections>
-                            </searchBar>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
                     <navigationItem key="navigationItem" title="Search for Challenges" id="CHU-Gh-fi1"/>
+                    <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <outlet property="mapView" destination="llW-nT-zc4" id="gni-CN-3P2"/>
+                        <segue destination="GXI-pw-Uhy" kind="presentation" identifier="NewChallengeSegue" modalPresentationStyle="fullScreen" id="n7N-YH-IaD"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.5" id="zAz-Tm-qpS">
+                    <connections>
+                        <action selector="onLongPressWithRecognizer:" destination="Y6W-OH-hqX" id="9UI-Ok-OIZ"/>
+                    </connections>
+                </pongPressGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="983.96946564885491" y="-2.1126760563380285"/>
+            <point key="canvasLocation" x="1910.6870229007632" y="-2.1126760563380285"/>
         </scene>
         <!--Challenge Info View Controller-->
         <scene sceneID="VFd-Fp-ndj">
@@ -167,7 +162,7 @@ Active Dates:          2/24/24 - 2/24/25</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZDT-e7-Hrv" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1864" y="-2"/>
+            <point key="canvasLocation" x="2789.3129770992364" y="-2.1126760563380285"/>
         </scene>
         <!--Challenge Album View Controller-->
         <scene sceneID="gLm-MS-JBp">
@@ -202,7 +197,7 @@ Active Dates:          2/24/24 - 2/24/25</string>
                                             </subviews>
                                         </collectionViewCellContentView>
                                         <connections>
-                                            <segue destination="dPS-eK-K2b" kind="presentation" modalPresentationStyle="fullScreen" id="hhW-E0-TBl"/>
+                                            <segue destination="dPS-eK-K2b" kind="presentation" modalPresentationStyle="fullScreen" id="7sR-B0-EZ2"/>
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
@@ -221,16 +216,17 @@ Active Dates:          2/24/24 - 2/24/25</string>
                                     <color key="baseBackgroundColor" name="TabBarPurple"/>
                                 </buttonConfiguration>
                                 <connections>
-                                    <segue destination="qUo-V8-TdR" kind="presentation" modalPresentationStyle="fullScreen" id="DpD-Ao-XCc"/>
+                                    <segue destination="qUo-V8-TdR" kind="presentation" modalPresentationStyle="fullScreen" id="4hT-JU-ekx"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tiw-NA-kIb">
                                 <rect key="frame" x="0.0" y="60" width="50" height="35"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="tintColor" name="TabBarPurple"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" image="arrow.left" catalog="system"/>
                                 <connections>
-                                    <segue destination="H6q-rD-csP" kind="presentation" modalPresentationStyle="fullScreen" id="vvS-Ym-7c8"/>
+                                    <action selector="onBackButtonPressed:" destination="ARb-O1-Pmu" eventType="touchUpInside" id="POU-pz-N64"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -269,10 +265,11 @@ Active Dates:          2/24/24 - 2/24/25</string>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="M6f-4y-I27">
                                 <rect key="frame" x="0.0" y="60" width="50" height="35"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="tintColor" name="TabBarPurple"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" image="arrow.left" catalog="system"/>
                                 <connections>
-                                    <segue destination="ARb-O1-Pmu" kind="presentation" modalPresentationStyle="fullScreen" id="HMt-dj-vIH"/>
+                                    <action selector="onBackButtonPressed:" destination="dPS-eK-K2b" eventType="touchUpInside" id="YhC-oR-6Kl"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -337,7 +334,7 @@ Active Dates:          2/24/24 - 2/24/25</string>
                                     <color key="baseBackgroundColor" name="TabBarPurple"/>
                                 </buttonConfiguration>
                                 <connections>
-                                    <segue destination="qUo-V8-TdR" kind="presentation" modalPresentationStyle="fullScreen" id="TVn-sY-3wM"/>
+                                    <segue destination="qUo-V8-TdR" kind="presentation" modalPresentationStyle="fullScreen" id="yDH-Mh-uI6"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Z11-qI-xJs">
@@ -350,7 +347,7 @@ Active Dates:          2/24/24 - 2/24/25</string>
                                     <color key="baseBackgroundColor" name="TabBarPurple"/>
                                 </buttonConfiguration>
                                 <connections>
-                                    <segue destination="ARb-O1-Pmu" kind="presentation" modalPresentationStyle="fullScreen" id="Dec-gs-v5w"/>
+                                    <segue destination="ARb-O1-Pmu" kind="presentation" modalPresentationStyle="fullScreen" id="jmK-vi-xgY"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XRf-Sh-ZX1">
@@ -366,10 +363,11 @@ Active Dates:          2/24/24 - 2/24/25</string>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mWH-t7-htp">
                                 <rect key="frame" x="0.0" y="60" width="50" height="35"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="tintColor" name="TabBarPurple"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" image="arrow.left" catalog="system"/>
                                 <connections>
-                                    <segue destination="Y6W-OH-hqX" kind="presentation" modalPresentationStyle="fullScreen" id="Ycl-oA-73k"/>
+                                    <action selector="onBackButtonPressed:" destination="H6q-rD-csP" eventType="touchUpInside" id="GOh-FB-8zd"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -382,144 +380,58 @@ Active Dates:          2/24/24 - 2/24/25</string>
             </objects>
             <point key="canvasLocation" x="1865" y="-796"/>
         </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="uvK-a0-tLb">
+        <!--Add Challenge Info View Controller-->
+        <scene sceneID="ZP2-II-soL">
             <objects>
-                <navigationController storyboardIdentifier="GeoChallengeStoryboard" automaticallyAdjustsScrollViewInsets="NO" id="5Zm-YF-9cd" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="" image="location" catalog="system" selectedImage="location.fill" id="fMK-eo-tvV"/>
-                    <toolbarItems/>
-                    <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" backIndicatorImage="arrow.backward" catalog="system" backIndicatorTransitionMaskImage="arrow.backward" id="c56-Zd-o4f">
-                        <rect key="frame" x="0.0" y="59" width="393" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="Y6W-OH-hqX" kind="relationship" relationship="rootViewController" id="ATF-vW-GXh"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="bsH-c4-kMw" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="59" y="-2"/>
-        </scene>
-        <!--Add Initial Photo View Controller-->
-        <scene sceneID="hID-ZT-hRo">
-            <objects>
-                <viewController id="ok4-FQ-G3E" customClass="AddInitialPhotoViewController" customModule="TimeFrame" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="zgU-t5-DEv">
-                        <rect key="frame" x="0.0" y="0.0" width="393" height="842"/>
+                <viewController id="GXI-pw-Uhy" customClass="AddChallengeInfoViewController" customModule="TimeFrame" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="bJP-ri-9yR">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="CameraPlaceholder" translatesAutoresizingMaskIntoConstraints="NO" id="hv2-T4-yVM">
-                                <rect key="frame" x="0.0" y="103" width="393" height="666"/>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="iC8-qj-vmi">
+                                <rect key="frame" x="0.0" y="103" width="393" height="524"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RQg-v9-hrQ">
-                                <rect key="frame" x="0.0" y="600" width="393" height="169"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Location Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PRa-KM-Pb8">
+                                <rect key="frame" x="16" y="647" width="115" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" red="0.5690000057220459" green="0.32499998807907104" blue="0.69800001382827759" alpha="0.75" colorSpace="custom" customColorSpace="sRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" fixedFrame="YES" image="circlebadge.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="002-Jz-f8t">
-                                <rect key="frame" x="55" y="655" width="55" height="55"/>
+                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Add Name of Location" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="6Sr-g0-9cf">
+                                <rect key="frame" x="156" y="640.33333333333326" width="221" height="35"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="tintColor" red="0.78602561329998" green="0.49852289190748655" blue="1" alpha="0.75" colorSpace="custom" customColorSpace="displayP3"/>
-                            </imageView>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" fixedFrame="YES" image="circlebadge.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="9wF-Ls-LI1">
-                                <rect key="frame" x="284" y="654.66666666666663" width="55" height="55"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Challenge Dates" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wMp-6d-MQX">
+                                <rect key="frame" x="16" y="696" width="125" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="tintColor" red="0.78602561329999998" green="0.49852289189999999" blue="1" alpha="0.75" colorSpace="custom" customColorSpace="displayP3"/>
-                            </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vlF-oZ-aUG">
-                                <rect key="frame" x="149" y="635" width="95" height="95"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="00/00/00" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hgx-og-7zS">
+                                <rect key="frame" x="166" y="696" width="72" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain">
-                                    <imageReference key="image" image="circle.inset.filled" catalog="system" symbolScale="default"/>
-                                    <preferredSymbolConfiguration key="preferredSymbolConfigurationForImage" configurationType="pointSize" pointSize="85"/>
-                                </buttonConfiguration>
-                                <connections>
-                                    <segue destination="5pX-hb-JLj" kind="show" animates="NO" id="Aoi-oR-Uza"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SxJ-Zz-ZJJ">
-                                <rect key="frame" x="55" y="664" width="55" height="38"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="to" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="V2Y-ek-YlI">
+                                <rect key="frame" x="258.66666666666663" y="696" width="16" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" image="gearshape.fill" catalog="system">
-                                    <preferredSymbolConfiguration key="preferredSymbolConfigurationForImage" configurationType="pointSize" pointSize="20"/>
-                                </buttonConfiguration>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pNu-rN-PGx">
-                                <rect key="frame" x="282" y="663" width="59" height="38"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <datePicker contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" translatesAutoresizingMaskIntoConstraints="NO" id="orl-Sd-xtK">
+                                <rect key="frame" x="291" y="688.66666666666663" width="86" height="35"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" image="arrow.triangle.2.circlepath" catalog="system">
-                                    <preferredSymbolConfiguration key="preferredSymbolConfigurationForImage" configurationType="pointSize" pointSize="20"/>
-                                </buttonConfiguration>
-                            </button>
-                        </subviews>
-                        <viewLayoutGuide key="safeArea" id="PfD-kp-8MM"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                    </view>
-                    <navigationItem key="navigationItem" id="vpt-Yn-kiR"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="5Wh-yc-cjd" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1864.885496183206" y="727.46478873239437"/>
-        </scene>
-        <!--Add Challenge Info View Controller-->
-        <scene sceneID="qtz-QT-QdH">
-            <objects>
-                <viewController id="5pX-hb-JLj" customClass="AddChallengeInfoViewController" customModule="TimeFrame" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="vhf-7j-gdk">
-                        <rect key="frame" x="0.0" y="0.0" width="393" height="842"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="InitialImagePlaceholder" translatesAutoresizingMaskIntoConstraints="NO" id="ORa-Xc-Mxm">
-                                <rect key="frame" x="0.0" y="103" width="393" height="497"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="D91-Ih-Tzv">
-                                <rect key="frame" x="16" y="608" width="361" height="35"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="tintColor" name="AccentColor"/>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="filled" title="Retake Photo" titleAlignment="center">
-                                    <color key="baseForegroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                    <color key="baseBackgroundColor" name="TabBarPurple"/>
-                                </buttonConfiguration>
-                                <connections>
-                                    <segue destination="ok4-FQ-G3E" kind="show" animates="NO" id="Sb6-Qg-JVu"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TgU-Fe-7Qg">
-                                <rect key="frame" x="16" y="651" width="361" height="35"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="tintColor" name="TabBarPurple"/>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="filled" title="Add Location Name" titleAlignment="center">
-                                    <color key="baseForegroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                    <color key="baseBackgroundColor" name="TabBarPurple"/>
-                                </buttonConfiguration>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="h6h-Uo-Pbb">
-                                <rect key="frame" x="16" y="694" width="361" height="35"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="tintColor" name="TabBarPurple"/>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="filled" title="Add Challenge Dates" titleAlignment="center">
-                                    <color key="baseForegroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                    <color key="baseBackgroundColor" name="TabBarPurple"/>
-                                </buttonConfiguration>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Na9-hz-cS6">
-                                <rect key="frame" x="16" y="737" width="361" height="33"/>
+                            </datePicker>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Fnk-wV-jeh">
+                                <rect key="frame" x="16" y="735" width="361" height="35"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="tintColor" name="TabBarPurple"/>
                                 <state key="normal" title="Button"/>
@@ -536,18 +448,32 @@ Active Dates:          2/24/24 - 2/24/25</string>
                                     <color key="baseBackgroundColor" name="TabBarPurple"/>
                                 </buttonConfiguration>
                                 <connections>
-                                    <segue destination="Y6W-OH-hqX" kind="show" id="m5P-VV-MRB"/>
+                                    <action selector="onSubmitButtonPressed:" destination="GXI-pw-Uhy" eventType="touchUpInside" id="bjj-vB-8Tz"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9rc-1u-zrS">
+                                <rect key="frame" x="0.0" y="60" width="50" height="34.333333333333329"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="tintColor" name="TabBarPurple"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" image="arrow.left" catalog="system"/>
+                                <connections>
+                                    <action selector="onBackButtonPressed:" destination="GXI-pw-Uhy" eventType="touchUpInside" id="ozt-Y7-U75"/>
                                 </connections>
                             </button>
                         </subviews>
-                        <viewLayoutGuide key="safeArea" id="KEh-w6-G6E"/>
+                        <viewLayoutGuide key="safeArea" id="T0g-FN-sFn"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
-                    <navigationItem key="navigationItem" id="0bj-Ia-oJ6"/>
+                    <navigationItem key="navigationItem" id="UBF-ol-9nR"/>
+                    <connections>
+                        <outlet property="locationNameField" destination="6Sr-g0-9cf" id="QUR-Dp-MB9"/>
+                        <outlet property="previewView" destination="iC8-qj-vmi" id="lqI-As-odm"/>
+                    </connections>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="97r-sK-u4q" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="w6O-9J-cnP" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2866.4122137404579" y="726.76056338028172"/>
+            <point key="canvasLocation" x="1865" y="818"/>
         </scene>
         <!--Add Photo To Challenge View Controller-->
         <scene sceneID="ndf-9Z-chh">
@@ -558,7 +484,7 @@ Active Dates:          2/24/24 - 2/24/25</string>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rwJ-xX-28q">
-                                <rect key="frame" x="16" y="642" width="361" height="35"/>
+                                <rect key="frame" x="16" y="638.33333333333337" width="361" height="35"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="tintColor" name="AccentColor"/>
                                 <state key="normal" title="Button"/>
@@ -571,7 +497,7 @@ Active Dates:          2/24/24 - 2/24/25</string>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VEN-5M-sKl">
-                                <rect key="frame" x="16" y="737" width="361" height="33"/>
+                                <rect key="frame" x="16" y="737.33333333333337" width="361" height="32.666666666666629"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="tintColor" name="TabBarPurple"/>
                                 <state key="normal" title="Button"/>
@@ -588,24 +514,25 @@ Active Dates:          2/24/24 - 2/24/25</string>
                                     <color key="baseBackgroundColor" name="TabBarPurple"/>
                                 </buttonConfiguration>
                                 <connections>
-                                    <segue destination="Y6W-OH-hqX" kind="presentation" modalPresentationStyle="fullScreen" id="5jZ-Rh-eCy"/>
+                                    <action selector="onSubmitButtonPressed:" destination="qUo-V8-TdR" eventType="touchUpInside" id="8eQ-eP-e0T"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="U0y-JU-KE5">
-                                <rect key="frame" x="0.0" y="60" width="50" height="35"/>
+                                <rect key="frame" x="0.0" y="60" width="50" height="34.333333333333343"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="tintColor" name="TabBarPurple"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" image="arrow.left" catalog="system"/>
                                 <connections>
-                                    <segue destination="H6q-rD-csP" kind="presentation" identifier="CameraToTimeLapseSegue" modalPresentationStyle="fullScreen" id="Y3b-57-5Kp"/>
+                                    <action selector="onBackButtonPressed:" destination="qUo-V8-TdR" eventType="touchUpInside" id="Oij-Cf-Pvf"/>
                                 </connections>
                             </button>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="t7T-IY-mPg">
-                                <rect key="frame" x="0.0" y="103" width="393" height="524"/>
+                                <rect key="frame" x="0.0" y="101" width="393" height="524"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vuC-kb-hrj">
-                                <rect key="frame" x="16" y="689" width="361" height="35"/>
+                                <rect key="frame" x="16" y="686.66666666666663" width="361" height="35"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="tintColor" name="TabBarPurple"/>
                                 <state key="normal" title="Button"/>
@@ -614,7 +541,7 @@ Active Dates:          2/24/24 - 2/24/25</string>
                                     <color key="baseBackgroundColor" name="TabBarPurple"/>
                                 </buttonConfiguration>
                                 <connections>
-                                    <segue destination="ARb-O1-Pmu" kind="presentation" modalPresentationStyle="fullScreen" id="Yt5-XU-2Yu"/>
+                                    <segue destination="ARb-O1-Pmu" kind="presentation" modalPresentationStyle="fullScreen" id="5gh-rc-pgI"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -630,28 +557,37 @@ Active Dates:          2/24/24 - 2/24/25</string>
             </objects>
             <point key="canvasLocation" x="2864.8854961832062" y="-796.47887323943667"/>
         </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="PQs-jK-gr0">
+            <objects>
+                <navigationController storyboardIdentifier="GeoChallengeStoryboard" automaticallyAdjustsScrollViewInsets="NO" id="bJp-rQ-NUr" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="" image="location.fill" catalog="system" selectedImage="location.fill" id="Yc0-NZ-Zf3"/>
+                    <toolbarItems/>
+                    <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="9z1-qK-h7M">
+                        <rect key="frame" x="0.0" y="59" width="393" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="Y6W-OH-hqX" kind="relationship" relationship="rootViewController" id="jI0-bd-x0t"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="EHJ-Ad-u1y" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="983.96946564885491" y="-2.1126760563380285"/>
+        </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="TVn-sY-3wM"/>
-        <segue reference="hrH-Aa-obT"/>
-        <segue reference="Y3b-57-5Kp"/>
-        <segue reference="vCC-Ms-XSq"/>
-        <segue reference="5jZ-Rh-eCy"/>
+        <segue reference="4hT-JU-ekx"/>
+        <segue reference="5gh-rc-pgI"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="CameraPlaceholder" width="290" height="491"/>
         <image name="InitialImagePlaceholder" width="327" height="436"/>
-        <image name="MapPlaceholder" width="919" height="1558"/>
         <image name="TimeLapsePlaceholder" width="170" height="215"/>
-        <image name="arrow.backward" catalog="system" width="128" height="95"/>
         <image name="arrow.left" catalog="system" width="128" height="95"/>
-        <image name="arrow.triangle.2.circlepath" catalog="system" width="128" height="104"/>
-        <image name="circle.fill" catalog="system" width="128" height="123"/>
-        <image name="circle.inset.filled" catalog="system" width="128" height="123"/>
-        <image name="circlebadge.fill" catalog="system" width="128" height="122"/>
-        <image name="gearshape.fill" catalog="system" width="128" height="123"/>
         <image name="heart" catalog="system" width="128" height="107"/>
-        <image name="location" catalog="system" width="128" height="119"/>
         <image name="location.fill" catalog="system" width="128" height="119"/>
         <image name="mappin" catalog="system" width="106" height="128"/>
         <image name="play.fill" catalog="system" width="117" height="128"/>

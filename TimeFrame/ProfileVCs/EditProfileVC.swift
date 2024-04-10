@@ -4,9 +4,10 @@
 //
 //  Created by Kate Zhang on 3/15/24.
 //
-// Project: TimeFrame
-// EID: kz4696
-// Course: CS371L
+//  Project: TimeFrame
+//  EID: kz4696
+//  Course: CS371L
+
 
 import UIKit
 import FirebaseAuth
@@ -14,6 +15,8 @@ import FirebaseDatabase
 import FirebaseFirestore
 
 class EditProfileVC: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
+    
+    // TODO: ask for permissions for camera and photo library
     
     // Data from Profile screen
     var delegate: UIViewController!
@@ -207,6 +210,7 @@ class EditProfileVC: UIViewController, UIImagePickerControllerDelegate, UINaviga
             }
         })
     }
+    
     func updateVisibleImagesArray() {
         for indexPath in imageGrid.indexPathsForVisibleItems {
             if let cell = imageGrid.cellForItem(at: indexPath) as? EditImageCell {
@@ -222,7 +226,7 @@ class EditProfileVC: UIViewController, UIImagePickerControllerDelegate, UINaviga
         let username = usernameTextField.text!
         let email = emailTextField.text!
         let password = passwordTextField.text!
-        if (displayName.isEmpty || username.isEmpty || email.isEmpty || password.isEmpty) {
+        if (displayName.isEmpty || username.isEmpty || email.isEmpty) {
             errorMessage = "Text fields cannot be empty"
         } else if isValidEmail(email) {
             // checkPassword(password)
