@@ -27,7 +27,6 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
         super.viewDidLoad()
         setCustomBackImage()
         errorMessageLabel.isHidden = true
-        
         emailTextField.delegate = self
         usernameTextField.delegate = self
         firstNameTextField.delegate = self
@@ -49,7 +48,7 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
             errorMessageLabel.isHidden = false
             return
         }
-                
+        
         // username length check
         if username.count > 30 {
             errorMessageLabel.text = "Username must be less than 30 characters."
@@ -72,29 +71,46 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
             return
         }
         
-        // Check for unique username
-        checkUsernameUnique(username) { isUnique in
+        // unique email check
+        checkEmailUnique(email) { isUnique in
             if !isUnique {
-                self.errorMessageLabel.text = "Username is already taken. Please choose another."
+                self.errorMessageLabel.text = "Email is already taken. Please choose another."
                 self.errorMessageLabel.isHidden = false
                 return
-            }
+        }
             
-            // Create a new user if the username is unique
-            Auth.auth().createUser(withEmail: email, password: password) { authResult, error in
-                if let error = error {
-                    self.errorMessageLabel.text = error.localizedDescription
+            // Check for unique username
+            self.checkUsernameUnique(username) { isUnique in
+                if !isUnique {
+                    self.errorMessageLabel.text = "Username is already taken. Please choose another."
                     self.errorMessageLabel.isHidden = false
-                } else {
-                    // User was created successfully, store the additional fields
-                    if let userId = authResult?.user.uid {
-                        self.saveUserInfo(userId: userId, email: email, username: username, firstName: firstName, lastName: lastName)
+                    return
+                }
+                
+                // Create a new user if the username is unique
+                Auth.auth().createUser(withEmail: email, password: password) { authResult, error in
+                    if let error = error {
+                        self.errorMessageLabel.text = error.localizedDescription
+                        self.errorMessageLabel.isHidden = false
+                    } else {
+                        // User was created successfully, store the additional fields
+                        if let userId = authResult?.user.uid {
+                            self.saveUserInfo(userId: userId, email: email, username: username, firstName: firstName, lastName: lastName)
+                        }
                     }
                 }
             }
         }
     }
     
+        private func checkEmailUnique(_ email: String, completion: @escaping (Bool) -> Void) {
+            let usersRef = Database.database().reference().child("emails")
+            usersRef.queryOrderedByValue().queryEqual(toValue: email)
+                .observeSingleEvent(of: .value, with: { snapshot in
+                    completion(!snapshot.exists())
+                })
+        }
+        
     private func checkUsernameUnique(_ username: String, completion: @escaping (Bool) -> Void) {
         let usersRef = Database.database().reference().child("users")
         usersRef.queryOrdered(byChild: "username").queryEqual(toValue: username)
