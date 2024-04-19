@@ -26,6 +26,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setCustomBackImage()
+        navigationItem.backBarButtonItem?.tintColor = .white
         errorMessageLabel.isHidden = true
         emailTextField.delegate = self
         passwordTextField.delegate = self
