@@ -111,6 +111,7 @@ class AlbumViewController: UIViewController, UIImagePickerControllerDelegate, UI
                 self.imagePicker.sourceType = .camera
                 self.imagePicker.allowsEditing = false //TODO: add and delete photos from firebase
                 self.imagePicker.cameraCaptureMode = .photo //TODO: add overlay code to home screen
+                self.imagePicker.cameraFlashMode = .off
                 
                 if allAlbums[self.albumName!]!.count > 0 {
                     // Only add overlay if existing photo in album.
