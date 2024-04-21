@@ -64,6 +64,7 @@
 		B522331C2BA8D5ED00F229B0 /* ViewImageVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B522331B2BA8D5ED00F229B0 /* ViewImageVC.swift */; };
 		B57132C92BA6743400695F1C /* EditImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B57132C82BA6743400695F1C /* EditImageCell.swift */; };
 		B57132CB2BA6F33600695F1C /* QRProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B57132CA2BA6F33600695F1C /* QRProfileVC.swift */; };
+		B5755A952BD491B100AFAC08 /* AlbumPhoto.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5755A942BD491B100AFAC08 /* AlbumPhoto.swift */; };
 		B5A02CDD2BC25344001C8D23 /* Gradient.png in Resources */ = {isa = PBXBuildFile; fileRef = B5A02CDB2BC25301001C8D23 /* Gradient.png */; };
 		B5B73D482BBA956400BA1BA3 /* ImagesToGIF.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B5B73D472BBA956400BA1BA3 /* ImagesToGIF.storyboard */; };
 		B5B73D4D2BBA967A00BA1BA3 /* ViewTimeFrameVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5B73D4C2BBA967A00BA1BA3 /* ViewTimeFrameVC.swift */; };
@@ -108,6 +109,7 @@
 		B522331B2BA8D5ED00F229B0 /* ViewImageVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewImageVC.swift; sourceTree = "<group>"; };
 		B57132C82BA6743400695F1C /* EditImageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditImageCell.swift; sourceTree = "<group>"; };
 		B57132CA2BA6F33600695F1C /* QRProfileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRProfileVC.swift; sourceTree = "<group>"; };
+		B5755A942BD491B100AFAC08 /* AlbumPhoto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AlbumPhoto.swift; path = HomeScreenVCs/AlbumPhoto.swift; sourceTree = "<group>"; };
 		B5A02CDB2BC25301001C8D23 /* Gradient.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Gradient.png; sourceTree = "<group>"; };
 		B5B73D472BBA956400BA1BA3 /* ImagesToGIF.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ImagesToGIF.storyboard; sourceTree = "<group>"; };
 		B5B73D4C2BBA967A00BA1BA3 /* ViewTimeFrameVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewTimeFrameVC.swift; sourceTree = "<group>"; };
@@ -189,6 +191,7 @@
 				3F1EAAE72B9697A00060218F /* AppDelegate.swift */,
 				3F1EAAE92B9697A00060218F /* SceneDelegate.swift */,
 				B51879DA2BC37030008FF688 /* Extensions.swift */,
+				B5755A942BD491B100AFAC08 /* AlbumPhoto.swift */,
 				AC999AFC2BA8C5D2006DBDFC /* HomeScreenVCs */,
 				5520389A2BA623FE000C5014 /* GeoChallengeVCs */,
 				3F08EC582BA5964F0065C923 /* AuthenticationVCs */,
@@ -363,11 +366,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B5755A952BD491B100AFAC08 /* AlbumPhoto.swift in Sources */,
 				B51879D72BC319AA008FF688 /* HomeScreenVC.swift in Sources */,
 				5520389C2BA62421000C5014 /* MapViewController.swift in Sources */,
-				B56D904E2BA58BF7008A435C /* ExtensionVC.swift in Sources */,
 				B51879DD2BC371A6008FF688 /* AllAlbumsVC.swift in Sources */,
-				5520389E2BA62DE3000C5014 /* AddInitialPhotoViewController.swift in Sources */,
 				B5B73D742BBB3BF800BA1BA3 /* PlaybackSettingsVC.swift in Sources */,
 				3F1EAAF22B9697A00060218F /* TimeFrame.xcdatamodeld in Sources */,
 				3F08EC5D2BA5965E0065C923 /* ForgotPasswordViewController.swift in Sources */,
@@ -394,7 +396,6 @@
 				3F08EC5C2BA5965E0065C923 /* LoginViewController.swift in Sources */,
 				3F1EAAEA2B9697A00060218F /* SceneDelegate.swift in Sources */,
 				B51879DB2BC37030008FF688 /* Extensions.swift in Sources */,
-				55A83AB22BA6A5CB00895DFE /* ChallengeCameraViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -547,7 +548,7 @@
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 5XP3G844H6;
+				DEVELOPMENT_TEAM = 3H7MMR6433;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = TimeFrame/Info.plist;
 				INFOPLIST_KEY_NSAppleMusicUsageDescription = "";
@@ -581,7 +582,7 @@
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 5XP3G844H6;
+				DEVELOPMENT_TEAM = 3H7MMR6433;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = TimeFrame/Info.plist;
 				INFOPLIST_KEY_NSAppleMusicUsageDescription = "";
