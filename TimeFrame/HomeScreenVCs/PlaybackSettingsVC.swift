@@ -29,8 +29,6 @@ class PlaybackSettingsVC: UIViewController, UITextFieldDelegate {
     var selectedSpeed = ""
     var selectedPhotos: [AlbumPhoto]!
     var photosWithText: [UIImage]! = []
-    var dummy: [String]! = ["04/11/24", "04/12/24"]
-    var dummy1: [String]! = ["April 2024", "May 2024"]
     let topLeftPoint = CGPoint(x: 0, y: 0)
     
     override func viewDidLoad() {
@@ -141,15 +139,18 @@ class PlaybackSettingsVC: UIViewController, UITextFieldDelegate {
         // Create a semi-transparent background box
         let boxRect = CGRect(x: 0, y: 0, width: boxWidth, height: boxHeight) // Flush with the left and top edges
         UIGraphicsBeginImageContextWithOptions(imageView.bounds.size, false, 0)
-        imageView.layer.render(in: UIGraphicsGetCurrentContext()!)
+        guard let context = UIGraphicsGetCurrentContext() else {
+            UIGraphicsEndImageContext()
+            return nil
+        }
+        imageView.layer.render(in: context)
 
         // Draw the semi-transparent box
-        let context = UIGraphicsGetCurrentContext()
-        context?.setFillColor(UIColor.black.withAlphaComponent(0.5).cgColor) // Semi-transparent black color
-        context?.fill(boxRect)
+        context.setFillColor(UIColor.black.withAlphaComponent(0.5).cgColor) // Semi-transparent black color
+        context.fill(boxRect)
 
         // Render the label onto the image context
-        label.layer.render(in: context!)
+        label.layer.render(in: context)
 
         // Get the resulting image
         let imageWithText = UIGraphicsGetImageFromCurrentImageContext()
@@ -160,6 +161,7 @@ class PlaybackSettingsVC: UIViewController, UITextFieldDelegate {
     
     //  Passes all necessary info to the next VC to play the TimeFrame with the correct settings
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        photosWithText = [UIImage]()
         if segue.identifier == "segueToViewTimeframeVC",
            let nextVC = segue.destination as? ViewTimeframeVC {
             nextVC.timeframeName = self.timeframeName
@@ -168,12 +170,17 @@ class PlaybackSettingsVC: UIViewController, UITextFieldDelegate {
             nextVC.isReversed = self.isReversed
             nextVC.selectedDate = self.selectedDate
             nextVC.selectedSpeed = self.selectedSpeed
-            print("selected photos count: \(selectedPhotos.count)")
             var count = 0
-            for image in selectedPhotos {
-                //guard let modifiedImage = generateImageWithText(text: "Hi", backgroundImage: image) else {return}
-                print("new photos count: \(photosWithText.count)")
-                if let newImage = generateImageWithText(text: dummy1[count], backgroundImage: image.image, fontSize: 120.0) {
+            for photo in selectedPhotos {
+                var imageDate = ""
+                if selectedDate == "Date" {
+                    imageDate = photo.date
+                } else if selectedDate == "Month" {
+                    imageDate = photo.month
+                } else if selectedDate == "Year" {
+                    imageDate = photo.year
+                }
+                if let newImage = generateImageWithText(text: imageDate, backgroundImage: photo.image, fontSize: 120.0) {
                     photosWithText.append(newImage)
                     count += 1
                 } else {

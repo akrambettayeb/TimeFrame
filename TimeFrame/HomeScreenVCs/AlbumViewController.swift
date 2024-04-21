@@ -206,6 +206,9 @@ class AlbumViewController: UIViewController, UIImagePickerControllerDelegate, UI
     // Iterates through all cells in the collection view and sets the button state to unselected
     func clearSelections() {
         let numPhotos = allAlbums[albumName!]!.count
+        if numPhotos == 0 {
+            return
+        }
         for index in 0...numPhotos - 1 {
             allAlbums[albumName!]![index].buttonSelected = false
         }

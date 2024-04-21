@@ -64,27 +64,33 @@ class HomeScreenVC: UIViewController, UICollectionViewDelegate, UICollectionView
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        albumsCollectionView.reloadData()
         timeframesCollectionView.reloadData()
+        albumsCollectionView.reloadData()
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         
-        // Same layout for collection view of albums and Timeframes
-        let layout = UICollectionViewFlowLayout()
-        let collectionWidth = albumsCollectionView.bounds.width
-        let collectionHeight = albumsCollectionView.bounds.height
-        let cellWidth = (collectionWidth - 20) / 3
-        let cellHeight = (collectionHeight - 10) / 2
+        // Layout for album collection view
+        let albumLayout = UICollectionViewFlowLayout()
+        let albumCollectionWidth = albumsCollectionView.bounds.width
+        let albumCollectionHeight = albumsCollectionView.bounds.height
+        let albumCellWidth = (albumCollectionWidth - 20) / 3
+        let albumCellHeight = (albumCollectionHeight - 10) / 2
         
-        layout.itemSize = CGSize(width: cellWidth, height: cellHeight)
-        layout.minimumLineSpacing = 8
-        layout.minimumInteritemSpacing = 10
-        layout.scrollDirection = .horizontal
+        albumLayout.itemSize = CGSize(width: albumCellWidth, height: albumCellHeight)
+        albumLayout.minimumLineSpacing = 8
+        albumLayout.minimumInteritemSpacing = 10
+        albumLayout.scrollDirection = .horizontal
+        albumsCollectionView.collectionViewLayout = albumLayout
         
-        albumsCollectionView.collectionViewLayout = layout
-        timeframesCollectionView.collectionViewLayout = layout
+        // Layout for timeframe collection view
+        let timeLayout = UICollectionViewFlowLayout()
+        timeLayout.itemSize = CGSize(width: albumCellWidth, height: albumCellHeight)
+        timeLayout.minimumLineSpacing = 8
+        timeLayout.minimumInteritemSpacing = 10
+        timeLayout.scrollDirection = .horizontal
+        timeframesCollectionView.collectionViewLayout = timeLayout
     }
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -115,7 +121,7 @@ class HomeScreenVC: UIViewController, UICollectionViewDelegate, UICollectionView
                 // Will be replaced, sets a default image in case the number of TimeFrame cells is set to the number of albums and there are fewer TimeFrames
                 cell.imageView.image = UIImage(systemName: "person.crop.rectangle.stack.fill")
             } else {
-                cell.imageView.image = allTimeframes[timeframeName]![0]
+                cell.imageView.image = allTimeframes[timeframeName]![indexPath.row]
             }
             return cell
         }

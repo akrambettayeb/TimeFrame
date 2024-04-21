@@ -95,10 +95,6 @@
                                             <subviews>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="cgG-aE-aeF">
                                                     <rect key="frame" x="0.0" y="0.0" width="117" height="117"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" constant="117" id="FIT-MA-jc5"/>
-                                                        <constraint firstAttribute="height" constant="117" id="g8o-Yj-0B7"/>
-                                                    </constraints>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7mT-HI-7Ed">
                                                     <rect key="frame" x="0.0" y="119" width="117" height="17"/>
@@ -130,7 +126,7 @@
                                     </collectionViewCell>
                                 </cells>
                             </collectionView>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="lmD-hd-cKf">
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" tag="1" contentMode="scaleToFill" fixedFrame="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="lmD-hd-cKf">
                                 <rect key="frame" x="9" y="461" width="372" height="290"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -143,17 +139,21 @@
                                 </collectionViewFlowLayout>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="HomeTimeframeCell" id="HOy-Zg-KBp" customClass="HomeTimeframeCell" customModule="TimeFrame" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="0.0" width="37.333333333333336" height="140"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="117" height="140"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="6jY-Wv-82b">
-                                            <rect key="frame" x="0.0" y="0.0" width="37.333333333333336" height="140"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="117" height="140"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="1cY-6C-F8V">
-                                                    <rect key="frame" x="0.0" y="0.0" width="37.333333333333336" height="117"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="117" height="117"/>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mUG-H2-Jq8">
-                                                    <rect key="frame" x="0.0" y="119" width="37.333333333333336" height="18"/>
+                                                    <rect key="frame" x="0.0" y="119" width="117" height="17"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="117" id="CCZ-iR-6V3"/>
+                                                        <constraint firstAttribute="height" constant="17" id="Mdb-RR-8Dw"/>
+                                                    </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -162,7 +162,7 @@
                                             <constraints>
                                                 <constraint firstAttribute="trailing" secondItem="mUG-H2-Jq8" secondAttribute="trailing" id="7dY-BJ-WbF"/>
                                                 <constraint firstItem="mUG-H2-Jq8" firstAttribute="top" secondItem="1cY-6C-F8V" secondAttribute="bottom" constant="2" id="FLN-VQ-r3e"/>
-                                                <constraint firstAttribute="bottom" secondItem="mUG-H2-Jq8" secondAttribute="bottom" constant="3" id="PyE-bd-PO5"/>
+                                                <constraint firstAttribute="bottom" secondItem="mUG-H2-Jq8" secondAttribute="bottom" constant="4" id="PyE-bd-PO5"/>
                                                 <constraint firstItem="mUG-H2-Jq8" firstAttribute="leading" secondItem="6jY-Wv-82b" secondAttribute="leading" id="RBv-mv-Nm7"/>
                                                 <constraint firstItem="1cY-6C-F8V" firstAttribute="leading" secondItem="6jY-Wv-82b" secondAttribute="leading" id="X8i-yx-u33"/>
                                                 <constraint firstItem="mUG-H2-Jq8" firstAttribute="top" secondItem="1cY-6C-F8V" secondAttribute="bottom" constant="2" id="ZZt-9T-FFl"/>
@@ -170,6 +170,7 @@
                                                 <constraint firstAttribute="trailing" secondItem="1cY-6C-F8V" secondAttribute="trailing" id="eDA-f5-DKF"/>
                                             </constraints>
                                         </collectionViewCellContentView>
+                                        <size key="customSize" width="117" height="140"/>
                                         <connections>
                                             <outlet property="imageView" destination="1cY-6C-F8V" id="DIh-jE-KXL"/>
                                             <outlet property="timeframeNameLabel" destination="mUG-H2-Jq8" id="5vY-Hf-diL"/>
@@ -217,7 +218,6 @@
                     <connections>
                         <outlet property="albumsCollectionView" destination="URZ-eZ-odk" id="tjF-pa-sde"/>
                         <outlet property="timeframesCollectionView" destination="lmD-hd-cKf" id="rgM-d2-EGr"/>
-                        <outlet property="view" destination="URZ-eZ-odk" id="xEQ-ms-T7q"/>
                         <outlet property="viewAlbumsButton" destination="k86-ON-8ja" id="UKR-EQ-v5d"/>
                         <outlet property="viewTimeframesButton" destination="3U9-vv-vdK" id="zIi-1O-kB5"/>
                     </connections>
