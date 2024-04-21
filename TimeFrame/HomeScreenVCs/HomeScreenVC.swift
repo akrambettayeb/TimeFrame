@@ -30,7 +30,7 @@ protocol ImageLoader {
 }
 
 
-public var allAlbums: [String: [UIImage]] = [:]
+public var allAlbums: [String: [AlbumPhoto]] = [:]
 public var albumNames: [String] = []
 public var allTimeframes: [String: [UIImage]] = [:]
 public var timeframeNames: [String] = []
@@ -104,7 +104,7 @@ class HomeScreenVC: UIViewController, UICollectionViewDelegate, UICollectionView
                 // Sets a default image for empty albums
                 cell.imageView.image = UIImage(systemName: "person.crop.rectangle.stack.fill")
             } else {
-                cell.imageView.image = allAlbums[albumName]![0]
+                cell.imageView.image = allAlbums[albumName]?.last?.image
             }
             return cell
         } else {

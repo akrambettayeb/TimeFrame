@@ -21,8 +21,9 @@ class AlbumCell: UICollectionViewCell {
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var selectButton: UIButton!
     
-    @IBAction func onSelectTapped(_ sender: Any) {
-        selectButton.isSelected = !selectButton.isSelected
+    func setupButtonTarget(for indexPath: IndexPath, target: Any?, action: Selector) {
+        selectButton.addTarget(target, action: action, for: .touchUpInside)
+        selectButton.tag = indexPath.item
     }
 }
 
@@ -43,7 +44,7 @@ class AlbumViewController: UIViewController, UIImagePickerControllerDelegate, UI
     var hideSelectButtons = true
     
     // Stores images the user selects to use to create the TimeFrame
-    var selectedPhotos: [UIImage] = []
+    var selectedPhotos: [AlbumPhoto] = []
     var overlayView: UIImageView?
     
     override func viewDidLoad() {
@@ -54,18 +55,24 @@ class AlbumViewController: UIViewController, UIImagePickerControllerDelegate, UI
         moreButton.isHidden = false
         doneButton.isHidden = true
         cancelButton.isHidden = true
+        hideSelectButtons = true
+        self.clearSelections()
         collectionView.dataSource = self
         collectionView.delegate = self
         imagePicker.delegate = self
         requestNotificationPermission()
+        collectionView.reloadData()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        collectionView.reloadData()
         moreButton.isHidden = !hideSelectButtons
         doneButton.isHidden = hideSelectButtons
         cancelButton.isHidden = hideSelectButtons
+        if hideSelectButtons {
+            self.clearSelections()
+        }
+        collectionView.reloadData()
     }
     
     // Defines layout for the collection view
@@ -79,15 +86,6 @@ class AlbumViewController: UIViewController, UIImagePickerControllerDelegate, UI
         layout.minimumLineSpacing = 5
         layout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         collectionView.collectionViewLayout = layout
-    }
-    
-
-    func requestNotificationPermission() {
-        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]) { granted, error in
-            if granted {
-                print("Notification permission granted.")
-            }
-        }
     }
 
     // Sets up dropdown items for navigation item in top-right corner
@@ -116,7 +114,7 @@ class AlbumViewController: UIViewController, UIImagePickerControllerDelegate, UI
                 
                 if allAlbums[self.albumName!]!.count > 0 {
                     // Only add overlay if existing photo in album.
-                    self.overlayView = UIImageView(image: allAlbums[self.albumName!]!.last)
+                    self.overlayView = UIImageView(image: allAlbums[self.albumName!]!.last?.image)
                     self.overlayView!.alpha = 0.4
                     
                     // Get bounds for camera preview.
@@ -180,55 +178,59 @@ class AlbumViewController: UIViewController, UIImagePickerControllerDelegate, UI
         // Configure cell image
         cell.imageView.contentMode = .scaleAspectFill
         cell.imageView.clipsToBounds = true
-        cell.imageView.image = allAlbums[albumName!]![indexPath.row]
+        cell.imageView.image = allAlbums[albumName!]![indexPath.row].image
         
         // Configure cell button
-        cell.selectButton.setImage(UIImage(systemName: "circle"), for: .normal)
-        cell.selectButton.setImage(UIImage(systemName: "circle.inset.filled"), for: .selected)
         var config = UIButton.Configuration.plain()
         config.baseBackgroundColor = .clear
         cell.selectButton.configuration = config
+        cell.selectButton.setImage(UIImage(systemName: "circle"), for: .normal)
+        cell.selectButton.setImage(UIImage(systemName: "circle.inset.filled"), for: .selected)
         cell.selectButton.isHidden = hideSelectButtons
+        cell.setupButtonTarget(for: indexPath, target: self, action: #selector(buttonTapped(_:)))
+        cell.selectButton.isSelected = allAlbums[albumName!]![indexPath.row].buttonSelected
         
         return cell
     }
     
-    // Iterates through all cells in the collection view and hides/shows the button for the cell depending on the value of the hidden parameter
-    func hideSelectButtons(_ hidden: Bool) {
-        for indexPath in collectionView.indexPathsForVisibleItems {
-            if let cell = collectionView.cellForItem(at: indexPath) as? AlbumCell {
-                cell.selectButton.isHidden = hidden
-            }
+    @objc func buttonTapped(_ sender: UIButton) {
+        guard let indexPath = collectionView.indexPathsForVisibleItems.first(where: { $0.item == sender.tag}) else {
+            return
         }
+        let isSelected = !(allAlbums[albumName!]![indexPath.row].buttonSelected)
+        collectionView.cellForItem(at: indexPath)!.isSelected = isSelected
+        allAlbums[albumName!]![indexPath.row].buttonSelected = isSelected
+        collectionView.reloadItems(at: [indexPath])
     }
     
-    // Iterates through all cells in the collection view and sets the state for the button to selected or unselected depending on the value of the selected parameter
-    func setButtonStates(_ selected: Bool) {
-        for indexPath in collectionView.indexPathsForVisibleItems {
-            if let cell = collectionView.cellForItem(at: indexPath) as? AlbumCell {
-                cell.selectButton.isSelected = selected
-            }
+    // Iterates through all cells in the collection view and sets the button state to unselected
+    func clearSelections() {
+        let numPhotos = allAlbums[albumName!]!.count
+        for index in 0...numPhotos - 1 {
+            allAlbums[albumName!]![index].buttonSelected = false
         }
     }
     
     @IBAction func onDoneTapped(_ sender: Any) {
+        selectedPhotos = [AlbumPhoto]()
+        
         // Adds images from selected cells to the selectedPhotos array
         for indexPath in collectionView.indexPathsForVisibleItems {
-            if let cell = collectionView.cellForItem(at: indexPath) as? AlbumCell {
-                if cell.selectButton.isSelected {
-                    selectedPhotos.append(cell.imageView.image!)
-                }
+            if allAlbums[albumName!]![indexPath.row].buttonSelected {
+                let selectedPhoto = allAlbums[albumName!]![indexPath.row]
+                selectedPhotos.append(selectedPhoto)
             }
         }
         
         // Checks that multiple photos are selected to create a TimeFrame
         if selectedPhotos.count < 2 {
-            selectedPhotos = [UIImage]()
+            selectedPhotos = [AlbumPhoto]()
             let alert = UIAlertController(title: "Not Enough Photos Selected", message: "Please select multiple photos to create a TimeFrame. ", preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "OK", style: .default))
             self.present(alert, animated: true)
             return
         }
+        
         self.performSegue(withIdentifier: "segueToPlaybackSettings", sender: self)
     }
     
@@ -236,16 +238,16 @@ class AlbumViewController: UIViewController, UIImagePickerControllerDelegate, UI
         moreButton.isHidden = false
         cancelButton.isHidden = true
         doneButton.isHidden = true
-        self.setButtonStates(false)
+        self.clearSelections()
         self.hideSelectButtons = true
         collectionView.reloadData()
     }
         
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        if var image = info[.originalImage] as? UIImage {
+        if let image = info[.originalImage] as? UIImage {
             self.uploadPhoto(image: image)
             var existingImages = allAlbums[albumName!] ?? []  // Creates array if value is empty
-            existingImages.append(image)
+            existingImages.append(AlbumPhoto(image))
             allAlbums[albumName!] = existingImages
         }
         picker.dismiss(animated: true, completion: nil)
@@ -274,6 +276,14 @@ class AlbumViewController: UIViewController, UIImagePickerControllerDelegate, UI
                         self.updateStreakInformationForAlbum(albumName: albumName)
                     }
                 }
+            }
+        }
+    }
+    
+    func requestNotificationPermission() {
+        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]) { granted, error in
+            if granted {
+                print("Notification permission granted.")
             }
         }
     }
@@ -385,7 +395,7 @@ class AlbumViewController: UIViewController, UIImagePickerControllerDelegate, UI
             }
         }
     }
-        
+    
     func renameAlbum() {
         // Handle Rename Album action
         print("Rename Album")
@@ -402,7 +412,7 @@ class AlbumViewController: UIViewController, UIImagePickerControllerDelegate, UI
             if let indexPaths = collectionView.indexPathsForSelectedItems {
                 // Passes the selected image to the next screen to view the image from the album in a new screen
                 let imageIndex = indexPaths[0].row
-                nextVC.selectedImage = allAlbums[albumName!]![imageIndex]
+                nextVC.selectedImage = allAlbums[albumName!]![imageIndex].image
                 collectionView.deselectItem(at: indexPaths[0], animated: false)
             }
         } else if segue.identifier == "segueToPlaybackSettings",
@@ -445,22 +455,4 @@ class AlbumViewController: UIViewController, UIImagePickerControllerDelegate, UI
             }
         }
     }
-}
-
-extension UIImage {
-    public func flipVertically() -> UIImage? {
-            UIGraphicsBeginImageContextWithOptions(self.size, false, self.scale)
-            let context = UIGraphicsGetCurrentContext()!
-            
-            context.translateBy(x: self.size.width/2, y: self.size.height/2)
-            context.scaleBy(x: 1.0, y: -1.0)
-            context.translateBy(x: -self.size.width/2, y: -self.size.height/2)
-            
-            self.draw(in: CGRect(x: 0, y: 0, width: self.size.width, height: self.size.height))
-            
-            let newImage = UIGraphicsGetImageFromCurrentImageContext()
-            UIGraphicsEndImageContext()
-            
-            return newImage
-        }
 }
