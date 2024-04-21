@@ -27,7 +27,7 @@ class PlaybackSettingsVC: UIViewController, UITextFieldDelegate {
     var isReversed = false
     var selectedDate = ""
     var selectedSpeed = ""
-    var selectedPhotos: [UIImage]!
+    var selectedPhotos: [AlbumPhoto]!
     var photosWithText: [UIImage]! = []
     var dummy: [String]! = ["04/11/24", "04/12/24"]
     var dummy1: [String]! = ["April 2024", "May 2024"]
@@ -131,7 +131,7 @@ class PlaybackSettingsVC: UIViewController, UITextFieldDelegate {
 
         // Calculate the size required for the label based on the text and font size
         let fontAttributes = [NSAttributedString.Key.font: label.font]
-        let textSize = (text as NSString).size(withAttributes: fontAttributes)
+        let textSize = (text as NSString).size(withAttributes: fontAttributes as [NSAttributedString.Key : Any])
         label.frame.size = textSize
 
         // Calculate the size of the background box
@@ -173,7 +173,7 @@ class PlaybackSettingsVC: UIViewController, UITextFieldDelegate {
             for image in selectedPhotos {
                 //guard let modifiedImage = generateImageWithText(text: "Hi", backgroundImage: image) else {return}
                 print("new photos count: \(photosWithText.count)")
-                if let newImage = generateImageWithText(text: dummy[count], backgroundImage: image, fontSize: 120.0) {
+                if let newImage = generateImageWithText(text: dummy1[count], backgroundImage: image.image, fontSize: 120.0) {
                     photosWithText.append(newImage)
                     count += 1
                 } else {
