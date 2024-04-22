@@ -488,12 +488,12 @@ Active Dates:          2/24/24 - 2/24/25</string>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="tintColor" name="AccentColor"/>
                                 <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="filled" title="Share Photo" titleAlignment="center">
+                                <buttonConfiguration key="configuration" style="filled" title="Retake Photo" titleAlignment="center">
                                     <color key="baseForegroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <color key="baseBackgroundColor" name="TabBarPurple"/>
                                 </buttonConfiguration>
                                 <connections>
-                                    <action selector="onRetakePhotoButtonPressed:" destination="qUo-V8-TdR" eventType="touchUpInside" id="F2t-LI-gV9"/>
+                                    <action selector="onRetakeButtonPressed:" destination="qUo-V8-TdR" eventType="touchUpInside" id="LdM-VI-tAr"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VEN-5M-sKl">
@@ -528,7 +528,7 @@ Active Dates:          2/24/24 - 2/24/25</string>
                                 </connections>
                             </button>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="t7T-IY-mPg">
-                                <rect key="frame" x="0.0" y="101" width="393" height="524"/>
+                                <rect key="frame" x="0.0" y="103" width="393" height="520"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vuC-kb-hrj">
@@ -536,7 +536,7 @@ Active Dates:          2/24/24 - 2/24/25</string>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="tintColor" name="TabBarPurple"/>
                                 <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="filled" title="View Album" titleAlignment="center">
+                                <buttonConfiguration key="configuration" style="filled" title="Share Photo" titleAlignment="center">
                                     <color key="baseForegroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <color key="baseBackgroundColor" name="TabBarPurple"/>
                                 </buttonConfiguration>
@@ -561,7 +561,7 @@ Active Dates:          2/24/24 - 2/24/25</string>
         <scene sceneID="PQs-jK-gr0">
             <objects>
                 <navigationController storyboardIdentifier="GeoChallengeStoryboard" automaticallyAdjustsScrollViewInsets="NO" id="bJp-rQ-NUr" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="" image="location.fill" catalog="system" selectedImage="location.fill" id="Yc0-NZ-Zf3"/>
+                    <tabBarItem key="tabBarItem" title="" image="location" catalog="system" selectedImage="location.fill" id="Yc0-NZ-Zf3"/>
                     <toolbarItems/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="9z1-qK-h7M">
@@ -588,6 +588,7 @@ Active Dates:          2/24/24 - 2/24/25</string>
         <image name="TimeLapsePlaceholder" width="170" height="215"/>
         <image name="arrow.left" catalog="system" width="128" height="95"/>
         <image name="heart" catalog="system" width="128" height="107"/>
+        <image name="location" catalog="system" width="128" height="119"/>
         <image name="location.fill" catalog="system" width="128" height="119"/>
         <image name="mappin" catalog="system" width="106" height="128"/>
         <image name="play.fill" catalog="system" width="117" height="128"/>

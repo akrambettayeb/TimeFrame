@@ -365,9 +365,7 @@
 			files = (
 				B51879D72BC319AA008FF688 /* HomeScreenVC.swift in Sources */,
 				5520389C2BA62421000C5014 /* MapViewController.swift in Sources */,
-				B56D904E2BA58BF7008A435C /* ExtensionVC.swift in Sources */,
 				B51879DD2BC371A6008FF688 /* AllAlbumsVC.swift in Sources */,
-				5520389E2BA62DE3000C5014 /* AddInitialPhotoViewController.swift in Sources */,
 				B5B73D742BBB3BF800BA1BA3 /* PlaybackSettingsVC.swift in Sources */,
 				3F1EAAF22B9697A00060218F /* TimeFrame.xcdatamodeld in Sources */,
 				3F08EC5D2BA5965E0065C923 /* ForgotPasswordViewController.swift in Sources */,
@@ -394,7 +392,6 @@
 				3F08EC5C2BA5965E0065C923 /* LoginViewController.swift in Sources */,
 				3F1EAAEA2B9697A00060218F /* SceneDelegate.swift in Sources */,
 				B51879DB2BC37030008FF688 /* Extensions.swift in Sources */,
-				55A83AB22BA6A5CB00895DFE /* ChallengeCameraViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
