@@ -37,7 +37,7 @@ class QRProfileVC: UIViewController {
         backgroundImageView.layer.cornerRadius = 8
         backgroundImageView.layer.masksToBounds = true
         qrImageView.image = generateQRCode("timeframeapp://username=katezhang")
-        usernameLabel.text = "@" + username
+        usernameLabel.text = username
     }
     
     override func viewWillAppear(_ animated: Bool) {

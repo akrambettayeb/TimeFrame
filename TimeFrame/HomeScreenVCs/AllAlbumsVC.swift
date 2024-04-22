@@ -62,7 +62,7 @@ class AllAlbumsVC: UIViewController, UICollectionViewDelegate, UICollectionViewD
             // Sets default image for empty albums
             cell.imageView.image = UIImage(systemName: "person.crop.rectangle.stack.fill")
         } else {
-            cell.imageView.image = allAlbums[albumName]![0]
+            cell.imageView.image = allAlbums[albumName]![0].image
         }
         return cell
     }

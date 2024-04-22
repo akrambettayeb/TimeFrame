@@ -26,6 +26,7 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         setCustomBackImage()
+        navigationItem.backBarButtonItem?.tintColor = .white
         errorMessageLabel.isHidden = true
         emailTextField.delegate = self
         usernameTextField.delegate = self

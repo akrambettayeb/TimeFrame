@@ -83,9 +83,9 @@ extension UIViewController {
         })
     }
     
-    // Fetches photo URLs for a specific album and stores them as a list of strings
-    func fetchPhotoUrls(for db: Firestore, for userID: String, for albumName: String, completion: @escaping ([String]) -> Void) {
-        var fetchedPhotoURLs = [String]()
+    // Fetches photo data for a specific album and stores as a list of dictionaries
+    func fetchPhotoData(for db: Firestore, for userID: String, for albumName: String, completion: @escaping ([AlbumPhoto]) -> Void) {
+        var fetchedPhotoData: [AlbumPhoto] = []
         db.collection("users").document(userID).collection("albums").document(albumName).collection("photos").getDocuments { (snapshot, error) in
             if let error = error {
                 print("Error fetching photos: \(error.localizedDescription)")
@@ -95,34 +95,42 @@ extension UIViewController {
             guard let documents = snapshot?.documents else { return }
             
             for document in documents {
+                var newPhoto = AlbumPhoto(UIImage(systemName: "person.crop.rectangle.stack.fill")!)
                 if let photoURL = document.data()["url"] as? String {
-                    fetchedPhotoURLs.append(photoURL)
+                    newPhoto = AlbumPhoto(self.fetchPhotoFromURL(photoURL))
                 }
+                if let photoDate = document.data()["date"] as? String {
+                    newPhoto.date = photoDate
+                }
+                if let photoMonth = document.data()["month"] as? String {
+                    newPhoto.month = photoMonth
+                }
+                if let photoYear = document.data()["year"] as? String {
+                    newPhoto.year = photoYear
+                }
+                fetchedPhotoData.append(newPhoto)
             }
-            completion(fetchedPhotoURLs)
+            completion(fetchedPhotoData)
         }
     }
     
-    // Given an array of photo URLs, returns an array of their corresponding fetched photos
-    func fetchPhotosFromURLs(_ photoURLs: [String]) -> [UIImage] {
-        var photos: [UIImage] = []
-        for photoURL in photoURLs {
-            if let url = URL(string: photoURL), let imageData = try? Data(contentsOf: url) {
-                let image = UIImage(data: imageData)
-                photos.append(image!)
-            }
+    func fetchPhotoFromURL(_ photoURL: String) -> UIImage {
+        if let url = URL(string: photoURL),
+           let imageData = try? Data(contentsOf: url) {
+            let image = UIImage(data: imageData)
+            return image!
         }
-        return photos
+        return UIImage(systemName: "person.crop.rectangle.stack.fill")!
     }
     
     // Fetches photo URLs across all of the user's albums and stores the result as a dictionary
-    func fetchAllAlbums(for db: Firestore, completion: @escaping ([String: [UIImage]]) -> Void) {
+    func fetchAllAlbums(for db: Firestore, completion: @escaping ([String: [AlbumPhoto]]) -> Void) {
         guard let userID = Auth.auth().currentUser?.uid else {
             print("User not authenticated")
             completion([:])
             return
         }
-        var allAlbums: [String: [UIImage]] = [:]
+        var allAlbums: [String: [AlbumPhoto]] = [:]
         db.collection("users").document(userID).collection("albums").getDocuments {
             (snapshot, error) in
             if let error = error {
@@ -136,8 +144,8 @@ extension UIViewController {
             // Iterates through all of the user's albums
             for document in documents {
                 if let albumName = document.data()["name"] as? String {
-                    self.fetchPhotoUrls(for: db, for: userID, for: albumName) { fetchedPhotoURLs in
-                        allAlbums[albumName] = self.fetchPhotosFromURLs(fetchedPhotoURLs)
+                    self.fetchPhotoData(for: db, for: userID, for: albumName) { fetchedPhotoData in
+                        allAlbums[albumName] = fetchedPhotoData
                         if allAlbums.count == documents.count {
                             completion(allAlbums)
                         }
@@ -191,5 +199,21 @@ extension UIImage {
             }
         }
         return nil
+    }
+    
+    public func flipVertically() -> UIImage? {
+        UIGraphicsBeginImageContextWithOptions(self.size, false, self.scale)
+        let context = UIGraphicsGetCurrentContext()!
+        
+        context.translateBy(x: self.size.width/2, y: self.size.height/2)
+        context.scaleBy(x: 1.0, y: -1.0)
+        context.translateBy(x: -self.size.width/2, y: -self.size.height/2)
+        
+        self.draw(in: CGRect(x: 0, y: 0, width: self.size.width, height: self.size.height))
+        
+        let newImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        
+        return newImage
     }
 }
