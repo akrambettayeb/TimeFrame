@@ -137,6 +137,9 @@ class MapViewController: UIViewController, UIPopoverPresentationControllerDelega
     @IBAction func onLongPress(recognizer: UILongPressGestureRecognizer) {
         guard recognizer.state == UIGestureRecognizer.State.began else { return }
         
+        // Add haptic feedback.
+        UIImpactFeedbackGenerator.init(style: .heavy).impactOccurred()
+        
         // Get coordinates at point that user tapped at.
         let touchLocation = recognizer.location(in: mapView)
         let locationCoordinate = mapView.convert(touchLocation, toCoordinateFrom: mapView)

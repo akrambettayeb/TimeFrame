@@ -12,18 +12,25 @@ import UIKit
 import AVFoundation
 import MapKit
 
-class AddChallengeInfoViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate {
+protocol UpdateCameraLoaded {
+    func updateCameraLoaded(cameraLoaded: Bool)
+}
+
+protocol UpdatePreview {
+    func updatePreview(image: UIImage)
+}
+
+class AddChallengeInfoViewController: UIViewController, UITextFieldDelegate, UpdateCameraLoaded, UpdatePreview {
     //TODO: add dismiss keyboard
     @IBOutlet weak var previewView: UIImageView!
     @IBOutlet weak var locationNameField: UITextField!
     
-    let picker = UIImagePickerController()
     var cameraLoaded = false
     var challengeLocation: MKPointAnnotation?
+    var delegate: UIViewController!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        picker.delegate = self
         locationNameField.delegate = self
         setCustomBackImage()
     }
@@ -32,62 +39,11 @@ class AddChallengeInfoViewController: UIViewController, UIImagePickerControllerD
         super.viewWillAppear(animated)
         if !cameraLoaded {
             // Only load the camera once automatically.
-            showCamera()
+            performSegue(withIdentifier: "AddInitialPhotoSegue", sender: self)
         } else if previewView.image == nil {
             // Go back to Map Screen.
             dismiss(animated: true)
         }
-    }
-    
-    func showCamera() {
-        // Check availability of camera.
-        if UIImagePickerController.availableCaptureModes(for: .rear) != nil {
-            switch AVCaptureDevice.authorizationStatus(for: .video) {
-            case .notDetermined:
-                AVCaptureDevice.requestAccess(for: .video) {
-                    accessGranted in guard accessGranted == true
-                    else {return}
-                }
-            case .authorized:
-                break
-            default:
-                print("Access denied.") //TODO: show some error and segue if access denied
-                dismiss(animated: true)
-                return
-            }
-            
-            cameraLoaded = true
-            picker.sourceType = .camera
-            picker.allowsEditing = false //TODO: add and delete photos from firebase
-            picker.cameraCaptureMode = .photo //TODO: add overlay code to home screen
-            
-            self.present(picker, animated: true, completion: nil)
-        } else {
-            // Not available, pop up an alert.
-            let alertVC = UIAlertController(title: "No Camera Available", message: "Sorry, this device does not have a camera.", preferredStyle: .alert)
-            let okAction = UIAlertAction(title: "OK", style: .default) { _ in
-                self.dismiss(animated: true)
-            }
-            alertVC.addAction(okAction)
-            present(alertVC, animated: true)
-        }
-    }
-    
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        let chosenImage = info[.originalImage] as! UIImage
-        
-        // Shrink to visible size.
-        previewView.contentMode = .scaleAspectFit
-        
-        // Put the image in the imageView.
-        previewView.image = chosenImage
-        
-        // Dismiss this popover.
-        dismiss(animated: true)
-    }
-    
-    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
-        dismiss(animated: true)
     }
     
     @IBAction func onSubmitButtonPressed(_ sender: Any) {
@@ -111,4 +67,18 @@ class AddChallengeInfoViewController: UIViewController, UIImagePickerControllerD
         self.view.endEditing(true)
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "AddInitialPhotoSegue",
+           let destination = segue.destination as? AddInitialPhotoViewController {
+            destination.delegate = self
+        }
+    }
+    
+    func updateCameraLoaded(cameraLoaded: Bool) {
+        self.cameraLoaded = cameraLoaded
+    }
+    
+    func updatePreview(image: UIImage) {
+        self.previewView.image = image
+    }
 }

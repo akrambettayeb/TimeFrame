@@ -52,6 +52,7 @@
 		55A83AB42BA6A98400895DFE /* AddPhotoToChallengeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55A83AB32BA6A98400895DFE /* AddPhotoToChallengeViewController.swift */; };
 		55A83AB62BA6AA5500895DFE /* ChallengeAlbumViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55A83AB52BA6AA5500895DFE /* ChallengeAlbumViewController.swift */; };
 		55A83AB82BA6AA9000895DFE /* PhotoStreamViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55A83AB72BA6AA9000895DFE /* PhotoStreamViewController.swift */; };
+		55CBC5A02BD6C88500057C27 /* AddInitialPhotoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55CBC59F2BD6C88500057C27 /* AddInitialPhotoViewController.swift */; };
 		AC999B002BA8C810006DBDFC /* CreateAlbumViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC999AFF2BA8C810006DBDFC /* CreateAlbumViewController.swift */; };
 		AC999B022BA8CB12006DBDFC /* AlbumViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC999B012BA8CB12006DBDFC /* AlbumViewController.swift */; };
 		B50AF3422BA42C0800003743 /* MyProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B50AF3412BA42C0800003743 /* MyProfileVC.swift */; };
@@ -97,6 +98,7 @@
 		55A83AB32BA6A98400895DFE /* AddPhotoToChallengeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPhotoToChallengeViewController.swift; sourceTree = "<group>"; };
 		55A83AB52BA6AA5500895DFE /* ChallengeAlbumViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeAlbumViewController.swift; sourceTree = "<group>"; };
 		55A83AB72BA6AA9000895DFE /* PhotoStreamViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoStreamViewController.swift; sourceTree = "<group>"; };
+		55CBC59F2BD6C88500057C27 /* AddInitialPhotoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddInitialPhotoViewController.swift; sourceTree = "<group>"; };
 		AC999AFF2BA8C810006DBDFC /* CreateAlbumViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateAlbumViewController.swift; sourceTree = "<group>"; };
 		AC999B012BA8CB12006DBDFC /* AlbumViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumViewController.swift; sourceTree = "<group>"; };
 		B50AF3412BA42C0800003743 /* MyProfileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyProfileVC.swift; sourceTree = "<group>"; };
@@ -223,6 +225,7 @@
 				55A83AB32BA6A98400895DFE /* AddPhotoToChallengeViewController.swift */,
 				55A83AB52BA6AA5500895DFE /* ChallengeAlbumViewController.swift */,
 				55A83AB72BA6AA9000895DFE /* PhotoStreamViewController.swift */,
+				55CBC59F2BD6C88500057C27 /* AddInitialPhotoViewController.swift */,
 			);
 			path = GeoChallengeVCs;
 			sourceTree = "<group>";
@@ -377,6 +380,7 @@
 				5581CF882BA68C530096BB92 /* AddChallengeInfoViewController.swift in Sources */,
 				AC999B002BA8C810006DBDFC /* CreateAlbumViewController.swift in Sources */,
 				B57132C92BA6743400695F1C /* EditImageCell.swift in Sources */,
+				55CBC5A02BD6C88500057C27 /* AddInitialPhotoViewController.swift in Sources */,
 				552038A02BA62EF6000C5014 /* ChallengeInfoViewController.swift in Sources */,
 				B5C8FE802BC3B74C00D71C06 /* OpenTimeframeVC.swift in Sources */,
 				B50AF3422BA42C0800003743 /* MyProfileVC.swift in Sources */,
