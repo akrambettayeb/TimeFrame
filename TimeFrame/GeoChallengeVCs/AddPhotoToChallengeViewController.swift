@@ -59,7 +59,8 @@ class AddPhotoToChallengeViewController: UIViewController, UIImagePickerControll
             picker.showsCameraControls = false
             currentCameraPosition = picker.cameraDevice.rawValue
             picker.allowsEditing = false //TODO: add and delete photos from firebase
-            picker.cameraCaptureMode = .photo //TODO: add overlay code to home screen
+            picker.cameraCaptureMode = .photo
+            picker.cameraFlashMode = .off
             
             // Set overlay for camera.
             let translation = CGAffineTransformMakeTranslation(0.0, 123)
@@ -127,6 +128,7 @@ class AddPhotoToChallengeViewController: UIViewController, UIImagePickerControll
         // Add image overlay to camera preview.
         var imageOverlay = UIImageView(frame: CGRect(x: 0, y: 123, width: UIScreen.main.bounds.width, height: 643 - 123))
         imageOverlay.image = UIImage(named: "InitialImagePlaceholder")
+        imageOverlay.contentMode = .scaleAspectFill
         imageOverlay.alpha = 0.4
         containerView.addSubview(imageOverlay)
         
