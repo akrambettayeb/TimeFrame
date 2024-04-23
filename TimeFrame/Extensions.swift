@@ -49,40 +49,6 @@ extension UIViewController {
         navigationController?.navigationBar.backIndicatorTransitionMaskImage = UIImage(systemName: "arrow.backward")
     }
     
-    // Fetches the most recent imagesNeeded images from the user's photo library
-    func fetchPhotos(_ imagesNeeded: Int) {
-        // Sort the images by descending creation date and fetch the first k images
-        let fetchOptions = PHFetchOptions()
-        fetchOptions.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: false)]
-        fetchOptions.fetchLimit = imagesNeeded
-
-        // Fetch the image assets
-        let fetchResult: PHFetchResult = PHAsset.fetchAssets(with: PHAssetMediaType.image, options: fetchOptions)
-
-        // If the fetch result isn't empty, proceed with the image request
-        if fetchResult.count > 0 {
-            let imagesFetched = min(imagesNeeded, fetchResult.count)
-            var i = 0
-            while i < imagesFetched {
-                fetchPhotoAtIndex(i, fetchResult)
-                i += 1
-            }
-        }
-    }
-    
-    // Fetches photo from the user's photo library at the specified index
-    func fetchPhotoAtIndex(_ index: Int, _ fetchResult: PHFetchResult<PHAsset>) {
-        let requestOptions = PHImageRequestOptions()
-        requestOptions.isSynchronous = true  // fetches just the thumbnail
-
-        // Perform the image request
-        PHImageManager.default().requestImage(for: fetchResult.object(at: index) as PHAsset, targetSize: view.frame.size, contentMode: PHImageContentMode.aspectFill, options: requestOptions, resultHandler: { (image, _) in
-            if let image = image {
-                // Add to global album
-            }
-        })
-    }
-    
     // Fetches photo data for a specific album and stores as a list of dictionaries
     func fetchPhotoData(for db: Firestore, for userID: String, for albumName: String, completion: @escaping ([AlbumPhoto]) -> Void) {
         var fetchedPhotoData: [AlbumPhoto] = []
