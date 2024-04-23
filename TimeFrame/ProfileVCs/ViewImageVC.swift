@@ -19,6 +19,7 @@ class ViewImageVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setCustomBackImage()
+        self.title = albumName
         var albumPhotos = [UIImage]()
         for photo in allAlbums[albumName]! {
             albumPhotos.append(photo.image.fixOrientation())
