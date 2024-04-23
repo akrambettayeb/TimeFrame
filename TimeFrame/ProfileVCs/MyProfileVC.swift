@@ -14,8 +14,8 @@ import Photos
 import FirebaseAuth
 import FirebaseDatabase
 
-var allGridImages: [ProfileGridImage] = []
-var visibleGridImages: [ProfileGridImage] = []
+var visibleAlbums: [String: [AlbumPhoto]] = [:]
+var visibleAlbumNames: [String] = []
 
 protocol ProfileChanger {
     func changeDisplayName(_ displayName: String)
@@ -27,7 +27,7 @@ class MyImageCell: UICollectionViewCell {
     @IBOutlet weak var imageViewCell: UIImageView!
 }
 
-class MyProfileVC: UIViewController, ProfileChanger, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, PHPhotoLibraryChangeObserver {
+class MyProfileVC: UIViewController, ProfileChanger, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     
     @IBOutlet weak var myProfileImage: UIImageView!
     @IBOutlet weak var displayNameLabel: UILabel!
@@ -42,7 +42,6 @@ class MyProfileVC: UIViewController, ProfileChanger, UICollectionViewDataSource,
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setCustomBackImage()
-        PHPhotoLibrary.shared().register(self)
         
         // Circular crop for profile picture
         myProfileImage.layer.cornerRadius = myProfileImage.layer.frame.height / 2
@@ -51,11 +50,8 @@ class MyProfileVC: UIViewController, ProfileChanger, UICollectionViewDataSource,
         imageGrid.delegate = self
         imageGrid.isScrollEnabled = false
         
-        if allGridImages.count == 0 {
-            fetchPhotos(10)
-        }
         imageGrid.reloadData()
-        populateVisibleImagesArray()
+        populateVisibleAlbums()
         updateCountButton()
         
         self.setGridSize(imageGrid)
@@ -69,6 +65,7 @@ class MyProfileVC: UIViewController, ProfileChanger, UICollectionViewDataSource,
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        // Loads user's username and display name from Firebase
         let userId = Auth.auth().currentUser?.uid
         let usersRef = Database.database().reference().child("users")
         usersRef.child(userId!).observeSingleEvent(of: .value) { (snapshot) in
@@ -81,14 +78,17 @@ class MyProfileVC: UIViewController, ProfileChanger, UICollectionViewDataSource,
             self.usernameLabel.text = "@\(username)"
         }
         
-        let prevCount = visibleGridImages.count
-        populateVisibleImagesArray()
-        if prevCount != visibleGridImages.count {
+        let prevCount = visibleAlbums.count
+        populateVisibleAlbums()
+        if prevCount != visibleAlbums.count {
             imageGrid.reloadData()
             updateCountButton()
             self.setGridSize(imageGrid)
             self.setProfileScrollHeight(scrollView, imageGrid)
         }
+        
+        print("MY PROFILE VC")
+        print("visible albums: \(visibleAlbumNames)")
     }
     
     // Applies button attributes from the Storyboard
@@ -97,31 +97,36 @@ class MyProfileVC: UIViewController, ProfileChanger, UICollectionViewDataSource,
             .font: countTimeFrameButton.titleLabel!.font!,
             .foregroundColor: countTimeFrameButton.currentTitleColor
         ]
-        let attributedTitle = NSAttributedString(string: "\(visibleGridImages.count)\nTimeFrames", attributes: attributes)
+        let attributedTitle = NSAttributedString(string: "\(visibleAlbums.count)\nTimeFrames", attributes: attributes)
         countTimeFrameButton.titleLabel?.textAlignment = .center
         countTimeFrameButton.setAttributedTitle(attributedTitle, for: .normal)
     }
     
-    func populateVisibleImagesArray() {
-        visibleGridImages = []
-        for item in allGridImages {
-            if item.visible {
-                visibleGridImages.append(item)
+    func populateVisibleAlbums() {
+        visibleAlbumNames = [String]()
+        visibleAlbums = [String: [AlbumPhoto]]()
+        for albumName in albumNames {
+            let album = allAlbums[albumName]!
+            if !album.isEmpty {
+                if album[0].profileVisible {
+                    visibleAlbumNames.append(albumName)
+                    visibleAlbums[albumName] = album
+                }
             }
         }
     }
     
     // Sets the number of cells in the grid
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return visibleGridImages.count
+        return visibleAlbums.count
     }
     
     // Defines content in each cell
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = imageGrid.dequeueReusableCell(withReuseIdentifier: imageCellID, for: indexPath) as! MyImageCell
-        let row = indexPath.row
-        let count = visibleGridImages.count
-        cell.imageViewCell.image = visibleGridImages[count - row - 1].image
+        let index = visibleAlbums.count - indexPath.row - 1
+        let albumName = visibleAlbumNames[index]
+        cell.imageViewCell.image = visibleAlbums[albumName]?[0].image
         return cell
     }
     
@@ -166,20 +171,12 @@ class MyProfileVC: UIViewController, ProfileChanger, UICollectionViewDataSource,
         } else if segue.identifier == "segueToViewImage",
            let nextVC = segue.destination as? ViewImageVC {
             if let indexPaths = imageGrid.indexPathsForSelectedItems {
-                let gridIndex = visibleGridImages.count - indexPaths[0].row - 1
-                nextVC.cellImage = visibleGridImages[gridIndex].image
+                let index = visibleAlbums.count - indexPaths[0].row - 1
+                nextVC.albumName = visibleAlbumNames[index]
+//                nextVC.cellImage = visibleAlbums[visibleAlbumName]?[0].image
                 imageGrid.deselectItem(at: indexPaths[0], animated: false)
             }
         }
-    }
-    
-    func photoLibraryDidChange(_ changeInstance: PHChange) {
-        // TODO: implement, this should replace the first k elements of the allGridImages array
-    }
-    
-    // Unregister as a photo library change observer
-    deinit {
-        PHPhotoLibrary.shared().unregisterChangeObserver(self)
     }
 
 }

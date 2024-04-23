@@ -93,7 +93,7 @@
                                         <buttonConfiguration key="configuration" style="plain">
                                             <attributedString key="attributedTitle">
                                                 <fragment>
-                                                    <string key="content">51
+                                                    <string key="content">0
 Friends</string>
                                                     <attributes>
                                                         <font key="NSFont" size="15" name="Helvetica"/>
@@ -111,7 +111,7 @@ Friends</string>
                                         <buttonConfiguration key="configuration" style="plain">
                                             <attributedString key="attributedTitle">
                                                 <fragment>
-                                                    <string key="content">60
+                                                    <string key="content">0
 Followers</string>
                                                     <attributes>
                                                         <font key="NSFont" size="15" name="Helvetica"/>
@@ -129,7 +129,7 @@ Followers</string>
                                         <buttonConfiguration key="configuration" style="plain">
                                             <attributedString key="attributedTitle">
                                                 <fragment>
-                                                    <string key="content">70
+                                                    <string key="content">0
 Following</string>
                                                     <attributes>
                                                         <font key="NSFont" size="15" name="Helvetica"/>
