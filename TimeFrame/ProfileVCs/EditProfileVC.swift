@@ -83,25 +83,34 @@ class EditProfileVC: UIViewController, UIImagePickerControllerDelegate, UINaviga
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return allGridImages.count
+        return allAlbums.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = imageGrid.dequeueReusableCell(withReuseIdentifier: imageCellID, for: indexPath) as! EditImageCell
-        let gridIndex = allGridImages.count - indexPath.row - 1
-        let imageVisible = allGridImages[gridIndex].visible
+        let index = allAlbums.count - indexPath.row - 1
+        let albumName = albumNames[index]
+        let albumEmpty = allAlbums[albumName]!.isEmpty
+        var albumVisible = false
+        if !albumEmpty {
+            albumVisible = allAlbums[albumName]![0].profileVisible
+        }
        
-        cell.visibleButton.isSelected = !imageVisible
-        cell.visibleButton.setImage(UIImage(systemName: "eye.fill"), for: .normal)
-        cell.visibleButton.setImage(UIImage(systemName: "eye.slash"), for: .selected)
+        cell.visibleButton.setImage(UIImage(systemName: "eye.slash"), for: .normal)
+        cell.visibleButton.setImage(UIImage(systemName: "eye.fill"), for: .selected)
+        cell.visibleButton.isSelected = albumVisible
         var config = UIButton.Configuration.plain()
         config.baseBackgroundColor = .clear
         cell.visibleButton.configuration = config
         
-        cell.imageView.image = allGridImages[gridIndex].image
+        if albumEmpty {
+            cell.imageView.image = UIImage(systemName: "person.crop.rectangle.stack.fill")
+        } else {
+            cell.imageView.image = allAlbums[albumName]![0].image
+        }
         cell.grayImage = cell.grayscaleImage(cell.imageView.image!)
         cell.coloredImage = cell.imageView.image
-        if !imageVisible {
+        if !albumVisible {
             cell.imageView.image = cell.grayImage
         }
         return cell
@@ -131,6 +140,7 @@ class EditProfileVC: UIViewController, UIImagePickerControllerDelegate, UINaviga
             UIAlertAction(title: "Take Picture", style: .default) { action in
                 self.imagePicker.sourceType = .camera
                 self.imagePicker.cameraFlashMode = .off
+                self.imagePicker.cameraDevice = .front
                 self.present(self.imagePicker, animated: true, completion: nil)
             }
         )
@@ -214,8 +224,11 @@ class EditProfileVC: UIViewController, UIImagePickerControllerDelegate, UINaviga
     func updateVisibleImagesArray() {
         for indexPath in imageGrid.indexPathsForVisibleItems {
             if let cell = imageGrid.cellForItem(at: indexPath) as? EditImageCell {
-                let gridIndex = allGridImages.count - indexPath.row - 1
-                allGridImages[gridIndex].visible = !cell.visibleButton.isSelected
+                let index = allAlbums.count - indexPath.row - 1
+                let albumName = albumNames[index]
+                if !(allAlbums[albumName]!.isEmpty) {
+                    allAlbums[albumName]?[0].profileVisible = cell.visibleButton.isSelected
+                }
             }
         }
     }
@@ -229,7 +242,6 @@ class EditProfileVC: UIViewController, UIImagePickerControllerDelegate, UINaviga
         if (displayName.isEmpty || username.isEmpty || email.isEmpty) {
             errorMessage = "Text fields cannot be empty"
         } else if isValidEmail(email) {
-            // checkPassword(password)
             checkDisplayName(displayName)
             checkUsername(username)
         }
@@ -303,7 +315,7 @@ class EditProfileVC: UIViewController, UIImagePickerControllerDelegate, UINaviga
                 present(controller, animated: true)
             }
             
-            // update in firebase database
+            // Update username and display name in firebase database
             
             let userId = Auth.auth().currentUser!.uid
             let usersRef = Database.database().reference().child("users")
@@ -329,7 +341,6 @@ class EditProfileVC: UIViewController, UIImagePickerControllerDelegate, UINaviga
             
             if selectedImage != nil {
                 profileVC.changePicture(selectedImage!)
-                allGridImages.append(ProfileGridImage(selectedImage!))
             }
             self.navigationController?.popViewController(animated: true)
         }
@@ -358,6 +369,11 @@ class EditProfileVC: UIViewController, UIImagePickerControllerDelegate, UINaviga
                 try Auth.auth().signOut()
                 self.view.window?.rootViewController?.dismiss(animated: true, completion: nil)
                 self.view.window?.rootViewController?.dismiss(animated: true, completion: nil)
+                // Clear locally cached albums and Timeframes
+                allAlbums = [String: [AlbumPhoto]]()
+                albumNames = [String]()
+                allTimeframes = [String: [UIImage]]()
+                timeframeNames = [String]()
             } catch let signOutError as NSError {
                 self.errorAlert("Error signing out: \(signOutError)")
             }
@@ -390,7 +406,6 @@ class EditProfileVC: UIViewController, UIImagePickerControllerDelegate, UINaviga
                 
             }
         }
-
     }
     
     @IBAction func deleteAccountPressed(_ sender: Any) {

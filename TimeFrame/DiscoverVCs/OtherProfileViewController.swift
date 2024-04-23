@@ -107,6 +107,7 @@ class OtherProfileViewController: UIViewController {
             followersRef.setValue(true)
             showAlert(title: "Followed", message: "You are now following \(profileUsername).")
         }
+        self.updateCounts()
     }
 
     @IBAction func friendsCountButtonTapped(_ sender: Any) {

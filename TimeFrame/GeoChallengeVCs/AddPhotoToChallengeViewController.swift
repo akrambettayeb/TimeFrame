@@ -17,7 +17,7 @@ class AddPhotoToChallengeViewController: UIViewController, UIImagePickerControll
     @IBOutlet weak var previewView: UIImageView!
     
     var overlayView: UIView!
-    @Published var picker = UIImagePickerController()
+    var picker = UIImagePickerController()
     var cameraLoaded = false
     var currentCameraPosition: Int!
 

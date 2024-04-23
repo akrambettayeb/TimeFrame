@@ -93,7 +93,7 @@
                                         <buttonConfiguration key="configuration" style="plain">
                                             <attributedString key="attributedTitle">
                                                 <fragment>
-                                                    <string key="content">51
+                                                    <string key="content">0
 Friends</string>
                                                     <attributes>
                                                         <font key="NSFont" size="15" name="Helvetica"/>
@@ -111,7 +111,7 @@ Friends</string>
                                         <buttonConfiguration key="configuration" style="plain">
                                             <attributedString key="attributedTitle">
                                                 <fragment>
-                                                    <string key="content">60
+                                                    <string key="content">0
 Followers</string>
                                                     <attributes>
                                                         <font key="NSFont" size="15" name="Helvetica"/>
@@ -129,7 +129,7 @@ Followers</string>
                                         <buttonConfiguration key="configuration" style="plain">
                                             <attributedString key="attributedTitle">
                                                 <fragment>
-                                                    <string key="content">70
+                                                    <string key="content">0
 Following</string>
                                                     <attributes>
                                                         <font key="NSFont" size="15" name="Helvetica"/>
@@ -252,7 +252,7 @@ TimeFrames</string>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Obf-X8-elJ">
-                                <rect key="frame" x="0.0" y="139" width="393" height="470"/>
+                                <rect key="frame" x="0.0" y="126" width="393" height="621"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
                         </subviews>

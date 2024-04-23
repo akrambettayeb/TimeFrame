@@ -35,7 +35,6 @@ class PlaybackSettingsVC: UIViewController, UITextFieldDelegate {
         super.viewDidLoad()
         self.setCustomBackImage()
         
-        nameTextField.delegate = self
         publicSwitch.isOn = false
         favoriteSwitch.isOn = false
         reversedSwitch.isOn = false
@@ -162,6 +161,9 @@ class PlaybackSettingsVC: UIViewController, UITextFieldDelegate {
     //  Passes all necessary info to the next VC to play the TimeFrame with the correct settings
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         photosWithText = [UIImage]()
+        if timeframeName == "" {
+            timeframeName = nameTextField.text!
+        }
         if segue.identifier == "segueToViewTimeframeVC",
            let nextVC = segue.destination as? ViewTimeframeVC {
             nextVC.timeframeName = self.timeframeName
@@ -172,27 +174,28 @@ class PlaybackSettingsVC: UIViewController, UITextFieldDelegate {
             nextVC.selectedSpeed = self.selectedSpeed
             var count = 0
             for photo in selectedPhotos {
-                var imageDate = ""
-                if selectedDate == "Date" {
-                    imageDate = photo.date
-                } else if selectedDate == "Month" {
-                    imageDate = photo.month
-                } else if selectedDate == "Year" {
-                    imageDate = photo.year
-                }
-                if let newImage = generateImageWithText(text: imageDate, backgroundImage: photo.image, fontSize: 120.0) {
-                    photosWithText.append(newImage)
-                    count += 1
-                } else {
-                    continue
-                }
+//                var imageDate = ""
+//                if selectedDate == "Date" {
+//                    imageDate = photo.date
+//                } else if selectedDate == "Month" {
+//                    imageDate = photo.month
+//                } else if selectedDate == "Year" {
+//                    imageDate = photo.year
+//                }
+//                if let newImage = generateImageWithText(text: imageDate, backgroundImage: photo.image, fontSize: 120.0) {
+//                    photosWithText.append(newImage)
+//                    count += 1
+//                } else {
+//                    continue
+//                }
+                photosWithText.append(photo.image)
             }
             nextVC.selectedPhotos = photosWithText
         }
     }
-    
+
     // Called when 'return' key pressed
-    func textFieldShouldReturn(_ textField:UITextField) -> Bool {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
        textField.resignFirstResponder()
        return true
     }
