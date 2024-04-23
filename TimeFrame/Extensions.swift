@@ -78,7 +78,7 @@ extension UIViewController {
         // Perform the image request
         PHImageManager.default().requestImage(for: fetchResult.object(at: index) as PHAsset, targetSize: view.frame.size, contentMode: PHImageContentMode.aspectFill, options: requestOptions, resultHandler: { (image, _) in
             if let image = image {
-                allGridImages = [ProfileGridImage(image)] + allGridImages
+                // Add to global album
             }
         })
     }
@@ -215,5 +215,20 @@ extension UIImage {
         UIGraphicsEndImageContext()
         
         return newImage
+    }
+    
+    func fixOrientation() -> UIImage {
+        if self.imageOrientation == UIImage.Orientation.up {
+            return self
+        }
+
+        UIGraphicsBeginImageContextWithOptions(self.size, false, self.scale)
+        self.draw(in: CGRectMake(0, 0, self.size.width, self.size.height))
+        guard let normalizedImage: UIImage = UIGraphicsGetImageFromCurrentImageContext() else {
+            UIGraphicsEndImageContext()
+            return self
+        }
+        UIGraphicsEndImageContext()
+        return normalizedImage
     }
 }
