@@ -86,9 +86,6 @@ class MyProfileVC: UIViewController, ProfileChanger, UICollectionViewDataSource,
             self.setGridSize(imageGrid)
             self.setProfileScrollHeight(scrollView, imageGrid)
         }
-        
-        print("MY PROFILE VC")
-        print("visible albums: \(visibleAlbumNames)")
     }
     
     // Applies button attributes from the Storyboard
