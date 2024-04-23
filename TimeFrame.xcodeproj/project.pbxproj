@@ -39,6 +39,9 @@
 		3F08EC932BA6B89E0065C923 /* FirebaseRemoteConfigSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 3F08EC922BA6B89E0065C923 /* FirebaseRemoteConfigSwift */; };
 		3F08EC952BA6B89E0065C923 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 3F08EC942BA6B89E0065C923 /* FirebaseStorage */; };
 		3F08EC972BA6B89E0065C923 /* FirebaseStorageCombine-Community in Frameworks */ = {isa = PBXBuildFile; productRef = 3F08EC962BA6B89E0065C923 /* FirebaseStorageCombine-Community */; };
+		3F0B7E862BD6C74300314D88 /* DiscoverSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F0B7E852BD6C74300314D88 /* DiscoverSearchViewController.swift */; };
+		3F0B7E882BD6C9D600314D88 /* UserSearchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F0B7E872BD6C9D600314D88 /* UserSearchTableViewCell.swift */; };
+		3F0B7E8A2BD721DB00314D88 /* OtherProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F0B7E892BD721DB00314D88 /* OtherProfileViewController.swift */; };
 		3F1EAAE82B9697A00060218F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F1EAAE72B9697A00060218F /* AppDelegate.swift */; };
 		3F1EAAEA2B9697A00060218F /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F1EAAE92B9697A00060218F /* SceneDelegate.swift */; };
 		3F1EAAEF2B9697A00060218F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3F1EAAED2B9697A00060218F /* Main.storyboard */; };
@@ -82,6 +85,9 @@
 		3F08EC5A2BA5965E0065C923 /* ForgotPasswordViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ForgotPasswordViewController.swift; sourceTree = "<group>"; };
 		3F08EC5B2BA5965E0065C923 /* RegisterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 		3F08EC5F2BA6B81A0065C923 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		3F0B7E852BD6C74300314D88 /* DiscoverSearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoverSearchViewController.swift; sourceTree = "<group>"; };
+		3F0B7E872BD6C9D600314D88 /* UserSearchTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSearchTableViewCell.swift; sourceTree = "<group>"; };
+		3F0B7E892BD721DB00314D88 /* OtherProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherProfileViewController.swift; sourceTree = "<group>"; };
 		3F1EAAE42B9697A00060218F /* TimeFrame.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TimeFrame.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3F1EAAE72B9697A00060218F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3F1EAAE92B9697A00060218F /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -169,6 +175,16 @@
 			path = AuthenticationVCs;
 			sourceTree = "<group>";
 		};
+		3F0B7E842BD6C70B00314D88 /* DiscoverVCs */ = {
+			isa = PBXGroup;
+			children = (
+				3F0B7E892BD721DB00314D88 /* OtherProfileViewController.swift */,
+				3F0B7E872BD6C9D600314D88 /* UserSearchTableViewCell.swift */,
+				3F0B7E852BD6C74300314D88 /* DiscoverSearchViewController.swift */,
+			);
+			path = DiscoverVCs;
+			sourceTree = "<group>";
+		};
 		3F1EAADB2B9697A00060218F = {
 			isa = PBXGroup;
 			children = (
@@ -192,6 +208,7 @@
 				3F1EAAE92B9697A00060218F /* SceneDelegate.swift */,
 				B51879DA2BC37030008FF688 /* Extensions.swift */,
 				B5755A942BD491B100AFAC08 /* AlbumPhoto.swift */,
+				3F0B7E842BD6C70B00314D88 /* DiscoverVCs */,
 				AC999AFC2BA8C5D2006DBDFC /* HomeScreenVCs */,
 				5520389A2BA623FE000C5014 /* GeoChallengeVCs */,
 				3F08EC582BA5964F0065C923 /* AuthenticationVCs */,
@@ -379,9 +396,11 @@
 				B57132C92BA6743400695F1C /* EditImageCell.swift in Sources */,
 				552038A02BA62EF6000C5014 /* ChallengeInfoViewController.swift in Sources */,
 				B5C8FE802BC3B74C00D71C06 /* OpenTimeframeVC.swift in Sources */,
+				3F0B7E8A2BD721DB00314D88 /* OtherProfileViewController.swift in Sources */,
 				B50AF3422BA42C0800003743 /* MyProfileVC.swift in Sources */,
 				3F1EAAE82B9697A00060218F /* AppDelegate.swift in Sources */,
 				B50AF3442BA42C1400003743 /* EditProfileVC.swift in Sources */,
+				3F0B7E882BD6C9D600314D88 /* UserSearchTableViewCell.swift in Sources */,
 				55A83AB82BA6AA9000895DFE /* PhotoStreamViewController.swift in Sources */,
 				B522331C2BA8D5ED00F229B0 /* ViewImageVC.swift in Sources */,
 				55A83AB62BA6AA5500895DFE /* ChallengeAlbumViewController.swift in Sources */,
@@ -396,6 +415,7 @@
 				3F08EC5C2BA5965E0065C923 /* LoginViewController.swift in Sources */,
 				3F1EAAEA2B9697A00060218F /* SceneDelegate.swift in Sources */,
 				B51879DB2BC37030008FF688 /* Extensions.swift in Sources */,
+				3F0B7E862BD6C74300314D88 /* DiscoverSearchViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
