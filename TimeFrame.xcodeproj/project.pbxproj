@@ -63,12 +63,12 @@
 		B51879DD2BC371A6008FF688 /* AllAlbumsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B51879DC2BC371A5008FF688 /* AllAlbumsVC.swift */; };
 		B52232FA2BA7E1F500F229B0 /* ProfileGridImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = B52232F92BA7E1F500F229B0 /* ProfileGridImage.swift */; };
 		B522331C2BA8D5ED00F229B0 /* ViewImageVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B522331B2BA8D5ED00F229B0 /* ViewImageVC.swift */; };
+		B54A82122BD85EA200F05C09 /* ViewTimeframeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B54A82112BD85EA200F05C09 /* ViewTimeframeVC.swift */; };
 		B57132C92BA6743400695F1C /* EditImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B57132C82BA6743400695F1C /* EditImageCell.swift */; };
 		B57132CB2BA6F33600695F1C /* QRProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B57132CA2BA6F33600695F1C /* QRProfileVC.swift */; };
 		B5755A952BD491B100AFAC08 /* AlbumPhoto.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5755A942BD491B100AFAC08 /* AlbumPhoto.swift */; };
 		B5A02CDD2BC25344001C8D23 /* Gradient.png in Resources */ = {isa = PBXBuildFile; fileRef = B5A02CDB2BC25301001C8D23 /* Gradient.png */; };
 		B5B73D482BBA956400BA1BA3 /* ImagesToGIF.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B5B73D472BBA956400BA1BA3 /* ImagesToGIF.storyboard */; };
-		B5B73D4D2BBA967A00BA1BA3 /* ViewTimeFrameVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5B73D4C2BBA967A00BA1BA3 /* ViewTimeFrameVC.swift */; };
 		B5B73D742BBB3BF800BA1BA3 /* PlaybackSettingsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5B73D732BBB3BF800BA1BA3 /* PlaybackSettingsVC.swift */; };
 		B5BB29772BA3E6C6005A2987 /* Home.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B5BB29762BA3E6C6005A2987 /* Home.storyboard */; };
 		B5BB29792BA3E714005A2987 /* Discover.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B5BB29782BA3E714005A2987 /* Discover.storyboard */; };
@@ -109,12 +109,12 @@
 		B51879DC2BC371A5008FF688 /* AllAlbumsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllAlbumsVC.swift; sourceTree = "<group>"; };
 		B52232F92BA7E1F500F229B0 /* ProfileGridImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileGridImage.swift; sourceTree = "<group>"; };
 		B522331B2BA8D5ED00F229B0 /* ViewImageVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewImageVC.swift; sourceTree = "<group>"; };
+		B54A82112BD85EA200F05C09 /* ViewTimeframeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewTimeframeVC.swift; sourceTree = "<group>"; };
 		B57132C82BA6743400695F1C /* EditImageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditImageCell.swift; sourceTree = "<group>"; };
 		B57132CA2BA6F33600695F1C /* QRProfileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRProfileVC.swift; sourceTree = "<group>"; };
 		B5755A942BD491B100AFAC08 /* AlbumPhoto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumPhoto.swift; sourceTree = "<group>"; };
 		B5A02CDB2BC25301001C8D23 /* Gradient.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Gradient.png; sourceTree = "<group>"; };
 		B5B73D472BBA956400BA1BA3 /* ImagesToGIF.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ImagesToGIF.storyboard; sourceTree = "<group>"; };
-		B5B73D4C2BBA967A00BA1BA3 /* ViewTimeFrameVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewTimeFrameVC.swift; sourceTree = "<group>"; };
 		B5B73D732BBB3BF800BA1BA3 /* PlaybackSettingsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaybackSettingsVC.swift; sourceTree = "<group>"; };
 		B5BB29762BA3E6C6005A2987 /* Home.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Home.storyboard; sourceTree = "<group>"; };
 		B5BB29782BA3E714005A2987 /* Discover.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Discover.storyboard; sourceTree = "<group>"; };
@@ -240,7 +240,7 @@
 				B51879D82BC35ECC008FF688 /* ViewAlbumImageVC.swift */,
 				B5B73D732BBB3BF800BA1BA3 /* PlaybackSettingsVC.swift */,
 				B5C8FE7F2BC3B74C00D71C06 /* OpenTimeframeVC.swift */,
-				B5B73D4C2BBA967A00BA1BA3 /* ViewTimeFrameVC.swift */,
+				B54A82112BD85EA200F05C09 /* ViewTimeframeVC.swift */,
 			);
 			path = HomeScreenVCs;
 			sourceTree = "<group>";
@@ -389,10 +389,10 @@
 				55A83AB82BA6AA9000895DFE /* PhotoStreamViewController.swift in Sources */,
 				B522331C2BA8D5ED00F229B0 /* ViewImageVC.swift in Sources */,
 				55A83AB62BA6AA5500895DFE /* ChallengeAlbumViewController.swift in Sources */,
-				B5B73D4D2BBA967A00BA1BA3 /* ViewTimeFrameVC.swift in Sources */,
 				3F1EAAE82B9697A00060218F /* AppDelegate.swift in Sources */,
 				B57132CB2BA6F33600695F1C /* QRProfileVC.swift in Sources */,
 				AC999B022BA8CB12006DBDFC /* AlbumViewController.swift in Sources */,
+				B54A82122BD85EA200F05C09 /* ViewTimeframeVC.swift in Sources */,
 				B52232FA2BA7E1F500F229B0 /* ProfileGridImage.swift in Sources */,
 				B51879D92BC35ECC008FF688 /* ViewAlbumImageVC.swift in Sources */,
 				559596B12BA699F800972EB4 /* ViewTimeLapseViewController.swift in Sources */,
