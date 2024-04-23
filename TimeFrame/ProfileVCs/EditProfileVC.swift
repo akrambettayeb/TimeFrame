@@ -260,8 +260,6 @@ class EditProfileVC: UIViewController, UIImagePickerControllerDelegate, UINaviga
             profileVC.changeDisplayName(displayNameTextField.text!)
             profileVC.changeUsername(usernameTextField.text!)
             updateVisibleImagesArray()
-            print("EDIT PROFILE VC")
-            print("visible albums: \(visibleAlbumNames)\n")
             // update in Firebase Authentication
             
             let user = Auth.auth().currentUser

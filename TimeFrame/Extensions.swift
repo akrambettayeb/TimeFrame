@@ -153,7 +153,7 @@ extension UIImage {
             if let destination = CGImageDestinationCreateWithURL(url, UTType.gif.identifier as CFString, images.count, nil) {
                 CGImageDestinationSetProperties(destination, fileProperties)
                 for image in images {
-                    if let cgImage = image.cgImage {
+                    if let cgImage = image.fixOrientation().cgImage {
                         CGImageDestinationAddImage(destination, cgImage, frameProperties)
                     }
                 }
