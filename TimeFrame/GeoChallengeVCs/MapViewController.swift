@@ -69,22 +69,12 @@ class MapViewController: UIViewController, UIPopoverPresentationControllerDelega
                 var pin = MapPin(coordinate: challenge.coordinate, challenge: challenge)
                 mapView.addAnnotation(pin)
             }
+            
+            mapView.reloadInputViews()
         }
         
         // Load custom back button.
         setCustomBackImage()
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
-        // Present challenges.
-        for challenge in challenges {
-            var pin = MapPin(coordinate: challenge.coordinate, challenge: challenge)
-            mapView.addAnnotation(pin)
-        }
-        
-        mapView.reloadInputViews()
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -103,7 +93,7 @@ class MapViewController: UIViewController, UIPopoverPresentationControllerDelega
     
     func presentInstructions() {
         // Create alert to tell user how to use this screen.
-        let instructionVC = UIAlertController(title: "Instructions", message: "Press and hold on map to create a Geo-Challenge. Select pin to view existing Geo-Challenge.", preferredStyle: .alert)
+        let instructionVC = UIAlertController(title: "Instructions", message: "Press and hold on map to create a Geo-Challenge. Select pin to view existing Geo-Challenge. Tap on cloud button to refresh challenge map.", preferredStyle: .alert)
         let okAction = UIAlertAction(title: "OK", style: .default)
         instructionVC.addAction(okAction)
         present(instructionVC, animated: true)
@@ -250,6 +240,22 @@ class MapViewController: UIViewController, UIPopoverPresentationControllerDelega
             let calloutVC = self.storyboard?.instantiateViewController(withIdentifier: "activeCalloutVC") as! ActiveChallengeViewController
             calloutVC.challenge = annotation.challenge
             return calloutVC
+        }
+    }
+    
+    // Refresh challenge map.
+    @IBAction func onReloadButtonPressed(_ sender: Any) {
+        Task {
+            // Fetch challenges.
+            await fetchChallenges(for: self.db)
+            
+            // Present challenges.
+            for challenge in challenges {
+                let pin = MapPin(coordinate: challenge.coordinate, challenge: challenge)
+                mapView.addAnnotation(pin)
+            }
+            
+            mapView.reloadInputViews()
         }
     }
 }

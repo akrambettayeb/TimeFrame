@@ -108,11 +108,6 @@ class AddChallengeInfoViewController: UIViewController, UITextFieldDelegate, Upd
             }
             
             dismiss(animated: true)
-            
-            Task {
-                // Fetch challenges.
-                await self.fetchChallenges(for: db)
-            }
         }
     }
     
