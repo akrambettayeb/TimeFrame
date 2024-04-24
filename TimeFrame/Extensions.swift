@@ -84,7 +84,7 @@ extension UIViewController {
         if let url = URL(string: photoURL),
            let imageData = try? Data(contentsOf: url) {
             let image = UIImage(data: imageData)
-            return image!
+            return (image?.fixOrientation())!
         }
         return UIImage(systemName: "person.crop.rectangle.stack.fill")!
     }

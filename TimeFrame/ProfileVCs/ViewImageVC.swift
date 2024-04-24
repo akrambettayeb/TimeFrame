@@ -22,7 +22,7 @@ class ViewImageVC: UIViewController {
         self.title = albumName
         var albumPhotos = [UIImage]()
         for photo in allAlbums[albumName]! {
-            albumPhotos.append(photo.image.fixOrientation())
+            albumPhotos.append(photo.image)
         }
         if albumPhotos.count > 1 {
             imageView.animationImages = albumPhotos
