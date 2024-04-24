@@ -35,7 +35,7 @@ class ActiveChallengeViewController: UIViewController {
         infoLabel.textAlignment = .left
         
         // Display initial image as preview.
-        previewImage.image = challenge.album[challenge.album.count - 1].image
+        previewImage.image = challenge.album[0].image
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
