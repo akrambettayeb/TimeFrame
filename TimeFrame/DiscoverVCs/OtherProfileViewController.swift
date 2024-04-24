@@ -22,6 +22,7 @@ class OtherProfileViewController: UIViewController {
     var ref: DatabaseReference!
     var userProfileData: [String: Any]? {
         didSet {
+            print("UserProfile data updated: \(userProfileData)")
             DispatchQueue.main.async { [weak self] in
                 self?.updateUIWithProfileData()
                 self?.setupFriendshipStatus()
@@ -32,19 +33,36 @@ class OtherProfileViewController: UIViewController {
     var currentUserUsername: String?
     var isFollowing: Bool = false {
         didSet {
-            DispatchQueue.main.async { [weak self] in
-                guard let strongSelf = self else { return }
-                strongSelf.followButton.setTitle(strongSelf.isFollowing ? "Unfollow" : "Follow", for: .normal)
-                strongSelf.checkForMutualFollowing()
+            if isViewLoaded {
+                DispatchQueue.main.async { [weak self] in
+                    self?.followButton.setTitle(self?.isFollowing ?? false ? "Unfollow" : "Follow", for: .normal)
+                    self?.checkForMutualFollowing()
+                }
             }
         }
     }
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
         ref = Database.database().reference()
         friendsLabel.isHidden = true
         fetchCurrentUserUsername()
+        followButton.setTitle("Loading...", for: .normal)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        if userProfileData != nil {
+            updateUIWithProfileData() // Make sure UI is updated with latest data
+            setupFriendshipStatus()  // Check if the current state of following needs to be updated
+            updateCounts()           // Update counts if they depend on dynamic data
+        }
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        setupFriendshipStatus() // Ensure this method completes and updates UI accordingly
     }
     
     private func fetchCurrentUserUsername() {
@@ -56,18 +74,35 @@ class OtherProfileViewController: UIViewController {
     }
     
     private func updateUIWithProfileData() {
+        guard isViewLoaded else { return }
         if let data = userProfileData {
             fullnameLabel.text = "\(data["firstName"] as? String ?? "") \(data["lastName"] as? String ?? "")"
             usernameLabel.text = data["username"] as? String
         }
     }
-    
+
     private func setupFriendshipStatus() {
-        guard let profileUsername = userProfileData?["username"] as? String, let currentUsername = currentUserUsername else { return }
+        guard let profileUsername = userProfileData?["username"] as? String,
+              let currentUsername = currentUserUsername else {
+            print("Error: Profile username or current user username is nil")
+            DispatchQueue.main.async { [weak self] in
+                self?.followButton?.setTitle("Follow", for: .normal) // Safely handle potential nil followButton
+            }
+            return
+        }
+
         ref.child("following").child(currentUsername).child(profileUsername).observeSingleEvent(of: .value) { [weak self] snapshot in
-            self?.isFollowing = snapshot.exists()
+            DispatchQueue.main.async { [weak self] in
+                let currentlyFollowing = snapshot.exists()
+                self?.isFollowing = currentlyFollowing
+                // Check if followButton is not nil before setting its title
+                if let followButton = self?.followButton {
+                    followButton.setTitle(currentlyFollowing ? "Unfollow" : "Follow", for: .normal)
+                }
+            }
         }
     }
+
     
     private func checkForMutualFollowing() {
         guard let profileUsername = userProfileData?["username"] as? String, let currentUserUsername = currentUserUsername else {
@@ -123,6 +158,7 @@ class OtherProfileViewController: UIViewController {
     }
     
     private func updateCounts() {
+        guard isViewLoaded else { return }
         guard let profileUsername = userProfileData?["username"] as? String else { return }
         
         // Define the paragraph style for middle justification and font attributes
@@ -254,4 +290,19 @@ class OtherProfileViewController: UIViewController {
         alert.addAction(UIAlertAction(title: "OK", style: .default))
         self.present(alert, animated: true)
     }
+    
+    func resetUI() {
+        guard isViewLoaded else { return }
+        fullnameLabel.text = "Loading..."
+        usernameLabel.text = "Loading..."
+        followButton.setTitle("Follow", for: .normal) // Default state
+        friendsLabel.isHidden = true
+        friendsCountButton.setTitle("0 Friends", for: .normal)
+        followingCountButton.setTitle("0 Following", for: .normal)
+        followersCountButton.setTitle("0 Followers", for: .normal)
+        fetchCurrentUserUsername() // Re-fetch the current user info if necessary
+        setupFriendshipStatus() // Re-check the friendship status
+        updateCounts() // Re-calculate the counts
+    }
+
 }
