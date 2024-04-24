@@ -27,6 +27,7 @@ import FirebaseAuth
 //TODO: add time added field to album photos and sort for timeframes
 // TODO: add firestore support for existing challenges
 // TODO: page view controller for screens from popovers
+// TODO: fix album preview images (index) and sorting
 
 // TODO: sort albums by date taken
 
@@ -75,6 +76,18 @@ class MapViewController: UIViewController, UIPopoverPresentationControllerDelega
         
         // Load custom back button.
         setCustomBackImage()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        // Present challenges.
+        for challenge in challenges {
+            let pin = MapPin(coordinate: challenge.coordinate, challenge: challenge)
+            mapView.addAnnotation(pin)
+        }
+        
+        mapView.reloadInputViews()
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

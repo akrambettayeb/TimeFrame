@@ -186,4 +186,15 @@ class AddInitialPhotoViewController: UIViewController, UIImagePickerControllerDe
         // Dismiss view controller.
         dismiss(animated: true)
     }
+    
+    @IBAction func onShareButtonPressed(_ sender: Any) {
+        let image = previewView.image
+        
+        // Set up activity view controller.
+        let imageToShare = [ image! ]
+        let activityViewController = UIActivityViewController(activityItems: imageToShare, applicationActivities: nil)
+        activityViewController.popoverPresentationController?.sourceView = self.view
+        
+        self.present(activityViewController, animated: true, completion: nil)
+    }
 }
