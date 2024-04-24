@@ -138,6 +138,10 @@ class AddPhotoToChallengeViewController: UIViewController, UIImagePickerControll
         }
         
         dismiss(animated: true)
+        
+        Task {
+            await fetchChallenges(for: db)
+        }
     }
     
     func saveImageUrlToFirestore(downloadURL: String, albumName: String, photoID: String) {
@@ -232,6 +236,17 @@ class AddPhotoToChallengeViewController: UIViewController, UIImagePickerControll
     // Retake photo.
     @IBAction func onRetakeButtonPressed(_ sender: Any) {
         showCamera()
+    }
+    
+    @IBAction func onShareButtonPressed(_ sender: Any) {
+        let image = previewView.image
+        
+        // Set up activity view controller.
+        let imageToShare = [ image! ]
+        let activityViewController = UIActivityViewController(activityItems: imageToShare, applicationActivities: nil)
+        activityViewController.popoverPresentationController?.sourceView = self.view
+        
+        self.present(activityViewController, animated: true, completion: nil)
     }
 }
 

@@ -10,6 +10,8 @@
 
 import UIKit
 
+//TODO: update with user's new photo
+
 class ViewTimeLapseViewController: UIViewController {
     
     @IBOutlet weak var timeFrameView: UIImageView!
@@ -17,11 +19,29 @@ class ViewTimeLapseViewController: UIViewController {
     
     var activeChallenge: Bool!
     var challenge: Challenge!
+    var challengeImages: [UIImage]! = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         setCustomBackImage()
+        
+        for challengeImage in challenge.album {
+            challengeImages.append(challengeImage.image)
+        }
+        
+        animateImage()
+    }
+    
+    func animateImage() {
+        // TODO: fix if there is only one image
+        let actualSpeed = Float(5.0)
+        let gifDuration = Float(challengeImages.count) / actualSpeed
+        // Calculates the duration for each image
+        let imageDuration = gifDuration / Float(challengeImages.count)
+        timeFrameView.animationDuration = TimeInterval(gifDuration)
+        timeFrameView.animationImages = challengeImages
+        timeFrameView.startAnimating()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -56,6 +76,21 @@ class ViewTimeLapseViewController: UIViewController {
             alert.addAction(okAction)
             present(alert, animated: true)
         }
+    }
+    
+    @IBAction func onShareButtonTapped(_ sender: Any) {
+        var shareItem: Any = ""
+        let gifURL = UIImage.animatedGif(from: challengeImages, from: 5.0/Float(challengeImages.count))
+        
+        if gifURL != nil {
+            shareItem = gifURL!
+        } else {
+            // Share first photo in array if there is an error generating the GIF
+            shareItem = challengeImages[0]
+        }
+        
+        let activityController = UIActivityViewController(activityItems: [shareItem], applicationActivities: nil)
+        present(activityController, animated: true, completion: nil)
     }
 }
 
