@@ -4,6 +4,9 @@
 //
 //  Created by Megan Sundheim on 4/22/24.
 //
+// Project: TimeFrame
+// EID: mas23586
+// Course: CS371L
 
 import UIKit
 import AVFoundation
@@ -53,8 +56,6 @@ class AddInitialPhotoViewController: UIViewController, UIImagePickerControllerDe
             }
             
             cameraLoaded = true
-            let addChallengeVC = delegate as! UpdateCameraLoaded
-            addChallengeVC.updateCameraLoaded(cameraLoaded: true)
             picker.sourceType = .camera
             currentCameraPosition = picker.cameraDevice.rawValue
             picker.showsCameraControls = false

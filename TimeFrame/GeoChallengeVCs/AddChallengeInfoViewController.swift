@@ -11,23 +11,26 @@
 import UIKit
 import AVFoundation
 import MapKit
-
-protocol UpdateCameraLoaded {
-    func updateCameraLoaded(cameraLoaded: Bool)
-}
+import FirebaseFirestore
+import FirebaseStorage
+import FirebaseAuth
 
 protocol UpdatePreview {
     func updatePreview(image: UIImage)
 }
 
-class AddChallengeInfoViewController: UIViewController, UITextFieldDelegate, UpdateCameraLoaded, UpdatePreview {
+class AddChallengeInfoViewController: UIViewController, UITextFieldDelegate, UpdatePreview {
     //TODO: add dismiss keyboard
     @IBOutlet weak var previewView: UIImageView!
     @IBOutlet weak var locationNameField: UITextField!
+    @IBOutlet weak var currentDateLabel: UILabel!
+    @IBOutlet weak var endDatePicker: UIDatePicker!
     
     var cameraLoaded = false
-    var challengeLocation: MKPointAnnotation?
+    var challengeLocation: MapPin?
     var delegate: UIViewController!
+    let db = Firestore.firestore()
+    let storage = Storage.storage()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,8 +40,18 @@ class AddChallengeInfoViewController: UIViewController, UITextFieldDelegate, Upd
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+        // Reset fields.
+        locationNameField.text = ""
+        endDatePicker.date = .now
+        
+        // Update current date.
+        currentDateLabel.text = getDateString(date: .now)
+        endDatePicker.minimumDate = .now
+        
         if !cameraLoaded {
             // Only load the camera once automatically.
+            cameraLoaded = true
             performSegue(withIdentifier: "AddInitialPhotoSegue", sender: self)
         } else if previewView.image == nil {
             // Go back to Map Screen.
@@ -47,9 +60,70 @@ class AddChallengeInfoViewController: UIViewController, UITextFieldDelegate, Upd
     }
     
     @IBAction func onSubmitButtonPressed(_ sender: Any) {
-        //TODO: check for fields
-        challengeLocations.append(challengeLocation!)
-        dismiss(animated: true)
+        // Check that location name and challenge dates are selected and valid.
+        if locationNameField.text!.count == 0 {
+            let errorAlert = UIAlertController(title: "Cannot create challenge", message: "Missing location name.", preferredStyle: .alert)
+            let okAction = UIAlertAction(title: "OK", style: .default)
+            errorAlert.addAction(okAction)
+            present(errorAlert, animated: true)
+        } else {
+            let challengeImage = ChallengeImage(image: previewView.image!, numViews: 1, numLikes: 0, numFlags: 0, hidden: false, capturedTimestamp: .now)
+            let challengeToWrite = Challenge(name: locationNameField.text!, coordinate: challengeLocation!.coordinate, startDate: .now, endDate: endDatePicker.date, numViews: 1, numLikes: 0, album: [challengeImage])
+            
+            // Write challenge to Firestore.
+            let ref = db.collection("geochallenges").addDocument(data: [
+            "name": challengeToWrite.name!,
+            "coordinate": GeoPoint(latitude: challengeToWrite.coordinate.latitude, longitude: challengeToWrite.coordinate.longitude),
+            "startDate": Timestamp(date: challengeToWrite.startDate),
+            "endDate": Timestamp(date: challengeToWrite.endDate),
+            "numViews": challengeToWrite.numViews,
+            "numLikes": challengeToWrite.numLikes
+            ])
+            challengeToWrite.challengeID = ref.documentID
+            challenges.append(challengeToWrite)
+
+            print("Document added with ID: \(ref.documentID)")
+            
+            let photoRef = db.collection("geochallenges").document(ref.documentID).collection("album").addDocument(data: ["url": "", "numViews": 1, "numLikes": 0, "numFlags": 0, "hidden": false, "capturedTimestamp": Timestamp(date: challengeImage.capturedTimestamp)]) { [weak self] (error) in
+                if let error = error {
+                    print("Error adding document: \(error.localizedDescription)")
+                }
+            }
+            
+            let storageRef = storage.reference().child("geochallenges")
+            let albumRef = storageRef.child(ref.documentID + "/" + photoRef.documentID)
+
+            if let imageData = previewView.image!.jpegData(compressionQuality: 0.5) {
+                albumRef.putData(imageData, metadata: nil) { (metadata, error) in
+                    if let error = error {
+                        print("Error uploading image to Firebase Storage: \(error.localizedDescription)")
+                    } else {
+                        albumRef.downloadURL { (url, error) in
+                            if let downloadURL = url?.absoluteString {
+                                self.saveImageUrlToFirestore(downloadURL: downloadURL, albumName: ref.documentID, photoID: photoRef.documentID)
+                            }
+                        }
+                    }
+                }
+            }
+            
+            dismiss(animated: true)
+            
+            Task {
+                // Fetch challenges.
+                await self.fetchChallenges(for: db)
+            }
+        }
+    }
+    
+    func saveImageUrlToFirestore(downloadURL: String, albumName: String, photoID: String) {
+        db.collection("geochallenges").document(albumName).collection("album").document(photoID).setData(["url": downloadURL]) { [weak self] (error) in
+            if let error = error {
+                print("Error adding document: \(error.localizedDescription)")
+            } else {
+                print("Document added successfully")
+            }
+        }
     }
     
     @IBAction func onBackButtonPressed(_ sender: Any) {
@@ -74,11 +148,9 @@ class AddChallengeInfoViewController: UIViewController, UITextFieldDelegate, Upd
         }
     }
     
-    func updateCameraLoaded(cameraLoaded: Bool) {
-        self.cameraLoaded = cameraLoaded
-    }
-    
     func updatePreview(image: UIImage) {
         self.previewView.image = image
     }
+    
+    
 }

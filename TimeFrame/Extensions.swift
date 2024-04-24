@@ -85,7 +85,6 @@ extension UIViewController {
            let imageData = try? Data(contentsOf: url) {
             let image = UIImage(data: imageData)
             return (image?.fixOrientation())!
-        }
         return UIImage(systemName: "person.crop.rectangle.stack.fill")!
     }
     
@@ -118,6 +117,69 @@ extension UIViewController {
                     }
                 }
             }
+        }
+    }
+    
+    // Fetch Geo-Challenges to display on map.
+    func fetchChallenges(for db: Firestore) async {
+        do {
+            let geochallengeQuery = try await db.collection("geochallenges").getDocuments()
+            challenges = []
+            for document in geochallengeQuery.documents {
+                var newChallenge = Challenge (
+                    name: document.data()["name"] as! String,
+                    coordinate: CLLocationCoordinate2D(latitude: (document.data()["coordinate"] as! GeoPoint).latitude, longitude: (document.data()["coordinate"] as! GeoPoint).longitude),
+                    startDate: (document.data()["startDate"] as! Timestamp).dateValue(),
+                    endDate: (document.data()["endDate"] as! Timestamp).dateValue(),
+                    numViews: document.data()["numViews"] as! Int,
+                    numLikes: document.data()["numLikes"] as! Int,
+                    album: [])
+                newChallenge.challengeID = document.documentID
+                
+                // Upload images to album.
+                var album: [ChallengeImage] = []
+                let albumQuery = try await db.collection("geochallenges").document(document.documentID).collection("album").getDocuments()
+
+                let photoDocs = albumQuery.documents
+
+                // Adds all photos to album.
+                for photoDoc in photoDocs {
+                    // Get photo data.
+                    var challengeImage = ChallengeImage(image: UIImage(), numViews: 1, numLikes: 0, numFlags: 0, hidden: false, capturedTimestamp: .now)
+                    if let photoURL = photoDoc.data()["url"] as? String {
+                        challengeImage = ChallengeImage(image: self.fetchPhotoFromURL(photoURL), numViews: 1, numLikes: 0, numFlags: 0, hidden: false, capturedTimestamp: .now)
+                    }
+
+                    if let photoViews = document.data()["numViews"] as? Int {
+                        challengeImage.numViews = photoViews
+                    }
+
+                    if let photoLikes = document.data()["numLikes"] as? Int {
+                        challengeImage.numLikes = photoLikes
+                    }
+
+                    if let photoFlags = document.data()["numFlags"] as? Int {
+                        challengeImage.numFlags = photoFlags
+                    }
+
+                    if let photoHidden = document.data()["hidden"] as? Bool {
+                        challengeImage.hidden = photoHidden
+                    }
+                    
+                    if let timestamp = document.data()["capturedTimestamp"] as? Timestamp {
+                        challengeImage.capturedTimestamp = timestamp.dateValue()
+                    }
+                    album.append(challengeImage)
+                }
+                
+                // Sort photos in descending order.
+                newChallenge.album = album.sorted { $0.capturedTimestamp < $1.capturedTimestamp }
+                challenges.append(newChallenge)
+                
+            }
+                                  
+        } catch {
+            print("Error getting documents: \(error)")
         }
     }
     
