@@ -95,13 +95,33 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
             guard let homeVC = homeNav.visibleViewController as? ImageLoader else {
                 return
             }
+            
+            // Create a dispatch group to wait for both album and timeframe fetching
+            let dispatchGroup = DispatchGroup()
+            
+            // Fetch all albums
+            dispatchGroup.enter()
             self.fetchAllAlbums(for: self.db) { fetchedAlbums in
                 allAlbums = fetchedAlbums
                 albumNames = allAlbums.keys.sorted()
                 homeVC.updateAlbums()
+                dispatchGroup.leave()
+            }
+            
+            // Fetch all timeframes
+            dispatchGroup.enter()
+            self.fetchAllTimeframesFromFirestore(for: self.db) { fetchedTimeframes in
+                allTimeframes = fetchedTimeframes
+                timeframeNames = allTimeframes.keys.sorted()
                 homeVC.updateTimeframes()
+                dispatchGroup.leave()
+            }
+            
+            // Notify when both album and timeframe fetching is done
+            dispatchGroup.notify(queue: .main) {
+                // Perform any additional actions after fetching both albums and timeframes
+                // For example, you can reload data or update UI elements
             }
         }
     }
-    
 }

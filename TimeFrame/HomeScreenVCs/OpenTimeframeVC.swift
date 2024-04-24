@@ -75,16 +75,7 @@ class OpenTimeframeVC: UIViewController {
     
     // Shares the TimeFrame as a GIF to the user's other apps when the "Share" button is tapped
     @IBAction func onShareTapped(_ sender: Any) {
-        var shareItem: Any = ""
-        let gifURL = UIImage.animatedGif(from: timeframeImages, from: 2.0/Float(timeframeImages.count), name: timeframeName)
-        
-        if gifURL != nil {
-            shareItem = gifURL!
-        } else {
-            // Share first photo in array if there is an error generating the GIF
-            shareItem = timeframeImages[0]
-        }
-        let activityController = UIActivityViewController(activityItems: [shareItem], applicationActivities: nil)
+        let activityController = UIActivityViewController(activityItems: [timeframe.url], applicationActivities: nil)
         present(activityController, animated: true, completion: nil)
     }
 }

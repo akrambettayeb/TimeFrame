@@ -80,7 +80,7 @@ class ViewTimeLapseViewController: UIViewController {
     
     @IBAction func onShareButtonTapped(_ sender: Any) {
         var shareItem: Any = ""
-        let gifURL = UIImage.animatedGif(from: challengeImages, from: 5.0/Float(challengeImages.count))
+        let gifURL = UIImage.animatedGif(from: challengeImages, from: 5.0/Float(challengeImages.count), name: challenge.name)
         
         if gifURL != nil {
             shareItem = gifURL!

@@ -63,10 +63,10 @@ class ViewTimeframeVC: UIViewController {
         if isReversed {
             selectedPhotos = selectedPhotos.reversed()
         }
-        let gifURL = UIImage.animatedGif(from: selectedPhotos, from: imageDuration, name: timeframeName)
+        let gif = UIImage.animatedGif(from: selectedPhotos, from: imageDuration, name: timeframeName)
         var gifItem: Any = ""
-        if gifURL != nil {
-            gifItem = gifURL!
+        if gif != nil {
+            gifItem = gif!
         } else {
             // Share first photo in array if there is an error generating the GIF
             gifItem = selectedPhotos[0]
@@ -75,67 +75,131 @@ class ViewTimeframeVC: UIViewController {
         allTimeframes[timeframeName] = newTimeframe
         timeframeNames.append(timeframeName)
         timeframeNames = timeframeNames.sorted()
-        // uploadGIFAndThumbnail(timeframe: newTimeframe)
+        uploadThumbnailAndGIF(timeframe: newTimeframe) { thumbnailURL, gifURL in
+            if let thumbnailURL = thumbnailURL, let gifURL = gifURL {
+                // Both thumbnail and GIF URLs are available here
+                print("Thumbnail URL: \(thumbnailURL)")
+                print("GIF URL: \(gifURL)")
+
+                // Now you can call saveTimeframeToFirestore or perform any other action with the URLs
+                self.saveTimeframeToFirestore(gifURL: gifURL, thumbnailURL: thumbnailURL, timeframe: newTimeframe)
+            } else {
+                print("Failed to upload thumbnail or GIF.")
+            }
+        }
         print("done")
         performSegue(withIdentifier: "unwindViewTimeframeToHome", sender: self)
     }
     
-    func uploadGIFAndThumbnail(timeframe: TimeFrame) {
-        // Upload GIF to Firebase Storage
+    func uploadPhoto(timeframe: TimeFrame, completion: @escaping (String?) -> Void) {
         guard let userID = Auth.auth().currentUser?.uid else {
-                print("User not authenticated")
-                return
-            }
-        
-        guard let gifData = try? Data(contentsOf: timeframe.url) else {
-            return // Handle error
+            print("Invalid album name, image data, or user not authenticated")
+            completion(nil)
+            return
         }
         
-        let gifRef = storage.reference().child("users").child(userID).child("timeframes").child(timeframe.name).child("\(timeframe.name).gif")
-        gifRef.putData(gifData, metadata: nil) { [weak self] metadata, error in
+        guard let imageData = timeframe.thumbnail.jpegData(compressionQuality: 0.5) else {
+            print("Error: Unable to convert thumbnail image to data.")
+            completion(nil)
+            return
+        }
+        
+        let storageRef = self.storage.reference().child("users").child(userID).child("timeframes").child(timeframe.name).child("\(timeframe.name).jpg")
+        
+        storageRef.putData(imageData, metadata: nil) { [weak self] (metadata, error) in
             guard let self = self else { return }
-            guard let _ = metadata else {
-                print("Error uploading GIF: \(error?.localizedDescription ?? "Unknown error")")
-                return
-            }
-            print("1")
-            // Get download URL of the uploaded GIF
-            gifRef.downloadURL { url, error in
-                guard let gifURL = url else {
-                    print("Error getting download URL: \(error?.localizedDescription ?? "Unknown error")")
-                    return
-                }
-                
-                // Upload thumbnail image to Firebase Storage
-                guard let thumbnailData = timeframe.thumbnail.jpegData(compressionQuality: 0.8) else {
-                    return // Handle error
-                }
-                
-                let thumbnailRef = self.storage.reference().child("users").child(userID).child("timeframes").child(timeframe.name).child("\(timeframe.name).jpg")
-                thumbnailRef.putData(thumbnailData, metadata: nil) { metadata, error in
-                    guard let _ = metadata else {
-                        print("Error uploading thumbnail: \(error?.localizedDescription ?? "Unknown error")")
-                        return
-                    }
-                    
-                    // Get download URL of the uploaded thumbnail
-                    thumbnailRef.downloadURL { url, error in
-                        guard let thumbnailURL = url else {
-                            print("Error getting thumbnail download URL: \(error?.localizedDescription ?? "Unknown error")")
-                            return
-                        }
-                        
-                        // Once both GIF and thumbnail are uploaded, you can proceed to save their URLs to Firestore
-                        print("hi")
-                        self.saveTimeframeToFirestore(gifURL: gifURL, thumbnailURL: thumbnailURL, timeframe: timeframe)
-                        
+            if let error = error {
+                print("Error uploading image to Firebase Storage: \(error.localizedDescription)")
+                completion(nil)
+            } else {
+                storageRef.downloadURL { (url, error) in
+                    if let downloadURL = url?.absoluteString {
+                        completion(downloadURL)
+                    } else {
+                        completion(nil)
                     }
                 }
             }
         }
     }
+
     
-    func saveTimeframeToFirestore(gifURL: URL, thumbnailURL: URL, timeframe: TimeFrame) {
+    func uploadGIF(timeframe: TimeFrame, completion: @escaping (URL?) -> Void) {
+        // Upload GIF to Firebase Storage
+        guard let userID = Auth.auth().currentUser?.uid else {
+            print("User not authenticated")
+            completion(nil)
+            return
+        }
+        
+        guard let gifData = try? Data(contentsOf: timeframe.url) else {
+            print("Error: Unable to get GIF data.")
+            completion(nil)
+            return
+        }
+        
+        let gifRef = storage.reference().child("users").child(userID).child("timeframes").child(timeframe.name).child("\(timeframe.name).gif")
+        
+        gifRef.putData(gifData, metadata: nil) { [weak self] metadata, error in
+            guard let self = self else { return }
+            guard let _ = metadata else {
+                print("Error uploading GIF: \(error?.localizedDescription ?? "Unknown error")")
+                completion(nil)
+                return
+            }
+            
+            // Get download URL of the uploaded GIF
+            gifRef.downloadURL { url, error in
+                guard let gifURL = url else {
+                    print("Error getting download URL: \(error?.localizedDescription ?? "Unknown error")")
+                    completion(nil)
+                    return
+                }
+                
+                // Once the GIF is uploaded, pass its URL back to the caller
+                completion(gifURL)
+            }
+        }
+    }
+
+
+    func uploadThumbnailAndGIF(timeframe: TimeFrame, completion: @escaping (String?, URL?) -> Void) {
+        var thumbnailURL: String?
+        var timeframeURL: URL?
+
+        let dispatchGroup = DispatchGroup()
+
+        // Upload thumbnail
+        dispatchGroup.enter()
+        uploadPhoto(timeframe: timeframe) { url in
+            if let imageURL = url {
+                print("Uploaded thumbnail URL: \(imageURL)")
+                thumbnailURL = imageURL
+            } else {
+                print("Failed to upload thumbnail.")
+            }
+            dispatchGroup.leave()
+        }
+
+        // Upload GIF
+        dispatchGroup.enter()
+        uploadGIF(timeframe: timeframe) { url in
+            if let gifURL = url {
+                print("Uploaded GIF URL: \(gifURL)")
+                timeframeURL = url
+            } else {
+                print("Failed to upload GIF.")
+            }
+            dispatchGroup.leave()
+        }
+
+        dispatchGroup.notify(queue: .main) {
+            // Both closures have completed
+            completion(thumbnailURL, timeframeURL)
+        }
+    }
+    
+    func saveTimeframeToFirestore(gifURL: URL, thumbnailURL: String, timeframe: TimeFrame) {
         print("testing")
         guard let userID = Auth.auth().currentUser?.uid else {
             print("User not authenticated")
@@ -146,7 +210,7 @@ class ViewTimeframeVC: UIViewController {
         
         let timeframeData: [String: Any] = [
             "gifURL": gifURL.absoluteString,
-            "thumbnailURL": thumbnailURL.absoluteString,
+            "thumbnailURL": thumbnailURL,
             "name": timeframe.name,
             "isPrivate": timeframe.isPrivate,
             "isFavorited": timeframe.isFavorited,
@@ -170,14 +234,15 @@ class ViewTimeframeVC: UIViewController {
     @IBAction func onShareTapped(_ sender: UIButton) {
         var shareItem: Any = ""
         let gifURL = UIImage.animatedGif(from: selectedPhotos, from: imageDuration, name: timeframeName)
-        
+        var gifItem: Any = ""
         if gifURL != nil {
-            shareItem = gifURL!
+            gifItem = gifURL!
         } else {
             // Share first photo in array if there is an error generating the GIF
-            shareItem = selectedPhotos[0]
+            gifItem = selectedPhotos[0]
         }
-        let activityController = UIActivityViewController(activityItems: [shareItem], applicationActivities: nil)
+        let newTimeframe = TimeFrame(gifItem as! URL, selectedPhotos[0], timeframeName, isPublic, isFavorite, gifDuration)
+        let activityController = UIActivityViewController(activityItems: [newTimeframe.url], applicationActivities: nil)
         present(activityController, animated: true, completion: nil)
     }
 }
