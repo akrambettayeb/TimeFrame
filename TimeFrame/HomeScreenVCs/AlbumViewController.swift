@@ -94,7 +94,7 @@ class AlbumViewController: UIViewController, UIImagePickerControllerDelegate, UI
         title = "Album"
         // Add photo action
         let addPhotoMenuItem = UIAction(title: "Add Photo", image: UIImage(systemName: "plus")) { _ in
-            self.showCamera()
+            self.showCamera() //TODO: error with empty albums
         }
         
         // Create TimeFrame action
@@ -441,11 +441,8 @@ class AlbumViewController: UIViewController, UIImagePickerControllerDelegate, UI
             let translation = CGAffineTransformMakeTranslation(0.0, 123)
             self.imagePicker.cameraViewTransform = translation
             
-            if allAlbums[self.albumName!]!.count > 0 {
-                // Only add overlay if existing photo in album.
-                self.overlayView = createOverlayView()
-                self.imagePicker.cameraOverlayView = self.overlayView
-            }
+            self.overlayView = createOverlayView()
+            self.imagePicker.cameraOverlayView = self.overlayView
             
             self.present(self.imagePicker, animated: true, completion: nil)
         }
@@ -453,37 +450,41 @@ class AlbumViewController: UIViewController, UIImagePickerControllerDelegate, UI
     
     func createOverlayView() -> UIView {
         // Create container view for overlay elements.
-        var containerView = UIView(frame: UIScreen.main.bounds)
+        let containerView = UIView(frame: UIScreen.main.bounds)
         containerView.backgroundColor = .clear
         
         // Add top and bottom rectangles of overlay.
-        var topRect = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 123))
+        let topRect = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 123))
         topRect.backgroundColor = .black
         containerView.addSubview(topRect)
         
-        var bottomRect = UIView(frame: CGRect(x: 0, y: 643, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.maxY - 643))
+        let bottomRect = UIView(frame: CGRect(x: 0, y: 643, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.maxY - 643))
         bottomRect.backgroundColor = .black
         containerView.addSubview(bottomRect)
         
+        
         // Add image overlay to camera preview.
-        var imageOverlay = UIImageView(frame: CGRect(x: 0, y: 123, width: UIScreen.main.bounds.width, height: 643 - 123))
-        imageOverlay.image = allAlbums[self.albumName!]!.last?.image
-        imageOverlay.contentMode = .scaleAspectFill
-        imageOverlay.alpha = 0.4
-        containerView.addSubview(imageOverlay)
+        if allAlbums[self.albumName!]!.count > 0 {
+            // Only add overlay if existing photo in album.
+            let imageOverlay = UIImageView(frame: CGRect(x: 0, y: 123, width: UIScreen.main.bounds.width, height: 643 - 123))
+            imageOverlay.image = allAlbums[self.albumName!]!.last?.image
+            imageOverlay.contentMode = .scaleAspectFill
+            imageOverlay.alpha = 0.4
+            containerView.addSubview(imageOverlay)
+        }
         
         // Add buttons to overlay.
-        var captureButton = UIButton(frame: CGRect(x: 146, y: 643 + 46, width: 100, height: 100))
+        let captureButton = UIButton(frame: CGRect(x: 146, y: 643 + 46, width: 100, height: 100))
         let captureConfig = UIImage.SymbolConfiguration(pointSize: 80, weight: .regular)
-        var captureImage = UIImage(systemName: "button.programmable", withConfiguration: captureConfig)
+        let captureImage = UIImage(systemName: "button.programmable", withConfiguration: captureConfig)
         captureButton.setImage(captureImage, for: .normal)
         captureButton.tintColor = .white
         captureButton.addTarget(self, action: #selector(onCaptureButtonPressed), for: .touchUpInside)
         containerView.addSubview(captureButton)
         
-        var flipButton = UIButton(frame: CGRect(x: 325, y: 643 + 71, width: 48, height: 48))
+        let flipButton = UIButton(frame: CGRect(x: 325, y: 643 + 71, width: 48, height: 48))
         let flipConfig = UIImage.SymbolConfiguration(pointSize: 19, weight: .regular)
-        var flipImage = UIImage(systemName: "arrow.triangle.2.circlepath", withConfiguration: flipConfig)
+        let flipImage = UIImage(systemName: "arrow.triangle.2.circlepath", withConfiguration: flipConfig)
         flipButton.setImage(flipImage, for: .normal)
         flipButton.tintColor = .white
         var tintConfig = UIButton.Configuration.tinted()
@@ -492,7 +493,7 @@ class AlbumViewController: UIViewController, UIImagePickerControllerDelegate, UI
         flipButton.addTarget(self, action: #selector(onFlipButtonPressed), for: .touchUpInside)
         containerView.addSubview(flipButton)
         
-        var cancelButton = UIButton(frame: CGRect(x: 8, y: 643 + 78, width: 81, height: 35))
+        let cancelButton = UIButton(frame: CGRect(x: 8, y: 643 + 78, width: 81, height: 35))
         cancelButton.setTitle("Cancel", for: .normal)
         cancelButton.setTitleColor(.white, for: .normal)
         cancelButton.addTarget(self, action: #selector(onCancelButtonPressed), for: .touchUpInside)
