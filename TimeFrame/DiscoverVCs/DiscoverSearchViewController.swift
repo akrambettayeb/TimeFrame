@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import FirebaseAuth
 import FirebaseDatabase
 
 class DiscoverSearchViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate {
@@ -16,6 +17,7 @@ class DiscoverSearchViewController: UIViewController, UITableViewDataSource, UIT
     var userIds: [String: String] = [:] // This will map usernames to user IDs
     var allUsers: [String] = [] // This will hold all usernames for searching
     var ref: DatabaseReference!
+    var currentUserUsername: String? // The username of the currently logged-in user
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,7 +25,7 @@ class DiscoverSearchViewController: UIViewController, UITableViewDataSource, UIT
         tableView.dataSource = self
         searchBar.delegate = self
         ref = Database.database().reference()
-        loadAllUsers()
+        fetchCurrentUserUsername() // Fetch the current user's username
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -40,11 +42,24 @@ class DiscoverSearchViewController: UIViewController, UITableViewDataSource, UIT
 
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         if searchText.isEmpty {
-            users = allUsers
+            users = allUsers.filter { $0 != currentUserUsername }
         } else {
             searchUsers(searchText: searchText)
         }
         tableView.reloadData()
+    }
+
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.resignFirstResponder() // Dismiss the keyboard when the search button is clicked
+    }
+
+    private func fetchCurrentUserUsername() {
+        guard let userId = Auth.auth().currentUser?.uid else { return }
+        
+        ref.child("users").child(userId).observeSingleEvent(of: .value) { [weak self] snapshot in
+            self?.currentUserUsername = (snapshot.value as? NSDictionary)?["username"] as? String ?? ""
+            self?.loadAllUsers() // Re-load all users once the current username is fetched
+        }
     }
 
     private func loadAllUsers() {
@@ -55,19 +70,21 @@ class DiscoverSearchViewController: UIViewController, UITableViewDataSource, UIT
                 if let snap = child as? DataSnapshot,
                    let dict = snap.value as? [String: Any],
                    let username = dict["username"] as? String {
-                    loadedUsers.append(username)
+                    if username != self.currentUserUsername {
+                        loadedUsers.append(username)
+                    }
                     self.userIds[username] = snap.key // Store the mapping of usernames to their user IDs
                 }
             }
             self.allUsers = loadedUsers
-            self.users = loadedUsers
+            self.users = loadedUsers.filter { $0 != self.currentUserUsername }
             self.tableView.reloadData()
         }
     }
 
     private func searchUsers(searchText: String) {
         let lowercasedSearchText = searchText.lowercased()
-        users = allUsers.filter { $0.lowercased().contains(lowercasedSearchText) }
+        users = allUsers.filter { $0.lowercased().contains(lowercasedSearchText) && $0 != currentUserUsername }
         tableView.reloadData()
     }
 
