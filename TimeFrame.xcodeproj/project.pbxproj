@@ -67,6 +67,7 @@
 		B52232FA2BA7E1F500F229B0 /* ProfileGridImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = B52232F92BA7E1F500F229B0 /* ProfileGridImage.swift */; };
 		B522331C2BA8D5ED00F229B0 /* ViewImageVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B522331B2BA8D5ED00F229B0 /* ViewImageVC.swift */; };
 		B54A82122BD85EA200F05C09 /* ViewTimeframeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B54A82112BD85EA200F05C09 /* ViewTimeframeVC.swift */; };
+		B54A82142BD873FF00F05C09 /* AllTimeframesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B54A82132BD873FF00F05C09 /* AllTimeframesVC.swift */; };
 		B57132C92BA6743400695F1C /* EditImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B57132C82BA6743400695F1C /* EditImageCell.swift */; };
 		B57132CB2BA6F33600695F1C /* QRProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B57132CA2BA6F33600695F1C /* QRProfileVC.swift */; };
 		B5755A952BD491B100AFAC08 /* AlbumPhoto.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5755A942BD491B100AFAC08 /* AlbumPhoto.swift */; };
@@ -116,6 +117,7 @@
 		B52232F92BA7E1F500F229B0 /* ProfileGridImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileGridImage.swift; sourceTree = "<group>"; };
 		B522331B2BA8D5ED00F229B0 /* ViewImageVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewImageVC.swift; sourceTree = "<group>"; };
 		B54A82112BD85EA200F05C09 /* ViewTimeframeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewTimeframeVC.swift; sourceTree = "<group>"; };
+		B54A82132BD873FF00F05C09 /* AllTimeframesVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllTimeframesVC.swift; sourceTree = "<group>"; };
 		B57132C82BA6743400695F1C /* EditImageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditImageCell.swift; sourceTree = "<group>"; };
 		B57132CA2BA6F33600695F1C /* QRProfileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRProfileVC.swift; sourceTree = "<group>"; };
 		B5755A942BD491B100AFAC08 /* AlbumPhoto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumPhoto.swift; sourceTree = "<group>"; };
@@ -255,6 +257,7 @@
 				B51879DC2BC371A5008FF688 /* AllAlbumsVC.swift */,
 				AC999B012BA8CB12006DBDFC /* AlbumViewController.swift */,
 				B51879D82BC35ECC008FF688 /* ViewAlbumImageVC.swift */,
+				B54A82132BD873FF00F05C09 /* AllTimeframesVC.swift */,
 				B5B73D732BBB3BF800BA1BA3 /* PlaybackSettingsVC.swift */,
 				B5C8FE7F2BC3B74C00D71C06 /* OpenTimeframeVC.swift */,
 				B54A82112BD85EA200F05C09 /* ViewTimeframeVC.swift */,
@@ -402,6 +405,7 @@
 				B5C8FE802BC3B74C00D71C06 /* OpenTimeframeVC.swift in Sources */,
 				3F0B7E8A2BD721DB00314D88 /* OtherProfileViewController.swift in Sources */,
 				B50AF3422BA42C0800003743 /* MyProfileVC.swift in Sources */,
+				B54A82142BD873FF00F05C09 /* AllTimeframesVC.swift in Sources */,
 				3F1EAAE82B9697A00060218F /* AppDelegate.swift in Sources */,
 				B50AF3442BA42C1400003743 /* EditProfileVC.swift in Sources */,
 				3F0B7E882BD6C9D600314D88 /* UserSearchTableViewCell.swift in Sources */,
