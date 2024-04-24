@@ -28,6 +28,18 @@
                                     <outletCollection property="gestureRecognizers" destination="zAz-Tm-qpS" appends="YES" id="fIl-xa-W7r"/>
                                 </connections>
                             </mapView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zNO-TT-0my">
+                                <rect key="frame" x="327" y="116" width="50" height="50"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="filled" image="arrow.clockwise.icloud.fill" catalog="system" cornerStyle="capsule">
+                                    <color key="baseForegroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <color key="baseBackgroundColor" name="TabBarPurple"/>
+                                </buttonConfiguration>
+                                <connections>
+                                    <action selector="onReloadButtonPressed:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="jBc-xB-PvC"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -787,6 +799,7 @@ Challenge Dates:    12/24/24 - 12/24/25</string>
     <resources>
         <image name="CameraPlaceholder" width="290" height="491"/>
         <image name="TimeLapsePlaceholder" width="170" height="215"/>
+        <image name="arrow.clockwise.icloud.fill" catalog="system" width="128" height="90"/>
         <image name="arrow.left" catalog="system" width="128" height="95"/>
         <image name="heart" catalog="system" width="128" height="107"/>
         <image name="location" catalog="system" width="128" height="119"/>

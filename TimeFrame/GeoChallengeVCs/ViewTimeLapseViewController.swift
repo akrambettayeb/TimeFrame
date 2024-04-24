@@ -28,7 +28,7 @@ class ViewTimeLapseViewController: UIViewController {
         super.viewWillAppear(animated)
         
         // Display initial image as thumbnail.
-        timeFrameView.image = self.challenge.album[self.challenge.album.count - 1].image
+        timeFrameView.image = self.challenge.album[0].image
         locationLabel.text = self.challenge.name
     }
     
