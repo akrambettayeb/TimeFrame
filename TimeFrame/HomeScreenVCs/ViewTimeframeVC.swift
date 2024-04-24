@@ -1,4 +1,3 @@
-//
 //  ViewTimeFrameVC.swift
 //  TimeFrame
 //
@@ -57,6 +56,7 @@ class ViewTimeframeVC: UIViewController {
     @IBAction func onSaveTapped(_ sender: UIBarButtonItem) {
         allTimeframes[timeframeName] = selectedPhotos
         timeframeNames.append(timeframeName)
+        timeframeNames = timeframeNames.sorted()
         performSegue(withIdentifier: "unwindViewTimeframeToHome", sender: self)
     }
     

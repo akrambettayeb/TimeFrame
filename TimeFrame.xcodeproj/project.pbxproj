@@ -39,6 +39,9 @@
 		3F08EC932BA6B89E0065C923 /* FirebaseRemoteConfigSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 3F08EC922BA6B89E0065C923 /* FirebaseRemoteConfigSwift */; };
 		3F08EC952BA6B89E0065C923 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 3F08EC942BA6B89E0065C923 /* FirebaseStorage */; };
 		3F08EC972BA6B89E0065C923 /* FirebaseStorageCombine-Community in Frameworks */ = {isa = PBXBuildFile; productRef = 3F08EC962BA6B89E0065C923 /* FirebaseStorageCombine-Community */; };
+		3F0B7E862BD6C74300314D88 /* DiscoverSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F0B7E852BD6C74300314D88 /* DiscoverSearchViewController.swift */; };
+		3F0B7E882BD6C9D600314D88 /* UserSearchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F0B7E872BD6C9D600314D88 /* UserSearchTableViewCell.swift */; };
+		3F0B7E8A2BD721DB00314D88 /* OtherProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F0B7E892BD721DB00314D88 /* OtherProfileViewController.swift */; };
 		3F1EAAE82B9697A00060218F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F1EAAE72B9697A00060218F /* AppDelegate.swift */; };
 		3F1EAAEA2B9697A00060218F /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F1EAAE92B9697A00060218F /* SceneDelegate.swift */; };
 		3F1EAAEF2B9697A00060218F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3F1EAAED2B9697A00060218F /* Main.storyboard */; };
@@ -67,12 +70,13 @@
 		B51879DD2BC371A6008FF688 /* AllAlbumsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B51879DC2BC371A5008FF688 /* AllAlbumsVC.swift */; };
 		B52232FA2BA7E1F500F229B0 /* ProfileGridImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = B52232F92BA7E1F500F229B0 /* ProfileGridImage.swift */; };
 		B522331C2BA8D5ED00F229B0 /* ViewImageVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B522331B2BA8D5ED00F229B0 /* ViewImageVC.swift */; };
+		B54A82122BD85EA200F05C09 /* ViewTimeframeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B54A82112BD85EA200F05C09 /* ViewTimeframeVC.swift */; };
+		B54A82142BD873FF00F05C09 /* AllTimeframesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B54A82132BD873FF00F05C09 /* AllTimeframesVC.swift */; };
 		B57132C92BA6743400695F1C /* EditImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B57132C82BA6743400695F1C /* EditImageCell.swift */; };
 		B57132CB2BA6F33600695F1C /* QRProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B57132CA2BA6F33600695F1C /* QRProfileVC.swift */; };
 		B5755A952BD491B100AFAC08 /* AlbumPhoto.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5755A942BD491B100AFAC08 /* AlbumPhoto.swift */; };
 		B5A02CDD2BC25344001C8D23 /* Gradient.png in Resources */ = {isa = PBXBuildFile; fileRef = B5A02CDB2BC25301001C8D23 /* Gradient.png */; };
 		B5B73D482BBA956400BA1BA3 /* ImagesToGIF.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B5B73D472BBA956400BA1BA3 /* ImagesToGIF.storyboard */; };
-		B5B73D4D2BBA967A00BA1BA3 /* ViewTimeFrameVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5B73D4C2BBA967A00BA1BA3 /* ViewTimeFrameVC.swift */; };
 		B5B73D742BBB3BF800BA1BA3 /* PlaybackSettingsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5B73D732BBB3BF800BA1BA3 /* PlaybackSettingsVC.swift */; };
 		B5BB29772BA3E6C6005A2987 /* Home.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B5BB29762BA3E6C6005A2987 /* Home.storyboard */; };
 		B5BB29792BA3E714005A2987 /* Discover.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B5BB29782BA3E714005A2987 /* Discover.storyboard */; };
@@ -87,6 +91,9 @@
 		3F08EC5A2BA5965E0065C923 /* ForgotPasswordViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ForgotPasswordViewController.swift; sourceTree = "<group>"; };
 		3F08EC5B2BA5965E0065C923 /* RegisterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 		3F08EC5F2BA6B81A0065C923 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		3F0B7E852BD6C74300314D88 /* DiscoverSearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoverSearchViewController.swift; sourceTree = "<group>"; };
+		3F0B7E872BD6C9D600314D88 /* UserSearchTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSearchTableViewCell.swift; sourceTree = "<group>"; };
+		3F0B7E892BD721DB00314D88 /* OtherProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherProfileViewController.swift; sourceTree = "<group>"; };
 		3F1EAAE42B9697A00060218F /* TimeFrame.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TimeFrame.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3F1EAAE72B9697A00060218F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3F1EAAE92B9697A00060218F /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -117,12 +124,13 @@
 		B51879DC2BC371A5008FF688 /* AllAlbumsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllAlbumsVC.swift; sourceTree = "<group>"; };
 		B52232F92BA7E1F500F229B0 /* ProfileGridImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileGridImage.swift; sourceTree = "<group>"; };
 		B522331B2BA8D5ED00F229B0 /* ViewImageVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewImageVC.swift; sourceTree = "<group>"; };
+		B54A82112BD85EA200F05C09 /* ViewTimeframeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewTimeframeVC.swift; sourceTree = "<group>"; };
+		B54A82132BD873FF00F05C09 /* AllTimeframesVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllTimeframesVC.swift; sourceTree = "<group>"; };
 		B57132C82BA6743400695F1C /* EditImageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditImageCell.swift; sourceTree = "<group>"; };
 		B57132CA2BA6F33600695F1C /* QRProfileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRProfileVC.swift; sourceTree = "<group>"; };
-		B5755A942BD491B100AFAC08 /* AlbumPhoto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AlbumPhoto.swift; path = HomeScreenVCs/AlbumPhoto.swift; sourceTree = "<group>"; };
+		B5755A942BD491B100AFAC08 /* AlbumPhoto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumPhoto.swift; sourceTree = "<group>"; };
 		B5A02CDB2BC25301001C8D23 /* Gradient.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Gradient.png; sourceTree = "<group>"; };
 		B5B73D472BBA956400BA1BA3 /* ImagesToGIF.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ImagesToGIF.storyboard; sourceTree = "<group>"; };
-		B5B73D4C2BBA967A00BA1BA3 /* ViewTimeFrameVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewTimeFrameVC.swift; sourceTree = "<group>"; };
 		B5B73D732BBB3BF800BA1BA3 /* PlaybackSettingsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaybackSettingsVC.swift; sourceTree = "<group>"; };
 		B5BB29762BA3E6C6005A2987 /* Home.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Home.storyboard; sourceTree = "<group>"; };
 		B5BB29782BA3E714005A2987 /* Discover.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Discover.storyboard; sourceTree = "<group>"; };
@@ -179,6 +187,16 @@
 			path = AuthenticationVCs;
 			sourceTree = "<group>";
 		};
+		3F0B7E842BD6C70B00314D88 /* DiscoverVCs */ = {
+			isa = PBXGroup;
+			children = (
+				3F0B7E892BD721DB00314D88 /* OtherProfileViewController.swift */,
+				3F0B7E872BD6C9D600314D88 /* UserSearchTableViewCell.swift */,
+				3F0B7E852BD6C74300314D88 /* DiscoverSearchViewController.swift */,
+			);
+			path = DiscoverVCs;
+			sourceTree = "<group>";
+		};
 		3F1EAADB2B9697A00060218F = {
 			isa = PBXGroup;
 			children = (
@@ -201,7 +219,7 @@
 				3F1EAAE72B9697A00060218F /* AppDelegate.swift */,
 				3F1EAAE92B9697A00060218F /* SceneDelegate.swift */,
 				B51879DA2BC37030008FF688 /* Extensions.swift */,
-				B5755A942BD491B100AFAC08 /* AlbumPhoto.swift */,
+				3F0B7E842BD6C70B00314D88 /* DiscoverVCs */,
 				AC999AFC2BA8C5D2006DBDFC /* HomeScreenVCs */,
 				5520389A2BA623FE000C5014 /* GeoChallengeVCs */,
 				3F08EC582BA5964F0065C923 /* AuthenticationVCs */,
@@ -247,12 +265,14 @@
 			children = (
 				B51879D62BC319AA008FF688 /* HomeScreenVC.swift */,
 				AC999AFF2BA8C810006DBDFC /* CreateAlbumViewController.swift */,
+				B5755A942BD491B100AFAC08 /* AlbumPhoto.swift */,
 				B51879DC2BC371A5008FF688 /* AllAlbumsVC.swift */,
 				AC999B012BA8CB12006DBDFC /* AlbumViewController.swift */,
 				B51879D82BC35ECC008FF688 /* ViewAlbumImageVC.swift */,
+				B54A82132BD873FF00F05C09 /* AllTimeframesVC.swift */,
 				B5B73D732BBB3BF800BA1BA3 /* PlaybackSettingsVC.swift */,
 				B5C8FE7F2BC3B74C00D71C06 /* OpenTimeframeVC.swift */,
-				B5B73D4C2BBA967A00BA1BA3 /* ViewTimeFrameVC.swift */,
+				B54A82112BD85EA200F05C09 /* ViewTimeframeVC.swift */,
 			);
 			path = HomeScreenVCs;
 			sourceTree = "<group>";
@@ -398,16 +418,19 @@
 				55CBC5B02BD8FF5600057C27 /* InactiveChallengeViewController.swift in Sources */,
 				55CBC5A22BD6DDCC00057C27 /* Challenge.swift in Sources */,
 				B5C8FE802BC3B74C00D71C06 /* OpenTimeframeVC.swift in Sources */,
+				3F0B7E8A2BD721DB00314D88 /* OtherProfileViewController.swift in Sources */,
 				B50AF3422BA42C0800003743 /* MyProfileVC.swift in Sources */,
+				B54A82142BD873FF00F05C09 /* AllTimeframesVC.swift in Sources */,
 				3F1EAAE82B9697A00060218F /* AppDelegate.swift in Sources */,
 				B50AF3442BA42C1400003743 /* EditProfileVC.swift in Sources */,
+				3F0B7E882BD6C9D600314D88 /* UserSearchTableViewCell.swift in Sources */,
 				55A83AB82BA6AA9000895DFE /* PhotoStreamViewController.swift in Sources */,
 				B522331C2BA8D5ED00F229B0 /* ViewImageVC.swift in Sources */,
 				55A83AB62BA6AA5500895DFE /* ChallengeAlbumViewController.swift in Sources */,
-				B5B73D4D2BBA967A00BA1BA3 /* ViewTimeFrameVC.swift in Sources */,
 				3F1EAAE82B9697A00060218F /* AppDelegate.swift in Sources */,
 				B57132CB2BA6F33600695F1C /* QRProfileVC.swift in Sources */,
 				AC999B022BA8CB12006DBDFC /* AlbumViewController.swift in Sources */,
+				B54A82122BD85EA200F05C09 /* ViewTimeframeVC.swift in Sources */,
 				B52232FA2BA7E1F500F229B0 /* ProfileGridImage.swift in Sources */,
 				B51879D92BC35ECC008FF688 /* ViewAlbumImageVC.swift in Sources */,
 				55CBC5AE2BD8FF4A00057C27 /* ActiveChallengeViewController.swift in Sources */,
@@ -416,6 +439,7 @@
 				3F08EC5C2BA5965E0065C923 /* LoginViewController.swift in Sources */,
 				3F1EAAEA2B9697A00060218F /* SceneDelegate.swift in Sources */,
 				B51879DB2BC37030008FF688 /* Extensions.swift in Sources */,
+				3F0B7E862BD6C74300314D88 /* DiscoverSearchViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -568,11 +592,13 @@
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 5XP3G844H6;
+				DEVELOPMENT_TEAM = 3H7MMR6433;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = TimeFrame/Info.plist;
 				INFOPLIST_KEY_NSAppleMusicUsageDescription = "";
 				INFOPLIST_KEY_NSCameraUsageDescription = "Please allow to take photo.";
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "We need your location to find local Geo-Challenges.";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "We need your location to find local Geo-Challenges.";
 				INFOPLIST_KEY_NSMicrophoneUsageDescription = "Please allow to record audio.";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -586,7 +612,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = Group1.TimeFrame;
+				PRODUCT_BUNDLE_IDENTIFIER = "Group1-1.TimeFrame";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -602,11 +628,13 @@
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 5XP3G844H6;
+				DEVELOPMENT_TEAM = 3H7MMR6433;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = TimeFrame/Info.plist;
 				INFOPLIST_KEY_NSAppleMusicUsageDescription = "";
 				INFOPLIST_KEY_NSCameraUsageDescription = "Please allow to take photo.";
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "We need your location to find local Geo-Challenges.";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "We need your location to find local Geo-Challenges.";
 				INFOPLIST_KEY_NSMicrophoneUsageDescription = "Please allow to record audio.";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -620,7 +648,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = Group1.TimeFrame;
+				PRODUCT_BUNDLE_IDENTIFIER = "Group1-1.TimeFrame";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
