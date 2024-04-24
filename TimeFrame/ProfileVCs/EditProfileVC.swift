@@ -372,7 +372,7 @@ class EditProfileVC: UIViewController, UIImagePickerControllerDelegate, UINaviga
                 // Clear locally cached albums and Timeframes
                 allAlbums = [String: [AlbumPhoto]]()
                 albumNames = [String]()
-                allTimeframes = [String: [UIImage]]()
+                allTimeframes = [String: TimeFrame]()
                 timeframeNames = [String]()
             } catch let signOutError as NSError {
                 self.errorAlert("Error signing out: \(signOutError)")

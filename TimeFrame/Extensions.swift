@@ -142,12 +142,12 @@ extension UIImageView {
 
 
 extension UIImage {
-    static func animatedGif(from images: [UIImage], from imageDuration: Float) -> URL? {
+    static func animatedGif(from images: [UIImage], from imageDuration: Float, name: String) -> URL? {
         let fileProperties: CFDictionary = [kCGImagePropertyGIFDictionary as String: [kCGImagePropertyGIFLoopCount as String: 0]]  as CFDictionary
         let frameProperties: CFDictionary = [kCGImagePropertyGIFDictionary as String: [(kCGImagePropertyGIFDelayTime as String): imageDuration]] as CFDictionary
         
         let documentsDirectoryURL: URL? = try? FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
-        let fileURL: URL? = documentsDirectoryURL?.appendingPathComponent("animated.gif")
+        let fileURL: URL? = documentsDirectoryURL?.appendingPathComponent("\(name).gif")
         
         if let url = fileURL as CFURL? {
             if let destination = CGImageDestinationCreateWithURL(url, UTType.gif.identifier as CFString, images.count, nil) {
