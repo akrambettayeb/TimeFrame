@@ -7,6 +7,7 @@
 
 import UIKit
 import FirebaseDatabase
+import FirebaseAuth
 
 class DiscoverSearchViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate {
     @IBOutlet weak var tableView: UITableView!
@@ -16,6 +17,7 @@ class DiscoverSearchViewController: UIViewController, UITableViewDataSource, UIT
     var userIds: [String: String] = [:] // This will map usernames to user IDs
     var allUsers: [String] = [] // This will hold all usernames for searching
     var ref: DatabaseReference!
+    var currentUserUsername: String? // The username of the currently logged-in user
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,6 +25,7 @@ class DiscoverSearchViewController: UIViewController, UITableViewDataSource, UIT
         tableView.dataSource = self
         searchBar.delegate = self
         ref = Database.database().reference()
+        fetchCurrentUserUsername() // Fetch the current user's username
         loadAllUsers()
     }
 
@@ -47,23 +50,34 @@ class DiscoverSearchViewController: UIViewController, UITableViewDataSource, UIT
         tableView.reloadData()
     }
 
-    private func loadAllUsers() {
-        ref.child("users").observeSingleEvent(of: .value) { snapshot in
-            var loadedUsers: [String] = []
-            self.userIds.removeAll()
-            for child in snapshot.children {
-                if let snap = child as? DataSnapshot,
-                   let dict = snap.value as? [String: Any],
-                   let username = dict["username"] as? String {
-                    loadedUsers.append(username)
-                    self.userIds[username] = snap.key // Store the mapping of usernames to their user IDs
-                }
-            }
-            self.allUsers = loadedUsers
-            self.users = loadedUsers
-            self.tableView.reloadData()
+    private func fetchCurrentUserUsername() {
+        guard let userId = Auth.auth().currentUser?.uid else { return }
+        
+        ref.child("users").child(userId).observeSingleEvent(of: .value) { [weak self] snapshot in
+            self?.currentUserUsername = (snapshot.value as? NSDictionary)?["username"] as? String ?? ""
+            self?.loadAllUsers() // Re-load all users once the current username is fetched
         }
     }
+    
+    private func loadAllUsers() {
+            ref.child("users").observeSingleEvent(of: .value) { snapshot in
+                var loadedUsers: [String] = []
+                self.userIds.removeAll()
+                for child in snapshot.children {
+                    if let snap = child as? DataSnapshot,
+                       let dict = snap.value as? [String: Any],
+                       let username = dict["username"] as? String {
+                        if username != self.currentUserUsername {
+                            loadedUsers.append(username)
+                        }
+                        self.userIds[username] = snap.key // Store the mapping of usernames to their user IDs
+                    }
+                }
+                self.allUsers = loadedUsers
+                self.users = loadedUsers.filter { $0 != self.currentUserUsername }
+                self.tableView.reloadData()
+            }
+        }
 
     private func searchUsers(searchText: String) {
         let lowercasedSearchText = searchText.lowercased()
