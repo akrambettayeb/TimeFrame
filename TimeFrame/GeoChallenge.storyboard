@@ -3,7 +3,6 @@
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22684"/>
-        <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Map view configurations" minToolsVersion="14.0"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -21,7 +20,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" showsUserLocation="YES" translatesAutoresizingMaskIntoConstraints="NO" id="llW-nT-zc4">
-                                <rect key="frame" x="0.0" y="103" width="393" height="622"/>
+                                <rect key="frame" x="0.0" y="103" width="393" height="666"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <gestureRecognizers/>
                                 <hybridMapConfiguration key="preferredConfiguration"/>
@@ -29,21 +28,6 @@
                                     <outletCollection property="gestureRecognizers" destination="zAz-Tm-qpS" appends="YES" id="fIl-xa-W7r"/>
                                 </connections>
                             </mapView>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1i2-Bs-cNj">
-                                <rect key="frame" x="177" y="290" width="50" height="50"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="tintColor" name="TabBarPurple"/>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain">
-                                    <imageReference key="image" image="mappin" catalog="system" symbolScale="large"/>
-                                    <preferredSymbolConfiguration key="preferredSymbolConfigurationForImage" configurationType="pointSize" pointSize="40" scale="large"/>
-                                </buttonConfiguration>
-                                <connections>
-                                    <segue destination="0Cg-03-Yuz" kind="popoverPresentation" identifier="ExistingChallengeSegue" popoverAnchorView="1i2-Bs-cNj" id="ByT-eL-bjW">
-                                        <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
-                                    </segue>
-                                </connections>
-                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -64,39 +48,43 @@
             </objects>
             <point key="canvasLocation" x="1910.6870229007632" y="-2.1126760563380285"/>
         </scene>
-        <!--Challenge Info View Controller-->
+        <!--Inactive Challenge View Controller-->
         <scene sceneID="VFd-Fp-ndj">
             <objects>
-                <viewController id="0Cg-03-Yuz" customClass="ChallengeInfoViewController" customModule="TimeFrame" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="inactiveCalloutVC" id="0Cg-03-Yuz" customClass="InactiveChallengeViewController" customModule="TimeFrame" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="1ah-3A-xu9">
-                        <rect key="frame" x="0.0" y="0.0" width="250" height="300"/>
+                        <rect key="frame" x="0.0" y="0.0" width="260" height="320"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Location Name" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4tp-UB-EgR">
-                                <rect key="frame" x="60" y="17" width="131" height="22"/>
+                                <rect key="frame" x="5" y="24" width="250" height="22"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="18"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <color key="highlightedColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="83H-GY-WJz">
-                                <rect key="frame" x="16" y="47" width="218" height="39"/>
+                                <rect key="frame" x="29" y="46" width="202" height="39"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <string key="text">Challenge Status:   Active
-Active Dates:          2/24/24 - 2/24/25</string>
+                                <string key="text">Challenge Status:   Inactive
+Challenge Dates:    12/24/24 - 12/24/25</string>
                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="11"/>
                                 <color key="textColor" red="0.89411771299999998" green="0.75686275960000005" blue="0.98431372640000003" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                <color key="highlightedColor" red="0.89411771299999998" green="0.75686275960000005" blue="0.98431372640000003" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <color key="highlightedColor" red="0.89085489510000004" green="0.75628751520000004" blue="0.98433834310000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                             </label>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bym-d0-UqQ">
+                                <rect key="frame" x="67" y="87" width="126.33333333333333" height="167"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0ie-SE-H5g">
-                                <rect key="frame" x="5" y="261" width="75" height="28"/>
+                                <rect key="frame" x="10" y="262" width="116" height="28"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="filled" titleAlignment="center">
                                     <attributedString key="attributedTitle">
                                         <fragment content="View TimeFrame">
                                             <attributes>
-                                                <font key="NSFont" size="10" name="Helvetica"/>
+                                                <font key="NSFont" size="12" name="Helvetica"/>
                                                 <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                             </attributes>
                                         </fragment>
@@ -105,42 +93,18 @@ Active Dates:          2/24/24 - 2/24/25</string>
                                     <color key="baseBackgroundColor" red="0.89411771299999998" green="0.75686275960000005" blue="0.98431372640000003" alpha="0.5" colorSpace="custom" customColorSpace="displayP3"/>
                                 </buttonConfiguration>
                                 <connections>
-                                    <segue destination="H6q-rD-csP" kind="presentation" modalPresentationStyle="fullScreen" id="JfE-0z-fTJ"/>
+                                    <segue destination="H6q-rD-csP" kind="presentation" identifier="inactiveToViewSegue" modalPresentationStyle="fullScreen" id="qHI-O7-Djo"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nSz-Og-jFy">
-                                <rect key="frame" x="88" y="261" width="75" height="28"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="filled" titleAlignment="center">
-                                    <attributedString key="attributedTitle">
-                                        <fragment content="Add a Photo">
-                                            <attributes>
-                                                <font key="NSFont" size="10" name="Helvetica"/>
-                                                <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
-                                            </attributes>
-                                        </fragment>
-                                    </attributedString>
-                                    <color key="baseForegroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                    <color key="baseBackgroundColor" red="0.89411771299999998" green="0.75686275960000005" blue="0.98431372640000003" alpha="0.5" colorSpace="custom" customColorSpace="displayP3"/>
-                                </buttonConfiguration>
-                                <connections>
-                                    <segue destination="qUo-V8-TdR" kind="presentation" modalPresentationStyle="fullScreen" id="XSd-39-snz"/>
-                                </connections>
-                            </button>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="InitialImagePlaceholder" translatesAutoresizingMaskIntoConstraints="NO" id="RNC-Oi-Xl7">
-                                <rect key="frame" x="64" y="88" width="123" height="159"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </imageView>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UhO-5m-VpC">
-                                <rect key="frame" x="171" y="261" width="75" height="28"/>
+                                <rect key="frame" x="135" y="262" width="116" height="28"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="filled" titleAlignment="center">
                                     <attributedString key="attributedTitle">
                                         <fragment content="View Album">
                                             <attributes>
-                                                <font key="NSFont" size="10" name="Helvetica"/>
+                                                <font key="NSFont" size="12" name="Helvetica"/>
                                                 <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                             </attributes>
                                         </fragment>
@@ -149,7 +113,7 @@ Active Dates:          2/24/24 - 2/24/25</string>
                                     <color key="baseBackgroundColor" red="0.89411771299999998" green="0.75686275960000005" blue="0.98431372640000003" alpha="0.5" colorSpace="custom" customColorSpace="displayP3"/>
                                 </buttonConfiguration>
                                 <connections>
-                                    <segue destination="ARb-O1-Pmu" kind="presentation" modalPresentationStyle="fullScreen" id="vCC-Ms-XSq"/>
+                                    <segue destination="ARb-O1-Pmu" kind="presentation" identifier="inactiveToAlbumSegue" modalPresentationStyle="fullScreen" id="9Iw-D1-mPc"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -158,11 +122,16 @@ Active Dates:          2/24/24 - 2/24/25</string>
                     </view>
                     <navigationItem key="navigationItem" id="EVU-Ku-TYx"/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-                    <size key="freeformSize" width="250" height="300"/>
+                    <size key="freeformSize" width="260" height="320"/>
+                    <connections>
+                        <outlet property="infoLabel" destination="83H-GY-WJz" id="8rB-5D-JSy"/>
+                        <outlet property="nameLabel" destination="4tp-UB-EgR" id="skY-7x-AF7"/>
+                        <outlet property="previewImage" destination="bym-d0-UqQ" id="DhI-ae-oea"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZDT-e7-Hrv" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2789.3129770992364" y="-2.1126760563380285"/>
+            <point key="canvasLocation" x="2582" y="62"/>
         </scene>
         <!--Challenge Album View Controller-->
         <scene sceneID="gLm-MS-JBp">
@@ -216,7 +185,8 @@ Active Dates:          2/24/24 - 2/24/25</string>
                                     <color key="baseBackgroundColor" name="TabBarPurple"/>
                                 </buttonConfiguration>
                                 <connections>
-                                    <segue destination="qUo-V8-TdR" kind="presentation" modalPresentationStyle="fullScreen" id="4hT-JU-ekx"/>
+                                    <action selector="onAddPhotoButtonPressed:" destination="ARb-O1-Pmu" eventType="touchUpInside" id="myv-GJ-bxf"/>
+                                    <segue destination="qUo-V8-TdR" kind="presentation" identifier="addToAlbumSegue" modalPresentationStyle="fullScreen" id="4hT-JU-ekx"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tiw-NA-kIb">
@@ -229,11 +199,21 @@ Active Dates:          2/24/24 - 2/24/25</string>
                                     <action selector="onBackButtonPressed:" destination="ARb-O1-Pmu" eventType="touchUpInside" id="POU-pz-N64"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Location Name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZrZ-Nu-onc">
+                                <rect key="frame" x="138" y="61" width="117" height="34"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="BFB-lL-cwB"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
                     <navigationItem key="navigationItem" id="WKY-Ab-TCd"/>
+                    <connections>
+                        <outlet property="locationLabel" destination="ZrZ-Nu-onc" id="nTl-Vp-eFS"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JPW-jf-noZ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -334,7 +314,8 @@ Active Dates:          2/24/24 - 2/24/25</string>
                                     <color key="baseBackgroundColor" name="TabBarPurple"/>
                                 </buttonConfiguration>
                                 <connections>
-                                    <segue destination="qUo-V8-TdR" kind="presentation" modalPresentationStyle="fullScreen" id="yDH-Mh-uI6"/>
+                                    <action selector="onAddPhotoButtonPressed:" destination="H6q-rD-csP" eventType="touchUpInside" id="AwZ-gz-Woc"/>
+                                    <segue destination="qUo-V8-TdR" kind="presentation" identifier="addPhotoSegue" modalPresentationStyle="fullScreen" id="yDH-Mh-uI6"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Z11-qI-xJs">
@@ -347,7 +328,7 @@ Active Dates:          2/24/24 - 2/24/25</string>
                                     <color key="baseBackgroundColor" name="TabBarPurple"/>
                                 </buttonConfiguration>
                                 <connections>
-                                    <segue destination="ARb-O1-Pmu" kind="presentation" modalPresentationStyle="fullScreen" id="jmK-vi-xgY"/>
+                                    <segue destination="ARb-O1-Pmu" kind="presentation" identifier="viewToAlbumSegue" modalPresentationStyle="fullScreen" id="jmK-vi-xgY"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XRf-Sh-ZX1">
@@ -370,11 +351,22 @@ Active Dates:          2/24/24 - 2/24/25</string>
                                     <action selector="onBackButtonPressed:" destination="H6q-rD-csP" eventType="touchUpInside" id="GOh-FB-8zd"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Location Name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JIM-Le-iV4">
+                                <rect key="frame" x="138" y="67" width="117" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="Gat-kS-0Qs"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
                     <navigationItem key="navigationItem" id="BIH-1H-f8f"/>
+                    <connections>
+                        <outlet property="locationLabel" destination="JIM-Le-iV4" id="5Dl-yO-mTk"/>
+                        <outlet property="timeFrameView" destination="yJy-Ua-ygk" id="aXQ-d3-G9v"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="DEi-vh-yQ3" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -389,45 +381,45 @@ Active Dates:          2/24/24 - 2/24/25</string>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="iC8-qj-vmi">
-                                <rect key="frame" x="0.0" y="103" width="393" height="524"/>
+                                <rect key="frame" x="0.0" y="195.66666666666666" width="393" height="524"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Location Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PRa-KM-Pb8">
-                                <rect key="frame" x="16" y="647" width="115" height="21"/>
+                                <rect key="frame" x="16" y="110" width="115" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Add Name of Location" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="6Sr-g0-9cf">
-                                <rect key="frame" x="156" y="640.33333333333326" width="221" height="35"/>
+                                <rect key="frame" x="155" y="103" width="221" height="35"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Challenge Dates" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wMp-6d-MQX">
-                                <rect key="frame" x="16" y="696" width="125" height="21"/>
+                                <rect key="frame" x="16" y="159" width="125" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="00/00/00" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hgx-og-7zS">
-                                <rect key="frame" x="166" y="696" width="72" height="21"/>
+                                <rect key="frame" x="155" y="159" width="95" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="to" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="V2Y-ek-YlI">
-                                <rect key="frame" x="258.66666666666663" y="696" width="16" height="21"/>
+                                <rect key="frame" x="258" y="159" width="16" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <datePicker contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" translatesAutoresizingMaskIntoConstraints="NO" id="orl-Sd-xtK">
-                                <rect key="frame" x="291" y="688.66666666666663" width="86" height="35"/>
+                                <rect key="frame" x="290" y="152" width="86" height="35"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </datePicker>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Fnk-wV-jeh">
@@ -461,12 +453,21 @@ Active Dates:          2/24/24 - 2/24/25</string>
                                     <action selector="onBackButtonPressed:" destination="GXI-pw-Uhy" eventType="touchUpInside" id="ozt-Y7-U75"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Add Challenge Details" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="a8T-qO-FZA">
+                                <rect key="frame" x="111" y="61" width="172" height="34"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="T0g-FN-sFn"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
                     <navigationItem key="navigationItem" id="UBF-ol-9nR"/>
                     <connections>
+                        <outlet property="currentDateLabel" destination="Hgx-og-7zS" id="sxN-qQ-7Qc"/>
+                        <outlet property="endDatePicker" destination="orl-Sd-xtK" id="3lb-Mz-NJN"/>
                         <outlet property="locationNameField" destination="6Sr-g0-9cf" id="QUR-Dp-MB9"/>
                         <outlet property="previewView" destination="iC8-qj-vmi" id="lqI-As-odm"/>
                         <segue destination="xhs-WD-pd0" kind="presentation" identifier="AddInitialPhotoSegue" modalPresentationStyle="fullScreen" id="8iY-Kt-nZP"/>
@@ -474,7 +475,7 @@ Active Dates:          2/24/24 - 2/24/25</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="w6O-9J-cnP" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1911" y="818"/>
+            <point key="canvasLocation" x="1910.6870229007632" y="817.6056338028169"/>
         </scene>
         <!--Add Photo To Challenge View Controller-->
         <scene sceneID="ndf-9Z-chh">
@@ -545,12 +546,20 @@ Active Dates:          2/24/24 - 2/24/25</string>
                                     <segue destination="ARb-O1-Pmu" kind="presentation" modalPresentationStyle="fullScreen" id="5gh-rc-pgI"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Location Name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mVu-tH-Ngs">
+                                <rect key="frame" x="138" y="60" width="117" height="34"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="d0b-Ry-9K1"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
                     <navigationItem key="navigationItem" id="181-9R-29r"/>
                     <connections>
+                        <outlet property="locationLabel" destination="mVu-tH-Ngs" id="nmW-dg-emx"/>
                         <outlet property="previewView" destination="t7T-IY-mPg" id="wGR-t8-dWv"/>
                     </connections>
                 </viewController>
@@ -644,6 +653,13 @@ Active Dates:          2/24/24 - 2/24/25</string>
                                     <color key="baseBackgroundColor" name="TabBarPurple"/>
                                 </buttonConfiguration>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Add Initial Challenge Photo" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kZj-Rz-Od9">
+                                <rect key="frame" x="92" y="60" width="210" height="34"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="DJf-wc-JDC"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -657,20 +673,124 @@ Active Dates:          2/24/24 - 2/24/25</string>
             </objects>
             <point key="canvasLocation" x="984" y="818"/>
         </scene>
+        <!--Active Challenge View Controller-->
+        <scene sceneID="OAH-ge-OhT">
+            <objects>
+                <viewController storyboardIdentifier="activeCalloutVC" id="hKt-UK-MtU" customClass="ActiveChallengeViewController" customModule="TimeFrame" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="8cw-3U-9ob">
+                        <rect key="frame" x="0.0" y="0.0" width="260" height="320"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Location Name" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bz4-YI-i3S">
+                                <rect key="frame" x="5" y="24" width="250" height="22"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="18"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="highlightedColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="54g-Tt-d6y">
+                                <rect key="frame" x="29" y="46" width="202" height="39"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <string key="text">Challenge Status:   Active
+Challenge Dates:    12/24/24 - 12/24/25</string>
+                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="11"/>
+                                <color key="textColor" red="0.89411771299999998" green="0.75686275960000005" blue="0.98431372640000003" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <color key="highlightedColor" red="0.89085489510000004" green="0.75628751520000004" blue="0.98433834310000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                            </label>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8JB-pW-Gdt">
+                                <rect key="frame" x="67" y="87" width="126.33333333333333" height="167"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Hgp-ow-Cks">
+                                <rect key="frame" x="10" y="262" width="75" height="28"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="filled" titleAlignment="center">
+                                    <attributedString key="attributedTitle">
+                                        <fragment content="View TimeFrame">
+                                            <attributes>
+                                                <font key="NSFont" size="10" name="Helvetica"/>
+                                                <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                            </attributes>
+                                        </fragment>
+                                    </attributedString>
+                                    <color key="baseForegroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <color key="baseBackgroundColor" red="0.89411771299999998" green="0.75686275960000005" blue="0.98431372640000003" alpha="0.5" colorSpace="custom" customColorSpace="displayP3"/>
+                                </buttonConfiguration>
+                                <connections>
+                                    <segue destination="H6q-rD-csP" kind="presentation" identifier="activeToViewSegue" modalPresentationStyle="fullScreen" id="yeh-4X-iuv"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iOo-tj-hDP">
+                                <rect key="frame" x="93" y="262" width="75" height="28"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="filled" titleAlignment="center">
+                                    <attributedString key="attributedTitle">
+                                        <fragment content="Add a Photo">
+                                            <attributes>
+                                                <font key="NSFont" size="10" name="Helvetica"/>
+                                                <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                            </attributes>
+                                        </fragment>
+                                    </attributedString>
+                                    <color key="baseForegroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <color key="baseBackgroundColor" red="0.89411771299999998" green="0.75686275960000005" blue="0.98431372640000003" alpha="0.5" colorSpace="custom" customColorSpace="displayP3"/>
+                                </buttonConfiguration>
+                                <connections>
+                                    <segue destination="qUo-V8-TdR" kind="presentation" identifier="activeToAddSegue" modalPresentationStyle="fullScreen" id="JLW-6l-90r"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="d8T-Zd-CgB">
+                                <rect key="frame" x="176" y="262" width="75" height="28"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="filled" titleAlignment="center">
+                                    <attributedString key="attributedTitle">
+                                        <fragment content="View Album">
+                                            <attributes>
+                                                <font key="NSFont" size="10" name="Helvetica"/>
+                                                <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                            </attributes>
+                                        </fragment>
+                                    </attributedString>
+                                    <color key="baseForegroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <color key="baseBackgroundColor" red="0.89411771299999998" green="0.75686275960000005" blue="0.98431372640000003" alpha="0.5" colorSpace="custom" customColorSpace="displayP3"/>
+                                </buttonConfiguration>
+                                <connections>
+                                    <segue destination="ARb-O1-Pmu" kind="presentation" identifier="activeToAlbumSegue" modalPresentationStyle="fullScreen" id="Po1-Ha-4TJ"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="oc5-Mr-7PX"/>
+                        <color key="backgroundColor" name="TabBarPurple"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="rwQ-94-RT7"/>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="260" height="320"/>
+                    <connections>
+                        <outlet property="infoLabel" destination="54g-Tt-d6y" id="E7F-Gl-h81"/>
+                        <outlet property="nameLabel" destination="Bz4-YI-i3S" id="a3c-c0-Pp7"/>
+                        <outlet property="previewImage" destination="8JB-pW-Gdt" id="c99-46-5ad"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="d22-Dd-usC" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2581.679389312977" y="-254.22535211267606"/>
+        </scene>
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="4hT-JU-ekx"/>
-        <segue reference="5gh-rc-pgI"/>
+        <segue reference="qHI-O7-Djo"/>
+        <segue reference="jmK-vi-xgY"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="CameraPlaceholder" width="290" height="491"/>
-        <image name="InitialImagePlaceholder" width="327" height="436"/>
         <image name="TimeLapsePlaceholder" width="170" height="215"/>
         <image name="arrow.left" catalog="system" width="128" height="95"/>
         <image name="heart" catalog="system" width="128" height="107"/>
         <image name="location" catalog="system" width="128" height="119"/>
         <image name="location.fill" catalog="system" width="128" height="119"/>
-        <image name="mappin" catalog="system" width="106" height="128"/>
         <image name="play.fill" catalog="system" width="117" height="128"/>
         <namedColor name="AccentColor">
             <color red="1" green="0.79199999570846558" blue="0.15700000524520874" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

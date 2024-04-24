@@ -10,16 +10,21 @@
 
 import UIKit
 import AVFoundation
-import Combine
+import FirebaseFirestore
+import FirebaseStorage
 
 class AddPhotoToChallengeViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     @IBOutlet weak var previewView: UIImageView!
+    @IBOutlet weak var locationLabel: UILabel!
     
     var overlayView: UIView!
     var picker = UIImagePickerController()
     var cameraLoaded = false
     var currentCameraPosition: Int!
+    var challenge: Challenge!
+    let db = Firestore.firestore()
+    let storage = Storage.storage()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,6 +34,8 @@ class AddPhotoToChallengeViewController: UIViewController, UIImagePickerControll
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+        locationLabel.text = self.challenge.name
         if !cameraLoaded {
             // Only load the camera once automatically.
             showCamera() // TODO: need to load new overlay image
@@ -104,7 +111,48 @@ class AddPhotoToChallengeViewController: UIViewController, UIImagePickerControll
     }
     
     @IBAction func onSubmitButtonPressed(_ sender: Any) {
+        let challengeImage = ChallengeImage(image: previewView.image!, numViews: 1, numLikes: 0, numFlags: 0, hidden: false, capturedTimestamp: .now)
+        
+        // Add photo to challenge album in Firestore.
+        let photoRef = db.collection("geochallenges").document(self.challenge.challengeID).collection("album").addDocument(data: ["url": "", "numViews": 1, "numLikes": 0, "numFlags": 0, "hidden": false, "capturedTimestamp": Timestamp(date: challengeImage.capturedTimestamp)]) { [weak self] (error) in
+            if let error = error {
+                print("Error adding document: \(error.localizedDescription)")
+            }
+        }
+        
+        let storageRef = storage.reference().child("geochallenges")
+        let albumRef = storageRef.child(self.challenge.challengeID + "/" + photoRef.documentID)
+
+        if let imageData = previewView.image!.jpegData(compressionQuality: 0.5) {
+            albumRef.putData(imageData, metadata: nil) { (metadata, error) in
+                if let error = error {
+                    print("Error uploading image to Firebase Storage: \(error.localizedDescription)")
+                } else {
+                    albumRef.downloadURL { (url, error) in
+                        if let downloadURL = url?.absoluteString {
+                            self.saveImageUrlToFirestore(downloadURL: downloadURL, albumName: self.challenge.challengeID, photoID: photoRef.documentID)
+                        }
+                    }
+                }
+            }
+        }
+        
         dismiss(animated: true)
+        
+        Task {
+            // Fetch challenges.
+            await self.fetchChallenges(for: db)
+        }
+    }
+    
+    func saveImageUrlToFirestore(downloadURL: String, albumName: String, photoID: String) {
+        db.collection("geochallenges").document(albumName).collection("album").document(photoID).setData(["url": downloadURL]) { [weak self] (error) in
+            if let error = error {
+                print("Error adding document: \(error.localizedDescription)")
+            } else {
+                print("Document added successfully")
+            }
+        }
     }
     
     @IBAction func onBackButtonPressed(_ sender: Any) {
@@ -127,7 +175,9 @@ class AddPhotoToChallengeViewController: UIViewController, UIImagePickerControll
         
         // Add image overlay to camera preview.
         var imageOverlay = UIImageView(frame: CGRect(x: 0, y: 123, width: UIScreen.main.bounds.width, height: 643 - 123))
-        imageOverlay.image = UIImage(named: "InitialImagePlaceholder")
+        
+        // Display initial image as overlay.
+        imageOverlay.image = self.challenge.album[self.challenge.album.count - 1].image
         imageOverlay.contentMode = .scaleAspectFill
         imageOverlay.alpha = 0.4
         containerView.addSubview(imageOverlay)
