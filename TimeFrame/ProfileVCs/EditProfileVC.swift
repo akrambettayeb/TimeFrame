@@ -323,8 +323,10 @@ class EditProfileVC: UIViewController, UIImagePickerControllerDelegate, UINaviga
             let nameParts = displayName.split(separator: " ").map(String.init)
             let firstName = nameParts.first ?? ""
             let lastName = nameParts.dropFirst().joined(separator: " ")
+            let email = Auth.auth().currentUser?.email ?? ""
             
-            let userDict = ["username": username,
+            let userDict = ["email": email,
+                            "username": username,
                             "firstName": firstName,
                             "lastName": lastName]
             usersRef.child(userId).setValue(userDict) { error, _ in

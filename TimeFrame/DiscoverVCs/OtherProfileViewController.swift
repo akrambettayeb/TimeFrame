@@ -18,11 +18,11 @@ class OtherProfileViewController: UIViewController {
     @IBOutlet weak var friendsCountButton: UIButton!
     @IBOutlet weak var followingCountButton: UIButton!
     @IBOutlet weak var followersCountButton: UIButton!
-    
+    @IBOutlet weak var countTimeFrameButton: UIButton!
+
     var ref: DatabaseReference!
     var userProfileData: [String: Any]? {
         didSet {
-            print("UserProfile data updated: \(userProfileData)")
             DispatchQueue.main.async { [weak self] in
                 self?.updateUIWithProfileData()
                 self?.setupFriendshipStatus()
@@ -30,7 +30,7 @@ class OtherProfileViewController: UIViewController {
             }
         }
     }
-    var currentUserUsername: String?
+    var currentUserEmail: String?
     var isFollowing: Bool = false {
         didSet {
             if isViewLoaded {
@@ -42,60 +42,56 @@ class OtherProfileViewController: UIViewController {
         }
     }
 
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         ref = Database.database().reference()
         friendsLabel.isHidden = true
-        fetchCurrentUserUsername()
+        fetchCurrentUserEmail()
         followButton.setTitle("Loading...", for: .normal)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         if userProfileData != nil {
-            updateUIWithProfileData() // Make sure UI is updated with latest data
-            setupFriendshipStatus()  // Check if the current state of following needs to be updated
-            updateCounts()           // Update counts if they depend on dynamic data
+            updateUIWithProfileData()
+            setupFriendshipStatus()
+            updateCounts()
         }
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        setupFriendshipStatus() // Ensure this method completes and updates UI accordingly
+        setupFriendshipStatus()
     }
     
-    private func fetchCurrentUserUsername() {
+    private func fetchCurrentUserEmail() {
         guard let userId = Auth.auth().currentUser?.uid else { return }
-        
-        ref.child("users").child(userId).observeSingleEvent(of: .value) { [weak self] snapshot in
-            self?.currentUserUsername = (snapshot.value as? NSDictionary)?["username"] as? String ?? ""
-        }
+        self.currentUserEmail = Auth.auth().currentUser?.email
     }
     
     private func updateUIWithProfileData() {
         guard isViewLoaded else { return }
         if let data = userProfileData {
             fullnameLabel.text = "\(data["firstName"] as? String ?? "") \(data["lastName"] as? String ?? "")"
-            usernameLabel.text = data["username"] as? String
+            usernameLabel.text = data["username"] as? String ?? "Unknown"
         }
     }
 
     private func setupFriendshipStatus() {
-        guard let profileUsername = userProfileData?["username"] as? String,
-              let currentUsername = currentUserUsername else {
-            print("Error: Profile username or current user username is nil")
+        guard let profileEmail = userProfileData?["email"] as? String,
+              let currentUserEmail = currentUserEmail else {
             DispatchQueue.main.async { [weak self] in
-                self?.followButton?.setTitle("Follow", for: .normal) // Safely handle potential nil followButton
+                self?.followButton?.setTitle("Follow", for: .normal)
             }
             return
         }
+        let safeProfileEmail = profileEmail.replacingOccurrences(of: ".", with: ",")
+        let safeCurrentUserEmail = currentUserEmail.replacingOccurrences(of: ".", with: ",")
 
-        ref.child("following").child(currentUsername).child(profileUsername).observeSingleEvent(of: .value) { [weak self] snapshot in
-            DispatchQueue.main.async { [weak self] in
+        ref.child("following").child(safeCurrentUserEmail).child(safeProfileEmail).observeSingleEvent(of: .value) { [weak self] snapshot in
+            DispatchQueue.main.async {
                 let currentlyFollowing = snapshot.exists()
                 self?.isFollowing = currentlyFollowing
-                // Check if followButton is not nil before setting its title
                 if let followButton = self?.followButton {
                     followButton.setTitle(currentlyFollowing ? "Unfollow" : "Follow", for: .normal)
                 }
@@ -103,19 +99,22 @@ class OtherProfileViewController: UIViewController {
         }
     }
 
-    
     private func checkForMutualFollowing() {
-        guard let profileUsername = userProfileData?["username"] as? String, let currentUserUsername = currentUserUsername else {
+        guard let profileEmail = userProfileData?["email"] as? String,
+              let currentUserEmail = currentUserEmail else {
             friendsLabel.isHidden = true
             return
         }
-        let currentUsersFollowingRef = ref.child("following").child(currentUserUsername)
-        let profileUsersFollowingRef = ref.child("following").child(profileUsername)
+        let safeProfileEmail = profileEmail.replacingOccurrences(of: ".", with: ",")
+        let safeCurrentUserEmail = currentUserEmail.replacingOccurrences(of: ".", with: ",")
+        
+        let currentUsersFollowingRef = ref.child("following").child(safeCurrentUserEmail)
+        let profileUsersFollowingRef = ref.child("following").child(safeProfileEmail)
 
-        currentUsersFollowingRef.child(profileUsername).observeSingleEvent(of: .value) { [weak self] snapshot in
+        currentUsersFollowingRef.child(safeProfileEmail).observeSingleEvent(of: .value) { [weak self] snapshot in
             let currentUserFollowsProfileUser = snapshot.exists()
 
-            profileUsersFollowingRef.child(currentUserUsername).observeSingleEvent(of: .value) { [weak self] snapshot in
+            profileUsersFollowingRef.child(safeCurrentUserEmail).observeSingleEvent(of: .value) { [weak self] snapshot in
                 let profileUserFollowsCurrentUser = snapshot.exists()
                 DispatchQueue.main.async {
                     self?.friendsLabel.isHidden = !(currentUserFollowsProfileUser && profileUserFollowsCurrentUser)
@@ -125,150 +124,174 @@ class OtherProfileViewController: UIViewController {
     }
 
     @IBAction func followButtonTapped(_ sender: UIButton) {
-        guard let profileUsername = userProfileData?["username"] as? String, let currentUsername = currentUserUsername else { return }
+        guard let profileEmail = userProfileData?["email"] as? String,
+              let currentUserEmail = currentUserEmail else { return }
+        let safeProfileEmail = profileEmail.replacingOccurrences(of: ".", with: ",")
+        let safeCurrentUserEmail = currentUserEmail.replacingOccurrences(of: ".", with: ",")
+        
         let isCurrentlyFollowing = isFollowing
 
         isFollowing.toggle()
 
-        let followingRef = ref.child("following").child(currentUsername).child(profileUsername)
-        let followersRef = ref.child("followers").child(profileUsername).child(currentUsername)
+        let followingRef = ref.child("following").child(safeCurrentUserEmail).child(safeProfileEmail)
+        let followersRef = ref.child("followers").child(safeProfileEmail).child(safeCurrentUserEmail)
         
         if isCurrentlyFollowing {
             followingRef.removeValue()
             followersRef.removeValue()
-            showAlert(title: "Unfollowed", message: "You have unfollowed \(profileUsername).")
+            showAlert(title: "Unfollowed", message: "You have unfollowed \(profileEmail).")
         } else {
             followingRef.setValue(true)
             followersRef.setValue(true)
-            showAlert(title: "Followed", message: "You are now following \(profileUsername).")
+            showAlert(title: "Followed", message: "You are now following \(profileEmail).")
         }
         self.updateCounts()
     }
-
     @IBAction func friendsCountButtonTapped(_ sender: Any) {
         showListAlert(title: "Friends")
     }
-    
+
     @IBAction func followersCountButtonTapped(_ sender: Any) {
         showListAlert(title: "Followers")
     }
-    
+
     @IBAction func followingCountButtonTapped(_ sender: Any) {
         showListAlert(title: "Following")
     }
-    
+
     private func updateCounts() {
         guard isViewLoaded else { return }
-        guard let profileUsername = userProfileData?["username"] as? String else { return }
+        guard let profileEmail = userProfileData?["email"] as? String else { return }
+        let safeProfileEmail = profileEmail.replacingOccurrences(of: ".", with: ",")
+        updateProfileCounts(for: safeProfileEmail)
+    }
+
+    private func updateProfileCounts(for safeProfileEmail: String) {
+        let attributes = countButtonAttributedTitleAttributes()
         
-        // Define the paragraph style for middle justification and font attributes
-        let paragraphStyle = NSMutableParagraphStyle()
-        paragraphStyle.alignment = .center
-        let attributes: [NSAttributedString.Key: Any] = [
-            .paragraphStyle: paragraphStyle,
-            .font: UIFont(name: "Helvetica", size: 15) ?? UIFont.systemFont(ofSize: 15)
-        ]
-        
-        ref.child("following").child(profileUsername).observeSingleEvent(of: .value) { [weak self] snapshot in
+        ref.child("following").child(safeProfileEmail).observeSingleEvent(of: .value) { [weak self] snapshot in
             let count = snapshot.childrenCount
             DispatchQueue.main.async {
-                // Create an attributed string with paragraph style for the button
-                let followingAttributedTitle = NSAttributedString(
-                    string: "\(count)\nFollowing",
-                    attributes: attributes
-                )
+                let followingAttributedTitle = NSAttributedString(string: "\(count)\nFollowing", attributes: attributes)
                 self?.followingCountButton.setAttributedTitle(followingAttributedTitle, for: .normal)
             }
         }
 
-        ref.child("followers").child(profileUsername).observeSingleEvent(of: .value) { [weak self] snapshot in
+        ref.child("followers").child(safeProfileEmail).observeSingleEvent(of: .value) { [weak self] snapshot in
             let count = snapshot.childrenCount
             DispatchQueue.main.async {
-                let followersAttributedTitle = NSAttributedString(
-                    string: "\(count)\nFollowers",
-                    attributes: attributes
-                )
+                let followersAttributedTitle = NSAttributedString(string: "\(count)\nFollowers", attributes: attributes)
                 self?.followersCountButton.setAttributedTitle(followersAttributedTitle, for: .normal)
             }
         }
 
-        fetchFriendsList(for: profileUsername) { [weak self] friendsList in
+        fetchFriendsList(for: safeProfileEmail) { [weak self] friendsList in
             DispatchQueue.main.async {
                 let friendsCount = friendsList.count
-                let titleText = friendsCount == 0 ? "0\nFriends" : "\(friendsCount)\nFriends"
-                let friendsAttributedTitle = NSAttributedString(
-                    string: titleText,
-                    attributes: attributes
-                )
+                let friendsAttributedTitle = NSAttributedString(string: "\(friendsCount)\nFriends", attributes: attributes)
                 self?.friendsCountButton.setAttributedTitle(friendsAttributedTitle, for: .normal)
             }
         }
     }
 
+    private func countButtonAttributedTitleAttributes() -> [NSAttributedString.Key: Any] {
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.alignment = .center
+        return [
+            .font: countTimeFrameButton.titleLabel!.font!,
+            .foregroundColor: countTimeFrameButton.titleLabel!.textColor,
+            .paragraphStyle: paragraphStyle
+        ]
+    }
 
 
-    private func fetchFriendsList(for username: String, completion: @escaping ([String]) -> Void) {
-        let followingRef = ref.child("following").child(username)
-        let followersRef = ref.child("followers").child(username)
+    private func fetchFriendsList(for email: String, completion: @escaping ([String]) -> Void) {
+        let followingRef = ref.child("following").child(email)
+        let followersRef = ref.child("followers").child(email)
 
         followingRef.observeSingleEvent(of: .value) { (followingSnapshot) in
             followersRef.observeSingleEvent(of: .value) { (followersSnapshot) in
-                // Initialize empty sets
                 var followingSet = Set<String>()
                 var followersSet = Set<String>()
 
-                // Safely attempt to extract following users
                 if let followingDict = followingSnapshot.value as? [String: Bool] {
                     followingSet = Set(followingDict.keys)
                 }
 
-                // Safely attempt to extract followers
                 if let followersDict = followersSnapshot.value as? [String: Bool] {
                     followersSet = Set(followersDict.keys)
                 }
 
-                // Calculate the intersection of both sets to find mutual friends
                 let friendsList = followingSet.intersection(followersSet)
-                // Complete with the array of mutual friends
                 completion(Array(friendsList))
             }
         }
     }
 
     private func showListAlert(title: String) {
-        guard let profileUsername = userProfileData?["username"] as? String else { return }
-
+        guard let profileEmail = userProfileData?["email"] as? String else { return }
+        let safeProfileEmail = profileEmail.replacingOccurrences(of: ".", with: ",")
         let alert = UIAlertController(title: title, message: "Loading...", preferredStyle: .actionSheet)
         
-        if title.lowercased() == "friends" {
-            fetchFriendsList(for: profileUsername) { [weak self] friendsList in
-                self?.updateAlert(withUsers: friendsList, title: title)
+        // Fetch and present the user list based on title
+        fetchListForAlert(safeEmail: safeProfileEmail, listType: title.lowercased(), completion: { [weak self] users in
+            self?.updateAlert(withUsers: users, title: title)
+        })
+    }
+
+    private func fetchListForAlert(safeEmail: String, listType: String, completion: @escaping ([String]) -> Void) {
+        var childPath = listType
+        if listType == "friends" {
+            fetchFriendsList(for: safeEmail, completion: completion)
+            return
+        } else if listType == "following" || listType == "followers" {
+            childPath = listType
+        }
+
+        ref.child(childPath).child(safeEmail).observeSingleEvent(of: .value, with: { (snapshot) in
+            var emailsList = [String]()
+            if let emailsDict = snapshot.value as? [String: Bool] {
+                emailsList = emailsDict.compactMap { $0.key }
             }
-        } else {
-            let childPath = title.lowercased() == "following" ? "following" : "followers"
-            ref.child(childPath).child(profileUsername).observeSingleEvent(of: .value, with: { [weak self] (snapshot) in
-                var usersList = [String]()
-                if let userDict = snapshot.value as? [String: Bool] {
-                    usersList = userDict.compactMap { $0.key }
-                }
-                self?.updateAlert(withUsers: usersList, title: title)
-            }) { error in
-                print(error.localizedDescription)
-                alert.message = "An error occurred."
-                DispatchQueue.main.async {
-                    self.present(alert, animated: true, completion: nil)
-                }
-            }
+            self.fetchUsernamesFromEmails(emailsList, completion: completion)
+        }) { error in
+            print(error.localizedDescription)
+            completion([])
         }
     }
+    
+    private func fetchUsernamesFromEmails(_ emails: [String], completion: @escaping ([String]) -> Void) {
+        var usernames = [String]()
+        let group = DispatchGroup()
+
+        for email in emails {
+            group.enter()
+            // Here you replace the commas back with dots to match the email format in the user nodes.
+            let normalizedEmail = email.replacingOccurrences(of: ",", with: ".")
+            ref.child("users").queryOrdered(byChild: "email").queryEqual(toValue: normalizedEmail).observeSingleEvent(of: .value, with: { snapshot in
+                // Since the email is unique, there should be only one child.
+                if let user = snapshot.children.allObjects.first as? DataSnapshot,
+                   let userDict = user.value as? [String: Any],
+                   let username = userDict["username"] as? String {
+                    usernames.append(username)
+                }
+                group.leave()
+            })
+        }
+
+        group.notify(queue: .main) {
+            completion(usernames)
+        }
+    }
+
     
     private func updateAlert(withUsers users: [String], title: String) {
         let alert = UIAlertController(title: title, message: "Loading...", preferredStyle: .actionSheet)
 
         for username in users {
             let action = UIAlertAction(title: username, style: .default, handler: nil)
-              action.isEnabled = false  // This makes the action non-tappable
-              alert.addAction(action)
+            action.isEnabled = false
+            alert.addAction(action)
         }
 
         if users.isEmpty {
@@ -284,7 +307,6 @@ class OtherProfileViewController: UIViewController {
         }
     }
 
-    
     private func showAlert(title: String, message: String) {
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "OK", style: .default))
@@ -295,14 +317,13 @@ class OtherProfileViewController: UIViewController {
         guard isViewLoaded else { return }
         fullnameLabel.text = "Loading..."
         usernameLabel.text = "Loading..."
-        followButton.setTitle("Follow", for: .normal) // Default state
+        followButton.setTitle("Follow", for: .normal)
         friendsLabel.isHidden = true
         friendsCountButton.setTitle("0 Friends", for: .normal)
         followingCountButton.setTitle("0 Following", for: .normal)
         followersCountButton.setTitle("0 Followers", for: .normal)
-        fetchCurrentUserUsername() // Re-fetch the current user info if necessary
-        setupFriendshipStatus() // Re-check the friendship status
-        updateCounts() // Re-calculate the counts
+        fetchCurrentUserEmail()
+        setupFriendshipStatus()
+        updateCounts()
     }
-
 }
