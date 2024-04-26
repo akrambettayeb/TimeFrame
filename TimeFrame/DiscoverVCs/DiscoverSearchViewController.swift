@@ -117,9 +117,7 @@ class DiscoverSearchViewController: UIViewController, UITableViewDataSource, UIT
            let userProfile = sender as? [String: Any],
            let otherVC = segue.destination as? OtherProfileViewController {
             otherVC.userProfileData = userProfile
-            otherVC.currentUserUsername = nil // Reset current user name
-            otherVC.isFollowing = false // Reset following status
-            otherVC.resetUI() // Ensure UI is reset
+            otherVC.currentUserEmail = Auth.auth().currentUser?.email // Pass the current user's email to the OtherProfileViewController
         }
     }
 }
