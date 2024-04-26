@@ -78,6 +78,7 @@ class OtherProfileViewController: UIViewController {
     }
 
     private func setupFriendshipStatus() {
+        guard isViewLoaded else { return }
         guard let profileEmail = userProfileData?["email"] as? String,
               let currentUserEmail = currentUserEmail else {
             DispatchQueue.main.async { [weak self] in
@@ -125,6 +126,7 @@ class OtherProfileViewController: UIViewController {
 
     @IBAction func followButtonTapped(_ sender: UIButton) {
         guard let profileEmail = userProfileData?["email"] as? String,
+              let profileUsername = userProfileData?["username"] as? String,
               let currentUserEmail = currentUserEmail else { return }
         let safeProfileEmail = profileEmail.replacingOccurrences(of: ".", with: ",")
         let safeCurrentUserEmail = currentUserEmail.replacingOccurrences(of: ".", with: ",")
@@ -139,14 +141,15 @@ class OtherProfileViewController: UIViewController {
         if isCurrentlyFollowing {
             followingRef.removeValue()
             followersRef.removeValue()
-            showAlert(title: "Unfollowed", message: "You have unfollowed \(profileEmail).")
+            showAlert(title: "Unfollowed", message: "You have unfollowed \(profileUsername).")
         } else {
             followingRef.setValue(true)
             followersRef.setValue(true)
-            showAlert(title: "Followed", message: "You are now following \(profileEmail).")
+            showAlert(title: "Followed", message: "You are now following \(profileUsername).")
         }
         self.updateCounts()
     }
+    
     @IBAction func friendsCountButtonTapped(_ sender: Any) {
         showListAlert(title: "Friends")
     }
