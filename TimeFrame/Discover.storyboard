@@ -222,7 +222,7 @@ Following</string>
                                         <buttonConfiguration key="configuration" style="plain">
                                             <attributedString key="attributedTitle">
                                                 <fragment>
-                                                    <string key="content">8
+                                                    <string key="content">0
 TimeFrames</string>
                                                     <attributes>
                                                         <font key="NSFont" size="15" name="Helvetica"/>
@@ -260,6 +260,7 @@ TimeFrames</string>
                     </view>
                     <navigationItem key="navigationItem" id="oqm-QQ-5Mk"/>
                     <connections>
+                        <outlet property="countTimeFrameButton" destination="JM9-L6-qkb" id="Xla-9H-KcT"/>
                         <outlet property="followButton" destination="XfS-0E-4hP" id="AY3-S3-Szq"/>
                         <outlet property="followersCountButton" destination="dAs-qd-taM" id="sfJ-Jr-y7L"/>
                         <outlet property="followingCountButton" destination="zyM-44-gZu" id="o4U-kE-J9y"/>

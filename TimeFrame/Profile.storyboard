@@ -102,6 +102,9 @@ Friends</string>
                                                 </fragment>
                                             </attributedString>
                                         </buttonConfiguration>
+                                        <connections>
+                                            <action selector="friendsCountButtonTapped:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="HuD-e3-tBX"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MJJ-47-RMG">
                                         <rect key="frame" x="209" y="202" width="89" height="53"/>
@@ -120,6 +123,9 @@ Followers</string>
                                                 </fragment>
                                             </attributedString>
                                         </buttonConfiguration>
+                                        <connections>
+                                            <action selector="followersCountButtonTapped:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="8OR-CI-WIk"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fwV-8w-U6w">
                                         <rect key="frame" x="300" y="202" width="88" height="53"/>
@@ -138,6 +144,9 @@ Following</string>
                                                 </fragment>
                                             </attributedString>
                                         </buttonConfiguration>
+                                        <connections>
+                                            <action selector="followingCountButtonTapped:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="uZm-75-zlj"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xOn-v1-NBV">
                                         <rect key="frame" x="12" y="202" width="110" height="53"/>
@@ -185,6 +194,9 @@ TimeFrames</string>
                     <connections>
                         <outlet property="countTimeFrameButton" destination="xOn-v1-NBV" id="1HB-RG-40r"/>
                         <outlet property="displayNameLabel" destination="QEX-sc-chJ" id="hHj-jR-90H"/>
+                        <outlet property="followersCountButton" destination="MJJ-47-RMG" id="cBb-zP-vM1"/>
+                        <outlet property="followingCountButton" destination="fwV-8w-U6w" id="BAk-7S-bwt"/>
+                        <outlet property="friendsCountButton" destination="OhU-6c-TIN" id="BHo-VG-FNU"/>
                         <outlet property="imageGrid" destination="ZFP-gg-DZ2" id="4AJ-vD-9Ru"/>
                         <outlet property="myProfileImage" destination="FIF-V8-GZB" id="FNn-Zs-zpi"/>
                         <outlet property="qrCode" destination="qLV-oD-fw2" id="ke6-Ke-o5O"/>

@@ -49,7 +49,7 @@ class AllTimeframesVC: UIViewController, UICollectionViewDelegate, UICollectionV
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellID, for: indexPath) as! AllTimeframesCell
         let timeframeName = timeframeNames[indexPath.row]
         cell.timeframeNameLabel.text = timeframeName
-        cell.imageView.image = allTimeframes[timeframeName]![0]
+        cell.imageView.image = allTimeframes[timeframeName]?.thumbnail
         return cell
     }
     

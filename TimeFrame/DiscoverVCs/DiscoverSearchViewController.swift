@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import FirebaseAuth
 import FirebaseDatabase
 import FirebaseAuth
 
@@ -27,7 +28,10 @@ class DiscoverSearchViewController: UIViewController, UITableViewDataSource, UIT
         searchBar.delegate = self
         ref = Database.database().reference()
         fetchCurrentUserUsername() // Fetch the current user's username
+<<<<<<< HEAD
         loadAllUsers()
+=======
+>>>>>>> af0d431e5b9317528a6ce6280c82c177d602b06b
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -44,19 +48,49 @@ class DiscoverSearchViewController: UIViewController, UITableViewDataSource, UIT
 
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         if searchText.isEmpty {
-            users = allUsers
+            users = allUsers.filter { $0 != currentUserUsername }
         } else {
             searchUsers(searchText: searchText)
         }
         tableView.reloadData()
     }
 
+<<<<<<< HEAD
+=======
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.resignFirstResponder() // Dismiss the keyboard when the search button is clicked
+    }
+
+>>>>>>> af0d431e5b9317528a6ce6280c82c177d602b06b
     private func fetchCurrentUserUsername() {
         guard let userId = Auth.auth().currentUser?.uid else { return }
         
         ref.child("users").child(userId).observeSingleEvent(of: .value) { [weak self] snapshot in
             self?.currentUserUsername = (snapshot.value as? NSDictionary)?["username"] as? String ?? ""
             self?.loadAllUsers() // Re-load all users once the current username is fetched
+<<<<<<< HEAD
+=======
+        }
+    }
+
+    private func loadAllUsers() {
+        ref.child("users").observeSingleEvent(of: .value) { snapshot in
+            var loadedUsers: [String] = []
+            self.userIds.removeAll()
+            for child in snapshot.children {
+                if let snap = child as? DataSnapshot,
+                   let dict = snap.value as? [String: Any],
+                   let username = dict["username"] as? String {
+                    if username != self.currentUserUsername {
+                        loadedUsers.append(username)
+                    }
+                    self.userIds[username] = snap.key // Store the mapping of usernames to their user IDs
+                }
+            }
+            self.allUsers = loadedUsers
+            self.users = loadedUsers.filter { $0 != self.currentUserUsername }
+            self.tableView.reloadData()
+>>>>>>> af0d431e5b9317528a6ce6280c82c177d602b06b
         }
     }
     
@@ -82,7 +116,7 @@ class DiscoverSearchViewController: UIViewController, UITableViewDataSource, UIT
 
     private func searchUsers(searchText: String) {
         let lowercasedSearchText = searchText.lowercased()
-        users = allUsers.filter { $0.lowercased().contains(lowercasedSearchText) }
+        users = allUsers.filter { $0.lowercased().contains(lowercasedSearchText) && $0 != currentUserUsername }
         tableView.reloadData()
     }
 
@@ -115,9 +149,7 @@ class DiscoverSearchViewController: UIViewController, UITableViewDataSource, UIT
            let userProfile = sender as? [String: Any],
            let otherVC = segue.destination as? OtherProfileViewController {
             otherVC.userProfileData = userProfile
-            otherVC.currentUserUsername = nil // Reset current user name
-            otherVC.isFollowing = false // Reset following status
-            otherVC.resetUI() // Ensure UI is reset
+            otherVC.currentUserEmail = Auth.auth().currentUser?.email // Pass the current user's email to the OtherProfileViewController
         }
     }
 }

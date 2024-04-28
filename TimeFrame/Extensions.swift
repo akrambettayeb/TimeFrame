@@ -81,13 +81,13 @@ extension UIViewController {
     }
     
     func fetchPhotoFromURL(_ photoURL: String) -> UIImage {
-        if let url = URL(string: photoURL),
-           let imageData = try? Data(contentsOf: url) {
-            let image = UIImage(data: imageData)
-            return (image?.fixOrientation())!
+            if let url = URL(string: photoURL),
+               let imageData = try? Data(contentsOf: url) {
+                let image = UIImage(data: imageData)
+                return (image?.fixOrientation())!
+            }
+            return UIImage(systemName: "person.crop.rectangle.stack.fill")!
         }
-        return UIImage(systemName: "person.crop.rectangle.stack.fill")!
-    }
     
     // Fetches photo URLs across all of the user's albums and stores the result as a dictionary
     func fetchAllAlbums(for db: Firestore, completion: @escaping ([String: [AlbumPhoto]]) -> Void) {
@@ -120,6 +120,49 @@ extension UIViewController {
             }
         }
     }
+    
+    func fetchAllTimeframesFromFirestore(for db: Firestore, completion: @escaping ([String: TimeFrame]) -> Void) {
+        guard let userID = Auth.auth().currentUser?.uid else {
+            print("User not authenticated")
+            completion([:])
+            return
+        }
+        
+        db.collection("users").document(userID).collection("timeframes").getDocuments { (snapshot, error) in
+            if let error = error {
+                print("Error fetching timeframes: \(error.localizedDescription)")
+                completion([:])
+                return
+            }
+            
+            guard let documents = snapshot?.documents else {
+                print("No documents found")
+                completion([:])
+                return
+            }
+            
+            for document in documents {
+                let data = document.data()
+                let name = data["name"] as? String ?? ""
+                let gifURLString = data["gifURL"] as? String ?? ""
+                let thumbnailURLString = data["thumbnailURL"] as? String ?? ""
+                let isPrivate = data["isPrivate"] as? Bool ?? false
+                let isFavorited = data["isFavorited"] as? Bool ?? false
+                let selectedSpeed = data["selectedSpeed"] as? Float ?? 0.0
+                let thumbnail = self.fetchPhotoFromURL(thumbnailURLString)
+                if let gifURL = URL(string: gifURLString) {
+                    let timeframe = TimeFrame(gifURL, thumbnail, name, isPrivate, isFavorited, selectedSpeed)
+                    allTimeframes[name] = timeframe
+                } else {
+                    print("Error: Unable to create URL objects")
+                }
+            }
+            
+            completion(allTimeframes)
+        }
+    }
+
+
     
     // Fetch Geo-Challenges to display on map.
     func fetchChallenges(for db: Firestore) async {
@@ -205,12 +248,12 @@ extension UIImageView {
 
 
 extension UIImage {
-    static func animatedGif(from images: [UIImage], from imageDuration: Float) -> URL? {
+    static func animatedGif(from images: [UIImage], from imageDuration: Float, name: String) -> URL? {
         let fileProperties: CFDictionary = [kCGImagePropertyGIFDictionary as String: [kCGImagePropertyGIFLoopCount as String: 0]]  as CFDictionary
         let frameProperties: CFDictionary = [kCGImagePropertyGIFDictionary as String: [(kCGImagePropertyGIFDelayTime as String): imageDuration]] as CFDictionary
         
         let documentsDirectoryURL: URL? = try? FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
-        let fileURL: URL? = documentsDirectoryURL?.appendingPathComponent("animated.gif")
+        let fileURL: URL? = documentsDirectoryURL?.appendingPathComponent("\(name).gif")
         
         if let url = fileURL as CFURL? {
             if let destination = CGImageDestinationCreateWithURL(url, UTType.gif.identifier as CFString, images.count, nil) {

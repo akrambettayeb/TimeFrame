@@ -323,8 +323,10 @@ class EditProfileVC: UIViewController, UIImagePickerControllerDelegate, UINaviga
             let nameParts = displayName.split(separator: " ").map(String.init)
             let firstName = nameParts.first ?? ""
             let lastName = nameParts.dropFirst().joined(separator: " ")
+            let email = Auth.auth().currentUser?.email ?? ""
             
-            let userDict = ["username": username,
+            let userDict = ["email": email,
+                            "username": username,
                             "firstName": firstName,
                             "lastName": lastName]
             usersRef.child(userId).setValue(userDict) { error, _ in
@@ -372,7 +374,7 @@ class EditProfileVC: UIViewController, UIImagePickerControllerDelegate, UINaviga
                 // Clear locally cached albums and Timeframes
                 allAlbums = [String: [AlbumPhoto]]()
                 albumNames = [String]()
-                allTimeframes = [String: [UIImage]]()
+                allTimeframes = [String: TimeFrame]()
                 timeframeNames = [String]()
             } catch let signOutError as NSError {
                 self.errorAlert("Error signing out: \(signOutError)")
