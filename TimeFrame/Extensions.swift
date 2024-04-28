@@ -162,8 +162,6 @@ extension UIViewController {
         }
     }
 
-
-    
     // Fetch Geo-Challenges to display on map.
     func fetchChallenges(for db: Firestore) async {
         do {
@@ -226,8 +224,6 @@ extension UIViewController {
             print("Error getting documents: \(error)")
         }
     }
-    
-    // TODO: add function to fetch all TimeFrames
 }
 
 
@@ -259,7 +255,7 @@ extension UIImage {
             if let destination = CGImageDestinationCreateWithURL(url, UTType.gif.identifier as CFString, images.count, nil) {
                 CGImageDestinationSetProperties(destination, fileProperties)
                 for image in images {
-                    if let cgImage = image.fixOrientation().cgImage {
+                    if let cgImage = image.cgImage {
                         CGImageDestinationAddImage(destination, cgImage, frameProperties)
                     }
                 }

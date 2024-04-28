@@ -358,7 +358,6 @@ class MyProfileVC: UIViewController, ProfileChanger, UICollectionViewDataSource,
             if let indexPaths = imageGrid.indexPathsForSelectedItems {
                 let index = visibleAlbums.count - indexPaths[0].row - 1
                 nextVC.albumName = visibleAlbumNames[index]
-//                nextVC.cellImage = visibleAlbums[visibleAlbumName]?[0].image
                 imageGrid.deselectItem(at: indexPaths[0], animated: false)
             }
         }

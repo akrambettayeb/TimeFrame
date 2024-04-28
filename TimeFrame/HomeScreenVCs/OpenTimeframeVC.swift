@@ -52,12 +52,12 @@ class OpenTimeframeVC: UIViewController {
             if let imageData = try? Data(contentsOf: url),
                let source = CGImageSourceCreateWithData(imageData as CFData, nil) {
                 let count = CGImageSourceGetCount(source)
-                var images: [UIImage] = []
+                self.timeframeImages = [UIImage]()
 
                 for i in 0..<count {
                     if let cgImage = CGImageSourceCreateImageAtIndex(source, i, nil) {
                         let image = UIImage(cgImage: cgImage)
-                        images.append(image)
+                        self.timeframeImages.append(image)
                     }
                 }
 
@@ -65,7 +65,7 @@ class OpenTimeframeVC: UIViewController {
                     self.imageView.stopAnimating()
                     self.imageView.animationImages = nil
                     
-                    self.imageView.animationImages = images
+                    self.imageView.animationImages = self.timeframeImages
                     self.imageView.animationDuration = TimeInterval(speed)
                     self.imageView.startAnimating()
                 }
@@ -75,7 +75,13 @@ class OpenTimeframeVC: UIViewController {
     
     // Shares the TimeFrame as a GIF to the user's other apps when the "Share" button is tapped
     @IBAction func onShareTapped(_ sender: Any) {
-        let activityController = UIActivityViewController(activityItems: [timeframe.url], applicationActivities: nil)
+        var shareItem: Any = ""
+        if let imageData = try? Data(contentsOf: timeframe.url) {
+            shareItem = imageData
+        } else {
+            shareItem = timeframe.url
+        }
+        let activityController = UIActivityViewController(activityItems: [shareItem], applicationActivities: nil)
         present(activityController, animated: true, completion: nil)
     }
 }
