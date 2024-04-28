@@ -8,7 +8,6 @@
 import UIKit
 import FirebaseAuth
 import FirebaseDatabase
-import FirebaseAuth
 
 class DiscoverSearchViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate {
     @IBOutlet weak var tableView: UITableView!
@@ -22,16 +21,11 @@ class DiscoverSearchViewController: UIViewController, UITableViewDataSource, UIT
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.hideKeyboardWhenTappedAround()
         tableView.delegate = self
         tableView.dataSource = self
         searchBar.delegate = self
         ref = Database.database().reference()
         fetchCurrentUserUsername() // Fetch the current user's username
-<<<<<<< HEAD
-        loadAllUsers()
-=======
->>>>>>> af0d431e5b9317528a6ce6280c82c177d602b06b
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -55,21 +49,16 @@ class DiscoverSearchViewController: UIViewController, UITableViewDataSource, UIT
         tableView.reloadData()
     }
 
-<<<<<<< HEAD
-=======
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         searchBar.resignFirstResponder() // Dismiss the keyboard when the search button is clicked
     }
 
->>>>>>> af0d431e5b9317528a6ce6280c82c177d602b06b
     private func fetchCurrentUserUsername() {
         guard let userId = Auth.auth().currentUser?.uid else { return }
         
         ref.child("users").child(userId).observeSingleEvent(of: .value) { [weak self] snapshot in
             self?.currentUserUsername = (snapshot.value as? NSDictionary)?["username"] as? String ?? ""
             self?.loadAllUsers() // Re-load all users once the current username is fetched
-<<<<<<< HEAD
-=======
         }
     }
 
@@ -90,29 +79,8 @@ class DiscoverSearchViewController: UIViewController, UITableViewDataSource, UIT
             self.allUsers = loadedUsers
             self.users = loadedUsers.filter { $0 != self.currentUserUsername }
             self.tableView.reloadData()
->>>>>>> af0d431e5b9317528a6ce6280c82c177d602b06b
         }
     }
-    
-    private func loadAllUsers() {
-            ref.child("users").observeSingleEvent(of: .value) { snapshot in
-                var loadedUsers: [String] = []
-                self.userIds.removeAll()
-                for child in snapshot.children {
-                    if let snap = child as? DataSnapshot,
-                       let dict = snap.value as? [String: Any],
-                       let username = dict["username"] as? String {
-                        if username != self.currentUserUsername {
-                            loadedUsers.append(username)
-                        }
-                        self.userIds[username] = snap.key // Store the mapping of usernames to their user IDs
-                    }
-                }
-                self.allUsers = loadedUsers
-                self.users = loadedUsers.filter { $0 != self.currentUserUsername }
-                self.tableView.reloadData()
-            }
-        }
 
     private func searchUsers(searchText: String) {
         let lowercasedSearchText = searchText.lowercased()
