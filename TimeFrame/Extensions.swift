@@ -242,6 +242,7 @@ extension UIViewController {
                                 challengeImage = ChallengeImage(image: image, numViews: 1, numLikes: 0, numFlags: 0, hidden: false, capturedTimestamp: .now)
                             }
                         }
+                        challengeImage.url = photoURL
                     }
 
                     if let photoViews = photoDoc.data()["numViews"] as? Int {
