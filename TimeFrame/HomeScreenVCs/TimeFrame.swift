@@ -4,6 +4,9 @@
 //
 //  Created by Brandon Ling on 4/23/24.
 //
+// Project: TimeFrame
+// EID: bml2426
+// Course: CS371L
 
 import UIKit
 
