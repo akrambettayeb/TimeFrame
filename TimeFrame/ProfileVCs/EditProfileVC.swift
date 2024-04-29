@@ -268,7 +268,6 @@ class EditProfileVC: UIViewController, UIImagePickerControllerDelegate, UINaviga
         }
         let photoFileName = "\(userID).jpg"
         let storageRef =  Storage.storage().reference().child("users").child(userID).child(photoFileName)
-        print("Call to upload profile photo")
         storageRef.putData(imageData, metadata: nil) { [weak self] (metadata, error) in
             guard let self = self else {
                 self?.navigationController?.popViewController(animated: true)
@@ -279,7 +278,6 @@ class EditProfileVC: UIViewController, UIImagePickerControllerDelegate, UINaviga
             } else {
                 storageRef.downloadURL { (url, error) in
                     if let downloadURL = url?.absoluteString {
-                        print("ATTEMPT: save profile photo URL to Firestore")
                         self.saveProfilePhotoUrlToFirestore(from: downloadURL)
                     }
                 }
@@ -426,11 +424,12 @@ class EditProfileVC: UIViewController, UIImagePickerControllerDelegate, UINaviga
                 try Auth.auth().signOut()
                 self.view.window?.rootViewController?.dismiss(animated: true, completion: nil)
                 self.view.window?.rootViewController?.dismiss(animated: true, completion: nil)
-                // Clear locally cached albums and Timeframes
+                // Clear locally cached albums, TimeFrames, and profile pic
                 allAlbums = [String: [AlbumPhoto]]()
                 albumNames = [String]()
                 allTimeframes = [String: TimeFrame]()
                 timeframeNames = [String]()
+                profilePic = nil
             } catch let signOutError as NSError {
                 self.errorAlert("Error signing out: \(signOutError)")
             }

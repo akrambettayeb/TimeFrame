@@ -133,7 +133,9 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
             dispatchGroup.enter()
             self.fetchProfilePhoto(for: userID) { fetchedPhoto in
                 profilePic = fetchedPhoto
-                profileChanger.changePicture(fetchedPhoto!)
+                if fetchedPhoto != nil {
+                    profileChanger.changePicture(fetchedPhoto!)
+                }
                 dispatchGroup.leave()
             }
             
