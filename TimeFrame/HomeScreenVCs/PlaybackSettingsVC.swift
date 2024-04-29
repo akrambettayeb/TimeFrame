@@ -62,7 +62,7 @@ class PlaybackSettingsVC: UIViewController, UITextFieldDelegate {
     
     // Defines the speed options for the speed dropdown button
     func setSpeedDropdown() {
-        let allSpeeds = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "20", "30", "40", "50", "60", "70", "80", "90", "100"]
+        let allSpeeds = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "15", "20"]
         var speedItems: [UIMenuElement] = []
         for speed in allSpeeds {
             let speedTitle = "\(speed) FPS"
@@ -188,7 +188,7 @@ class PlaybackSettingsVC: UIViewController, UITextFieldDelegate {
 //                } else {
 //                    continue
 //                }
-                photosWithText.append(photo.image)
+                photosWithText.append(photo.image.fixOrientation())
             }
             nextVC.selectedPhotos = photosWithText
         }

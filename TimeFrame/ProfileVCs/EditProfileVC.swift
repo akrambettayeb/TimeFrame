@@ -83,34 +83,28 @@ class EditProfileVC: UIViewController, UIImagePickerControllerDelegate, UINaviga
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return allAlbums.count
+        return allTimeframes.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = imageGrid.dequeueReusableCell(withReuseIdentifier: imageCellID, for: indexPath) as! EditImageCell
-        let index = allAlbums.count - indexPath.row - 1
-        let albumName = albumNames[index]
-        let albumEmpty = allAlbums[albumName]!.isEmpty
-        var albumVisible = false
-        if !albumEmpty {
-            albumVisible = allAlbums[albumName]![0].profileVisible
-        }
+        let index = allTimeframes.count - indexPath.row - 1
+        let tfName = timeframeNames[index]
+        let timeframe = allTimeframes[tfName]!
+        let tfPublic = !(timeframe.isPrivate)
        
+        // Configure eye button for each cell signifying public/private Timeframes
         cell.visibleButton.setImage(UIImage(systemName: "eye.slash"), for: .normal)
         cell.visibleButton.setImage(UIImage(systemName: "eye.fill"), for: .selected)
-        cell.visibleButton.isSelected = albumVisible
+        cell.visibleButton.isSelected = tfPublic
         var config = UIButton.Configuration.plain()
         config.baseBackgroundColor = .clear
         cell.visibleButton.configuration = config
         
-        if albumEmpty {
-            cell.imageView.image = UIImage(systemName: "person.crop.rectangle.stack.fill")
-        } else {
-            cell.imageView.image = allAlbums[albumName]![0].image
-        }
+        cell.imageView.image = timeframe.thumbnail
         cell.grayImage = cell.grayscaleImage(cell.imageView.image!)
         cell.coloredImage = cell.imageView.image
-        if !albumVisible {
+        if !tfPublic {
             cell.imageView.image = cell.grayImage
         }
         return cell
@@ -221,18 +215,16 @@ class EditProfileVC: UIViewController, UIImagePickerControllerDelegate, UINaviga
         })
     }
     
-    func updateVisibleImagesArray() {
+    func updatePublicTfs() {
         for indexPath in imageGrid.indexPathsForVisibleItems {
             if let cell = imageGrid.cellForItem(at: indexPath) as? EditImageCell {
-                let index = allAlbums.count - indexPath.row - 1
-                let albumName = albumNames[index]
-                if !(allAlbums[albumName]!.isEmpty) {
-                    allAlbums[albumName]?[0].profileVisible = cell.visibleButton.isSelected
-                }
+                let index = allTimeframes.count - indexPath.row - 1
+                let tfName = timeframeNames[index]
+                allTimeframes[tfName]?.isPrivate = !(cell.visibleButton.isSelected)
             }
         }
     }
-    
+
     // Checks if text fields are valid, displays error message if invalid and saves profile changes if valid
     @IBAction func saveButtonPressed(_ sender: Any) {
         let displayName = displayNameTextField.text!
@@ -259,7 +251,7 @@ class EditProfileVC: UIViewController, UIImagePickerControllerDelegate, UINaviga
             let profileVC = delegate as! ProfileChanger
             profileVC.changeDisplayName(displayNameTextField.text!)
             profileVC.changeUsername(usernameTextField.text!)
-            updateVisibleImagesArray()
+            updatePublicTfs()
             // update in Firebase Authentication
             
             let user = Auth.auth().currentUser
