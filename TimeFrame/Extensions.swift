@@ -52,7 +52,7 @@ extension UIViewController {
     // Fetches photo data for a specific album and stores as a list of dictionaries
     func fetchPhotoData(for db: Firestore, for userID: String, for albumName: String, completion: @escaping ([AlbumPhoto]) -> Void) {
         var fetchedPhotoData: [AlbumPhoto] = []
-        db.collection("users").document(userID).collection("albums").document(albumName).collection("photos").getDocuments { (snapshot, error) in
+        db.collection("users").document(userID).collection("albums").document(albumName).collection("photos").order(by: "uploadDate", descending: false).getDocuments { (snapshot, error) in
             if let error = error {
                 print("Error fetching photos: \(error.localizedDescription)")
                 completion([])
@@ -157,13 +157,7 @@ extension UIViewController {
     }
     
     // Grab all of users TimeFrames from Firebase
-    func fetchAllTimeframesFromFirestore(for db: Firestore, completion: @escaping ([String: TimeFrame]) -> Void) {
-        guard let userID = Auth.auth().currentUser?.uid else {
-            print("User not authenticated")
-            completion([:])
-            return
-        }
-        
+    func fetchAllTimeframesFromFirestore(for userID: String, for db: Firestore, allTfs: Bool, completion: @escaping ([String: TimeFrame]) -> Void) {
         db.collection("users").document(userID).collection("timeframes").getDocuments { (snapshot, error) in
             if let error = error {
                 print("Error fetching timeframes: \(error.localizedDescription)")
@@ -182,10 +176,13 @@ extension UIViewController {
             
             for document in documents {
                 let data = document.data()
+                let isPrivate = data["isPrivate"] as? Bool ?? false
+                if isPrivate && !allTfs {
+                    continue
+                }
                 let name = data["name"] as? String ?? ""
                 let gifURLString = data["gifURL"] as? String ?? ""
                 let thumbnailURLString = data["thumbnailURL"] as? String ?? ""
-                let isPrivate = data["isPrivate"] as? Bool ?? false
                 let isFavorited = data["isFavorited"] as? Bool ?? false
                 let selectedSpeed = data["selectedSpeed"] as? Float ?? 0.0
                 

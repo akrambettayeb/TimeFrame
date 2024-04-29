@@ -91,8 +91,7 @@ class EditProfileVC: UIViewController, UIImagePickerControllerDelegate, UINaviga
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = imageGrid.dequeueReusableCell(withReuseIdentifier: imageCellID, for: indexPath) as! EditImageCell
-        let index = allTimeframes.count - indexPath.row - 1
-        let tfName = timeframeNames[index]
+        let tfName = timeframeNames[indexPath.row]
         let timeframe = allTimeframes[tfName]!
         let tfPublic = !(timeframe.isPrivate)
        
@@ -230,8 +229,7 @@ class EditProfileVC: UIViewController, UIImagePickerControllerDelegate, UINaviga
     func updatePublicTfs() {
         for indexPath in imageGrid.indexPathsForVisibleItems {
             if let cell = imageGrid.cellForItem(at: indexPath) as? EditImageCell {
-                let index = allTimeframes.count - indexPath.row - 1
-                let tfName = timeframeNames[index]
+                let tfName = timeframeNames[indexPath.row]
                 // Check if TimeFrame privacy changed
                 if cell.visibleButton.isSelected == allTimeframes[tfName]?.isPrivate {
                     let isPrivate = !(cell.visibleButton.isSelected)

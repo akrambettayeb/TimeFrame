@@ -264,8 +264,7 @@ class MyProfileVC: UIViewController, ProfileChanger, UICollectionViewDataSource,
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = imageGrid.dequeueReusableCell(withReuseIdentifier: imageCellID, for: indexPath) as! MyImageCell
-        let index = publicTimeframes.count - indexPath.row - 1
-        let tfName = publicTfNames[index]
+        let tfName = publicTfNames[indexPath.row]
         cell.imageViewCell.image = publicTimeframes[tfName]?.thumbnail
         return cell
     }
@@ -371,8 +370,7 @@ class MyProfileVC: UIViewController, ProfileChanger, UICollectionViewDataSource,
         } else if segue.identifier == "segueToViewImage",
            let nextVC = segue.destination as? ViewImageVC {
             if let indexPaths = imageGrid.indexPathsForSelectedItems {
-                let index = publicTimeframes.count - indexPaths[0].row - 1
-                nextVC.tfName = publicTfNames[index]
+                nextVC.tfName = publicTfNames[indexPaths[0].row]
                 imageGrid.deselectItem(at: indexPaths[0], animated: false)
             }
         }

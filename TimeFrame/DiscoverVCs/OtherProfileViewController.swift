@@ -9,7 +9,16 @@ import UIKit
 import FirebaseAuth
 import FirebaseDatabase
 
-class OtherProfileViewController: UIViewController {
+class OtherProfileCell: UICollectionViewCell {
+    @IBOutlet weak var imageView: UIImageView!
+}
+
+protocol UpdateCollectionView {
+    func updateCV()
+}
+
+class OtherProfileViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UpdateCollectionView {
+    
     @IBOutlet weak var fullnameLabel: UILabel!
     @IBOutlet weak var usernameLabel: UILabel!
     @IBOutlet weak var followButton: UIButton!
@@ -19,7 +28,11 @@ class OtherProfileViewController: UIViewController {
     @IBOutlet weak var followingCountButton: UIButton!
     @IBOutlet weak var followersCountButton: UIButton!
     @IBOutlet weak var countTimeFrameButton: UIButton!
-
+    @IBOutlet weak var collectionView: UICollectionView!
+    
+    var otherTimeframes: [String: TimeFrame] = [:]
+    var otherTfNames: [String] = []
+    
     var ref: DatabaseReference!
     var userProfileData: [String: Any]? {
         didSet {
@@ -48,6 +61,9 @@ class OtherProfileViewController: UIViewController {
         friendsLabel.isHidden = true
         fetchCurrentUserEmail()
         followButton.setTitle("Loading...", for: .normal)
+        
+        collectionView.delegate = self
+        collectionView.dataSource = self
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -62,6 +78,42 @@ class OtherProfileViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         setupFriendshipStatus()
+    }
+    
+    func updateCV() {
+        collectionView.reloadData()
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return otherTimeframes.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "OtherProfileCell", for: indexPath) as! OtherProfileCell
+        let tfName = otherTfNames[indexPath.row]
+        cell.imageView.image = otherTimeframes[tfName]?.thumbnail
+        return cell
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        let collectionWidth = collectionView.bounds.width
+        let cellSize = (collectionWidth - 5) / 3
+        let layout = UICollectionViewFlowLayout()
+        layout.itemSize = CGSize(width: cellSize, height: cellSize)
+        layout.minimumInteritemSpacing = 2
+        layout.minimumLineSpacing = 2
+        layout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+        collectionView.collectionViewLayout = layout
+    }
+    
+    // Defines layout when there is only 1 cell in the collection view
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+       if collectionView.numberOfItems(inSection: section) == 1 {
+           let flowLayout = collectionView.collectionViewLayout as! UICollectionViewFlowLayout
+           return UIEdgeInsets(top: 0, left: 0, bottom: 0, right: collectionView.frame.width - flowLayout.itemSize.width)
+       }
+       return UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
     }
     
     private func fetchCurrentUserEmail() {
@@ -286,7 +338,6 @@ class OtherProfileViewController: UIViewController {
             completion(usernames)
         }
     }
-
     
     private func updateAlert(withUsers users: [String], title: String) {
         let alert = UIAlertController(title: title, message: "Loading...", preferredStyle: .actionSheet)
@@ -328,5 +379,9 @@ class OtherProfileViewController: UIViewController {
         fetchCurrentUserEmail()
         setupFriendshipStatus()
         updateCounts()
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        // TODO: segue to new screen to open the TimeFrames
     }
 }
