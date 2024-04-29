@@ -82,7 +82,14 @@ class OtherProfileViewController: UIViewController, UICollectionViewDelegate, UI
     
     func updateCV() {
         collectionView.reloadData()
-    }
+        let attributes = countButtonAttributedTitleAttributes()
+        let count = otherTimeframes.count
+        DispatchQueue.main.async {
+            let followingAttributedTitle = NSAttributedString(string: "\(count)\nTimeFrames", attributes: attributes)
+            self.countTimeFrameButton.setAttributedTitle(followingAttributedTitle, for: .normal)
+            }
+        }
+    
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return otherTimeframes.count
