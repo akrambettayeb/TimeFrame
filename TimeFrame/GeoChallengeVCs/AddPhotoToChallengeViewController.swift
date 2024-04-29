@@ -114,7 +114,7 @@ class AddPhotoToChallengeViewController: UIViewController, UIImagePickerControll
         let challengeImage = ChallengeImage(image: previewView.image!, numViews: 1, numLikes: 0, numFlags: 0, hidden: false, capturedTimestamp: .now)
         
         // Add photo to challenge album in Firestore.
-        let photoRef = db.collection("geochallenges").document(self.challenge.challengeID).collection("album").addDocument(data: ["url": "", "numViews": 1, "numLikes": 0, "numFlags": 0, "hidden": false, "capturedTimestamp": Timestamp(date: challengeImage.capturedTimestamp)]) { [weak self] (error) in
+        let photoRef = db.collection("geochallenges").document(self.challenge.challengeID).collection("album").addDocument(data: [:]) { [weak self] (error) in
             if let error = error {
                 print("Error adding document: \(error.localizedDescription)")
             }
@@ -130,7 +130,9 @@ class AddPhotoToChallengeViewController: UIViewController, UIImagePickerControll
                 } else {
                     albumRef.downloadURL { (url, error) in
                         if let downloadURL = url?.absoluteString {
-                            self.saveImageUrlToFirestore(downloadURL: downloadURL, albumName: self.challenge.challengeID, photoID: photoRef.documentID)
+                            challengeImage.url = downloadURL
+                            challengeImage.documentID = photoRef.documentID
+                            self.saveImageUrlToFirestore(downloadURL: downloadURL, albumName: self.challenge.challengeID, photoID: photoRef.documentID, challengeImage: challengeImage)
                         }
                     }
                 }
@@ -144,8 +146,8 @@ class AddPhotoToChallengeViewController: UIViewController, UIImagePickerControll
         }
     }
     
-    func saveImageUrlToFirestore(downloadURL: String, albumName: String, photoID: String) {
-        db.collection("geochallenges").document(albumName).collection("album").document(photoID).setData(["url": downloadURL]) { [weak self] (error) in
+    func saveImageUrlToFirestore(downloadURL: String, albumName: String, photoID: String, challengeImage: ChallengeImage) {
+        db.collection("geochallenges").document(albumName).collection("album").document(photoID).setData(["url": downloadURL, "numViews": 1, "numLikes": 0, "numFlags": 0, "hidden": false, "capturedTimestamp": Timestamp(date: challengeImage.capturedTimestamp)]) { [weak self] (error) in
             if let error = error {
                 print("Error adding document: \(error.localizedDescription)")
             } else {

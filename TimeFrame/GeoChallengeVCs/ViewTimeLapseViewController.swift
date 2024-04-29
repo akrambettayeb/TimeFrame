@@ -9,6 +9,8 @@
 // Course: CS371L
 
 import UIKit
+import FirebaseFirestore
+import FirebaseStorage
 
 //TODO: update with user's new photo
 
@@ -16,10 +18,14 @@ class ViewTimeLapseViewController: UIViewController {
     
     @IBOutlet weak var timeFrameView: UIImageView!
     @IBOutlet weak var locationLabel: UILabel!
+    @IBOutlet weak var timeframeStatsLabel: UILabel!
+    @IBOutlet weak var likeButton: UIButton!
     
     var activeChallenge: Bool!
     var challenge: Challenge!
     var challengeImages: [UIImage]! = []
+    let db = Firestore.firestore()
+    let storage = Storage.storage()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -50,6 +56,26 @@ class ViewTimeLapseViewController: UIViewController {
         // Display initial image as thumbnail.
         timeFrameView.image = self.challenge.album[0].image
         locationLabel.text = self.challenge.name
+        
+        // Update number of views.
+        challenge.numViews += 1
+        updateChallenge()
+        
+        // Format number of views and likes.
+        let numberFormatter = NumberFormatter()
+        numberFormatter.numberStyle = .decimal
+        let viewString = numberFormatter.string(from: NSNumber(value: challenge.numViews))
+        let likeString = numberFormatter.string(from: NSNumber(value: challenge.numLikes))
+        timeframeStatsLabel.text = "\(viewString!) views, \(likeString!) likes"
+    }
+    
+    func updateChallenge() {
+        db.collection("geochallenges").document(self.challenge.challengeID).setData(["name": challenge.name!,
+            "coordinate": GeoPoint(latitude: challenge.coordinate.latitude, longitude: challenge.coordinate.longitude),
+            "startDate": Timestamp(date: challenge.startDate),
+            "endDate": Timestamp(date: challenge.endDate),
+            "numViews": challenge.numViews,
+            "numLikes": challenge.numLikes])
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -91,6 +117,38 @@ class ViewTimeLapseViewController: UIViewController {
         
         let activityController = UIActivityViewController(activityItems: [shareItem], applicationActivities: nil)
         present(activityController, animated: true, completion: nil)
+    }
+    
+    @IBAction func onLikeButtonPressed(_ sender: Any) {
+        if likeButton.imageView?.image == UIImage(systemName: "heart") {
+            // Update challenge image and label likes.
+            challenge.numLikes += 1
+            
+            // Format number of views and likes.
+            let numberFormatter = NumberFormatter()
+            numberFormatter.numberStyle = .decimal
+            let viewString = numberFormatter.string(from: NSNumber(value: challenge.numViews))
+            let likeString = numberFormatter.string(from: NSNumber(value: challenge.numLikes))
+            timeframeStatsLabel.text = "\(viewString!) views, \(likeString!) likes"
+            
+            // Update button image.
+            likeButton.setImage(UIImage(systemName: "heart.fill"), for: .normal)
+        } else {
+            // Update challenge image and label likes.
+            challenge.numLikes -= 1
+            
+            // Format number of views and likes.
+            let numberFormatter = NumberFormatter()
+            numberFormatter.numberStyle = .decimal
+            let viewString = numberFormatter.string(from: NSNumber(value: challenge.numViews))
+            let likeString = numberFormatter.string(from: NSNumber(value: challenge.numLikes))
+            timeframeStatsLabel.text = "\(viewString!) views, \(likeString!) likes"
+            
+            // Update button image.
+            likeButton.setImage(UIImage(systemName: "heart"), for: .normal)
+        }
+        
+        updateChallenge()
     }
 }
 

@@ -215,7 +215,7 @@ extension UIViewController {
             let geochallengeQuery = try await db.collection("geochallenges").getDocuments()
             challenges = []
             for document in geochallengeQuery.documents {
-                var newChallenge = Challenge (
+                let newChallenge = Challenge (
                     name: document.data()["name"] as! String,
                     coordinate: CLLocationCoordinate2D(latitude: (document.data()["coordinate"] as! GeoPoint).latitude, longitude: (document.data()["coordinate"] as! GeoPoint).longitude),
                     startDate: (document.data()["startDate"] as! Timestamp).dateValue(),
@@ -243,19 +243,19 @@ extension UIViewController {
                             }
                         }
                     }
-                    
+
                     if let photoViews = photoDoc.data()["numViews"] as? Int {
                         challengeImage.numViews = photoViews
                     }
-                    
+
                     if let photoLikes = photoDoc.data()["numLikes"] as? Int {
                         challengeImage.numLikes = photoLikes
                     }
-                    
+
                     if let photoFlags = photoDoc.data()["numFlags"] as? Int {
                         challengeImage.numFlags = photoFlags
                     }
-                    
+
                     if let photoHidden = photoDoc.data()["hidden"] as? Bool {
                         challengeImage.hidden = photoHidden
                     }
@@ -263,6 +263,8 @@ extension UIViewController {
                     if let timestamp = photoDoc.data()["capturedTimestamp"] as? Timestamp {
                         challengeImage.capturedTimestamp = timestamp.dateValue()
                     }
+                    
+                    challengeImage.documentID = photoDoc.documentID
                     album.append(challengeImage)
                 }
                 

@@ -9,6 +9,8 @@
 // Course: CS371L
 
 import UIKit
+import FirebaseFirestore
+import FirebaseStorage
 
 class PhotoStreamViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
     
@@ -16,6 +18,9 @@ class PhotoStreamViewController: UIViewController, UICollectionViewDelegate, UIC
     
     var challenge: Challenge!
     let cellID = "photoStreamCell"
+    var selectedImageIndex: Int!
+    let db = Firestore.firestore()
+    let storage = Storage.storage()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -44,11 +49,29 @@ class PhotoStreamViewController: UIViewController, UICollectionViewDelegate, UIC
     
     // Create album cell.
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellID, for: indexPath) as! ChallengeAlbumCell
+        // TODO: update number of views
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellID, for: indexPath) as! PhotoStreamCell
         
         // Set image in cell.
         cell.imageView.image = challenge.album[indexPath.row].image
         cell.image = challenge.album[indexPath.row].image
+        cell.challenge = challenge
+        cell.challengeImage = challenge.album[indexPath.row]
+        
+        // Update view count.
+        cell.challengeImage.numViews += 1
+        updateChallengeImage(challengeImage: cell.challengeImage)
+        
+        // Format number of views and likes.
+        let numberFormatter = NumberFormatter()
+        numberFormatter.numberStyle = .decimal
+        let viewString = numberFormatter.string(from: NSNumber(value: cell.challengeImage.numViews))
+        let likeString = numberFormatter.string(from: NSNumber(value: cell.challengeImage.numLikes))
+        cell.photoStatsLabel.text = "\(viewString!) views, \(likeString!) likes"
+        
+        // Format date captured.
+        cell.dateLabel.text = getDateString(date: cell.challengeImage.capturedTimestamp)
+        cell.delegate = self
         
         return cell
     }
@@ -56,18 +79,23 @@ class PhotoStreamViewController: UIViewController, UICollectionViewDelegate, UIC
     // Limit collection view to 3 photos per row.
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        
-        let layout = UICollectionViewFlowLayout()
-        
-        // Calculate width of cells.
         let collectionWidth = collectionView.bounds.width
-        let cellSize = (collectionWidth - (5 * 3)) / 3 // 3 rows with 10 distance.
-        
-        layout.itemSize = CGSize(width: cellSize, height: cellSize)
+        let layout = UICollectionViewFlowLayout()
+        layout.itemSize = CGSize(width: collectionWidth, height: 540)
         layout.minimumInteritemSpacing = 5
         layout.minimumLineSpacing = 5
-        layout.sectionInset = UIEdgeInsets(top: 2.5, left: 2.5, bottom: 2.5, right: 2.5)
-        
+        layout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         collectionView.collectionViewLayout = layout
+        
+        // Initially scroll to selected image in challenge.
+        collectionView.scrollToItem(at: IndexPath(row: selectedImageIndex!, section: 0), at: .top, animated: true)
+    }
+    
+    func updateChallengeImage(challengeImage: ChallengeImage) { db.collection("geochallenges").document(self.challenge.challengeID).collection("album").document(challengeImage.documentID!).setData([:])
+        
+        let storageRef = storage.reference().child("geochallenges")
+        let albumRef = storageRef.child(self.challenge.challengeID + "/" + challengeImage.documentID!)
+        
+        db.collection("geochallenges").document(self.challenge.challengeID).collection("album").document(challengeImage.documentID!).setData(["url": challengeImage.url, "numViews": challengeImage.numViews, "numLikes": challengeImage.numLikes, "numFlags": challengeImage.numFlags, "hidden": challengeImage.hidden, "capturedTimestamp": Timestamp(date: challengeImage.capturedTimestamp)])
     }
 }

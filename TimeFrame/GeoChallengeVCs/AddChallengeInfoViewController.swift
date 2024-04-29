@@ -84,7 +84,7 @@ class AddChallengeInfoViewController: UIViewController, UITextFieldDelegate, Upd
 
             print("Document added with ID: \(ref.documentID)")
             
-            let photoRef = db.collection("geochallenges").document(ref.documentID).collection("album").addDocument(data: ["url": "", "numViews": 1, "numLikes": 0, "numFlags": 0, "hidden": false, "capturedTimestamp": Timestamp(date: challengeImage.capturedTimestamp)]) { [weak self] (error) in
+            let photoRef = db.collection("geochallenges").document(ref.documentID).collection("album").addDocument(data: [:]) { [weak self] (error) in
                 if let error = error {
                     print("Error adding document: \(error.localizedDescription)")
                 }
@@ -100,7 +100,8 @@ class AddChallengeInfoViewController: UIViewController, UITextFieldDelegate, Upd
                     } else {
                         albumRef.downloadURL { (url, error) in
                             if let downloadURL = url?.absoluteString {
-                                self.saveImageUrlToFirestore(downloadURL: downloadURL, albumName: ref.documentID, photoID: photoRef.documentID)
+                                challengeImage.url = downloadURL
+                                self.saveImageUrlToFirestore(downloadURL: downloadURL, albumName: ref.documentID, photoID: photoRef.documentID, challengeImage: challengeImage)
                             }
                         }
                     }
@@ -115,8 +116,8 @@ class AddChallengeInfoViewController: UIViewController, UITextFieldDelegate, Upd
         }
     }
     
-    func saveImageUrlToFirestore(downloadURL: String, albumName: String, photoID: String) {
-        db.collection("geochallenges").document(albumName).collection("album").document(photoID).setData(["url": downloadURL]) { [weak self] (error) in
+    func saveImageUrlToFirestore(downloadURL: String, albumName: String, photoID: String, challengeImage: ChallengeImage) {
+        db.collection("geochallenges").document(albumName).collection("album").document(photoID).setData(["url": downloadURL, "numViews": 1, "numLikes": 0, "numFlags": 0, "hidden": false, "capturedTimestamp": Timestamp(date: challengeImage.capturedTimestamp)]) { [weak self] (error) in
             if let error = error {
                 print("Error adding document: \(error.localizedDescription)")
             } else {
