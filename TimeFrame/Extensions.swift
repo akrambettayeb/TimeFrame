@@ -81,13 +81,13 @@ extension UIViewController {
     }
     
     func fetchPhotoFromURL(_ photoURL: String) -> UIImage {
-            if let url = URL(string: photoURL),
-               let imageData = try? Data(contentsOf: url) {
-                let image = UIImage(data: imageData)
-                return (image?.fixOrientation())!
-            }
-            return UIImage(systemName: "person.crop.rectangle.stack.fill")!
+        if let url = URL(string: photoURL),
+           let imageData = try? Data(contentsOf: url) {
+            let image = UIImage(data: imageData)
+            return (image?.fixOrientation())!
         }
+        return UIImage(systemName: "person.crop.rectangle.stack.fill")!
+    }
     
     // Fetches photo URLs across all of the user's albums and stores the result as a dictionary
     func fetchAllAlbums(for db: Firestore, completion: @escaping ([String: [AlbumPhoto]]) -> Void) {
@@ -219,9 +219,38 @@ extension UIViewController {
                 challenges.append(newChallenge)
                 
             }
-                                  
+        
         } catch {
             print("Error getting documents: \(error)")
+        }
+    }
+    
+    func fetchProfilePhoto(for userID: String, completion: @escaping (UIImage?) -> Void) {
+        let db = Firestore.firestore()
+        let userRef = db.collection("users").document(userID)
+        userRef.getDocument { (documentSnapshot, error) in
+            if let error = error {
+                print("Unable to fetch document, \(error)")
+                completion(nil)
+                return
+            }
+            guard let document = documentSnapshot, document.exists else {
+                print("Document does not exist. ")
+                completion(nil)
+                return
+            }
+            guard let profileURL = document.data()?["profilePhotoURL"] as? String else {
+                print("Unable to retrieve profilePhotoURL for user \(userID). ")
+                completion(nil)
+                return
+            }
+            if let url = URL(string: profileURL),
+               let imageData = try? Data(contentsOf: url) {
+                let image = UIImage(data: imageData)
+                completion(image?.fixOrientation())
+            } else {
+                completion(nil)
+            }
         }
     }
 }
