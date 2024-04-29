@@ -16,7 +16,8 @@ import FirebaseFirestore
 
 class EditProfileVC: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     
-    // TODO: ask for permissions for camera and photo library
+    let ref = Database.database().reference()
+    let db = Firestore.firestore()
     
     // Data from Profile screen
     var delegate: UIViewController!
@@ -94,8 +95,8 @@ class EditProfileVC: UIViewController, UIImagePickerControllerDelegate, UINaviga
         let tfPublic = !(timeframe.isPrivate)
        
         // Configure eye button for each cell signifying public/private Timeframes
-        cell.visibleButton.setImage(UIImage(systemName: "eye.slash"), for: .normal)
-        cell.visibleButton.setImage(UIImage(systemName: "eye.fill"), for: .selected)
+        cell.visibleButton.setImage(UIImage(systemName: "eye.slash"), for: .normal)  // private
+        cell.visibleButton.setImage(UIImage(systemName: "eye.fill"), for: .selected) // public
         cell.visibleButton.isSelected = tfPublic
         var config = UIButton.Configuration.plain()
         config.baseBackgroundColor = .clear
@@ -115,12 +116,43 @@ class EditProfileVC: UIViewController, UIImagePickerControllerDelegate, UINaviga
         return 2.0
     }
     
-    // Sets cell size
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let numCells = 3.0
-        let viewWidth = collectionView.bounds.width - (numCells - 1) * 2.0
-        let cellSize = viewWidth / numCells - 0.01
-        return CGSize(width: cellSize, height: cellSize)
+//    // Sets cell size
+//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+//        let numCells = 3.0
+//        let viewWidth = collectionView.bounds.width - (numCells - 1) * 2.0
+//        let cellSize = viewWidth / numCells - 0.01
+//        return CGSize(width: cellSize, height: cellSize)
+//    }
+//    
+//    // Defines layout when there is only 1 cell in the collection view
+//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+//       if collectionView.numberOfItems(inSection: section) == 1 {
+//            let flowLayout = collectionViewLayout as! UICollectionViewFlowLayout
+//           return UIEdgeInsets(top: 0, left: 0, bottom: 0, right: collectionView.frame.width - flowLayout.itemSize.width)
+//       }
+//       return UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+//    }
+    
+    // Defines layout for the collection view
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        let collectionWidth = imageGrid.bounds.width
+        let cellSize = (collectionWidth - 5) / 3
+        let layout = UICollectionViewFlowLayout()
+        layout.itemSize = CGSize(width: cellSize, height: cellSize)
+        layout.minimumInteritemSpacing = 2
+        layout.minimumLineSpacing = 2
+        layout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+        imageGrid.collectionViewLayout = layout
+    }
+    
+    // Defines layout when there is only 1 cell in the collection view
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+       if collectionView.numberOfItems(inSection: section) == 1 {
+           let flowLayout = collectionView.collectionViewLayout as! UICollectionViewFlowLayout
+           return UIEdgeInsets(top: 0, left: 0, bottom: 0, right: collectionView.frame.width - flowLayout.itemSize.width)
+       }
+       return UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
     }
     
     // Displays an action sheet with 3 options: Take Picture, Choose from Library, Cancel
@@ -207,7 +239,7 @@ class EditProfileVC: UIViewController, UIImagePickerControllerDelegate, UINaviga
         }
         
         // unique username check
-        let usersRef = Database.database().reference().child("users")
+        let usersRef = ref.child("users")
         usersRef.observeSingleEvent(of: .value, with: { snapshot in
             if snapshot.hasChild(username) {
                 self.errorMessage = "Username is already taken"
@@ -216,11 +248,27 @@ class EditProfileVC: UIViewController, UIImagePickerControllerDelegate, UINaviga
     }
     
     func updatePublicTfs() {
+        let userID = Auth.auth().currentUser?.uid
+        
         for indexPath in imageGrid.indexPathsForVisibleItems {
             if let cell = imageGrid.cellForItem(at: indexPath) as? EditImageCell {
                 let index = allTimeframes.count - indexPath.row - 1
                 let tfName = timeframeNames[index]
-                allTimeframes[tfName]?.isPrivate = !(cell.visibleButton.isSelected)
+                // Check if TimeFrame privacy changed
+                if cell.visibleButton.isSelected == allTimeframes[tfName]?.isPrivate {
+                    let isPrivate = !(cell.visibleButton.isSelected)
+                    allTimeframes[tfName]?.isPrivate = isPrivate
+                    if userID != nil {
+                        let timeframeRef = db.collection("users").document(userID!).collection("timeframes").document(tfName)
+                        timeframeRef.updateData([
+                            "isPrivate": isPrivate
+                        ]) { (error) in
+                            if let error = error {
+                                print("Error updating timeframe \(tfName): \(error.localizedDescription)")
+                            }
+                        }
+                    }
+                }
             }
         }
     }
@@ -252,8 +300,8 @@ class EditProfileVC: UIViewController, UIImagePickerControllerDelegate, UINaviga
             profileVC.changeDisplayName(displayNameTextField.text!)
             profileVC.changeUsername(usernameTextField.text!)
             updatePublicTfs()
-            // update in Firebase Authentication
             
+            // update in Firebase Authentication
             let user = Auth.auth().currentUser
 
             // if password is not different, proceed to reauthenticate then update password
@@ -310,7 +358,7 @@ class EditProfileVC: UIViewController, UIImagePickerControllerDelegate, UINaviga
             // Update username and display name in firebase database
             
             let userId = Auth.auth().currentUser!.uid
-            let usersRef = Database.database().reference().child("users")
+            let usersRef = ref.child("users")
             
             let nameParts = displayName.split(separator: " ").map(String.init)
             let firstName = nameParts.first ?? ""
@@ -423,7 +471,7 @@ class EditProfileVC: UIViewController, UIImagePickerControllerDelegate, UINaviga
         let firestore = Firestore.firestore()
         let userDocRef = firestore.collection("users").document(uid)
         // First, delete the documents in the subcollections
-        userDocRef.collection("albums").getDocuments { (querySnapshot, error) in
+        userDocRef.collection("albums").getDocuments { [self] (querySnapshot, error) in
             guard let querySnapshot = querySnapshot else {
                 self.errorAlert("Error fetching subcollection documents: \(error!)")
                 return
@@ -449,7 +497,7 @@ class EditProfileVC: UIViewController, UIImagePickerControllerDelegate, UINaviga
                 }
         }
             // Delete data from Realtime Database
-            let realtimeRef = Database.database().reference().child("users").child(uid)
+            let realtimeRef = ref.child("users").child(uid)
             realtimeRef.removeValue { error, _ in
                 if let error = error {
                     self.errorAlert("Error deleting account from Realtime Database: \(error)")

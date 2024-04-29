@@ -97,7 +97,7 @@
                                                     <rect key="frame" x="0.0" y="0.0" width="117" height="117"/>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7mT-HI-7Ed">
-                                                    <rect key="frame" x="0.0" y="119" width="117.33333333333333" height="17"/>
+                                                    <rect key="frame" x="0.0" y="119" width="117" height="17"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="117" id="SWW-xh-9nP"/>
                                                         <constraint firstAttribute="height" constant="17" id="nBH-AA-1aZ"/>
@@ -736,8 +736,8 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="VFh-q9-J7D"/>
-        <segue reference="Kob-Sx-cmk"/>
+        <segue reference="r6b-qa-pyF"/>
+        <segue reference="THo-LR-zhS"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="chevron.forward" catalog="system" width="97" height="128"/>
