@@ -29,7 +29,7 @@
                                 </connections>
                             </mapView>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zNO-TT-0my">
-                                <rect key="frame" x="327" y="116" width="50" height="50"/>
+                                <rect key="frame" x="16" y="120" width="50" height="50"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="filled" image="arrow.clockwise.icloud.fill" catalog="system" cornerStyle="capsule">
@@ -195,7 +195,7 @@ Challenge Dates:    12/24/24 - 12/24/25</string>
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="challengeAlbumCell" id="L78-Wy-sRW" customClass="ChallengeAlbumCell">
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="challengeAlbumCell" id="L78-Wy-sRW" customClass="ChallengeAlbumCell" customModule="TimeFrame" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="127.99999999999997" height="128"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="eQm-qN-9In">
@@ -227,6 +227,7 @@ Challenge Dates:    12/24/24 - 12/24/25</string>
                     <connections>
                         <outlet property="collectionView" destination="bRz-W6-1OQ" id="LYN-9E-BGJ"/>
                         <outlet property="locationLabel" destination="ZrZ-Nu-onc" id="nTl-Vp-eFS"/>
+                        <segue destination="dPS-eK-K2b" kind="presentation" identifier="albumToStreamSegue" modalPresentationStyle="fullScreen" id="phf-3d-Mkg"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JPW-jf-noZ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -241,8 +242,9 @@ Challenge Dates:    12/24/24 - 12/24/25</string>
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="M6f-4y-I27">
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="M6f-4y-I27">
                                 <rect key="frame" x="0.0" y="60" width="50" height="35"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="tintColor" name="TabBarPurple"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" image="arrow.left" catalog="system"/>
@@ -250,8 +252,9 @@ Challenge Dates:    12/24/24 - 12/24/25</string>
                                     <action selector="onBackButtonPressed:" destination="dPS-eK-K2b" eventType="touchUpInside" id="YhC-oR-6Kl"/>
                                 </connections>
                             </button>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="wcR-DA-ooW">
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="wcR-DA-ooW">
                                 <rect key="frame" x="0.0" y="103" width="393" height="715"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="DAe-Nc-gaA">
                                     <size key="itemSize" width="371" height="307"/>
@@ -272,31 +275,52 @@ Challenge Dates:    12/24/24 - 12/24/25</string>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="1,234,567 views, 123,456 likes" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qgY-Yf-8WZ">
-                                                    <rect key="frame" x="8" y="505" width="232" height="21"/>
+                                                    <rect key="frame" x="8" y="505" width="300" height="21"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NyC-rB-jy4">
-                                                    <rect key="frame" x="334" y="505" width="51" height="35"/>
+                                                    <rect key="frame" x="336" y="498" width="49" height="35"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <state key="normal" title="Button"/>
-                                                    <buttonConfiguration key="configuration" style="plain" image="heart" catalog="system"/>
+                                                    <buttonConfiguration key="configuration" style="plain" image="flag" catalog="system">
+                                                        <color key="baseForegroundColor" systemColor="labelColor"/>
+                                                    </buttonConfiguration>
+                                                    <connections>
+                                                        <action selector="onFlagButtonPressed:" destination="J27-Sb-xKo" eventType="touchUpInside" id="3u6-a4-7zf"/>
+                                                    </connections>
                                                 </button>
                                                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NL5-KW-voy">
-                                                    <rect key="frame" x="301" y="505" width="49" height="35"/>
+                                                    <rect key="frame" x="301" y="498" width="51" height="35"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <state key="normal" title="Button"/>
-                                                    <buttonConfiguration key="configuration" style="plain" image="flag" catalog="system"/>
+                                                    <buttonConfiguration key="configuration" style="plain" image="heart" catalog="system">
+                                                        <color key="baseForegroundColor" systemColor="labelColor"/>
+                                                    </buttonConfiguration>
+                                                    <connections>
+                                                        <action selector="onLikeButtonPressed:" destination="J27-Sb-xKo" eventType="touchUpInside" id="Y7u-yo-vWW"/>
+                                                    </connections>
                                                 </button>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="12/12/12" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="D97-bc-XnA">
+                                                    <rect key="frame" x="176" y="8" width="195" height="21"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
                                             </subviews>
                                         </collectionViewCellContentView>
                                         <size key="customSize" width="393" height="540"/>
                                         <connections>
+                                            <outlet property="dateLabel" destination="D97-bc-XnA" id="IBd-ws-tdr"/>
+                                            <outlet property="flagButton" destination="NyC-rB-jy4" id="Spy-0d-OVL"/>
                                             <outlet property="imageView" destination="q0e-XW-MmQ" id="XeZ-SY-v79"/>
+                                            <outlet property="likeButton" destination="NL5-KW-voy" id="iod-fC-yfQ"/>
+                                            <outlet property="photoStatsLabel" destination="qgY-Yf-8WZ" id="NqK-df-TY1"/>
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
@@ -304,12 +328,6 @@ Challenge Dates:    12/24/24 - 12/24/25</string>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="mja-GG-sJh"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                        <constraints>
-                            <constraint firstItem="wcR-DA-ooW" firstAttribute="leading" secondItem="mja-GG-sJh" secondAttribute="leading" id="UzB-3H-tzT"/>
-                            <constraint firstItem="mja-GG-sJh" firstAttribute="trailing" secondItem="wcR-DA-ooW" secondAttribute="trailing" id="dmn-Xh-EOb"/>
-                            <constraint firstItem="wcR-DA-ooW" firstAttribute="top" secondItem="M6f-4y-I27" secondAttribute="bottom" id="hvg-CB-CqM"/>
-                            <constraint firstItem="mja-GG-sJh" firstAttribute="bottom" secondItem="wcR-DA-ooW" secondAttribute="bottom" id="xAd-Ye-sGQ"/>
-                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="TA3-pK-x2W"/>
                     <connections>
@@ -332,15 +350,8 @@ Challenge Dates:    12/24/24 - 12/24/25</string>
                                 <rect key="frame" x="0.0" y="103" width="393" height="497"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="3/16/24" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OaP-ne-jOl">
-                                <rect key="frame" x="314" y="119" width="63" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="1,234,567 views, 123,456 likes" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TRU-SQ-8pU">
-                                <rect key="frame" x="16" y="608" width="232" height="21"/>
+                                <rect key="frame" x="16" y="608" width="329" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
@@ -352,8 +363,11 @@ Challenge Dates:    12/24/24 - 12/24/25</string>
                                 <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" image="heart" catalog="system">
-                                    <color key="baseForegroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <color key="baseForegroundColor" systemColor="labelColor"/>
                                 </buttonConfiguration>
+                                <connections>
+                                    <action selector="onLikeButtonPressed:" destination="H6q-rD-csP" eventType="touchUpInside" id="tjx-gd-vkF"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yds-23-66e">
                                 <rect key="frame" x="16" y="644" width="361" height="35"/>
@@ -418,8 +432,10 @@ Challenge Dates:    12/24/24 - 12/24/25</string>
                     </view>
                     <navigationItem key="navigationItem" id="BIH-1H-f8f"/>
                     <connections>
+                        <outlet property="likeButton" destination="J1u-SB-v9g" id="840-zq-rWT"/>
                         <outlet property="locationLabel" destination="JIM-Le-iV4" id="5Dl-yO-mTk"/>
                         <outlet property="timeFrameView" destination="yJy-Ua-ygk" id="aXQ-d3-G9v"/>
+                        <outlet property="timeframeStatsLabel" destination="TRU-SQ-8pU" id="9ue-8x-KlL"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="DEi-vh-yQ3" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -856,6 +872,9 @@ Challenge Dates:    12/24/24 - 12/24/25</string>
         <namedColor name="TabBarPurple">
             <color red="0.5690000057220459" green="0.32499998807907104" blue="0.69800001382827759" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
+        <systemColor name="labelColor">
+            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

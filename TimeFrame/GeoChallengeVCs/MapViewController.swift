@@ -28,6 +28,8 @@ import FirebaseAuth
 // TODO: add firestore support for existing challenges
 // TODO: page view controller for screens from popovers
 // TODO: fix album preview images (index) and sorting
+// TODO: add notification for successfully creating/adding to challenge
+
 
 // TODO: sort albums by date taken
 
@@ -67,7 +69,7 @@ class MapViewController: UIViewController, UIPopoverPresentationControllerDelega
             
             // Present challenges.
             for challenge in challenges {
-                var pin = MapPin(coordinate: challenge.coordinate, challenge: challenge)
+                let pin = MapPin(coordinate: challenge.coordinate, challenge: challenge)
                 mapView.addAnnotation(pin)
             }
             
@@ -79,6 +81,7 @@ class MapViewController: UIViewController, UIPopoverPresentationControllerDelega
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        // TODO: make sure purple pin shows up
         super.viewWillAppear(animated)
         
         // Present challenges.

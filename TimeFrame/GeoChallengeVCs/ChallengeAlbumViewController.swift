@@ -13,7 +13,7 @@ import UIKit
 // TODO: update with photo we added
 // TODO: connect to photo stream
 
-class ChallengeAlbumViewController: UIViewController /*UICollectionViewDelegate, UICollectionViewDataSource*/ {
+class ChallengeAlbumViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
 
     @IBOutlet weak var locationLabel: UILabel!
     @IBOutlet weak var collectionView: UICollectionView!
@@ -21,13 +21,14 @@ class ChallengeAlbumViewController: UIViewController /*UICollectionViewDelegate,
     var activeChallenge: Bool!
     var challenge: Challenge!
     let cellID = "challengeAlbumCell"
-    let cellSegue = "photoToStreamSegue"
+    let cellSegue = "albumToStreamSegue"
+    var selectedImageIndex: Int!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        //collectionView.delegate = self
-        //collectionView.dataSource = self
+        collectionView.delegate = self
+        collectionView.dataSource = self
 
         setCustomBackImage()
     }
@@ -41,45 +42,50 @@ class ChallengeAlbumViewController: UIViewController /*UICollectionViewDelegate,
         collectionView.reloadData()
     }
     
-//    // Return the number of photos in app album.
-//    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-//        return challenge.album.count
-//    }
-//    
-//    // Create album cell.
-//    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-//        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellID, for: indexPath) as! ChallengeAlbumCell
-//        
-//        // Set image in cell.
-//        cell.imageView.image = challenge.album[indexPath.row].image
-//        cell.image = challenge.album[indexPath.row].image
-//        
-//        return cell
-//    }
+    // Return the number of photos in app album.
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return challenge.album.count
+    }
     
-//    // Limit collection view to 3 photos per row.
-//    override func viewDidLayoutSubviews() {
-//        super.viewDidLayoutSubviews()
-//        
-//        let layout = UICollectionViewFlowLayout()
-//        
-//        // Calculate width of cells.
-//        let collectionWidth = collectionView.bounds.width
-//        let cellSize = (collectionWidth - (5 * 3)) / 3 // 3 rows with 10 distance.
-//        
-//        layout.itemSize = CGSize(width: cellSize, height: cellSize)
-//        layout.minimumInteritemSpacing = 5
-//        layout.minimumLineSpacing = 5
-//        layout.sectionInset = UIEdgeInsets(top: 2.5, left: 2.5, bottom: 2.5, right: 2.5)
-//        
-//        collectionView.collectionViewLayout = layout
-//    }
+    // Create album cell.
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellID, for: indexPath) as! ChallengeAlbumCell
+        
+        // Set image in cell.
+        cell.imageView.image = challenge.album[indexPath.row].image
+        cell.challengeImage = challenge.album[indexPath.row]
+        cell.image = challenge.album[indexPath.row].image
+        
+        return cell
+    }
+    
+    // Limit collection view to 3 photos per row.
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        let collectionWidth = collectionView.bounds.width
+        let cellSize = (collectionWidth - 11) / 3
+        let layout = UICollectionViewFlowLayout()
+        layout.itemSize = CGSize(width: cellSize, height: cellSize)
+        layout.minimumInteritemSpacing = 5
+        layout.minimumLineSpacing = 5
+        layout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+        collectionView.collectionViewLayout = layout
+    }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "addToAlbumSegue",
            let destination = segue.destination as? AddPhotoToChallengeViewController {
             destination.challenge = self.challenge
+        } else if segue.identifier == cellSegue,
+                  let destination = segue.destination as? PhotoStreamViewController {
+            destination.challenge = self.challenge
+            destination.selectedImageIndex = self.selectedImageIndex
         }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        self.selectedImageIndex = indexPath.row
+        performSegue(withIdentifier: cellSegue, sender: self)
     }
     
     @IBAction func onBackButtonPressed(_ sender: Any) {
