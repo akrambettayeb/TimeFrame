@@ -12,11 +12,14 @@
 import UIKit
 import FirebaseAuth
 import FirebaseDatabase
+import FirebaseStorage
 import FirebaseFirestore
 
 class EditProfileVC: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     
-    // TODO: ask for permissions for camera and photo library
+    let ref = Database.database().reference()
+    let db = Firestore.firestore()
+    let userID = Auth.auth().currentUser!.uid
     
     // Data from Profile screen
     var delegate: UIViewController!
@@ -83,50 +86,53 @@ class EditProfileVC: UIViewController, UIImagePickerControllerDelegate, UINaviga
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return allAlbums.count
+        return allTimeframes.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = imageGrid.dequeueReusableCell(withReuseIdentifier: imageCellID, for: indexPath) as! EditImageCell
-        let index = allAlbums.count - indexPath.row - 1
-        let albumName = albumNames[index]
-        let albumEmpty = allAlbums[albumName]!.isEmpty
-        var albumVisible = false
-        if !albumEmpty {
-            albumVisible = allAlbums[albumName]![0].profileVisible
-        }
+        let index = allTimeframes.count - indexPath.row - 1
+        let tfName = timeframeNames[index]
+        let timeframe = allTimeframes[tfName]!
+        let tfPublic = !(timeframe.isPrivate)
        
-        cell.visibleButton.setImage(UIImage(systemName: "eye.slash"), for: .normal)
-        cell.visibleButton.setImage(UIImage(systemName: "eye.fill"), for: .selected)
-        cell.visibleButton.isSelected = albumVisible
+        // Configure eye button for each cell signifying public/private Timeframes
+        cell.visibleButton.setImage(UIImage(systemName: "eye.slash"), for: .normal)  // private
+        cell.visibleButton.setImage(UIImage(systemName: "eye.fill"), for: .selected) // public
+        cell.visibleButton.isSelected = tfPublic
         var config = UIButton.Configuration.plain()
         config.baseBackgroundColor = .clear
         cell.visibleButton.configuration = config
         
-        if albumEmpty {
-            cell.imageView.image = UIImage(systemName: "person.crop.rectangle.stack.fill")
-        } else {
-            cell.imageView.image = allAlbums[albumName]![0].image
-        }
+        cell.imageView.image = timeframe.thumbnail
         cell.grayImage = cell.grayscaleImage(cell.imageView.image!)
         cell.coloredImage = cell.imageView.image
-        if !albumVisible {
+        if !tfPublic {
             cell.imageView.image = cell.grayImage
         }
         return cell
     }
-
-    // Sets minimum spacing between cells
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-        return 2.0
+    
+    // Defines layout for the collection view
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        let collectionWidth = imageGrid.bounds.width
+        let cellSize = (collectionWidth - 5) / 3
+        let layout = UICollectionViewFlowLayout()
+        layout.itemSize = CGSize(width: cellSize, height: cellSize)
+        layout.minimumInteritemSpacing = 2
+        layout.minimumLineSpacing = 2
+        layout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+        imageGrid.collectionViewLayout = layout
     }
     
-    // Sets cell size
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let numCells = 3.0
-        let viewWidth = collectionView.bounds.width - (numCells - 1) * 2.0
-        let cellSize = viewWidth / numCells - 0.01
-        return CGSize(width: cellSize, height: cellSize)
+    // Defines layout when there is only 1 cell in the collection view
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+       if collectionView.numberOfItems(inSection: section) == 1 {
+           let flowLayout = collectionView.collectionViewLayout as! UICollectionViewFlowLayout
+           return UIEdgeInsets(top: 0, left: 0, bottom: 0, right: collectionView.frame.width - flowLayout.itemSize.width)
+       }
+       return UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
     }
     
     // Displays an action sheet with 3 options: Take Picture, Choose from Library, Cancel
@@ -213,7 +219,7 @@ class EditProfileVC: UIViewController, UIImagePickerControllerDelegate, UINaviga
         }
         
         // unique username check
-        let usersRef = Database.database().reference().child("users")
+        let usersRef = ref.child("users")
         usersRef.observeSingleEvent(of: .value, with: { snapshot in
             if snapshot.hasChild(username) {
                 self.errorMessage = "Username is already taken"
@@ -221,18 +227,65 @@ class EditProfileVC: UIViewController, UIImagePickerControllerDelegate, UINaviga
         })
     }
     
-    func updateVisibleImagesArray() {
+    func updatePublicTfs() {
         for indexPath in imageGrid.indexPathsForVisibleItems {
             if let cell = imageGrid.cellForItem(at: indexPath) as? EditImageCell {
-                let index = allAlbums.count - indexPath.row - 1
-                let albumName = albumNames[index]
-                if !(allAlbums[albumName]!.isEmpty) {
-                    allAlbums[albumName]?[0].profileVisible = cell.visibleButton.isSelected
+                let index = allTimeframes.count - indexPath.row - 1
+                let tfName = timeframeNames[index]
+                // Check if TimeFrame privacy changed
+                if cell.visibleButton.isSelected == allTimeframes[tfName]?.isPrivate {
+                    let isPrivate = !(cell.visibleButton.isSelected)
+                    allTimeframes[tfName]?.isPrivate = isPrivate
+                    let timeframeRef = db.collection("users").document(userID).collection("timeframes").document(tfName)
+                    timeframeRef.updateData([
+                        "isPrivate": isPrivate
+                    ]) { (error) in
+                        if let error = error {
+                            print("Error updating timeframe \(tfName): \(error.localizedDescription)")
+                        }
+                    }
                 }
             }
         }
     }
     
+    func saveProfilePhotoUrlToFirestore(from downloadURL: String) {
+        let userRef = db.collection("users").document(userID)
+        userRef.setData([
+            "profilePhotoURL": downloadURL
+        ], merge: true) { error in
+            if let error = error {
+                print("Error updating profile photo for user \(self.userID): \(error.localizedDescription)")
+            }
+        }
+    }
+    
+    func uploadProfilePhoto(image: UIImage) {
+        guard let imageData = image.jpegData(compressionQuality: 0.5) else {
+            print("Invalid image data for profile picture. ")
+            self.navigationController?.popViewController(animated: true)
+            return
+        }
+        let photoFileName = "\(userID).jpg"
+        let storageRef =  Storage.storage().reference().child("users").child(userID).child(photoFileName)
+        storageRef.putData(imageData, metadata: nil) { [weak self] (metadata, error) in
+            guard let self = self else {
+                self?.navigationController?.popViewController(animated: true)
+                return
+            }
+            if let error = error {
+                print("Error uploading profile picture to Firebase storage: \(error.localizedDescription)")
+            } else {
+                storageRef.downloadURL { (url, error) in
+                    if let downloadURL = url?.absoluteString {
+                        self.saveProfilePhotoUrlToFirestore(from: downloadURL)
+                    }
+                }
+            }
+            self.navigationController?.popViewController(animated: true)
+        }
+    }
+
     // Checks if text fields are valid, displays error message if invalid and saves profile changes if valid
     @IBAction func saveButtonPressed(_ sender: Any) {
         let displayName = displayNameTextField.text!
@@ -259,9 +312,9 @@ class EditProfileVC: UIViewController, UIImagePickerControllerDelegate, UINaviga
             let profileVC = delegate as! ProfileChanger
             profileVC.changeDisplayName(displayNameTextField.text!)
             profileVC.changeUsername(usernameTextField.text!)
-            updateVisibleImagesArray()
-            // update in Firebase Authentication
+            updatePublicTfs()
             
+            // update in Firebase Authentication
             let user = Auth.auth().currentUser
 
             // if password is not different, proceed to reauthenticate then update password
@@ -316,9 +369,7 @@ class EditProfileVC: UIViewController, UIImagePickerControllerDelegate, UINaviga
             }
             
             // Update username and display name in firebase database
-            
-            let userId = Auth.auth().currentUser!.uid
-            let usersRef = Database.database().reference().child("users")
+            let usersRef = ref.child("users")
             
             let nameParts = displayName.split(separator: " ").map(String.init)
             let firstName = nameParts.first ?? ""
@@ -329,7 +380,7 @@ class EditProfileVC: UIViewController, UIImagePickerControllerDelegate, UINaviga
                             "username": username,
                             "firstName": firstName,
                             "lastName": lastName]
-            usersRef.child(userId).setValue(userDict) { error, _ in
+            usersRef.child(userID).setValue(userDict) { error, _ in
                 if let error = error {
                     self.errorAlert("Error updating user: \(error)")
                 } else {
@@ -342,9 +393,11 @@ class EditProfileVC: UIViewController, UIImagePickerControllerDelegate, UINaviga
             }
             
             if selectedImage != nil {
+                self.uploadProfilePhoto(image: selectedImage!)
                 profileVC.changePicture(selectedImage!)
+            } else {
+                self.navigationController?.popViewController(animated: true)
             }
-            self.navigationController?.popViewController(animated: true)
         }
         errorMessage = ""
     }
@@ -371,11 +424,12 @@ class EditProfileVC: UIViewController, UIImagePickerControllerDelegate, UINaviga
                 try Auth.auth().signOut()
                 self.view.window?.rootViewController?.dismiss(animated: true, completion: nil)
                 self.view.window?.rootViewController?.dismiss(animated: true, completion: nil)
-                // Clear locally cached albums and Timeframes
+                // Clear locally cached albums, TimeFrames, and profile pic
                 allAlbums = [String: [AlbumPhoto]]()
                 albumNames = [String]()
                 allTimeframes = [String: TimeFrame]()
                 timeframeNames = [String]()
+                profilePic = nil
             } catch let signOutError as NSError {
                 self.errorAlert("Error signing out: \(signOutError)")
             }
@@ -431,7 +485,7 @@ class EditProfileVC: UIViewController, UIImagePickerControllerDelegate, UINaviga
         let firestore = Firestore.firestore()
         let userDocRef = firestore.collection("users").document(uid)
         // First, delete the documents in the subcollections
-        userDocRef.collection("albums").getDocuments { (querySnapshot, error) in
+        userDocRef.collection("albums").getDocuments { [self] (querySnapshot, error) in
             guard let querySnapshot = querySnapshot else {
                 self.errorAlert("Error fetching subcollection documents: \(error!)")
                 return
@@ -457,7 +511,7 @@ class EditProfileVC: UIViewController, UIImagePickerControllerDelegate, UINaviga
                 }
         }
             // Delete data from Realtime Database
-            let realtimeRef = Database.database().reference().child("users").child(uid)
+            let realtimeRef = ref.child("users").child(uid)
             realtimeRef.removeValue { error, _ in
                 if let error = error {
                     self.errorAlert("Error deleting account from Realtime Database: \(error)")

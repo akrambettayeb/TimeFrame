@@ -7,13 +7,15 @@
 //  Project: TimeFrame
 //  EID: kz4696
 //  Course: CS371L
+
 import UIKit
 import Photos
 import FirebaseAuth
 import FirebaseDatabase
 
-var visibleAlbums: [String: [AlbumPhoto]] = [:]
-var visibleAlbumNames: [String] = []
+var publicTimeframes: [String: TimeFrame] = [:]
+var publicTfNames: [String] = []
+public var profilePic: UIImage?
 
 protocol ProfileChanger {
     func changeDisplayName(_ displayName: String)
@@ -52,12 +54,15 @@ class MyProfileVC: UIViewController, ProfileChanger, UICollectionViewDataSource,
         self.setCustomBackImage()
         
         myProfileImage.layer.cornerRadius = myProfileImage.layer.frame.height / 2
+        if profilePic != nil {
+            myProfileImage.image = profilePic
+        }
         imageGrid.dataSource = self
         imageGrid.delegate = self
         imageGrid.isScrollEnabled = false
         
         imageGrid.reloadData()
-        populateVisibleAlbums()
+        populatePublicTimeframes()
         updateCountButton()
         
         self.setGridSize(imageGrid)
@@ -82,6 +87,15 @@ class MyProfileVC: UIViewController, ProfileChanger, UICollectionViewDataSource,
         fetchCurrentUserEmail()
         updateProfileCounts()
         
+        let prevCount = publicTimeframes.count
+        populatePublicTimeframes()
+        if prevCount != publicTimeframes.count {
+            imageGrid.reloadData()
+            updateCountButton()
+            self.setGridSize(imageGrid)
+            self.setProfileScrollHeight(scrollView, imageGrid)
+        }
+        
         let userId = Auth.auth().currentUser?.uid
         let usersRef = Database.database().reference().child("users")
         usersRef.child(userId!).observeSingleEvent(of: .value) { (snapshot) in
@@ -92,21 +106,12 @@ class MyProfileVC: UIViewController, ProfileChanger, UICollectionViewDataSource,
             let username = value?["username"] as? String ?? ""
             self.usernameLabel.text = "@\(username)"
         }
-        
-        let prevCount = visibleAlbums.count
-        populateVisibleAlbums()
-        if prevCount != visibleAlbums.count {
-            imageGrid.reloadData()
-            updateCountButton()
-            self.setGridSize(imageGrid)
-            self.setProfileScrollHeight(scrollView, imageGrid)
-        }
     }
     
     func updateCountButton() {
         let attributes = countButtonAttributedTitleAttributes()
         
-        let timeFramesAttributedTitle = NSAttributedString(string: "\(visibleAlbums.count)\nTimeFrames", attributes: attributes)
+        let timeFramesAttributedTitle = NSAttributedString(string: "\(publicTimeframes.count)\nTimeFrames", attributes: attributes)
         countTimeFrameButton.setAttributedTitle(timeFramesAttributedTitle, for: .normal)
         
         let friendsAttributedTitle = NSAttributedString(string: "\(friendsCount)\nFriends", attributes: attributes)
@@ -240,43 +245,51 @@ class MyProfileVC: UIViewController, ProfileChanger, UICollectionViewDataSource,
             }
         }
     }
-
     
-    func populateVisibleAlbums() {
-        visibleAlbumNames = [String]()
-        visibleAlbums = [String: [AlbumPhoto]]()
-        for albumName in albumNames {
-            let album = allAlbums[albumName]!
-            if !album.isEmpty {
-                if album[0].profileVisible {
-                    visibleAlbumNames.append(albumName)
-                    visibleAlbums[albumName] = album
-                }
+    func populatePublicTimeframes() {
+        publicTfNames = [String]()
+        publicTimeframes = [String: TimeFrame]()
+        for tfName in timeframeNames {
+            let timeframe = allTimeframes[tfName]!
+            if !(timeframe.isPrivate) {
+                publicTfNames.append(tfName)
+                publicTimeframes[tfName] = timeframe
             }
         }
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return visibleAlbums.count
+        return publicTimeframes.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = imageGrid.dequeueReusableCell(withReuseIdentifier: imageCellID, for: indexPath) as! MyImageCell
-        let index = visibleAlbums.count - indexPath.row - 1
-        let albumName = visibleAlbumNames[index]
-        cell.imageViewCell.image = visibleAlbums[albumName]?[0].image
+        let index = publicTimeframes.count - indexPath.row - 1
+        let tfName = publicTfNames[index]
+        cell.imageViewCell.image = publicTimeframes[tfName]?.thumbnail
         return cell
     }
     
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-        return 2.0
+    // Defines layout for the collection view
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        let collectionWidth = imageGrid.bounds.width
+        let cellSize = (collectionWidth - 5) / 3
+        let layout = UICollectionViewFlowLayout()
+        layout.itemSize = CGSize(width: cellSize, height: cellSize)
+        layout.minimumInteritemSpacing = 2
+        layout.minimumLineSpacing = 2
+        layout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+        imageGrid.collectionViewLayout = layout
     }
     
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let numCells = 3.0
-        let viewWidth = collectionView.bounds.width - (numCells - 1) * 2.0
-        let cellSize = viewWidth / numCells - 0.01
-        return CGSize(width: cellSize, height: cellSize)
+    // Defines layout when there is only 1 cell in the collection view
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+       if collectionView.numberOfItems(inSection: section) == 1 {
+           let flowLayout = collectionView.collectionViewLayout as! UICollectionViewFlowLayout
+           return UIEdgeInsets(top: 0, left: 0, bottom: 0, right: collectionView.frame.width - flowLayout.itemSize.width)
+       }
+       return UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
     }
     
     func changeDisplayName(_ displayName: String) {
@@ -288,7 +301,9 @@ class MyProfileVC: UIViewController, ProfileChanger, UICollectionViewDataSource,
     }
     
     func changePicture(_ newPicture: UIImage) {
-        myProfileImage.image = newPicture
+        if myProfileImage != nil {
+            myProfileImage.image = newPicture
+        }
     }
     
     private func fetchCurrentUserEmail() {
@@ -356,9 +371,8 @@ class MyProfileVC: UIViewController, ProfileChanger, UICollectionViewDataSource,
         } else if segue.identifier == "segueToViewImage",
            let nextVC = segue.destination as? ViewImageVC {
             if let indexPaths = imageGrid.indexPathsForSelectedItems {
-                let index = visibleAlbums.count - indexPaths[0].row - 1
-                nextVC.albumName = visibleAlbumNames[index]
-//                nextVC.cellImage = visibleAlbums[visibleAlbumName]?[0].image
+                let index = publicTimeframes.count - indexPaths[0].row - 1
+                nextVC.tfName = publicTfNames[index]
                 imageGrid.deselectItem(at: indexPaths[0], animated: false)
             }
         }

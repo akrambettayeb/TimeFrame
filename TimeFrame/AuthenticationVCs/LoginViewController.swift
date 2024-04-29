@@ -96,7 +96,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
                 return
             }
             
-            // Create a dispatch group to wait for both album and timeframe fetching
+            // Create a dispatch group to wait for album, timeframe, and profile pic fetching
             let dispatchGroup = DispatchGroup()
             
             // Fetch all albums
@@ -117,7 +117,29 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
                 dispatchGroup.leave()
             }
             
-            // Notify when both album and timeframe fetching is done
+            // Fetch profile picture
+            guard let profileVC = mainVC.viewControllers?[3] as? UINavigationController else {
+                print("Unable to get profileVC as navigation controller")
+                return
+            }
+            guard let profileChanger = profileVC.viewControllers[0] as? ProfileChanger else {
+                print("Unable to cast as ProfileChanger")
+                return
+            }
+            guard let userID = Auth.auth().currentUser?.uid else {
+                print("User not authenticated, exiting. ")
+                return
+            }
+            dispatchGroup.enter()
+            self.fetchProfilePhoto(for: userID) { fetchedPhoto in
+                profilePic = fetchedPhoto
+                if fetchedPhoto != nil {
+                    profileChanger.changePicture(fetchedPhoto!)
+                }
+                dispatchGroup.leave()
+            }
+            
+            // Notify when both albums, timeframes, and profile picture have been fetched
             dispatchGroup.notify(queue: .main) {
                 // Perform any additional actions after fetching both albums and timeframes
                 // For example, you can reload data or update UI elements

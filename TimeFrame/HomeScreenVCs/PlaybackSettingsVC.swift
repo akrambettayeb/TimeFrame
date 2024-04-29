@@ -62,7 +62,7 @@ class PlaybackSettingsVC: UIViewController, UITextFieldDelegate {
     
     // Defines the speed options for the speed dropdown button
     func setSpeedDropdown() {
-        let allSpeeds = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "20", "30", "40", "50", "60", "70", "80", "90", "100"]
+        let allSpeeds = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "15", "20"]
         var speedItems: [UIMenuElement] = []
         for speed in allSpeeds {
             let speedTitle = "\(speed) FPS"
@@ -172,23 +172,31 @@ class PlaybackSettingsVC: UIViewController, UITextFieldDelegate {
             nextVC.isReversed = self.isReversed
             nextVC.selectedDate = self.selectedDate
             nextVC.selectedSpeed = self.selectedSpeed
-            var count = 0
+            // If the user chooses the date option, superimposes text onto the images
             for photo in selectedPhotos {
-//                var imageDate = ""
-//                if selectedDate == "Date" {
-//                    imageDate = photo.date
-//                } else if selectedDate == "Month" {
-//                    imageDate = photo.month
-//                } else if selectedDate == "Year" {
-//                    imageDate = photo.year
-//                }
-//                if let newImage = generateImageWithText(text: imageDate, backgroundImage: photo.image, fontSize: 120.0) {
-//                    photosWithText.append(newImage)
-//                    count += 1
-//                } else {
-//                    continue
-//                }
-                photosWithText.append(photo.image)
+                var imageDate = ""
+                switch selectedDate {
+                case "Date":
+                    imageDate = photo.date
+                case "Month":
+                    imageDate = photo.month
+                case "Year":
+                    imageDate = photo.year
+                default:
+                    break
+                }
+                if imageDate.isEmpty {
+                    imageDate = "Blank Date"
+                }
+                if selectedDate == "None" || imageDate.isEmpty {
+                    photosWithText.append(photo.image.fixOrientation())
+                } else {
+                    if let newImage = generateImageWithText(text: imageDate, backgroundImage: photo.image, fontSize: 120.0) {
+                        photosWithText.append(newImage.fixOrientation())
+                    } else {
+                        continue
+                    }
+                }
             }
             nextVC.selectedPhotos = photosWithText
         }
