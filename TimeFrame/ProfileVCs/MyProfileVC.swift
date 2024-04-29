@@ -266,15 +266,26 @@ class MyProfileVC: UIViewController, ProfileChanger, UICollectionViewDataSource,
         return cell
     }
     
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-        return 2.0
+    // Defines layout for the collection view
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        let collectionWidth = imageGrid.bounds.width
+        let cellSize = (collectionWidth - 5) / 3
+        let layout = UICollectionViewFlowLayout()
+        layout.itemSize = CGSize(width: cellSize, height: cellSize)
+        layout.minimumInteritemSpacing = 2
+        layout.minimumLineSpacing = 2
+        layout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+        imageGrid.collectionViewLayout = layout
     }
     
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let numCells = 3.0
-        let viewWidth = collectionView.bounds.width - (numCells - 1) * 2.0
-        let cellSize = viewWidth / numCells - 0.01
-        return CGSize(width: cellSize, height: cellSize)
+    // Defines layout when there is only 1 cell in the collection view
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+       if collectionView.numberOfItems(inSection: section) == 1 {
+           let flowLayout = collectionView.collectionViewLayout as! UICollectionViewFlowLayout
+           return UIEdgeInsets(top: 0, left: 0, bottom: 0, right: collectionView.frame.width - flowLayout.itemSize.width)
+       }
+       return UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
     }
     
     func changeDisplayName(_ displayName: String) {

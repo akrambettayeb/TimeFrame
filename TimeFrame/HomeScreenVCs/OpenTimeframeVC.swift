@@ -32,8 +32,6 @@ class OpenTimeframeVC: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         timeframe = allTimeframes[timeframeName]
-//        print("TimeFrame name: \(timeframe.name)")
-//        print("TimeFrame url: \(timeframe.url)")
         imageView.displayGIF(from: timeframe.url, from: timeframe.selectedSpeed)
     }
     
