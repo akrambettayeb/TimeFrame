@@ -15,6 +15,7 @@ import FirebaseDatabase
 
 var publicTimeframes: [String: TimeFrame] = [:]
 var publicTfNames: [String] = []
+public var profilePic: UIImage?
 
 protocol ProfileChanger {
     func changeDisplayName(_ displayName: String)
@@ -53,6 +54,9 @@ class MyProfileVC: UIViewController, ProfileChanger, UICollectionViewDataSource,
         self.setCustomBackImage()
         
         myProfileImage.layer.cornerRadius = myProfileImage.layer.frame.height / 2
+        if profilePic != nil {
+            myProfileImage.image = profilePic
+        }
         imageGrid.dataSource = self
         imageGrid.delegate = self
         imageGrid.isScrollEnabled = false
@@ -297,7 +301,9 @@ class MyProfileVC: UIViewController, ProfileChanger, UICollectionViewDataSource,
     }
     
     func changePicture(_ newPicture: UIImage) {
-        myProfileImage.image = newPicture
+        if myProfileImage != nil {
+            myProfileImage.image = newPicture
+        }
     }
     
     private func fetchCurrentUserEmail() {

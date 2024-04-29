@@ -12,12 +12,14 @@
 import UIKit
 import FirebaseAuth
 import FirebaseDatabase
+import FirebaseStorage
 import FirebaseFirestore
 
 class EditProfileVC: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     
     let ref = Database.database().reference()
     let db = Firestore.firestore()
+    let userID = Auth.auth().currentUser!.uid
     
     // Data from Profile screen
     var delegate: UIViewController!
@@ -110,28 +112,6 @@ class EditProfileVC: UIViewController, UIImagePickerControllerDelegate, UINaviga
         }
         return cell
     }
-
-    // Sets minimum spacing between cells
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-        return 2.0
-    }
-    
-//    // Sets cell size
-//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-//        let numCells = 3.0
-//        let viewWidth = collectionView.bounds.width - (numCells - 1) * 2.0
-//        let cellSize = viewWidth / numCells - 0.01
-//        return CGSize(width: cellSize, height: cellSize)
-//    }
-//    
-//    // Defines layout when there is only 1 cell in the collection view
-//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-//       if collectionView.numberOfItems(inSection: section) == 1 {
-//            let flowLayout = collectionViewLayout as! UICollectionViewFlowLayout
-//           return UIEdgeInsets(top: 0, left: 0, bottom: 0, right: collectionView.frame.width - flowLayout.itemSize.width)
-//       }
-//       return UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
-//    }
     
     // Defines layout for the collection view
     override func viewDidLayoutSubviews() {
@@ -248,8 +228,6 @@ class EditProfileVC: UIViewController, UIImagePickerControllerDelegate, UINaviga
     }
     
     func updatePublicTfs() {
-        let userID = Auth.auth().currentUser?.uid
-        
         for indexPath in imageGrid.indexPathsForVisibleItems {
             if let cell = imageGrid.cellForItem(at: indexPath) as? EditImageCell {
                 let index = allTimeframes.count - indexPath.row - 1
@@ -258,18 +236,55 @@ class EditProfileVC: UIViewController, UIImagePickerControllerDelegate, UINaviga
                 if cell.visibleButton.isSelected == allTimeframes[tfName]?.isPrivate {
                     let isPrivate = !(cell.visibleButton.isSelected)
                     allTimeframes[tfName]?.isPrivate = isPrivate
-                    if userID != nil {
-                        let timeframeRef = db.collection("users").document(userID!).collection("timeframes").document(tfName)
-                        timeframeRef.updateData([
-                            "isPrivate": isPrivate
-                        ]) { (error) in
-                            if let error = error {
-                                print("Error updating timeframe \(tfName): \(error.localizedDescription)")
-                            }
+                    let timeframeRef = db.collection("users").document(userID).collection("timeframes").document(tfName)
+                    timeframeRef.updateData([
+                        "isPrivate": isPrivate
+                    ]) { (error) in
+                        if let error = error {
+                            print("Error updating timeframe \(tfName): \(error.localizedDescription)")
                         }
                     }
                 }
             }
+        }
+    }
+    
+    func saveProfilePhotoUrlToFirestore(from downloadURL: String) {
+        let userRef = db.collection("users").document(userID)
+        userRef.setData([
+            "profilePhotoURL": downloadURL
+        ], merge: true) { error in
+            if let error = error {
+                print("Error updating profile photo for user \(self.userID): \(error.localizedDescription)")
+            }
+        }
+    }
+    
+    func uploadProfilePhoto(image: UIImage) {
+        guard let imageData = image.jpegData(compressionQuality: 0.5) else {
+            print("Invalid image data for profile picture. ")
+            self.navigationController?.popViewController(animated: true)
+            return
+        }
+        let photoFileName = "\(userID).jpg"
+        let storageRef =  Storage.storage().reference().child("users").child(userID).child(photoFileName)
+        print("Call to upload profile photo")
+        storageRef.putData(imageData, metadata: nil) { [weak self] (metadata, error) in
+            guard let self = self else {
+                self?.navigationController?.popViewController(animated: true)
+                return
+            }
+            if let error = error {
+                print("Error uploading profile picture to Firebase storage: \(error.localizedDescription)")
+            } else {
+                storageRef.downloadURL { (url, error) in
+                    if let downloadURL = url?.absoluteString {
+                        print("ATTEMPT: save profile photo URL to Firestore")
+                        self.saveProfilePhotoUrlToFirestore(from: downloadURL)
+                    }
+                }
+            }
+            self.navigationController?.popViewController(animated: true)
         }
     }
 
@@ -356,8 +371,6 @@ class EditProfileVC: UIViewController, UIImagePickerControllerDelegate, UINaviga
             }
             
             // Update username and display name in firebase database
-            
-            let userId = Auth.auth().currentUser!.uid
             let usersRef = ref.child("users")
             
             let nameParts = displayName.split(separator: " ").map(String.init)
@@ -369,7 +382,7 @@ class EditProfileVC: UIViewController, UIImagePickerControllerDelegate, UINaviga
                             "username": username,
                             "firstName": firstName,
                             "lastName": lastName]
-            usersRef.child(userId).setValue(userDict) { error, _ in
+            usersRef.child(userID).setValue(userDict) { error, _ in
                 if let error = error {
                     self.errorAlert("Error updating user: \(error)")
                 } else {
@@ -382,9 +395,11 @@ class EditProfileVC: UIViewController, UIImagePickerControllerDelegate, UINaviga
             }
             
             if selectedImage != nil {
+                self.uploadProfilePhoto(image: selectedImage!)
                 profileVC.changePicture(selectedImage!)
+            } else {
+                self.navigationController?.popViewController(animated: true)
             }
-            self.navigationController?.popViewController(animated: true)
         }
         errorMessage = ""
     }
