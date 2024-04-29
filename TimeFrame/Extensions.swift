@@ -240,6 +240,31 @@ extension UIImageView {
         sender.view?.transform = scale
         sender.scale = 1
     }
+    
+    func displayGIF(from url: URL, from speed: Float) {
+        DispatchQueue.global().async {
+            if let imageData = try? Data(contentsOf: url),
+               let source = CGImageSourceCreateWithData(imageData as CFData, nil) {
+                let count = CGImageSourceGetCount(source)
+                var images: [UIImage] = []
+ 
+                for i in 0..<count {
+                    if let cgImage = CGImageSourceCreateImageAtIndex(source, i, nil) {
+                        let image = UIImage(cgImage: cgImage)
+                        images.append(image)
+                    }
+                }
+
+                DispatchQueue.main.async {
+                    self.stopAnimating()
+                    self.animationImages = nil
+                    self.animationImages = images
+                    self.animationDuration = TimeInterval(speed)
+                    self.startAnimating()
+                }
+            }
+        }
+    }
 }
 
 

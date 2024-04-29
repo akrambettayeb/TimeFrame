@@ -13,7 +13,6 @@ public class AlbumPhoto {
     var month: String
     var year: String
     var buttonSelected: Bool = false
-    var profileVisible: Bool = false
     
     init(_ image: UIImage) {
         self.image = image

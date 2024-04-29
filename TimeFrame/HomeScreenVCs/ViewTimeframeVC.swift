@@ -71,7 +71,7 @@ class ViewTimeframeVC: UIViewController {
             // Share first photo in array if there is an error generating the GIF
             gifItem = selectedPhotos[0]
         }
-        let newTimeframe = TimeFrame(gifItem as! URL, selectedPhotos[0], timeframeName, isPublic, isFavorite, gifDuration)
+        let newTimeframe = TimeFrame(gifItem as! URL, selectedPhotos[0], timeframeName, !(isPublic), isFavorite, gifDuration)
         allTimeframes[timeframeName] = newTimeframe
         timeframeNames.append(timeframeName)
         timeframeNames = timeframeNames.sorted()
@@ -232,7 +232,6 @@ class ViewTimeframeVC: UIViewController {
     
     // Shares the TimeFrame as a GIF to the user's other apps when the "Share" button is tapped
     @IBAction func onShareTapped(_ sender: UIButton) {
-        var shareItem: Any = ""
         let gifURL = UIImage.animatedGif(from: selectedPhotos, from: imageDuration, name: timeframeName)
         var gifItem: Any = ""
         if gifURL != nil {
