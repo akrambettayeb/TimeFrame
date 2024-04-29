@@ -172,23 +172,31 @@ class PlaybackSettingsVC: UIViewController, UITextFieldDelegate {
             nextVC.isReversed = self.isReversed
             nextVC.selectedDate = self.selectedDate
             nextVC.selectedSpeed = self.selectedSpeed
-            var count = 0
+            // If the user chooses the date option, superimposes text onto the images
             for photo in selectedPhotos {
-//                var imageDate = ""
-//                if selectedDate == "Date" {
-//                    imageDate = photo.date
-//                } else if selectedDate == "Month" {
-//                    imageDate = photo.month
-//                } else if selectedDate == "Year" {
-//                    imageDate = photo.year
-//                }
-//                if let newImage = generateImageWithText(text: imageDate, backgroundImage: photo.image, fontSize: 120.0) {
-//                    photosWithText.append(newImage)
-//                    count += 1
-//                } else {
-//                    continue
-//                }
-                photosWithText.append(photo.image.fixOrientation())
+                var imageDate = ""
+                switch selectedDate {
+                case "Date":
+                    imageDate = photo.date
+                case "Month":
+                    imageDate = photo.month
+                case "Year":
+                    imageDate = photo.year
+                default:
+                    break
+                }
+                if imageDate.isEmpty {
+                    imageDate = "Blank Date"
+                }
+                if selectedDate == "None" || imageDate.isEmpty {
+                    photosWithText.append(photo.image.fixOrientation())
+                } else {
+                    if let newImage = generateImageWithText(text: imageDate, backgroundImage: photo.image, fontSize: 120.0) {
+                        photosWithText.append(newImage.fixOrientation())
+                    } else {
+                        continue
+                    }
+                }
             }
             nextVC.selectedPhotos = photosWithText
         }
