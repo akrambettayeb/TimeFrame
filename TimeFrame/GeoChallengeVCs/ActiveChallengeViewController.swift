@@ -36,6 +36,10 @@ class ActiveChallengeViewController: UIViewController {
         
         // Display initial image as preview.
         previewImage.image = challenge.album[0].image
+        
+        if (previewImage.image == nil) {
+            dismiss(animated: true)
+        }
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

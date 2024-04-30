@@ -229,11 +229,11 @@ extension UIViewController {
                 let photoDocs = albumQuery.documents
                 
                 // Adds all photos to album.
+                dispatchGroup.enter()
                 for photoDoc in photoDocs {
                     // Get photo data.
                     var challengeImage = ChallengeImage(image: UIImage(), numViews: 1, numLikes: 0, numFlags: 0, hidden: false, capturedTimestamp: .now)
                     
-                    dispatchGroup.enter()
                     if let photoURL = photoDoc.data()["url"] as? String {
                         // Fetch image asynchronously
                         self.fetchPhotoFromURL(photoURL) { image in
@@ -243,7 +243,6 @@ extension UIViewController {
                         }
                         challengeImage.url = photoURL
                     }
-                    dispatchGroup.leave()
 
                     if let photoViews = photoDoc.data()["numViews"] as? Int {
                         challengeImage.numViews = photoViews
@@ -271,6 +270,7 @@ extension UIViewController {
                         album.append(challengeImage)
                     }
                 }
+                dispatchGroup.leave()
                 
                 // Sort photos in descending order.
                 newChallenge.album = album.sorted { $0.capturedTimestamp < $1.capturedTimestamp }

@@ -20,7 +20,6 @@ protocol UpdatePreview {
 }
 
 class AddChallengeInfoViewController: UIViewController, UITextFieldDelegate, UpdatePreview {
-    //TODO: add dismiss keyboard
     @IBOutlet weak var previewView: UIImageView!
     @IBOutlet weak var locationNameField: UITextField!
     @IBOutlet weak var currentDateLabel: UILabel!
