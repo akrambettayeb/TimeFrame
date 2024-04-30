@@ -20,6 +20,7 @@ class Challenge {
     var numLikes = 0
     var album: [ChallengeImage] = []
     var challengeID: String!
+    var loadingDone = false
     
     init(name: String, coordinate: CLLocationCoordinate2D, startDate: Date, endDate: Date, numViews: Int, numLikes: Int, album: [ChallengeImage]) {
         self.name = name

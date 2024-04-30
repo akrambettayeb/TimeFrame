@@ -38,7 +38,7 @@ class AddPhotoToChallengeViewController: UIViewController, UIImagePickerControll
         locationLabel.text = self.challenge.name
         if !cameraLoaded {
             // Only load the camera once automatically.
-            showCamera() // TODO: need to load new overlay image
+            showCamera()
         } else if previewView.image == nil {
             dismiss(animated: true)
         }
@@ -56,7 +56,7 @@ class AddPhotoToChallengeViewController: UIViewController, UIImagePickerControll
             case .authorized:
                 break
             default:
-                print("Access denied.") //TODO: show some error and segue if access denied
+                print("Access denied.")
                 dismiss(animated: true)
                 return
             }
@@ -65,7 +65,7 @@ class AddPhotoToChallengeViewController: UIViewController, UIImagePickerControll
             picker.sourceType = .camera
             picker.showsCameraControls = false
             currentCameraPosition = picker.cameraDevice.rawValue
-            picker.allowsEditing = false //TODO: add and delete photos from firebase
+            picker.allowsEditing = false 
             picker.cameraCaptureMode = .photo
             picker.cameraFlashMode = .off
             

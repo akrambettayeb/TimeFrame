@@ -49,7 +49,6 @@ class PhotoStreamViewController: UIViewController, UICollectionViewDelegate, UIC
     
     // Create album cell.
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        // TODO: update number of views
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellID, for: indexPath) as! PhotoStreamCell
         
         // Set image in cell.

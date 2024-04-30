@@ -14,29 +14,11 @@ import MapKit
 import FirebaseFirestore
 import FirebaseAuth
 
-// TODO: add hide keyboard
-// TODO: need to fix nav controller back button (add self.dismiss) so that you dont keep adding things to stack when you are effectively going back
-// TODO: need to fix search bar
-// TODO: need to fix popover segues so they aren't modal and don't layer on the map screen when challenge is submitted.
-// TODO: need to implement photo stream.
-//TODO: add alert to tell user to press to add location (instructions)
-//TODO: figure out why pins persisted
-// TODO: generate timeframe with current album when active, save timeframe when not active
-// TODO: add example for inactive timeframe (new popover)
-// TODO: ask to make sure that user wants to move on without saving image?
-//TODO: add time added field to album photos and sort for timeframes
-// TODO: add firestore support for existing challenges
-// TODO: page view controller for screens from popovers
-// TODO: fix album preview images (index) and sorting
-// TODO: add notification for successfully creating/adding to challenge
-
-
-// TODO: sort albums by date taken
 protocol AddMapPin {
     func addMapPin(challenge: Challenge)
 }
 
-var challenges: [Challenge] = [] // TODO: may need a new class for challenges AND need to store in firestore
+var challenges: [Challenge] = []
 
 public func getDateString(date: Date) -> String {
     let day = Calendar.current.dateComponents([.day], from: date)
@@ -141,7 +123,7 @@ class MapViewController: UIViewController, UIPopoverPresentationControllerDelega
             break
             
         default:
-            print("Access denied.") //TODO: show some error and segue if access denied
+            print("Access denied.")
             break
         }
     }
@@ -161,7 +143,7 @@ class MapViewController: UIViewController, UIPopoverPresentationControllerDelega
             break
 
         default:
-            print("Access denied.") //TODO: show some error and segue if access denied
+            print("Access denied.") 
             break
         }
     }
@@ -230,18 +212,15 @@ class MapViewController: UIViewController, UIPopoverPresentationControllerDelega
         
         // Create and configure callout view.
         mapView.deselectAnnotation(view.annotation, animated: true)
-        
-        if pin.challenge.album.count > 0 {
-            let calloutVC = createCalloutViewController(annotation: pin)
-            calloutVC.modalPresentationStyle = .popover
-            calloutVC.preferredContentSize = CGSize(width: 260, height: 300)
-            calloutVC.popoverPresentationController!.delegate = self
-            calloutVC.popoverPresentationController!.backgroundColor = UIColor(named: "TabBarPurple")
-            calloutVC.popoverPresentationController!.permittedArrowDirections = [.up, .down]
-            calloutVC.popoverPresentationController!.sourceView = view.superview!
-            calloutVC.popoverPresentationController!.sourceRect = view.frame
-            self.present(calloutVC, animated: true, completion: nil)
-        }
+        let calloutVC = createCalloutViewController(annotation: pin)
+        calloutVC.modalPresentationStyle = .popover
+        calloutVC.preferredContentSize = CGSize(width: 260, height: 300)
+        calloutVC.popoverPresentationController!.delegate = self
+        calloutVC.popoverPresentationController!.backgroundColor = UIColor(named: "TabBarPurple")
+        calloutVC.popoverPresentationController!.permittedArrowDirections = [.up, .down]
+        calloutVC.popoverPresentationController!.sourceView = view.superview!
+        calloutVC.popoverPresentationController!.sourceRect = view.frame
+        self.present(calloutVC, animated: true, completion: nil)
     }
     
     func adaptivePresentationStyleForPresentationController(controller: UIPresentationController) -> UIModalPresentationStyle {

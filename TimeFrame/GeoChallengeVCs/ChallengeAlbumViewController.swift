@@ -10,9 +10,6 @@
 
 import UIKit
 
-// TODO: update with photo we added
-// TODO: connect to photo stream
-
 class ChallengeAlbumViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
 
     @IBOutlet weak var locationLabel: UILabel!

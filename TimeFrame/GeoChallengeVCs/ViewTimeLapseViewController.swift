@@ -12,8 +12,6 @@ import UIKit
 import FirebaseFirestore
 import FirebaseStorage
 
-//TODO: update with user's new photo
-
 class ViewTimeLapseViewController: UIViewController {
     
     @IBOutlet weak var timeFrameView: UIImageView!
@@ -38,7 +36,7 @@ class ViewTimeLapseViewController: UIViewController {
         for challengeImage in challengeImages {
             animationImages.append(challengeImage.fixOrientation())
         }
-        
+
         let actualSpeed = Float(5.0)
         let gifDuration = Float(animationImages.count) / actualSpeed
         // Calculates the duration for each image
@@ -68,7 +66,9 @@ class ViewTimeLapseViewController: UIViewController {
         
         // Animate image.
         for challengeImage in challenge.album {
-            challengeImages.append(challengeImage.image)
+            if challengeImage.image != nil {
+                challengeImages.append(challengeImage.image)
+            }
         }
         
         if challengeImages.count > 0 {
