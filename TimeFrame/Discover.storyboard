@@ -266,6 +266,7 @@ TimeFrames</string>
                         <outlet property="friendsCountButton" destination="VBs-Pa-hva" id="XL0-Y3-uF9"/>
                         <outlet property="friendsLabel" destination="bfu-9S-4fl" id="bhm-OH-Kqj"/>
                         <outlet property="fullnameLabel" destination="fRv-Gp-SuD" id="jdU-nD-XvP"/>
+                        <outlet property="profileView" destination="d0N-wH-Axf" id="qfx-w2-eGL"/>
                         <outlet property="usernameLabel" destination="Kdz-l1-U5o" id="L5g-ln-d9m"/>
                     </connections>
                 </viewController>

@@ -13,23 +13,26 @@ class OtherProfileCell: UICollectionViewCell {
     @IBOutlet weak var imageView: UIImageView!
 }
 
-protocol UpdateCollectionView {
+protocol ElementUpdater {
     func updateCV()
+    func setProfilePic()
 }
 
-class OtherProfileViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UpdateCollectionView {
+class OtherProfileViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, ElementUpdater {
     
     @IBOutlet weak var fullnameLabel: UILabel!
     @IBOutlet weak var usernameLabel: UILabel!
     @IBOutlet weak var followButton: UIButton!
     @IBOutlet weak var friendsLabel: UILabel!
     
+    @IBOutlet weak var profileView: UIImageView!
     @IBOutlet weak var friendsCountButton: UIButton!
     @IBOutlet weak var followingCountButton: UIButton!
     @IBOutlet weak var followersCountButton: UIButton!
     @IBOutlet weak var countTimeFrameButton: UIButton!
     @IBOutlet weak var collectionView: UICollectionView!
     
+    var otherProfilePic: UIImage?
     var otherTimeframes: [String: TimeFrame] = [:]
     var otherTfNames: [String] = []
     
@@ -40,6 +43,7 @@ class OtherProfileViewController: UIViewController, UICollectionViewDelegate, UI
                 self?.updateUIWithProfileData()
                 self?.setupFriendshipStatus()
                 self?.updateCounts()
+                self?.setProfilePic()
             }
         }
     }
@@ -73,6 +77,7 @@ class OtherProfileViewController: UIViewController, UICollectionViewDelegate, UI
             updateUIWithProfileData()
             setupFriendshipStatus()
             updateCounts()
+            setProfilePic()
         }
     }
     
@@ -267,7 +272,6 @@ class OtherProfileViewController: UIViewController, UICollectionViewDelegate, UI
         ]
     }
 
-
     private func fetchFriendsList(for email: String, completion: @escaping ([String]) -> Void) {
         let followingRef = ref.child("following").child(email)
         let followersRef = ref.child("followers").child(email)
@@ -373,6 +377,15 @@ class OtherProfileViewController: UIViewController, UICollectionViewDelegate, UI
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "OK", style: .default))
         self.present(alert, animated: true)
+    }
+    
+    func setProfilePic() {
+        if profileView != nil {
+            profileView.layer.cornerRadius = profileView.layer.frame.height / 2
+            if otherProfilePic != nil {
+                profileView.image = otherProfilePic
+            }
+        }
     }
     
     func resetUI() {
