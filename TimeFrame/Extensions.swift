@@ -52,7 +52,7 @@ extension UIViewController {
     // Fetches photo data for a specific album and stores as a list of dictionaries
     func fetchPhotoData(for db: Firestore, for userID: String, for albumName: String, completion: @escaping ([AlbumPhoto]) -> Void) {
         var fetchedPhotoData: [AlbumPhoto] = []
-        db.collection("users").document(userID).collection("albums").document(albumName).collection("photos").getDocuments { (snapshot, error) in
+        db.collection("users").document(userID).collection("albums").document(albumName).collection("photos").order(by: "uploadDate", descending: false).getDocuments { (snapshot, error) in
             if let error = error {
                 print("Error fetching photos: \(error.localizedDescription)")
                 completion([])

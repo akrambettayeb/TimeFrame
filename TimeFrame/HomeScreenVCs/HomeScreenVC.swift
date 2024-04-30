@@ -29,7 +29,6 @@ protocol ImageLoader {
     func updateTimeframes()
 }
 
-
 public var allAlbums: [String: [AlbumPhoto]] = [:]
 public var albumNames: [String] = []
 public var allTimeframes: [String: TimeFrame] = [:]
