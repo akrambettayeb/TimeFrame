@@ -52,7 +52,7 @@ extension UIViewController {
     // Fetches photo data for a specific album and stores as a list of dictionaries
     func fetchPhotoData(for db: Firestore, for userID: String, for albumName: String, completion: @escaping ([AlbumPhoto]) -> Void) {
         var fetchedPhotoData: [AlbumPhoto] = []
-        db.collection("users").document(userID).collection("albums").document(albumName).collection("photos").order(by: "uploadDate", descending: false).getDocuments { (snapshot, error) in
+        db.collection("users").document(userID).collection("albums").document(albumName).collection("photos").getDocuments { (snapshot, error) in
             if let error = error {
                 print("Error fetching photos: \(error.localizedDescription)")
                 completion([])
@@ -209,6 +209,7 @@ extension UIViewController {
     // Fetch Geo-Challenges to display on map.
     func fetchChallenges(for db: Firestore) async {
         do {
+            let dispatchGroup = DispatchGroup()
             let geochallengeQuery = try await db.collection("geochallenges").getDocuments()
             challenges = []
             for document in geochallengeQuery.documents {
@@ -232,15 +233,17 @@ extension UIViewController {
                     // Get photo data.
                     var challengeImage = ChallengeImage(image: UIImage(), numViews: 1, numLikes: 0, numFlags: 0, hidden: false, capturedTimestamp: .now)
                     
+                    dispatchGroup.enter()
                     if let photoURL = photoDoc.data()["url"] as? String {
                         // Fetch image asynchronously
                         self.fetchPhotoFromURL(photoURL) { image in
                             if let image = image {
-                                challengeImage = ChallengeImage(image: image, numViews: 1, numLikes: 0, numFlags: 0, hidden: false, capturedTimestamp: .now)
+                                challengeImage.image = image
                             }
                         }
                         challengeImage.url = photoURL
                     }
+                    dispatchGroup.leave()
 
                     if let photoViews = photoDoc.data()["numViews"] as? Int {
                         challengeImage.numViews = photoViews
@@ -263,7 +266,10 @@ extension UIViewController {
                     }
                     
                     challengeImage.documentID = photoDoc.documentID
-                    album.append(challengeImage)
+                    
+                    if !challengeImage.hidden {
+                        album.append(challengeImage)
+                    }
                 }
                 
                 // Sort photos in descending order.

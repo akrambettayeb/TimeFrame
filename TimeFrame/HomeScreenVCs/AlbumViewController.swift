@@ -107,16 +107,17 @@ class AlbumViewController: UIViewController, UIImagePickerControllerDelegate, UI
         }
         
         // Rename album action
-        let renameAlbumMenuItem = UIAction(title: "Rename Album", image: UIImage(systemName: "pencil")) { _ in
-            self.renameAlbum()
-        }
+//        let renameAlbumMenuItem = UIAction(title: "Rename Album", 
+//            image: UIImage(systemName: "pencil")) { _ in
+//            self.renameAlbum()
+//        }
         
         // Delete album action
         let deleteAlbumMenuItem = UIAction(title: "Delete Album", image: UIImage(systemName: "trash"), attributes: .destructive) { _ in
             self.deleteAlbum()
         }
             
-        let menu = UIMenu(title: "Album Menu", children: [addPhotoMenuItem, createTimeframeMenuItem, renameAlbumMenuItem, deleteAlbumMenuItem])
+        let menu = UIMenu(title: "Album Menu", children: [addPhotoMenuItem, createTimeframeMenuItem, deleteAlbumMenuItem])
         moreButton.menu = menu
     }
     
@@ -138,6 +139,7 @@ class AlbumViewController: UIViewController, UIImagePickerControllerDelegate, UI
         cell.selectButton.configuration = config
         cell.selectButton.setImage(UIImage(systemName: "circle"), for: .normal)
         cell.selectButton.setImage(UIImage(systemName: "circle.inset.filled"), for: .selected)
+        cell.selectButton.tintColor = UIColor(named: "TabBarPurple")
         cell.selectButton.isHidden = hideSelectButtons
         cell.setupButtonTarget(for: indexPath, target: self, action: #selector(buttonTapped(_:)))
         cell.selectButton.isSelected = allAlbums[albumName!]![indexPath.row].buttonSelected
@@ -355,15 +357,40 @@ class AlbumViewController: UIViewController, UIImagePickerControllerDelegate, UI
             }
         }
     }
-    
-    func renameAlbum() {
-        // Handle Rename Album action
-        print("Rename Album")
-    }
         
+    // Deletes this album from Firestore
     func deleteAlbum() {
-        // Handle Delete Album action
-        print("Delete Album")
+        let controller = UIAlertController(
+            title: "Delete Album",
+            message: "Please confirm that you would like to delete \(albumName!). ",
+            preferredStyle: .alert
+        )
+        controller.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+        controller.addAction(UIAlertAction(title: "Confirm", style: .destructive, handler: {
+            _ in
+            let userID = Auth.auth().currentUser!.uid
+            let userRef = Firestore.firestore().collection("users").document(userID)
+            let albumRef = userRef.collection("albums").document(self.albumName!)
+            
+            albumRef.delete { error in
+                if let error = error {
+                    print("Error deleting album: \(error.localizedDescription)")
+                } else {
+                    albumNames = albumNames.filter{$0 != self.albumName}
+                    allAlbums.removeValue(forKey: self.albumName!)
+                    let successController = UIAlertController(
+                        title: "Success",
+                        message: "\(self.albumName!) has been deleted!",
+                        preferredStyle: .alert
+                    )
+                    successController.addAction(UIAlertAction(title: "OK", style: .default, handler: { _ in
+                        self.navigationController?.popViewController(animated: true)
+                    }))
+                    self.present(successController, animated: true)
+                }
+            }
+        }))
+        present(controller, animated: true)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

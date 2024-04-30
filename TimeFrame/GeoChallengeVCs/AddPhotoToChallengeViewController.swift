@@ -139,11 +139,8 @@ class AddPhotoToChallengeViewController: UIViewController, UIImagePickerControll
             }
         }
         
+        challenge.addChallengeImage(challengeImage: challengeImage)
         dismiss(animated: true)
-        
-        Task {
-            await fetchChallenges(for: db)
-        }
     }
     
     func saveImageUrlToFirestore(downloadURL: String, albumName: String, photoID: String, challengeImage: ChallengeImage) {
