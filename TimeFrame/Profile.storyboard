@@ -37,15 +37,15 @@
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="tintColor" name="TabBarPurple"/>
                                     </imageView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Firstname Lastname" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QEX-sc-chJ">
-                                        <rect key="frame" x="119" y="142" width="163" height="22"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="... ..." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QEX-sc-chJ">
+                                        <rect key="frame" x="12" y="142" width="376" height="22"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="firstnamelastname" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UQk-19-HPT">
-                                        <rect key="frame" x="137" y="172" width="127" height="18"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="..." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UQk-19-HPT">
+                                        <rect key="frame" x="12" y="172" width="376" height="18"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                         <nil key="textColor"/>
@@ -91,7 +91,7 @@
                                         <buttonConfiguration key="configuration" style="plain">
                                             <attributedString key="attributedTitle">
                                                 <fragment>
-                                                    <string key="content">0
+                                                    <string key="content">...
 Friends</string>
                                                     <attributes>
                                                         <font key="NSFont" size="15" name="Helvetica"/>
@@ -112,7 +112,7 @@ Friends</string>
                                         <buttonConfiguration key="configuration" style="plain">
                                             <attributedString key="attributedTitle">
                                                 <fragment>
-                                                    <string key="content">0
+                                                    <string key="content">...
 Followers</string>
                                                     <attributes>
                                                         <font key="NSFont" size="15" name="Helvetica"/>
@@ -133,7 +133,7 @@ Followers</string>
                                         <buttonConfiguration key="configuration" style="plain">
                                             <attributedString key="attributedTitle">
                                                 <fragment>
-                                                    <string key="content">0
+                                                    <string key="content">...
 Following</string>
                                                     <attributes>
                                                         <font key="NSFont" size="15" name="Helvetica"/>
@@ -154,7 +154,7 @@ Following</string>
                                         <buttonConfiguration key="configuration" style="plain">
                                             <attributedString key="attributedTitle">
                                                 <fragment>
-                                                    <string key="content">8
+                                                    <string key="content">...
 TimeFrames</string>
                                                     <attributes>
                                                         <font key="NSFont" size="15" name="Helvetica"/>
