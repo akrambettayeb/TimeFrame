@@ -30,4 +30,8 @@ class Challenge {
         self.numLikes = numLikes
         self.album = album
     }
+    
+    func addChallengeImage(challengeImage: ChallengeImage) {
+        self.album.append(challengeImage)
+    }
 }

@@ -31,22 +31,20 @@ class ViewTimeLapseViewController: UIViewController {
         super.viewDidLoad()
         
         setCustomBackImage()
-        
-        for challengeImage in challenge.album {
-            challengeImages.append(challengeImage.image)
-        }
-        
-        animateImage()
     }
     
     func animateImage() {
-        // TODO: fix if there is only one image
+        var animationImages: [UIImage] = []
+        for challengeImage in challengeImages {
+            animationImages.append(challengeImage.fixOrientation())
+        }
+        
         let actualSpeed = Float(5.0)
-        let gifDuration = Float(challengeImages.count) / actualSpeed
+        let gifDuration = Float(animationImages.count) / actualSpeed
         // Calculates the duration for each image
-        let imageDuration = gifDuration / Float(challengeImages.count)
+        let imageDuration = gifDuration / Float(animationImages.count)
         timeFrameView.animationDuration = TimeInterval(gifDuration)
-        timeFrameView.animationImages = challengeImages
+        timeFrameView.animationImages = animationImages
         timeFrameView.startAnimating()
     }
     
@@ -67,6 +65,15 @@ class ViewTimeLapseViewController: UIViewController {
         let viewString = numberFormatter.string(from: NSNumber(value: challenge.numViews))
         let likeString = numberFormatter.string(from: NSNumber(value: challenge.numLikes))
         timeframeStatsLabel.text = "\(viewString!) views, \(likeString!) likes"
+        
+        // Animate image.
+        for challengeImage in challenge.album {
+            challengeImages.append(challengeImage.image)
+        }
+        
+        if challengeImages.count > 0 {
+            animateImage()
+        }
     }
     
     func updateChallenge() {
