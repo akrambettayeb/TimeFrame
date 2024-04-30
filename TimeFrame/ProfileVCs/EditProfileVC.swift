@@ -347,6 +347,7 @@ class EditProfileVC: UIViewController, UIImagePickerControllerDelegate, UINaviga
                                         self?.errorAlert("Error updating password: \(error.localizedDescription)")
                                     }
                                 } else {
+                                    // Displays success popup if password was successfully updated
                                     let successController = UIAlertController(
                                         title: "Success",
                                         message: "Password updated",

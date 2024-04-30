@@ -10,6 +10,7 @@
 
 import UIKit
 
+// Defines the attributes for cells in the Album View Controller
 public class AlbumPhoto {
     var image: UIImage
     var date: String

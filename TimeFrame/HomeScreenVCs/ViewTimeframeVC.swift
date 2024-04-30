@@ -123,7 +123,6 @@ class ViewTimeframeVC: UIViewController {
         }
     }
 
-    
     func uploadGIF(timeframe: TimeFrame, completion: @escaping (URL?) -> Void) {
         // Upload GIF to Firebase Storage
         guard let userID = Auth.auth().currentUser?.uid else {
@@ -161,7 +160,6 @@ class ViewTimeframeVC: UIViewController {
             }
         }
     }
-
 
     func uploadThumbnailAndGIF(timeframe: TimeFrame, completion: @escaping (String?, URL?) -> Void) {
         var thumbnailURL: String?

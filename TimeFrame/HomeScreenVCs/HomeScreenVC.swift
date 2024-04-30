@@ -116,13 +116,8 @@ class HomeScreenVC: UIViewController, UICollectionViewDelegate, UICollectionView
             let cell = timeframesCollectionView.dequeueReusableCell(withReuseIdentifier: timeframeCellID, for: indexPath) as! HomeTimeframeCell
             let timeframeName = timeframeNames[indexPath.row]
             cell.timeframeNameLabel.text = timeframeName
+            // Sets image for the cell to the thumbnail of the TimeFrame
             cell.imageView.image = allTimeframes[timeframeName]!.thumbnail
-//            if allTimeframes[timeframeName]!.isEmpty {
-//                // Will be replaced, sets a default image in case the number of TimeFrame cells is set to the number of albums and there are fewer TimeFrames
-//                cell.imageView.image = UIImage(systemName: "person.crop.rectangle.stack.fill")
-//            } else {
-//                cell.imageView.image = allTimeframes[timeframeName]!.thumbnail
-//            }
             return cell
         }
     }

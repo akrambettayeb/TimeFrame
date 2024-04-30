@@ -114,56 +114,6 @@ class PlaybackSettingsVC: UIViewController, UITextFieldDelegate {
         performSegue(withIdentifier: "segueToViewTimeframeVC", sender: self)
     }
     
-    // superimpose text onto image if any of the date options are selected
-//    func generateImageWithText(text: String, backgroundImage: UIImage, fontSize: CGFloat) -> UIImage? {
-//        // Create UIImageView with background image
-//        let imageView = UIImageView(image: backgroundImage)
-//        imageView.backgroundColor = UIColor.clear
-//        imageView.frame = CGRect(x: 0, y: 0, width: backgroundImage.size.width, height: backgroundImage.size.height)
-//
-//        // Create UILabel for text
-//        let label = UILabel(frame: CGRect(x: 0, y: 0, width: backgroundImage.size.width, height: backgroundImage.size.height))
-//        label.backgroundColor = UIColor.clear
-//        label.textAlignment = .left // Align text to the left
-//        label.textColor = UIColor.white
-//        label.text = text
-//        label.font = UIFont.systemFont(ofSize: fontSize)
-//
-//        // Calculate the size required for the label based on the text and font size
-//        let fontAttributes = [NSAttributedString.Key.font: label.font]
-//        let textSize = (text as NSString).size(withAttributes: fontAttributes as [NSAttributedString.Key : Any])
-//        label.frame.size = textSize
-//
-//        // Calculate the size of the background box
-//        let boxWidth = textSize.width + 20 // Adjust as needed
-//        let boxHeight = textSize.height + 10 // Adjust as needed
-//
-//        // Create a semi-transparent background box
-//        let boxRect = CGRect(x: 0, y: 0, width: boxWidth, height: boxHeight) // Flush with the left and top edges
-//        UIGraphicsBeginImageContextWithOptions(imageView.bounds.size, false, 0)
-//        guard let context = UIGraphicsGetCurrentContext() else {
-//            UIGraphicsEndImageContext()
-//            return nil
-//        }
-//        imageView.layer.render(in: context)
-//
-//        // Draw the semi-transparent box
-//        context.setFillColor(UIColor.black.withAlphaComponent(0.5).cgColor) // Semi-transparent black color
-//        context.fill(boxRect)
-//
-//        // Render the label onto the image context
-//        label.layer.render(in: context)
-//
-//        // Get the resulting image
-//        let imageWithText = UIGraphicsGetImageFromCurrentImageContext()
-//        UIGraphicsEndImageContext()
-//
-//        return imageWithText
-//    }
-    
-    
-    
-    
     func generateImageWithText(text: String, backgroundImage: UIImage, fontSize: CGFloat) -> UIImage? {
         // Create a UIGraphicsImageRenderer with the size of the background image
         let renderer = UIGraphicsImageRenderer(size: backgroundImage.size)
@@ -204,8 +154,6 @@ class PlaybackSettingsVC: UIViewController, UITextFieldDelegate {
         // Return the rendered image with text
         return imageWithText
     }
-    
-    
     
     //  Passes all necessary info to the next VC to play the TimeFrame with the correct settings
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
