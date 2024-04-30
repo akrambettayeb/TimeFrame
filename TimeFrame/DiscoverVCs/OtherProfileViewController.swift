@@ -271,7 +271,7 @@ class OtherProfileViewController: UIViewController, UICollectionViewDelegate, UI
             .paragraphStyle: paragraphStyle
         ]
     }
-
+    
     private func fetchFriendsList(for email: String, completion: @escaping ([String]) -> Void) {
         let followingRef = ref.child("following").child(email)
         let followersRef = ref.child("followers").child(email)
@@ -289,8 +289,11 @@ class OtherProfileViewController: UIViewController, UICollectionViewDelegate, UI
                     followersSet = Set(followersDict.keys)
                 }
 
-                let friendsList = followingSet.intersection(followersSet)
-                completion(Array(friendsList))
+                let friendsEmailsList = followingSet.intersection(followersSet)
+                // Fetch usernames based on the list of friend emails
+                self.fetchUsernamesFromEmails(Array(friendsEmailsList)) { usernames in
+                    completion(usernames)
+                }
             }
         }
     }
