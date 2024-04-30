@@ -11,6 +11,7 @@
 
 import UIKit
 
+// Defines cell in the EditProfile view controller collection view
 class EditImageCell: UICollectionViewCell {
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var visibleButton: UIButton!

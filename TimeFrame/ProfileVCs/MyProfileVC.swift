@@ -96,6 +96,7 @@ class MyProfileVC: UIViewController, ProfileChanger, UICollectionViewDataSource,
             self.setProfileScrollHeight(scrollView, imageGrid)
         }
         
+        // Gets user data from Firebase (first and last name, username)
         let userId = Auth.auth().currentUser?.uid
         let usersRef = Database.database().reference().child("users")
         usersRef.child(userId!).observeSingleEvent(of: .value) { (snapshot) in
@@ -108,6 +109,7 @@ class MyProfileVC: UIViewController, ProfileChanger, UICollectionViewDataSource,
         }
     }
     
+    // Updates count of friends, followers, following, TimeFrames on the user profile page
     func updateCountButton() {
         let attributes = countButtonAttributedTitleAttributes()
         
@@ -246,6 +248,7 @@ class MyProfileVC: UIViewController, ProfileChanger, UICollectionViewDataSource,
         }
     }
     
+    // Iterates through all Timeframes and populates the publicTfNames array with names of only TimeFrames with the private attribute set to false
     func populatePublicTimeframes() {
         publicTfNames = [String]()
         publicTimeframes = [String: TimeFrame]()
@@ -265,6 +268,7 @@ class MyProfileVC: UIViewController, ProfileChanger, UICollectionViewDataSource,
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = imageGrid.dequeueReusableCell(withReuseIdentifier: imageCellID, for: indexPath) as! MyImageCell
         let tfName = publicTfNames[indexPath.row]
+        // Sets image for the cell of the TimeFrame to the thumbnail
         cell.imageViewCell.image = publicTimeframes[tfName]?.thumbnail
         return cell
     }
