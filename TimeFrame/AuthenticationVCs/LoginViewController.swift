@@ -89,6 +89,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         // If user is logged in, fetch all albums and populate the home screen collection views
         if segue.identifier == "loginSegueToMainStoryboard",
            let mainVC = segue.destination as? UITabBarController {
+            
             guard let homeNav = mainVC.viewControllers?.first as? UINavigationController else {
                 return
             }
@@ -109,8 +110,12 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
             }
             
             // Fetch all timeframes
+            guard let userID = Auth.auth().currentUser?.uid else {
+                print("User not authenticated, exiting. ")
+                return
+            }
             dispatchGroup.enter()
-            self.fetchAllTimeframesFromFirestore(for: self.db) { fetchedTimeframes in
+            self.fetchAllTimeframesFromFirestore(for: userID, for: self.db, allTfs: true) { fetchedTimeframes in
                 allTimeframes = fetchedTimeframes
                 timeframeNames = allTimeframes.keys.sorted()
                 homeVC.updateTimeframes()
@@ -124,10 +129,6 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
             }
             guard let profileChanger = profileVC.viewControllers[0] as? ProfileChanger else {
                 print("Unable to cast as ProfileChanger")
-                return
-            }
-            guard let userID = Auth.auth().currentUser?.uid else {
-                print("User not authenticated, exiting. ")
                 return
             }
             dispatchGroup.enter()

@@ -135,6 +135,17 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
                 self.showSuccessAlert()
             }
         }
+        
+        let emailsRef = Database.database().reference().child("userEmails")
+        let emailFiltered = email.filter{$0 != "."}
+        emailsRef.child(emailFiltered).setValue(userId) { error, _ in
+            if let error = error {
+                self.errorMessageLabel.text = error.localizedDescription
+                self.errorMessageLabel.isHidden = false
+            } else {
+                self.errorMessageLabel.isHidden = true
+            }
+        }
     }
     
     private func showSuccessAlert() {

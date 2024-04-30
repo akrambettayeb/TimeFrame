@@ -8,6 +8,7 @@
 import UIKit
 import FirebaseAuth
 import FirebaseDatabase
+import FirebaseFirestore
 
 class DiscoverSearchViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate {
     @IBOutlet weak var tableView: UITableView!
@@ -18,9 +19,12 @@ class DiscoverSearchViewController: UIViewController, UITableViewDataSource, UIT
     var allUsers: [String] = [] // This will hold all usernames for searching
     var ref: DatabaseReference!
     var currentUserUsername: String? // The username of the currently logged-in user
+    var otherTimeframes: [String: TimeFrame] = [:]
+    var otherTfNames: [String] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.setCustomBackImage()
         tableView.delegate = self
         tableView.dataSource = self
         searchBar.delegate = self
@@ -118,6 +122,34 @@ class DiscoverSearchViewController: UIViewController, UITableViewDataSource, UIT
            let otherVC = segue.destination as? OtherProfileViewController {
             otherVC.userProfileData = userProfile
             otherVC.currentUserEmail = Auth.auth().currentUser?.email // Pass the current user's email to the OtherProfileViewController
+            
+            // Get user info to populate TimeFrames
+            let emailsRef = Database.database().reference().child("userEmails")
+            let otherEmail = (userProfile["email"] as? String ?? "").filter{$0 != "."}
+            var otherUid = ""
+            emailsRef.observeSingleEvent(of: .value, with: { snapshot in
+                // Check if the snapshot has data
+                guard let emailsDict = snapshot.value as? [String: String] else {
+                    print("No userEmails found")
+                    return
+                }
+                otherUid = emailsDict[otherEmail]!
+                
+                if !(otherUid.isEmpty) {
+                    self.fetchAllTimeframesFromFirestore(for: otherUid, for: Firestore.firestore(), allTfs: false) { fetchedTimeframes in
+                        self.otherTimeframes = fetchedTimeframes
+                        self.otherTfNames = self.otherTimeframes.keys.sorted()
+                        otherVC.otherTimeframes = fetchedTimeframes
+                        otherVC.otherTfNames = fetchedTimeframes.keys.sorted()
+                        
+                        if let otherVCProtocol = segue.destination as? UpdateCollectionView {
+                            otherVCProtocol.updateCV()
+                        }
+                    }
+                }
+            }) { error in
+                print(error.localizedDescription)
+            }
         }
     }
 }
