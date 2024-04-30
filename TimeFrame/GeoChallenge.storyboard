@@ -854,7 +854,7 @@ Challenge Dates:    12/24/24 - 12/24/25</string>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="yDH-Mh-uI6"/>
+        <segue reference="4hT-JU-ekx"/>
         <segue reference="qHI-O7-Djo"/>
         <segue reference="jmK-vi-xgY"/>
     </inferredMetricsTieBreakers>
@@ -867,7 +867,7 @@ Challenge Dates:    12/24/24 - 12/24/25</string>
         <image name="location" catalog="system" width="128" height="119"/>
         <image name="location.fill" catalog="system" width="128" height="119"/>
         <namedColor name="AccentColor">
-            <color red="1" green="0.79199999570846558" blue="0.15700000524520874" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.0" green="0.46000000000000002" blue="0.89000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="TabBarPurple">
             <color red="0.5690000057220459" green="0.32499998807907104" blue="0.69800001382827759" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

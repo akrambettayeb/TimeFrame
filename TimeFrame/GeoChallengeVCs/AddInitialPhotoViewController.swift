@@ -50,7 +50,7 @@ class AddInitialPhotoViewController: UIViewController, UIImagePickerControllerDe
             case .authorized:
                 break
             default:
-                print("Access denied.") //TODO: show some error and segue if access denied
+                print("Access denied.")
                 dismiss(animated: true)
                 return
             }
@@ -59,7 +59,7 @@ class AddInitialPhotoViewController: UIViewController, UIImagePickerControllerDe
             picker.sourceType = .camera
             currentCameraPosition = picker.cameraDevice.rawValue
             picker.showsCameraControls = false
-            picker.allowsEditing = false //TODO: add and delete photos from firebase
+            picker.allowsEditing = false 
             picker.cameraCaptureMode = .photo
             picker.cameraFlashMode = .off
             
