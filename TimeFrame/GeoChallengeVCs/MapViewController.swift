@@ -32,6 +32,9 @@ import FirebaseAuth
 
 
 // TODO: sort albums by date taken
+protocol AddMapPin {
+    func addMapPin(challenge: Challenge)
+}
 
 var challenges: [Challenge] = [] // TODO: may need a new class for challenges AND need to store in firestore
 
@@ -48,7 +51,7 @@ public func getDateString(date: Date) -> String {
     return "\(monthString)/\(dayString)/\(yearString)"
 }
 
-class MapViewController: UIViewController, UIPopoverPresentationControllerDelegate, CLLocationManagerDelegate, MKMapViewDelegate, UIPopoverControllerDelegate {
+class MapViewController: UIViewController, UIPopoverPresentationControllerDelegate, CLLocationManagerDelegate, MKMapViewDelegate, UIPopoverControllerDelegate, AddMapPin {
     
     @IBOutlet weak var mapView: MKMapView!
     
@@ -66,14 +69,7 @@ class MapViewController: UIViewController, UIPopoverPresentationControllerDelega
         Task {
             // Fetch challenges.
             await self.fetchChallenges(for: self.db)
-            
-            // Present challenges.
-            for challenge in challenges {
-                let pin = MapPin(coordinate: challenge.coordinate, challenge: challenge)
-                mapView.addAnnotation(pin)
-            }
-            
-            mapView.reloadInputViews()
+            addMapPins()
         }
         
         // Load custom back button.
@@ -81,16 +77,25 @@ class MapViewController: UIViewController, UIPopoverPresentationControllerDelega
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        // TODO: make sure purple pin shows up
         super.viewWillAppear(animated)
-        
+        addMapPins()
+        mapView.reloadInputViews()
+    }
+    
+    func addMapPins() {
         // Present challenges.
         for challenge in challenges {
             let pin = MapPin(coordinate: challenge.coordinate, challenge: challenge)
             mapView.addAnnotation(pin)
         }
         
-        mapView.reloadInputViews()
+        mapView.showAnnotations(mapView.annotations, animated: true)
+    }
+    
+    func addMapPin(challenge: Challenge) {
+        let pin = MapPin(coordinate: challenge.coordinate, challenge: challenge)
+        mapView.addAnnotation(pin)
+        mapView.showAnnotations(mapView.annotations, animated: true)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -104,6 +109,7 @@ class MapViewController: UIViewController, UIPopoverPresentationControllerDelega
                   let destination = segue.destination as? AddChallengeInfoViewController
         {
             destination.challengeLocation = newChallenge
+            destination.delegate = self
         }
     }
     
@@ -202,15 +208,16 @@ class MapViewController: UIViewController, UIPopoverPresentationControllerDelega
         var pinView = mapView.dequeueReusableAnnotationView(withIdentifier: pinID) as? MKMarkerAnnotationView
         if pinView == nil {
             pinView = MKMarkerAnnotationView(annotation: annotation, reuseIdentifier: pinID)
-            pinView!.glyphImage = UIImage(systemName: "camera.fill")
-            pinView!.glyphTintColor = .white
-            pinView!.markerTintColor = UIColor(named: "TabBarPurple")
-            pinView!.canShowCallout = false
-            pinView!.animatesWhenAdded = true
         } else {
             // Update reused annotation.
             pinView!.annotation = annotation
         }
+        
+        pinView!.glyphImage = UIImage(systemName: "camera.fill")
+        pinView!.glyphTintColor = .white
+        pinView!.markerTintColor = UIColor(named: "TabBarPurple")
+        pinView!.canShowCallout = false
+        pinView!.animatesWhenAdded = true
 
         return pinView
     }
@@ -223,15 +230,18 @@ class MapViewController: UIViewController, UIPopoverPresentationControllerDelega
         
         // Create and configure callout view.
         mapView.deselectAnnotation(view.annotation, animated: true)
-        let calloutVC = createCalloutViewController(annotation: pin)
-        calloutVC.modalPresentationStyle = .popover
-        calloutVC.preferredContentSize = CGSize(width: 260, height: 300)
-        calloutVC.popoverPresentationController!.delegate = self
-        calloutVC.popoverPresentationController!.backgroundColor = UIColor(named: "TabBarPurple")
-        calloutVC.popoverPresentationController!.permittedArrowDirections = [.up, .down]
-        calloutVC.popoverPresentationController!.sourceView = view.superview!
-        calloutVC.popoverPresentationController!.sourceRect = view.frame
-        self.present(calloutVC, animated: true, completion: nil)
+        
+        if pin.challenge.album.count > 0 {
+            let calloutVC = createCalloutViewController(annotation: pin)
+            calloutVC.modalPresentationStyle = .popover
+            calloutVC.preferredContentSize = CGSize(width: 260, height: 300)
+            calloutVC.popoverPresentationController!.delegate = self
+            calloutVC.popoverPresentationController!.backgroundColor = UIColor(named: "TabBarPurple")
+            calloutVC.popoverPresentationController!.permittedArrowDirections = [.up, .down]
+            calloutVC.popoverPresentationController!.sourceView = view.superview!
+            calloutVC.popoverPresentationController!.sourceRect = view.frame
+            self.present(calloutVC, animated: true, completion: nil)
+        }
     }
     
     func adaptivePresentationStyleForPresentationController(controller: UIPresentationController) -> UIModalPresentationStyle {
@@ -266,12 +276,7 @@ class MapViewController: UIViewController, UIPopoverPresentationControllerDelega
             await fetchChallenges(for: self.db)
             
             // Present challenges.
-            for challenge in challenges {
-                let pin = MapPin(coordinate: challenge.coordinate, challenge: challenge)
-                mapView.addAnnotation(pin)
-            }
-            
-            mapView.reloadInputViews()
+            addMapPins()
         }
     }
 }

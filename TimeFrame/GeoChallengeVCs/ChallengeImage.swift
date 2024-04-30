@@ -12,7 +12,7 @@ import UIKit
 
 class ChallengeImage {
     
-    let image: UIImage!
+    var image: UIImage!
     var url = ""
     var numViews = 1 // 1st view is the user who took photo.
     var numLikes = 0

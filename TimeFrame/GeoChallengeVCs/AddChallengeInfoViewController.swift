@@ -80,7 +80,6 @@ class AddChallengeInfoViewController: UIViewController, UITextFieldDelegate, Upd
             "numLikes": challengeToWrite.numLikes
             ])
             challengeToWrite.challengeID = ref.documentID
-            challenges.append(challengeToWrite)
 
             print("Document added with ID: \(ref.documentID)")
             
@@ -108,11 +107,13 @@ class AddChallengeInfoViewController: UIViewController, UITextFieldDelegate, Upd
                 }
             }
             
-            dismiss(animated: true)
+            challengeImage.documentID = photoRef.documentID
+            challengeToWrite.album = [challengeImage]
+            challenges.append(challengeToWrite)
+            let mapVC = delegate as! MapViewController
+            mapVC.addMapPin(challenge: challengeToWrite)
             
-            Task {
-                await fetchChallenges(for: db)
-            }
+            dismiss(animated: true)
         }
     }
     

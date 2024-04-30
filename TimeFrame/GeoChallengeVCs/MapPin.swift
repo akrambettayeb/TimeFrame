@@ -14,9 +14,11 @@ import MapKit
 class MapPin: NSObject, MKAnnotation {
     var coordinate: CLLocationCoordinate2D
     var challenge: Challenge
+    var title: String?
     
     init(coordinate: CLLocationCoordinate2D, challenge: Challenge) {
         self.coordinate = coordinate
         self.challenge = challenge
+        self.title = challenge.name
     }
 }
