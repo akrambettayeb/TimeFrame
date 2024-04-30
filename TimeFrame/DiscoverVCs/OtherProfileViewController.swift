@@ -57,6 +57,7 @@ class OtherProfileViewController: UIViewController, UICollectionViewDelegate, UI
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.setCustomBackImage()
         ref = Database.database().reference()
         friendsLabel.isHidden = true
         fetchCurrentUserEmail()
