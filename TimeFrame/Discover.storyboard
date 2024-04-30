@@ -104,17 +104,10 @@
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="tintColor" name="TabBarPurple"/>
                                     </imageView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Firstname Lastname" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fRv-Gp-SuD">
-                                        <rect key="frame" x="119" y="142" width="163" height="22"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="... ..." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fRv-Gp-SuD">
+                                        <rect key="frame" x="12" y="142" width="377" height="22"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="firstnamelastname" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Kdz-l1-U5o">
-                                        <rect key="frame" x="137" y="172" width="127" height="18"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
@@ -157,7 +150,7 @@
                                         <buttonConfiguration key="configuration" style="plain">
                                             <attributedString key="attributedTitle">
                                                 <fragment>
-                                                    <string key="content">51
+                                                    <string key="content">...
 Friends</string>
                                                     <attributes>
                                                         <font key="NSFont" size="15" name="Helvetica"/>
@@ -178,7 +171,7 @@ Friends</string>
                                         <buttonConfiguration key="configuration" style="plain">
                                             <attributedString key="attributedTitle">
                                                 <fragment>
-                                                    <string key="content">60
+                                                    <string key="content">...
 Followers</string>
                                                     <attributes>
                                                         <font key="NSFont" size="15" name="Helvetica"/>
@@ -199,7 +192,7 @@ Followers</string>
                                         <buttonConfiguration key="configuration" style="plain">
                                             <attributedString key="attributedTitle">
                                                 <fragment>
-                                                    <string key="content">70
+                                                    <string key="content">...
 Following</string>
                                                     <attributes>
                                                         <font key="NSFont" size="15" name="Helvetica"/>
@@ -220,7 +213,7 @@ Following</string>
                                         <buttonConfiguration key="configuration" style="plain">
                                             <attributedString key="attributedTitle">
                                                 <fragment>
-                                                    <string key="content">0
+                                                    <string key="content">...
 TimeFrames</string>
                                                     <attributes>
                                                         <font key="NSFont" size="15" name="Helvetica"/>
@@ -248,6 +241,13 @@ TimeFrames</string>
                                             <action selector="followButtonTapped:" destination="0z4-Ma-JZ9" eventType="touchUpInside" id="XOR-zY-Fgh"/>
                                         </connections>
                                     </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="..." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Kdz-l1-U5o">
+                                        <rect key="frame" x="12" y="172" width="377" height="18"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                 </subviews>
                                 <viewLayoutGuide key="contentLayoutGuide" id="QcG-wv-KeH"/>
                                 <viewLayoutGuide key="frameLayoutGuide" id="LPb-RH-iAs"/>
