@@ -66,6 +66,7 @@ class AlbumViewController: UIViewController, UIImagePickerControllerDelegate, UI
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        // Sets default values for buttons
         super.viewWillAppear(animated)
         moreButton.isHidden = !hideSelectButtons
         doneButton.isHidden = hideSelectButtons
@@ -106,12 +107,6 @@ class AlbumViewController: UIViewController, UIImagePickerControllerDelegate, UI
             self.cancelButton.isHidden = false
         }
         
-        // Rename album action
-//        let renameAlbumMenuItem = UIAction(title: "Rename Album", 
-//            image: UIImage(systemName: "pencil")) { _ in
-//            self.renameAlbum()
-//        }
-        
         // Delete album action
         let deleteAlbumMenuItem = UIAction(title: "Delete Album", image: UIImage(systemName: "trash"), attributes: .destructive) { _ in
             self.deleteAlbum()
@@ -148,6 +143,7 @@ class AlbumViewController: UIViewController, UIImagePickerControllerDelegate, UI
     }
     
     @objc func buttonTapped(_ sender: UIButton) {
+        // Gets the index of the cell the user selected the button for
         guard let indexPath = collectionView.indexPathsForVisibleItems.first(where: { $0.item == sender.tag}) else {
             return
         }
@@ -192,6 +188,7 @@ class AlbumViewController: UIViewController, UIImagePickerControllerDelegate, UI
     }
     
     @IBAction func onCancelTapped(_ sender: Any) {
+        // Resets buttons to original configurations
         moreButton.isHidden = false
         cancelButton.isHidden = true
         doneButton.isHidden = true
@@ -204,7 +201,7 @@ class AlbumViewController: UIViewController, UIImagePickerControllerDelegate, UI
         if let image = info[.originalImage] as? UIImage {
             var finalImage = image
             if currentCameraPosition == UIImagePickerController.CameraDevice.front.rawValue {
-                // Prevent flipping of front-facing photos.
+                // Prevents flipping of front-facing photos
                 finalImage = image.flipHorizontally()!
             }
             self.uploadPhoto(image: finalImage)
@@ -223,6 +220,7 @@ class AlbumViewController: UIViewController, UIImagePickerControllerDelegate, UI
             return
         }
         
+        // Sets the name of the photo to a randomly generated UUID
         let photoFilename = "\(UUID().uuidString).jpg"
         let storageRef = storage.reference().child("users").child(userID).child("albums").child(albumName).child(photoFilename)
         
@@ -360,6 +358,7 @@ class AlbumViewController: UIViewController, UIImagePickerControllerDelegate, UI
         
     // Deletes this album from Firestore
     func deleteAlbum() {
+        // Asks the user to confirm deletion of album
         let controller = UIAlertController(
             title: "Delete Album",
             message: "Please confirm that you would like to delete \(albumName!). ",
@@ -376,8 +375,10 @@ class AlbumViewController: UIViewController, UIImagePickerControllerDelegate, UI
                 if let error = error {
                     print("Error deleting album: \(error.localizedDescription)")
                 } else {
+                    // Removes album from global containers
                     albumNames = albumNames.filter{$0 != self.albumName}
                     allAlbums.removeValue(forKey: self.albumName!)
+                    // Presents alert controller notifying user of successful deletion
                     let successController = UIAlertController(
                         title: "Success",
                         message: "\(self.albumName!) has been deleted!",
@@ -409,6 +410,7 @@ class AlbumViewController: UIViewController, UIImagePickerControllerDelegate, UI
         }
     }
     
+    // Displays streak notification if the user has consistently been taking photos
     func scheduleStreakNotification(streakDays: Int) {
         let content = UNMutableNotificationContent()
         content.title = "\(streakDays) day streak 🔥"
@@ -462,7 +464,7 @@ class AlbumViewController: UIViewController, UIImagePickerControllerDelegate, UI
             self.imagePicker.sourceType = .camera
             self.currentCameraPosition = self.imagePicker.cameraDevice.rawValue
             self.imagePicker.showsCameraControls = false
-            self.imagePicker.allowsEditing = false //TODO: add and delete photos from firebase
+            self.imagePicker.allowsEditing = false
             self.imagePicker.cameraCaptureMode = .photo
             self.imagePicker.cameraFlashMode = .off
             let translation = CGAffineTransformMakeTranslation(0.0, 123)

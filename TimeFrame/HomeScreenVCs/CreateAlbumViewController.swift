@@ -27,11 +27,11 @@ class CreateAlbumViewController: UIViewController, UITextFieldDelegate {
         self.setCustomBackImage()
         albumNameTextField.delegate = self
         createAlbumButton.layer.cornerRadius = 5
-        
         db = Firestore.firestore()
     }
     
     @IBAction func createAlbumButtonClicked(_ sender: UIButton) {
+        // Displays alert popup if album name text field is empty
         guard let userID = Auth.auth().currentUser?.uid,
               let albumName = albumNameTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines), !albumName.isEmpty else {
             let alert = UIAlertController(title: "Invalid Album Name", message: "Please enter a valid album name.", preferredStyle: .alert)
@@ -44,6 +44,7 @@ class CreateAlbumViewController: UIViewController, UITextFieldDelegate {
         
         albumQuery.getDocuments { [weak self] (querySnapshot, error) in
             if let error = error {
+                // Check for errors creating the album
                 print("Error getting documents: \(error)")
                 let alert = UIAlertController(title: "Error", message: "Failed to create album due to an error.", preferredStyle: .alert)
                 alert.addAction(UIAlertAction(title: "OK", style: .default))
@@ -51,19 +52,22 @@ class CreateAlbumViewController: UIViewController, UITextFieldDelegate {
             } else if querySnapshot!.isEmpty {
                 self?.db.collection("users").document(userID).collection("albums").document(albumName).setData(["name": albumName, "creationDate": FieldValue.serverTimestamp()]) { error in
                     if let error = error {
+                        // Check for errors creating the album
                         print("Error creating album: \(error.localizedDescription)")
                         let alert = UIAlertController(title: "Error", message: "Failed to create album due to an error.", preferredStyle: .alert)
                         alert.addAction(UIAlertAction(title: "OK", style: .default))
                         self?.present(alert, animated: true)
                     } else {
+                        // Creates the album in Firebase
                         print("Album created successfully!")
-                        self?.selectedAlbum = albumName // Set selected album
+                        self?.selectedAlbum = albumName
                         allAlbums[albumName] = [AlbumPhoto]() // Add to local dictionary of albums
                         albumNames = allAlbums.keys.sorted()
                         self?.performSegue(withIdentifier: "createToAlbumSeg", sender: nil)
                     }
                 }
             } else {
+                // Displays alert popup if album name is not unique
                 let alert = UIAlertController(title: "Album Exists", message: "An album with this name already exists. Please choose a different name.", preferredStyle: .alert)
                 alert.addAction(UIAlertAction(title: "OK", style: .default))
                 self?.present(alert, animated: true)

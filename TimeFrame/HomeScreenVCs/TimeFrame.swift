@@ -10,6 +10,7 @@
 
 import UIKit
 
+// Defines the attributes for cells in the TimeFrame View Controller
 public class TimeFrame {
     let url: URL
     let thumbnail: UIImage

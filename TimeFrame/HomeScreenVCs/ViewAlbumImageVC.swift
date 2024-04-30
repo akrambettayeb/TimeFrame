@@ -11,6 +11,7 @@
 
 import UIKit
 
+// Displays selected photo from album in a new screen
 class ViewAlbumImageVC: UIViewController, UIScrollViewDelegate {
 
     @IBOutlet weak var imageView: UIImageView!
