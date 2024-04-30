@@ -108,6 +108,9 @@ class PlaybackSettingsVC: UIViewController, UITextFieldDelegate {
             return
         }
         
+        self.isPublic = publicSwitch.isOn
+        self.isFavorite = favoriteSwitch.isOn
+        self.isReversed = reversedSwitch.isOn
         performSegue(withIdentifier: "segueToViewTimeframeVC", sender: self)
     }
     
