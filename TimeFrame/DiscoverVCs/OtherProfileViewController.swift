@@ -13,11 +13,12 @@ class OtherProfileCell: UICollectionViewCell {
     @IBOutlet weak var imageView: UIImageView!
 }
 
-protocol UpdateCollectionView {
+protocol ElementUpdater {
     func updateCV()
+    func setProfilePic()
 }
 
-class OtherProfileViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UpdateCollectionView {
+class OtherProfileViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, ElementUpdater {
     
     @IBOutlet weak var fullnameLabel: UILabel!
     @IBOutlet weak var usernameLabel: UILabel!
@@ -270,7 +271,6 @@ class OtherProfileViewController: UIViewController, UICollectionViewDelegate, UI
         ]
     }
 
-
     private func fetchFriendsList(for email: String, completion: @escaping ([String]) -> Void) {
         let followingRef = ref.child("following").child(email)
         let followersRef = ref.child("followers").child(email)
@@ -378,10 +378,13 @@ class OtherProfileViewController: UIViewController, UICollectionViewDelegate, UI
         self.present(alert, animated: true)
     }
     
-    private func setProfilePic() {
-        guard isViewLoaded else { return }
-        profileView.layer.cornerRadius = profileView.layer.frame.height / 2
-        profileView.image = otherProfilePic
+    func setProfilePic() {
+        if profileView != nil {
+            profileView.layer.cornerRadius = profileView.layer.frame.height / 2
+            if otherProfilePic != nil {
+                profileView.image = otherProfilePic
+            }
+        }
     }
     
     func resetUI() {
