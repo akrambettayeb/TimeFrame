@@ -141,6 +141,10 @@ class DiscoverSearchViewController: UIViewController, UITableViewDataSource, UIT
                         otherVC.otherTimeframes = fetchedTimeframes
                         otherVC.otherTfNames = fetchedTimeframes.keys.sorted()
                         
+                        self.fetchProfilePhoto(for: otherUid) { profilePic in
+                            otherVC.otherProfilePic = profilePic
+                        }
+                        
                         if let otherVCProtocol = segue.destination as? UpdateCollectionView {
                             otherVCProtocol.updateCV()
                         }
