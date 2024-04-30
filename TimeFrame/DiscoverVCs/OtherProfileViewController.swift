@@ -389,6 +389,13 @@ class OtherProfileViewController: UIViewController, UICollectionViewDelegate, UI
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // TODO: segue to new screen to open the TimeFrames
+        if segue.identifier == "segueToOtherUserTf",
+           let nextVC = segue.destination as? OtherTimeFrameVC {
+            if let indexPaths = collectionView.indexPathsForSelectedItems {
+                let tfName = otherTfNames[indexPaths[0].row]
+                nextVC.thisTimeframe = otherTimeframes[tfName]
+                collectionView.deselectItem(at: indexPaths[0], animated: false)
+            }
+        }
     }
 }

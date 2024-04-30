@@ -144,6 +144,7 @@
                                                 </collectionViewCellContentView>
                                                 <connections>
                                                     <outlet property="imageView" destination="tyk-jf-RRc" id="l3n-3K-gAn"/>
+                                                    <segue destination="5xM-tB-T3h" kind="show" identifier="segueToOtherUserTf" id="czB-CB-awP"/>
                                                 </connections>
                                             </collectionViewCell>
                                         </cells>
@@ -271,6 +272,39 @@ TimeFrames</string>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MoO-2c-zoj" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1826.7175572519084" y="-2.1126760563380285"/>
+        </scene>
+        <!--Other Time FrameVC-->
+        <scene sceneID="hzx-D7-GfM">
+            <objects>
+                <viewController id="5xM-tB-T3h" customClass="OtherTimeFrameVC" customModule="TimeFrame" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="hPc-jE-5sh">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="n9N-WP-vmj">
+                                <rect key="frame" x="0.0" y="126" width="393" height="600"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="600" id="Wvt-zW-qPY"/>
+                                </constraints>
+                            </imageView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="iqn-hm-MYr"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="n9N-WP-vmj" firstAttribute="centerY" secondItem="hPc-jE-5sh" secondAttribute="centerY" id="9PV-AU-aux"/>
+                            <constraint firstItem="n9N-WP-vmj" firstAttribute="leading" secondItem="iqn-hm-MYr" secondAttribute="leading" id="e2i-j3-V3y"/>
+                            <constraint firstItem="iqn-hm-MYr" firstAttribute="trailing" secondItem="n9N-WP-vmj" secondAttribute="trailing" id="ewB-nc-lS7"/>
+                            <constraint firstItem="n9N-WP-vmj" firstAttribute="centerX" secondItem="hPc-jE-5sh" secondAttribute="centerX" id="jDz-nj-tBo"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="xmf-Bq-q02"/>
+                    <connections>
+                        <outlet property="imageView" destination="n9N-WP-vmj" id="9CM-jn-xOb"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="0eM-FX-ntE" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2672.5190839694656" y="-2.1126760563380285"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="KSg-Gh-rRa">

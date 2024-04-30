@@ -86,6 +86,7 @@
 		B5BB297B2BA3E726005A2987 /* GeoChallenge.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B5BB297A2BA3E726005A2987 /* GeoChallenge.storyboard */; };
 		B5BB297D2BA3E736005A2987 /* Profile.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B5BB297C2BA3E736005A2987 /* Profile.storyboard */; };
 		B5C8FE802BC3B74C00D71C06 /* OpenTimeframeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5C8FE7F2BC3B74C00D71C06 /* OpenTimeframeVC.swift */; };
+		B5F72B7E2BE068E600F02097 /* OtherTimeFrameVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5F72B7D2BE068E600F02097 /* OtherTimeFrameVC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -143,6 +144,7 @@
 		B5BB297A2BA3E726005A2987 /* GeoChallenge.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = GeoChallenge.storyboard; sourceTree = "<group>"; };
 		B5BB297C2BA3E736005A2987 /* Profile.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Profile.storyboard; sourceTree = "<group>"; };
 		B5C8FE7F2BC3B74C00D71C06 /* OpenTimeframeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenTimeframeVC.swift; sourceTree = "<group>"; };
+		B5F72B7D2BE068E600F02097 /* OtherTimeFrameVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherTimeFrameVC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -199,6 +201,7 @@
 				3F0B7E892BD721DB00314D88 /* OtherProfileViewController.swift */,
 				3F0B7E872BD6C9D600314D88 /* UserSearchTableViewCell.swift */,
 				3F0B7E852BD6C74300314D88 /* DiscoverSearchViewController.swift */,
+				B5F72B7D2BE068E600F02097 /* OtherTimeFrameVC.swift */,
 			);
 			path = DiscoverVCs;
 			sourceTree = "<group>";
@@ -446,6 +449,7 @@
 				55CBC5AE2BD8FF4A00057C27 /* ActiveChallengeViewController.swift in Sources */,
 				559596B12BA699F800972EB4 /* ViewTimeLapseViewController.swift in Sources */,
 				55A83AB42BA6A98400895DFE /* AddPhotoToChallengeViewController.swift in Sources */,
+				B5F72B7E2BE068E600F02097 /* OtherTimeFrameVC.swift in Sources */,
 				ACFF7E9B2BD87DB90011723C /* TimeFrame.swift in Sources */,
 				5551D11E2BD969270089AB22 /* PhotoStreamCell.swift in Sources */,
 				3F08EC5C2BA5965E0065C923 /* LoginViewController.swift in Sources */,
